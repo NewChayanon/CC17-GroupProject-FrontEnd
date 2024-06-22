@@ -1,12 +1,9 @@
-
-import './App.css'
+import "./App.css";
 
 function App() {
-  
 
-  return (
-    <div>testtt feature</div>
-  )
+  return <div>Freshy Foodie!</div>;
+
 }
 
-export default App
+export default App;
