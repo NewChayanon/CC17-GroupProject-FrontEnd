@@ -9,11 +9,21 @@ export default function TestRedux() {
   const dispatch = useDispatch();
   const { isAuthenticated, status } = useSelector(selectAuth);
 
-  const handleLogin = () => {
+  const handleLoginSeller = () => {
     const user = {
       name: "John Doe",
       email: "john@example.com",
       isSeller: true,
+      isAdmin: false,
+    };
+    dispatch(loginAsync(user));
+  };
+  const handleLoginAdmin = () => {
+    const user = {
+      name: "John Doe",
+      email: "john@example.com",
+      isSeller: false,
+      isAdmin: true,
     };
     dispatch(loginAsync(user));
   };
@@ -24,14 +34,14 @@ export default function TestRedux() {
     navigate("/user/booked");
   };
   const redirectToSeller = () => {
-    navigate("/seller");
+    navigate("/seller/myshop");
   };
 
   return (
     <div>
       <h1>TEST REDUX</h1>
-      <div className="bg-green-500 w-40" onClick={handleLogin}>
-        TEST LOGIN BUTTON
+      <div className="bg-green-500 w-40 text-white" onClick={handleLoginSeller}>
+        TEST LOGIN BUYER+SELLER BUTTON
       </div>
       <div className="bg-red-500 w-40" onClick={handleLogout}>
         TEST LOGOUT BUTTON
@@ -41,6 +51,9 @@ export default function TestRedux() {
       </div>
       <div className="bg-white w-40" onClick={redirectToSeller}>
         TEST SELLER REDIRECT
+      </div>
+      <div className="bg-slate-400 w-40 text-white" onClick={handleLoginAdmin}>
+        Login as ADMIN
       </div>
       {isAuthenticated ? (
         <p className="text-green-500">Login</p>

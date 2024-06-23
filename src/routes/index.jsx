@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy } from "react";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../redux/store/slices/auth-slice";
 
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const HomePage = lazy(() => import("../Pages/TestRedux"));
@@ -33,8 +35,12 @@ const MyShop = lazy(() => import("../features/seller/MyShop"));
 const SellerInbox = lazy(() => import("../features/seller/SellerInbox"));
 const FavoriteBuyer = lazy(() => import("../features/seller/FavoriteBuyer"));
 const SellerVoucher = lazy(() => import("../features/seller/SellerVoucher"));
+const Dashboard = lazy(() => import("../features/admin/Dashboard"));
+const ManageBuyer = lazy(() => import("../features/admin/ManageBuyer"));
+const ManageSeller = lazy(() => import("../features/admin/ManageSeller"));
+const Announcement = lazy(() => import("../features/admin/Announcement"));
 
-const router = createBrowserRouter([
+const userRouter = createBrowserRouter([
   {
     path: "/",
     element: <MainContainer />,
@@ -48,10 +54,10 @@ const router = createBrowserRouter([
           </UserProtectedRoute>
         ),
         children: [
-          { path: "/user/booked", element: <Booked /> },
-          { path: "/user/inbox", element: <UserInbox /> },
-          { path: "/user/favoritevendor", element: <FavoriteVendor /> },
-          { path: "/user/voucher", element: <UserVoucher /> },
+          { path: "booked", element: <Booked /> },
+          { path: "inbox", element: <UserInbox /> },
+          { path: "favoritevendor", element: <FavoriteVendor /> },
+          { path: "voucher", element: <UserVoucher /> },
         ],
       },
       {
@@ -62,11 +68,11 @@ const router = createBrowserRouter([
           </SellerProtectedRoute>
         ),
         children: [
-          { path: "/seller/createdevent", element: <CreatedEvent /> },
-          { path: "/seller/myshop", element: <MyShop /> },
-          { path: "/seller/inbox", element: <SellerInbox /> },
-          { path: "/seller/favoritebuyer", element: <FavoriteBuyer /> },
-          { path: "/seller/voucher", element: <SellerVoucher /> },
+          { path: "createdevent", element: <CreatedEvent /> },
+          { path: "myshop", element: <MyShop /> },
+          { path: "inbox", element: <SellerInbox /> },
+          { path: "favoritebuyer", element: <FavoriteBuyer /> },
+          { path: "voucher", element: <SellerVoucher /> },
         ],
       },
 
@@ -74,49 +80,48 @@ const router = createBrowserRouter([
         path: "/store/:storeId",
         element: <StorePage />,
         children: [
-          {
-            path: "/store/:storeId/detail",
-            element: <StoreDetail />,
-          },
-          {
-            path: "/store/:storeId/featuredproduct",
-            element: <FeaturedProduct />,
-          },
-          {
-            path: "/store/:storeId/upcomingevent",
-            element: <UpcomingEvent />,
-          },
-          {
-            path: "/store/:storeId/review",
-            element: <Review />,
-          },
+          { path: "detail", element: <StoreDetail /> },
+          { path: "featuredproduct", element: <FeaturedProduct /> },
+          { path: "upcomingevent", element: <UpcomingEvent /> },
+          { path: "review", element: <Review /> },
         ],
       },
       {
         path: "/event/:eventId",
         element: <EventPage />,
         children: [
-          {
-            path: "/event/:eventId/detail",
-            element: <EventDetail />,
-          },
-          {
-            path: "/event/:eventId/product",
-            element: <Product />,
-          },
-          {
-            path: "/event/:eventId/promotion",
-            element: <Promotion />,
-          },
-          {
-            path: "/event/:eventId/about",
-            element: <AboutSeller />,
-          },
+          { path: "detail", element: <EventDetail /> },
+          { path: "product", element: <Product /> },
+          { path: "promotion", element: <Promotion /> },
+          { path: "about", element: <AboutSeller /> },
         ],
       },
     ],
   },
 ]);
+
+const adminRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainContainer />,
+    children: [
+      { path: "/", element: <Dashboard /> },
+      { path: "buyer", element: <ManageBuyer /> },
+      { path: "seller", element: <ManageSeller /> },
+      { path: "announcement", element: <Announcement /> },
+    ],
+  },
+]);
+
 export default function Router() {
-  return <RouterProvider router={router} />;
+  const { user } = useSelector(selectAuth);
+  let finalRouter;
+
+  if (!user || user.isAdmin === false) {
+    finalRouter = userRouter;
+  } else if (user.isAdmin === true) {
+    finalRouter = adminRouter;
+  }
+
+  return <RouterProvider router={finalRouter} />;
 }
