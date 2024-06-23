@@ -39,6 +39,10 @@ const Dashboard = lazy(() => import("../features/admin/Dashboard"));
 const ManageBuyer = lazy(() => import("../features/admin/ManageBuyer"));
 const ManageSeller = lazy(() => import("../features/admin/ManageSeller"));
 const Announcement = lazy(() => import("../features/admin/Announcement"));
+const AdminContainer = lazy(() => import("../features/admin/AdminContainer"));
+const AdminProtectedRoute = lazy(() =>
+  import("../features/authentication/AdminProtectedRoute")
+);
 
 const userRouter = createBrowserRouter([
   {
@@ -103,7 +107,11 @@ const userRouter = createBrowserRouter([
 const adminRouter = createBrowserRouter([
   {
     path: "/",
-    element: <MainContainer />,
+    element: (
+      <AdminProtectedRoute>
+        <AdminContainer />
+      </AdminProtectedRoute>
+    ),
     children: [
       { path: "/", element: <Dashboard /> },
       { path: "buyer", element: <ManageBuyer /> },
