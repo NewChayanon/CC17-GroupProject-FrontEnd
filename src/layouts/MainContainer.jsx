@@ -5,11 +5,15 @@ import Sidebar from "./Sidebar";
 
 export default function MainContainer() {
   return (
-    <>
+    <div className="w-full bg-graybg">
       <Header />
-      <Sidebar />
-      <Outlet />
+      <div className="flex">
+        <Sidebar />
+        <div className="grow">
+          <Outlet />
+        </div>
+      </div>
       <Footer />
-    </>
+    </div>
   );
 }
