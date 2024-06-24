@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { selectAuth } from "../redux/store/slices/auth-slice";
 
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
+const LandingPage = lazy(() => import("../Pages/LandingPage"));
 const HomePage = lazy(() => import("../Pages/TestRedux"));
 const StorePage = lazy(() => import("../Pages/StorePage"));
 const EventPage = lazy(() => import("../Pages/EventPage"));
@@ -49,7 +50,8 @@ const userRouter = createBrowserRouter([
     path: "/",
     element: <MainContainer />,
     children: [
-      { path: "/", element: <HomePage /> },
+      { path: "/", element: <LandingPage /> },
+      { path: "/home", element: <HomePage /> },
       {
         path: "/user",
         element: (
@@ -113,7 +115,7 @@ const adminRouter = createBrowserRouter([
       </AdminProtectedRoute>
     ),
     children: [
-      { path: "/", element: <Dashboard /> },
+      { path: "home", element: <Dashboard /> },
       { path: "buyer", element: <ManageBuyer /> },
       { path: "seller", element: <ManageSeller /> },
       { path: "announcement", element: <Announcement /> },

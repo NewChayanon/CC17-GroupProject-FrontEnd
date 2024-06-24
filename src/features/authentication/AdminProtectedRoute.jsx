@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../../redux/store/slices/auth-slice";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
-export default function SellerProtectedRoute({ children }) {
+export default function AdminProtectedRoute({ children }) {
   const { status, user } = useSelector(selectAuth);
 
   if (status === "loading") {
