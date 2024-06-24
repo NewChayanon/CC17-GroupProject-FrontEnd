@@ -62,7 +62,7 @@ const userRouter = createBrowserRouter([
         children: [
           { path: "booked", element: <Booked /> },
           { path: "inbox", element: <UserInbox /> },
-          { path: "favoritevendor", element: <FavoriteVendor /> },
+          { path: "favoriteseller", element: <FavoriteSeller /> },
           { path: "voucher", element: <UserVoucher /> },
         ],
       },
