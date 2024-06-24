@@ -9,44 +9,53 @@ import {
 import ffLogo from "../assets/FF-logo.png";
 import NavMenu from "../components/NavMenu.jsx";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../redux/store/slices/auth-slice.js";
 export default function Header() {
   // ทำ responsive 2 size 1) mobile 2) desktop
+  const { isAuthenticated, user } = useSelector(selectAuth);
   const navMenuList = [
     {
       menuIcon: <VendorNearMeIcon />,
       menuName: "Seller Near Me",
-      linkTo: "/",
+      linkTo: "/home",
       handleClick: "",
+      authRequired: false,
     },
     {
       menuIcon: <StoreIcon />,
       menuName: "My Store",
       linkTo: "/seller",
       handleClick: "",
+      authRequired: true,
     },
     {
       menuIcon: <InboxIcon />,
       menuName: "Inbox",
       linkTo: "/user/inbox",
       handleClick: "",
+      authRequired: true,
     },
     {
       menuIcon: <MyFavoriteSeller />,
       menuName: "My Favorite Seller",
       linkTo: "/user/favoriteseller",
       handleClick: "",
+      authRequired: true,
     },
     {
       menuIcon: <VoucherListIcon />,
       menuName: "Voucher List",
       linkTo: "/user/voucher",
       handleClick: "",
+      authRequired: true,
     },
     {
       menuIcon: <LogoutIcon />,
       menuName: "Logout",
       linkTo: "/",
       handleClick: "",
+      authRequired: true,
     },
   ];
   return (
@@ -100,27 +109,32 @@ export default function Header() {
                       src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
                     />
                   </div>
-                  <p>Hi Guest</p>
+                  <p>Hi {user ? user.name : "Guest"}</p>
                 </div>
                 {/* Other Menu*/}
               </li>
-              {navMenuList.map((navMenu) => (
-                <NavMenu
-                  menuIcon={navMenu.menuIcon}
-                  menuName={navMenu.menuName}
-                  linkTo={navMenu.linkTo}
-                />
-              ))}
+
+              {navMenuList.map((navMenu) =>
+                navMenu.authRequired && !isAuthenticated ? null : (
+                  <NavMenu
+                    menuIcon={navMenu.menuIcon}
+                    menuName={navMenu.menuName}
+                    linkTo={navMenu.linkTo}
+                  />
+                )
+              )}
             </ul>
           </div>
         </div>
         {/* MYSTORE MENU - ONLY DISPLAY AT xl & with AuthContext*/}
-        <Link to="/">
-          <div className="btn btn-ghost hidden xl:flex bg-darkbrown">
-            <StoreIcon />
-            <p>My Store</p>
-          </div>
-        </Link>
+        {isAuthenticated ? (
+          <Link to="/">
+            <div className="btn btn-ghost hidden xl:flex bg-darkbrown">
+              <StoreIcon />
+              <p>My Store</p>
+            </div>
+          </Link>
+        ) : null}
 
         {/* AVATAR MENU FOR DESKTOP - ONLY DISPLAY AT xl */}
         <div className="flex-none gap-2 hidden xl:block">
@@ -142,14 +156,16 @@ export default function Header() {
               tabIndex={0}
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-48"
             >
-              {navMenuList.map((navMenu, index) => (
-                <NavMenu
-                  key={index}
-                  menuIcon={navMenu.menuIcon}
-                  menuName={navMenu.menuName}
-                  linkTo={navMenu.linkTo}
-                />
-              ))}
+              {navMenuList.map((navMenu, index) =>
+                navMenu.authRequired && !isAuthenticated ? null : (
+                  <NavMenu
+                    key={index}
+                    menuIcon={navMenu.menuIcon}
+                    menuName={navMenu.menuName}
+                    linkTo={navMenu.linkTo}
+                  />
+                )
+              )}
             </ul>
           </div>
         </div>

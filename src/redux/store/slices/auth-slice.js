@@ -8,6 +8,12 @@ const initialState = {
   status: "idle",
   error: null,
 };
+// const initialState = {
+//   isAuthenticated: true,
+//   user: { name: "Mild" },
+//   status: "idle",
+//   error: null,
+// };
 
 const authSlice = createSlice({
   name: "auth",
