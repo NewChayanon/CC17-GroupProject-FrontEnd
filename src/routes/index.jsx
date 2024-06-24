@@ -5,6 +5,7 @@ import { selectAuth } from "../redux/store/slices/auth-slice";
 
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const LandingPage = lazy(() => import("../Pages/LandingPage"));
+const LoginPage = lazy(() => import("../Pages/LoginPage"));
 const HomePage = lazy(() => import("../Pages/TestRedux"));
 const StorePage = lazy(() => import("../Pages/StorePage"));
 const EventPage = lazy(() => import("../Pages/EventPage"));
@@ -46,14 +47,15 @@ const AdminProtectedRoute = lazy(() =>
 );
 
 const userRouter = createBrowserRouter([
+  { path: "/", element: <LandingPage /> },
+  { path: "/login", element: <LoginPage /> },
   {
-    path: "/",
+    path: "/home",
     element: <MainContainer />,
     children: [
-      { path: "/", element: <LandingPage /> },
-      { path: "/home", element: <HomePage /> },
+      { path: "", element: <HomePage /> },
       {
-        path: "/user",
+        path: "user",
         element: (
           // <UserProtectedRoute>
           <UserContainer />
@@ -67,7 +69,7 @@ const userRouter = createBrowserRouter([
         ],
       },
       {
-        path: "/seller",
+        path: "seller",
         element: (
           <SellerProtectedRoute>
             <SellerContainer />
@@ -83,7 +85,7 @@ const userRouter = createBrowserRouter([
       },
 
       {
-        path: "/store/:storeId",
+        path: "store/:storeId",
         element: <StorePage />,
         children: [
           { path: "detail", element: <StoreDetail /> },
@@ -93,7 +95,7 @@ const userRouter = createBrowserRouter([
         ],
       },
       {
-        path: "/event/:eventId",
+        path: "event/:eventId",
         element: <EventPage />,
         children: [
           { path: "detail", element: <EventDetail /> },
