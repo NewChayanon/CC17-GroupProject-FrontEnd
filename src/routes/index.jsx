@@ -22,7 +22,7 @@ const UserContainer = lazy(() => import("../features/user/UserContainer"));
 const Booked = lazy(() => import("../features/user/Booked"));
 
 const UserInbox = lazy(() => import("../features/user/UserInbox"));
-const FavoriteVendor = lazy(() => import("../features/user/FavoriteVendor"));
+const FavoriteSeller = lazy(() => import("../features/user/FavoriteSeller"));
 const UserVoucher = lazy(() => import("../features/user/UserVoucher"));
 const SellerContainer = lazy(() =>
   import("../features/seller/SellerContainer")
@@ -53,14 +53,14 @@ const userRouter = createBrowserRouter([
       {
         path: "/user",
         element: (
-          <UserProtectedRoute>
-            <UserContainer />
-          </UserProtectedRoute>
+          // <UserProtectedRoute>
+          <UserContainer />
+          // </UserProtectedRoute>
         ),
         children: [
           { path: "booked", element: <Booked /> },
           { path: "inbox", element: <UserInbox /> },
-          { path: "favoritevendor", element: <FavoriteVendor /> },
+          { path: "favoriteseller", element: <FavoriteSeller /> },
           { path: "voucher", element: <UserVoucher /> },
         ],
       },

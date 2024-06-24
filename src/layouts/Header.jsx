@@ -21,25 +21,25 @@ export default function Header() {
     {
       menuIcon: <StoreIcon />,
       menuName: "My Store",
-      linkTo: "/",
+      linkTo: "/seller",
       handleClick: "",
     },
     {
       menuIcon: <InboxIcon />,
       menuName: "Inbox",
-      linkTo: "/",
+      linkTo: "/user/inbox",
       handleClick: "",
     },
     {
       menuIcon: <MyFavoriteSeller />,
       menuName: "My Favorite Seller",
-      linkTo: "/",
+      linkTo: "/user/favoriteseller",
       handleClick: "",
     },
     {
       menuIcon: <VoucherListIcon />,
       menuName: "Voucher List",
-      linkTo: "/",
+      linkTo: "/user/voucher",
       handleClick: "",
     },
     {
@@ -142,8 +142,9 @@ export default function Header() {
               tabIndex={0}
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-48"
             >
-              {navMenuList.map((navMenu) => (
+              {navMenuList.map((navMenu, index) => (
                 <NavMenu
+                  key={index}
                   menuIcon={navMenu.menuIcon}
                   menuName={navMenu.menuName}
                   linkTo={navMenu.linkTo}
