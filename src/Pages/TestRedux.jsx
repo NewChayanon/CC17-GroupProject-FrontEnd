@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectAuth, logout } from "../redux/store/slices/auth-slice";
 import { loginAsync } from "../redux/store/thunks/auth-thunk";
 import { useNavigate } from "react-router-dom";
+import Modal from "../components/Modal";
 
 export default function TestRedux() {
   const navigate = useNavigate();
@@ -61,6 +62,12 @@ export default function TestRedux() {
         <p className="text-red-500">Not Login</p>
       )}
       <p>{status}</p>
+
+      <Modal callToAction="test1" modalID="modal1">
+        dadawdawdaadsasdad
+      </Modal>
+      <Modal callToAction="test2" modalID="modal2"></Modal>
+      <Modal callToAction="test3" modalID="modal3"></Modal>
     </div>
   );
 }
