@@ -18,12 +18,12 @@ export const createAuthSlice = (set) => ({
   login: async (credentials) => {
     set({ ...initialState, isLoading: true });
     try {
-      const response = await authApi.register(credentials);
+      const response = await authApi.login(credentials);
       setAccessToken(response.data.accessToken);
+      const res = await authApi.getAuthUser();
       set(() => ({
         isAuthenticated: true,
-        user: response.data,
-        isLoading: false,
+        user: res.data.user,
         error: null,
       }));
     } catch (error) {
@@ -43,7 +43,7 @@ export const createAuthSlice = (set) => ({
       const response = await authApi.getAuthUser();
       set(() => ({
         isAuthenticated: true,
-        user: response.data,
+        user: response.data.user,
         error: null,
       }));
     } catch (error) {

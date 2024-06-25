@@ -8,25 +8,23 @@ export default function TestZustand() {
   const login = useStore((state) => state.login);
   const logout = useStore((state) => state.logout);
   const isAuthenticated = useStore((state) => state.isAuthenticated);
+  const user = useStore((state) => state.user);
 
   const handleLoginSeller = () => {
     const user = {
-      name: "John Doe",
-      email: "john@example.com",
-      isSeller: true,
-      isAdmin: false,
+      email: "test02@mail.com",
+      password: "123456789",
     };
     login(user);
   };
 
-  const handleLoginAdmin = () => {
+  const handleLoginAdmin = async () => {
     const user = {
-      name: "John Doe",
-      email: "john@example.com",
-      isSeller: false,
-      isAdmin: true,
+      email: "admin@mail.com",
+      password: "123456789",
     };
-    login(user);
+    await login(user);
+    navigate("/");
   };
 
   const handleLogout = () => {

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import { Navigate } from "react-router-dom";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import useStore from "../../zustand/store";
+import NotLoginPage from "../../Pages/NotLoginPage";
 
 export default function UserProtectedRoute({ children }) {
   const { isAuthenticated, isLoading } = useStore((state) => ({
@@ -10,7 +10,7 @@ export default function UserProtectedRoute({ children }) {
   }));
 
   if (isAuthenticated === false && isLoading === false) {
-    return <Navigate to="/" />;
+    return <NotLoginPage />;
   }
   return (
     <>

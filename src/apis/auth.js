@@ -2,8 +2,8 @@ import axios from "../config/axios";
 
 const authApi = {};
 
-authApi.register = (body) => axios.post("/auth", body);
+authApi.login = (body) => axios.post("/auth/login", body);
 
-authApi.getAuthUser = () => axios.get("/auth/me");
+authApi.getAuthUser = () => axios.get("/user/me");
 
 export default authApi;

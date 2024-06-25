@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 
 export default function NavMenu({ menuIcon, menuName, linkTo = "/" }) {
   const { pathname } = useLocation();
-  console.log("pathName", pathname);
   const [isActive, setIsActive] = useState(false);
   useEffect(() => {
     if (pathname === linkTo) {
