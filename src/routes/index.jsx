@@ -5,7 +5,7 @@ import { selectAuth } from "../redux/store/slices/auth-slice";
 
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const LandingPage = lazy(() => import("../Pages/LandingPage"));
-const HomePage = lazy(() => import("../Pages/TestRedux"));
+const HomePage = lazy(() => import("../Pages/HomePage"));
 const StorePage = lazy(() => import("../Pages/StorePage"));
 const EventPage = lazy(() => import("../Pages/EventPage"));
 const EventDetail = lazy(() => import("../features/event/EventDetail"));
