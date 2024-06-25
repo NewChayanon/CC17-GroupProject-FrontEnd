@@ -1,20 +1,19 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getAuthUser } from "../../redux/store/thunks/auth-thunk";
-import { logout } from "../../redux/store/slices/auth-slice";
+import useStore from "../../zustand/store";
 import { getAccessToken } from "../../utils/local-storage";
 
 export default function AuthWrapper({ children }) {
-  const dispatch = useDispatch();
+  const getAuthUser = useStore((state) => state.getAuthUser);
+  const logout = useStore((state) => state.logout);
 
   const fetchUser = async () => {
     try {
       if (getAccessToken()) {
-        await dispatch(getAuthUser()).unwrap();
+        await getAuthUser();
       }
     } catch (error) {
       console.log(error);
-      dispatch(logout());
+      logout();
     }
   };
 
