@@ -23,7 +23,7 @@ export default function LoginPage() {
       password: "123456789",
     };
     login(user);
-    navigate("/dashboard");
+    navigate("/admin");
   };
 
   const handleLogout = () => {

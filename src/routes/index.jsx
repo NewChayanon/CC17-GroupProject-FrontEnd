@@ -85,6 +85,21 @@ const userRouter = createBrowserRouter([
       { path: "review", element: <Review /> },
     ],
   },
+  {
+    path: "/admin",
+    element: (
+      <AdminProtectedRoute>
+        <AdminContainer />
+      </AdminProtectedRoute>
+    ),
+    children: [
+      { path: "dashboard", element: <Dashboard /> },
+      { path: "seller", element: <ManageSeller /> },
+      { path: "buyer", element: <ManageBuyer /> },
+      { path: "announcement", element: <Announcement /> },
+      { path: "requested-report", element: <RequestedReport /> },
+    ],
+  },
 
   // MY STORE IS NOT FINALIZED (TENTATIVE)
   {
@@ -106,41 +121,10 @@ const userRouter = createBrowserRouter([
   // MY STORE IS NOT FINALIZED (TENTATIVE)
 ]);
 
-const adminRouter = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <AdminProtectedRoute>
-        <AdminContainer />
-      </AdminProtectedRoute>
-    ),
-    children: [
-      // NOTE NEED TO BE FIXED LATER //
-      // { path: "login", element: <Dashboard /> },
-      // NOTE NEED TO BE FIXED LATER  //
-      { path: "dashboard", element: <Dashboard /> },
-      { path: "seller", element: <ManageSeller /> },
-      { path: "buyer", element: <ManageBuyer /> },
-      { path: "announcement", element: <Announcement /> },
-      { path: "requested-report", element: <RequestedReport /> },
-    ],
-  },
-]);
-
 export default function Router() {
-  const user = useStore((state) => state.user);
   const isLoading = useStore((state) => state.isLoading);
   if (isLoading === true) {
     return <LoadingSpinner />;
   }
-
-  if (isLoading === false) {
-    let finalRouter;
-    if (!user || user.role !== ROLE.ADMIN) {
-      finalRouter = userRouter;
-    } else if (user.role === ROLE.ADMIN) {
-      finalRouter = adminRouter;
-    }
-    return <RouterProvider router={finalRouter} />;
-  }
+  return <RouterProvider router={userRouter} />;
 }
