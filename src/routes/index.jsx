@@ -69,9 +69,9 @@ const userRouter = createBrowserRouter([
       {
         path: "/seller",
         element: (
-          <SellerProtectedRoute>
-            <SellerContainer />
-          </SellerProtectedRoute>
+          // <SellerProtectedRoute>
+          <SellerContainer />
+          // </SellerProtectedRoute>
         ),
         children: [
           { path: "createdevent", element: <CreatedEvent /> },

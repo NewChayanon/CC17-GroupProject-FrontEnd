@@ -1,4 +1,6 @@
 import SidebarMenu from "../components/SidebarMenu";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   StoreIcon,
   InboxIcon,
@@ -8,44 +10,53 @@ import {
   VoucherListIcon,
   CalendarIcon,
 } from "../icons/index.jsx";
+import { selectAuth } from "../redux/store/slices/auth-slice";
 
 export default function Sidebar() {
+  const { pathname } = useLocation();
+  const { isAuthenticated, status } = useSelector(selectAuth);
   const buyerSidebarMenuList = [
     {
       menuIcon: <VendorNearMeIcon />,
       menuName: "Seller Near Me",
-      linkTo: "/",
+      linkTo: "/home",
       handleClick: "",
+      authRequired: false,
     },
     {
       menuIcon: <StoreIcon />,
       menuName: "My Store",
       linkTo: "/seller",
       handleClick: "",
+      authRequired: true,
     },
     {
       menuIcon: <InboxIcon />,
       menuName: "Inbox",
       linkTo: "/user/inbox",
       handleClick: "",
+      authRequired: true,
     },
     {
       menuIcon: <MyFavoriteSeller />,
       menuName: "My Favorite Seller",
       linkTo: "/",
       handleClick: "",
+      authRequired: true,
     },
     {
       menuIcon: <VoucherListIcon />,
       menuName: "Voucher List",
       linkTo: "/user/voucher",
       handleClick: "",
+      authRequired: true,
     },
     {
       menuIcon: <LogoutIcon />,
       menuName: "Logout",
       linkTo: "/",
       handleClick: "",
+      authRequired: true,
     },
   ];
   const sellerSidebarMenuList = [
@@ -78,13 +89,23 @@ export default function Sidebar() {
   return (
     <div className="hidden xl:flex w-64 min-h-screen bg-white">
       <ul className="mt-3 z-[1] p-2 w-full shadow menu menu-sm dropdown-content bg-white rounded-box ">
-        {buyerSidebarMenuList.map((sidebarMenu) => (
-          <SidebarMenu
-            menuIcon={sidebarMenu.menuIcon}
-            menuName={sidebarMenu.menuName}
-            linkTo={sidebarMenu.linkTo}
-          />
-        ))}
+        {pathname.startsWith("/seller")
+          ? sellerSidebarMenuList.map((sidebarMenu) => (
+              <SidebarMenu
+                menuIcon={sidebarMenu.menuIcon}
+                menuName={sidebarMenu.menuName}
+                linkTo={sidebarMenu.linkTo}
+              />
+            ))
+          : buyerSidebarMenuList.map((sidebarMenu) =>
+              sidebarMenu.authRequired && !isAuthenticated ? null : (
+                <SidebarMenu
+                  menuIcon={sidebarMenu.menuIcon}
+                  menuName={sidebarMenu.menuName}
+                  linkTo={sidebarMenu.linkTo}
+                />
+              )
+            )}
       </ul>
     </div>
   );
