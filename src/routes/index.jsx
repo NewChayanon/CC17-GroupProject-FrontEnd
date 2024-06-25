@@ -1,12 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy } from "react";
-import { useSelector } from "react-redux";
-import { selectAuth } from "../redux/store/slices/auth-slice";
+import useStore from "../zustand/store";
 
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const LandingPage = lazy(() => import("../Pages/LandingPage"));
 const LoginPage = lazy(() => import("../Pages/LoginPage"));
-const HomePage = lazy(() => import("../Pages/TestRedux"));
+const HomePage = lazy(() => import("../Pages/HomePage"));
 const StorePage = lazy(() => import("../Pages/StorePage"));
 const EventPage = lazy(() => import("../Pages/EventPage"));
 const EventDetail = lazy(() => import("../features/event/EventDetail"));
@@ -57,9 +56,9 @@ const userRouter = createBrowserRouter([
       {
         path: "user",
         element: (
-          // <UserProtectedRoute>
-          <UserContainer />
-          // </UserProtectedRoute>
+          <UserProtectedRoute>
+            <UserContainer />
+          </UserProtectedRoute>
         ),
         children: [
           { path: "booked", element: <Booked /> },
@@ -126,7 +125,7 @@ const adminRouter = createBrowserRouter([
 ]);
 
 export default function Router() {
-  const { user } = useSelector(selectAuth);
+  const user = useStore((state) => state.user);
   let finalRouter;
 
   if (!user || user.isAdmin === false) {

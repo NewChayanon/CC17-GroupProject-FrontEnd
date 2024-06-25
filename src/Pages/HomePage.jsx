@@ -1,10 +1,10 @@
-import TestRedux from "./TestRedux";
+import TestZustand from "./TestZustand";
 
 export default function HomePage() {
   return (
     <>
       <div>HomePage</div>
-      <TestRedux />
+      <TestZustand />
     </>
   );
 }

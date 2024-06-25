@@ -12,16 +12,6 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    logout: (state) => {
-      state.isAuthenticated = false;
-      state.user = null;
-      state.status = "idle";
-      state.error = null;
-      removeAccessToken();
-      window.location.reload();
-    },
-  },
   extraReducers: (builder) => {
     builder
       .addCase(loginAsync.pending, (state) => {
