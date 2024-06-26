@@ -18,6 +18,7 @@ const initialEventArray = [
 ];
 const defaultLocation = { lat: 13.76, lng: 100.5 }; // Bangkok Location
 
+
 export default function HomePage() {
   const [eventArray, setEventArray] = useState(initialEventArray);
   const [currentLocation, setCurrentLocation] = useState(defaultLocation);
@@ -51,6 +52,7 @@ export default function HomePage() {
   // Get one event from Database after user selects one particular event
 
   return (
+
     <div>
       <div className="relative">
         {/*==================== Search Box===================*/}

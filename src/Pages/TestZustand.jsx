@@ -1,14 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
-import { selectAuth, logout } from "../redux/store/slices/auth-slice";
-import { loginAsync } from "../redux/store/thunks/auth-thunk";
+import useStore from "../zustand/store";
 import { useNavigate } from "react-router-dom";
 import Modal from "../components/Modal";
 
-export default function TestRedux() {
+export default function TestZustand() {
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-  const { isAuthenticated, status } = useSelector(selectAuth);
+  const login = useStore((state) => state.login);
+  const logout = useStore((state) => state.logout);
+  const isAuthenticated = useStore((state) => state.isAuthenticated);
 
   const handleLoginSeller = () => {
     const user = {
@@ -17,8 +16,9 @@ export default function TestRedux() {
       isSeller: true,
       isAdmin: false,
     };
-    dispatch(loginAsync(user));
+    login(user);
   };
+
   const handleLoginAdmin = () => {
     const user = {
       name: "John Doe",
@@ -26,21 +26,20 @@ export default function TestRedux() {
       isSeller: false,
       isAdmin: true,
     };
-    dispatch(loginAsync(user));
+    login(user);
   };
+
   const handleLogout = () => {
-    dispatch(logout());
+    logout();
   };
+
   const redirectToBooked = () => {
-    navigate("/user/booked");
-  };
-  const redirectToSeller = () => {
-    navigate("/seller/myshop");
+    navigate("/home/user/booked");
   };
 
   return (
     <div>
-      <h1>TEST REDUX</h1>
+      <h1>TEST Zustand</h1>
       <div className="bg-green-500 w-40 text-white" onClick={handleLoginSeller}>
         TEST LOGIN BUYER+SELLER BUTTON
       </div>
@@ -50,9 +49,6 @@ export default function TestRedux() {
       <div className="bg-white w-40" onClick={redirectToBooked}>
         TEST BOOKED REDIRECT
       </div>
-      <div className="bg-white w-40" onClick={redirectToSeller}>
-        TEST SELLER REDIRECT
-      </div>
       <div className="bg-slate-400 w-40 text-white" onClick={handleLoginAdmin}>
         Login as ADMIN
       </div>
@@ -61,7 +57,6 @@ export default function TestRedux() {
       ) : (
         <p className="text-red-500">Not Login</p>
       )}
-      <p>{status}</p>
 
       <Modal callToAction="test1" modalID="modal1">
         dadawdawdaadsasdad
