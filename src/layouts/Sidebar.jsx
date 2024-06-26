@@ -1,6 +1,5 @@
 import SidebarMenu from "../components/SidebarMenu";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 import {
   StoreIcon,
   InboxIcon,
@@ -10,11 +9,11 @@ import {
   VoucherListIcon,
   CalendarIcon,
 } from "../icons/index.jsx";
-import { selectAuth } from "../redux/store/slices/auth-slice";
+import useStore from "../zustand/store.js";
 
 export default function Sidebar() {
   const { pathname } = useLocation();
-  const { isAuthenticated, status } = useSelector(selectAuth);
+  const isAuthenticated = useStore((state) => state.isAuthenticated);
   const buyerSidebarMenuList = [
     {
       menuIcon: <VendorNearMeIcon />,

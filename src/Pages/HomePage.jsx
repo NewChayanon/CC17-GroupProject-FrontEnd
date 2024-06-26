@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import EventCarousel from "../features/home/EventCarousel";
 import getCurrentLocation from "../features/map/get-current-location";
@@ -52,7 +53,6 @@ export default function HomePage() {
   // Get one event from Database after user selects one particular event
 
   return (
-
     <div>
       <div className="relative">
         {/*==================== Search Box===================*/}

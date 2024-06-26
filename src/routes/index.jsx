@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy } from "react";
 import useStore from "../zustand/store";
+import { ROLE } from "../constants/role-constants";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const LandingPage = lazy(() => import("../Pages/LandingPage"));
@@ -8,25 +10,22 @@ const LandingPage = lazy(() => import("../Pages/LandingPage"));
 =======
 const LoginPage = lazy(() => import("../Pages/LoginPage"));
 const HomePage = lazy(() => import("../Pages/HomePage"));
-const StorePage = lazy(() => import("../Pages/StorePage"));
-const EventPage = lazy(() => import("../Pages/EventPage"));
 const EventDetail = lazy(() => import("../features/event/EventDetail"));
 const Product = lazy(() => import("../features/event/Product"));
 const Promotion = lazy(() => import("../features/event/Promotion"));
-const AboutSeller = lazy(() => import("../features/event/AboutSeller"));
 const StoreDetail = lazy(() => import("../features/store/StoreDetail"));
-const FeaturedProduct = lazy(() => import("../features/store/FeaturedProduct"));
-const UpcomingEvent = lazy(() => import("../features/store/UpcomingEvent"));
 const Review = lazy(() => import("../features/store/Review"));
 const UserProtectedRoute = lazy(() =>
   import("../features/authentication/UserProtectedRoute")
 );
-const UserContainer = lazy(() => import("../features/user/UserContainer"));
-const Booked = lazy(() => import("../features/user/Booked"));
+const InterestedEvent = lazy(() => import("../features/user/InterestedEvent"));
 
 const UserInbox = lazy(() => import("../features/user/UserInbox"));
-const FavoriteSeller = lazy(() => import("../features/user/FavoriteSeller"));
-const UserVoucher = lazy(() => import("../features/user/UserVoucher"));
+const FavoriteStores = lazy(() => import("../features/user/FavoriteStores"));
+const CollectedCoupons = lazy(() =>
+  import("../features/user/CollectedCoupons")
+);
+const UserSettings = lazy(() => import("../features/user/UserSettings"));
 const SellerContainer = lazy(() =>
   import("../features/seller/SellerContainer")
 );
@@ -42,6 +41,7 @@ const Dashboard = lazy(() => import("../features/admin/Dashboard"));
 const ManageBuyer = lazy(() => import("../features/admin/ManageBuyer"));
 const ManageSeller = lazy(() => import("../features/admin/ManageSeller"));
 const Announcement = lazy(() => import("../features/admin/Announcement"));
+const RequestedReport = lazy(() => import("../features/admin/RequestedReport"));
 const AdminContainer = lazy(() => import("../features/admin/AdminContainer"));
 const AdminProtectedRoute = lazy(() =>
   import("../features/authentication/AdminProtectedRoute")
@@ -49,92 +49,84 @@ const AdminProtectedRoute = lazy(() =>
 
 const userRouter = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
-  { path: "/login", element: <LoginPage /> },
+  { path: "login", element: <LoginPage /> },
   {
-    path: "/home",
+    path: "home",
     element: <MainContainer />,
+    children: [{ path: "", element: <HomePage /> }],
+  },
+  {
+    path: "user",
+    element: (
+      <UserProtectedRoute>
+        <MainContainer />
+      </UserProtectedRoute>
+    ),
     children: [
-      { path: "", element: <HomePage /> },
-      {
-        path: "user",
-        element: (
-          <UserProtectedRoute>
-            <UserContainer />
-          </UserProtectedRoute>
-        ),
-        children: [
-          { path: "booked", element: <Booked /> },
-          { path: "inbox", element: <UserInbox /> },
-          { path: "favoriteseller", element: <FavoriteSeller /> },
-          { path: "voucher", element: <UserVoucher /> },
-        ],
-      },
-      {
-        path: "seller",
-        element: (
-          // <SellerProtectedRoute>
-          <SellerContainer />
-          // </SellerProtectedRoute>
-        ),
-        children: [
-          { path: "createdevent", element: <CreatedEvent /> },
-          { path: "myshop", element: <MyShop /> },
-          { path: "inbox", element: <SellerInbox /> },
-          { path: "favoritebuyer", element: <FavoriteBuyer /> },
-          { path: "voucher", element: <SellerVoucher /> },
-        ],
-      },
-
-      {
-        path: "store/:storeId",
-        element: <StorePage />,
-        children: [
-          { path: "detail", element: <StoreDetail /> },
-          { path: "featuredproduct", element: <FeaturedProduct /> },
-          { path: "upcomingevent", element: <UpcomingEvent /> },
-          { path: "review", element: <Review /> },
-        ],
-      },
-      {
-        path: "event/:eventId",
-        element: <EventPage />,
-        children: [
-          { path: "detail", element: <EventDetail /> },
-          { path: "product", element: <Product /> },
-          { path: "promotion", element: <Promotion /> },
-          { path: "about", element: <AboutSeller /> },
-        ],
-      },
+      { path: "interested-event", element: <InterestedEvent /> },
+      { path: "inbox", element: <UserInbox /> },
+      { path: "favorite-stores", element: <FavoriteStores /> },
+      { path: "collected-coupons", element: <CollectedCoupons /> },
+      { path: "settings", element: <UserSettings /> },
     ],
   },
-]);
-
-const adminRouter = createBrowserRouter([
   {
-    path: "/",
+    path: "event/:eventId",
+    element: <MainContainer />,
+    children: [
+      { path: "detail", element: <EventDetail /> },
+      { path: "products", element: <Product /> },
+      { path: "promotion", element: <Promotion /> },
+    ],
+  },
+  {
+    path: "store/:storeId",
+    element: <MainContainer />,
+    children: [
+      { path: "detail", element: <StoreDetail /> },
+      { path: "review", element: <Review /> },
+    ],
+  },
+  {
+    path: "/admin",
     element: (
       <AdminProtectedRoute>
         <AdminContainer />
       </AdminProtectedRoute>
     ),
     children: [
-      { path: "home", element: <Dashboard /> },
-      { path: "buyer", element: <ManageBuyer /> },
+      { path: "dashboard", element: <Dashboard /> },
       { path: "seller", element: <ManageSeller /> },
+      { path: "buyer", element: <ManageBuyer /> },
       { path: "announcement", element: <Announcement /> },
+      { path: "requested-report", element: <RequestedReport /> },
     ],
   },
+
+  // MY STORE IS NOT FINALIZED (TENTATIVE)
+  {
+    path: "mystore",
+    element: (
+      <SellerProtectedRoute>
+        <SellerContainer />
+      </SellerProtectedRoute>
+    ),
+    children: [
+      { path: "createdevent", element: <CreatedEvent /> },
+      { path: "myshop", element: <MyShop /> },
+      { path: "inbox", element: <SellerInbox /> },
+      { path: "favoritebuyer", element: <FavoriteBuyer /> },
+      { path: "voucher", element: <SellerVoucher /> },
+    ],
+  },
+
+  // MY STORE IS NOT FINALIZED (TENTATIVE)
 ]);
 
 export default function Router() {
-  const user = useStore((state) => state.user);
-  let finalRouter;
-
-  if (!user || user.isAdmin === false) {
-    finalRouter = userRouter;
-  } else if (user.isAdmin === true) {
-    finalRouter = adminRouter;
+  const isLoading = useStore((state) => state.isLoading);
+  if (isLoading === true) {
+    return <LoadingSpinner />;
   }
-
-  return <RouterProvider router={finalRouter} />;
+  return <RouterProvider router={userRouter} />;
 }

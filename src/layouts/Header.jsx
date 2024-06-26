@@ -9,11 +9,12 @@ import {
 import ffLogo from "../assets/FF-logo.png";
 import NavMenu from "../components/NavMenu.jsx";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectAuth } from "../redux/store/slices/auth-slice.js";
+import useStore from "../zustand/store.js";
+
 export default function Header() {
   // ทำ responsive 2 size 1) mobile 2) desktop
-  const { isAuthenticated, user } = useSelector(selectAuth);
+  const isAuthenticated = useStore((state) => state.isAuthenticated);
+  const user = useStore((state) => state.user);
   const navMenuList = [
     {
       menuIcon: <VendorNearMeIcon />,
@@ -25,7 +26,7 @@ export default function Header() {
     {
       menuIcon: <StoreIcon />,
       menuName: "My Store",
-      linkTo: "/seller",
+      linkTo: "/home/seller",
       handleClick: "",
       authRequired: true,
     },
