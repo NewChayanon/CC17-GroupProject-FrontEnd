@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from "react";
 import EventCarousel from "../features/home/EventCarousel";
 import getCurrentLocation from "../features/map/get-current-location";
 import MapPane from "../features/map/MapPane";
 import EventSummaryCard from "../features/home/EventSummaryCard";
 import SellerSummaryCard from "../features/home/SellerSummaryCard";
+import SearchBar from "../components/SearchBar";
 
 // Fetch Event from API instead of using mockup Array
 const initialEventArray = [
@@ -18,7 +18,6 @@ const initialEventArray = [
   { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 8 },
 ];
 const defaultLocation = { lat: 13.76, lng: 100.5 }; // Bangkok Location
-
 
 export default function HomePage() {
   const [eventArray, setEventArray] = useState(initialEventArray);
@@ -56,12 +55,8 @@ export default function HomePage() {
     <div>
       <div className="relative">
         {/*==================== Search Box===================*/}
-        <div className="absolute">
-          <input
-            className="z-40 w-100 h-9 bg-white"
-            type="text"
-            placeholder="Search"
-          ></input>
+        <div className="absolute z-40" style={{ top: "16px", margin: "auto" }}>
+          <SearchBar />
         </div>
         {/*==================== MAP ===================*/}
         {/* <div

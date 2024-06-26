@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 
 export default function MainContainer() {
   return (
-    <div className="w-full bg-graybg">
+    <div className="bg-graybg" style={{ width: "430px", margin: "auto" }}>
       <Header />
       <div className="flex">
         <Sidebar />

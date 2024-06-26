@@ -6,8 +6,6 @@ import LoadingSpinner from "../components/LoadingSpinner";
 
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const LandingPage = lazy(() => import("../Pages/LandingPage"));
-
-=======
 const LoginPage = lazy(() => import("../Pages/LoginPage"));
 const HomePage = lazy(() => import("../Pages/HomePage"));
 const EventDetail = lazy(() => import("../features/event/EventDetail"));
