@@ -71,7 +71,6 @@ export default function Header() {
             <p className="text-base">Freshly Meet, Freshly Eat</p>
           </div>
         </div>
-
         {/* HAMBURGER MENU FOR MOBILE* smallest until lg*/}
         <div className="flex-none gap-2 xl:hidden">
           <div className="dropdown dropdown-end">
@@ -136,7 +135,6 @@ export default function Header() {
             </div>
           </Link>
         ) : null}
-
         {/* AVATAR MENU FOR DESKTOP - ONLY DISPLAY AT xl */}
         <div className="flex-none gap-2 hidden xl:block">
           <div className="dropdown dropdown-end">
