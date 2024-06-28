@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 export default function Modal({ modalID, callToAction, children }) {
   return (
-    <>
+    <div>
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
       <button
         className="btn bg-primary text-absolutewhite border-none shadow-md hover:bg-darkgreen"
@@ -22,6 +22,6 @@ export default function Modal({ modalID, callToAction, children }) {
           </div>
         </div>
       </dialog>
-    </>
+    </div>
   );
 }

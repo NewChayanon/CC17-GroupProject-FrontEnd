@@ -72,6 +72,7 @@ export default function Header() {
           </div>
         </div>
         {/* HAMBURGER MENU FOR MOBILE* smallest until lg*/}
+
         <div className="flex-none gap-2 xl:hidden">
           <div className="dropdown dropdown-end">
             {/* HAMBURGER BUTTON*/}
