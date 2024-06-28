@@ -1,8 +1,26 @@
 import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 import CouponTab from "./CouponTab";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import eventApi from "../../apis/event";
+import EventTabCard from "../../components/EventTabCard";
+import useStore from "../../zustand/store";
 
 export default function Promotion() {
+  const { pathname } = useLocation();
+  // Call API to get all event details - async await & keep data in state
+  const setEventId = useStore((state) => state.setEventId);
+  const eventId = useStore((state) => state.eventId);
+  const eventIdfromPath = pathname.split("/")[2];
+  setEventId(eventIdfromPath);
+  const selectedEventDetails = useStore((state) => state.selectedEventDetails); // ข้อมูลมา
+  const setSelectedEventDetails = useStore(
+    (state) => state.setSelectedEventDetails
+  );
+  useEffect(() => {
+    setSelectedEventDetails(eventId);
+  }, []);
   const handleOpenVoucher = (e) => {};
   return (
     <div className="flex flex-col">
@@ -30,7 +48,7 @@ export default function Promotion() {
           <CouponTab />
           <Button onClick={handleOpenVoucher}>Get this coupon!</Button>
           <Modal modalID={1} callToAction="Open Modal">
-            This coupon is Collected!
+            Get This Coupon
           </Modal>
         </div>
       </div>

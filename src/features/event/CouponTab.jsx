@@ -2,7 +2,10 @@ import React from "react";
 
 export default function CouponTab() {
   return (
-    <div className="shadow-lg flex" style={{ width: "100%", height: "120px" }}>
+    <div
+      className="shadow-lg flex relative"
+      style={{ width: "100%", height: "120px" }}
+    >
       <div style={{ maxHeight: "230px", overflow: "hidden" }}>
         <img
           style={{
@@ -26,6 +29,8 @@ export default function CouponTab() {
           <div className="text-xs">#LUCKYDAY12</div>
         </div>
       </div>
+      <div className="absolute bg-white rounded-full w-5 h-5 -left-2 top-1/2 transform -translate-y-1/2"></div>
+      <div className="absolute bg-white rounded-full w-5 h-5 -right-2 top-1/2 transform -translate-y-1/2"></div>
     </div>
   );
 }

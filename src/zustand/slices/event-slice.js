@@ -18,9 +18,9 @@ export const createEventSlice = (set) => ({
       const result = await eventApi.getEventById(eventId);
       console.log("result from getting event details", result.data); // run แล่้ว ได่
       // เรียก update eventDetail
-      set(() => {
-        selectedEventDetails: result.data;
-      });
+      set(() => ({
+        selectedEventDetails: result.data,
+      }));
     } catch (err) {
       console.log("error from fetching event details", err);
     }

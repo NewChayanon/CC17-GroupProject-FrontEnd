@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import eventApi from "../../apis/event";
 import EventTabCard from "../../components/EventTabCard";
@@ -12,29 +11,14 @@ export default function EventDetail() {
   const eventId = useStore((state) => state.eventId);
   const eventIdfromPath = pathname.split("/")[2];
   setEventId(eventIdfromPath);
-  /// กรณี้ update Event Details ด้วย useState
-  const [selectedEventDetails, setSelectedEventDetails] = useState(null);
-  useEffect(() => {
-    const fetchEventDetails = async (eventId) => {
-      try {
-        const result = await eventApi.getEventById(eventId);
-        console.log("result from gettind event details");
-        // เรียก update
-        setSelectedEventDetails(result.data);
-      } catch (err) {
-        console.log("error from geteventdetailapi", err);
-      }
-    };
-    fetchEventDetails(eventId);
-  }, []);
 
-  // const selectedEventDetails = useStore((state) => state.selectedEventDetails); // ข้อมูลมา
-  // const setSelectedEventDetails = useStore(
-  //   (state) => state.setSelectedEventDetails
-  // );
-  // useEffect(() => {
-  //   setSelectedEventDetails(eventId);
-  // }, []);
+  const selectedEventDetails = useStore((state) => state.selectedEventDetails); // ข้อมูลมา
+  const setSelectedEventDetails = useStore(
+    (state) => state.setSelectedEventDetails
+  );
+  useEffect(() => {
+    setSelectedEventDetails(eventId);
+  }, []);
 
   return (
     <div>
