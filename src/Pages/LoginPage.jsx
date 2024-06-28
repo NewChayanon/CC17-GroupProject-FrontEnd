@@ -57,12 +57,12 @@ export default function LoginPage() {
   return (
     <div className="bg-secondary h-screen flex flex-col">
       <Header />
-      <div className="xl:hidden flex flex-col w-full items-center">
-        <p>Let&apos;s dive in!</p>
-        <p>Please log-in</p>
-        <p>to get voucher from the event.</p>
-      </div>
-      <div className="flex flex-1 h-screen justify-center items-center">
+      <div className="flex flex-col flex-1 gap-4 h-screen justify-center items-center">
+        <div className="xl:hidden flex flex-col w-full items-center">
+          <p className="text-lg">Let&apos;s dive in!</p>
+          <p>Please log-in</p>
+          <p>to get voucher from the event.</p>
+        </div>
         <div className="flex flex-col gap-4 bg-absolutewhite p-12 rounded-3xl items-center">
           <div className="flex flex-col gap-4 pb-2">
             <Input
@@ -96,6 +96,7 @@ export default function LoginPage() {
             Google
           </button>
           <div className="divider h-0 m-0 border-t border-absoluteblack"></div>
+          <p>Don&apos;t have an account yet!</p>
           <Modal modalID="register-modal" callToAction="Register">
             <RegisterForm />
           </Modal>
