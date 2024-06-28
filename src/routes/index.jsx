@@ -1,10 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy } from "react";
-import useStore from "../zustand/store";
-import { ROLE } from "../constants/role-constants";
-import LoadingSpinner from "../components/LoadingSpinner";
 
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
+const EventMainContainer = lazy(() => import("../layouts/EventMainContainer"));
 const LandingPage = lazy(() => import("../Pages/LandingPage"));
 const LoginPage = lazy(() => import("../Pages/LoginPage"));
 const HomePage = lazy(() => import("../Pages/HomePage"));
@@ -70,7 +68,7 @@ const userRouter = createBrowserRouter([
   },
   {
     path: "event/:eventId",
-    element: <MainContainer />,
+    element: <EventMainContainer />,
     children: [
       { path: "detail", element: <EventDetail /> },
       { path: "products", element: <Product /> },
@@ -122,9 +120,5 @@ const userRouter = createBrowserRouter([
 ]);
 
 export default function Router() {
-  const isLoading = useStore((state) => state.isLoading);
-  if (isLoading === true) {
-    return <LoadingSpinner />;
-  }
   return <RouterProvider router={userRouter} />;
 }

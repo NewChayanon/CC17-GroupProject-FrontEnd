@@ -6,6 +6,7 @@ export default function EventCarousel({
   setEventArray,
   selectedEventId,
   setSelectedEventId,
+  setSelectedEventDetails,
 }) {
   console.log("event array in carousel component", eventArray);
   return (
@@ -21,10 +22,18 @@ export default function EventCarousel({
       >
         {eventArray.map((event) => (
           <div
-            className="carousel-item"
+            className="carousel-item relative"
             key={event.key}
-            onClick={() => setSelectedEventId(event.id)}
+            // onClick={() => setSelectedEventId(event.id)}
           >
+            <div
+              className="border border-red absolute"
+              style={{ height: "180px", width: "249px" }}
+              onClick={() => {
+                setSelectedEventId(event.id);
+                setSelectedEventDetails(event);
+              }}
+            ></div>
             <EventCard event={event} />
           </div>
         ))}

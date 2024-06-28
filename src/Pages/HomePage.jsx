@@ -5,24 +5,25 @@ import MapPane from "../features/map/MapPane";
 import EventSummaryCard from "../features/home/EventSummaryCard";
 import SellerSummaryCard from "../features/home/SellerSummaryCard";
 import SearchBar from "../components/SearchBar";
+import authApi from "../apis/auth";
 
 // Fetch Event from API instead of using mockup Array
 const initialEventArray = [
-  { position: { lat: 13.74, lng: 100.52 }, eventDetails: "Event1", key: 1 },
-  { position: { lat: 13.78, lng: 100.49 }, eventDetails: "Event2", key: 2 },
-  { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 3 },
-  { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 4 },
-  { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 5 },
-  { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 6 },
-  { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 7 },
-  { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 8 },
+  // { position: { lat: 13.74, lng: 100.52 }, eventDetails: "Event1", key: 1 },
+  // { position: { lat: 13.78, lng: 100.49 }, eventDetails: "Event2", key: 2 },
+  // { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 3 },
+  // { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 4 },
+  // { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 5 },
+  // { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 6 },
+  // { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 7 },
+  // { position: { lat: 13.75, lng: 100.51 }, eventDetails: "Event3", key: 8 },
 ];
 const defaultLocation = { lat: 13.76, lng: 100.5 }; // Bangkok Location
 
 export default function HomePage() {
   const [eventArray, setEventArray] = useState(initialEventArray);
   const [currentLocation, setCurrentLocation] = useState(defaultLocation);
-  const [selectedEventId, setSelectedEventId] = useState(1); // change to "" later after test
+  const [selectedEventId, setSelectedEventId] = useState(""); // change to "" later after test
   const [selectedEventDetails, setSelectedEventDetails] = useState({}); // เอา eventId ไปเรียก event Details มาแล้วเอามา set state ทีหลัง
 
   // Try getting current location
@@ -39,10 +40,13 @@ export default function HomePage() {
     };
     fetchLocation();
   }, []);
-  // Get the event from Database
+  // Get the event from Database by sending the current lat & lng of users
   useEffect(() => {
     const fetchEvent = async () => {
       try {
+        const result = await authApi.getNearMe();
+        console.log("result from get nearMe", result);
+        setEventArray(result.data);
       } catch (err) {
         console.log(err);
       }
@@ -81,12 +85,16 @@ export default function HomePage() {
           setEventArray={setEventArray}
           selectedEventId={selectedEventId}
           setSelectedEventId={setSelectedEventId}
+          setSelectedEventDetails={setSelectedEventDetails}
         />
       </div>
       {/*==================== EVENT DETAILS (selected event) ===================*/}
       {selectedEventId && (
         <div className="flex flex-col">
-          <EventSummaryCard selectedEventDetails={selectedEventDetails} />
+          <EventSummaryCard
+            selectedEventDetails={selectedEventDetails}
+            selectedEventId={selectedEventId}
+          />
           <SellerSummaryCard selectedEventDetails={selectedEventDetails} />
         </div>
       )}
