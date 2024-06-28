@@ -4,6 +4,7 @@ import { lazy } from "react";
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const EventMainContainer = lazy(() => import("../layouts/EventMainContainer"));
 const LandingPage = lazy(() => import("../Pages/LandingPage"));
+
 const LoginPage = lazy(() => import("../Pages/LoginPage"));
 const HomePage = lazy(() => import("../Pages/HomePage"));
 const EventDetail = lazy(() => import("../features/event/EventDetail"));
