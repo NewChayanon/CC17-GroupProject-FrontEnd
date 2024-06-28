@@ -122,9 +122,5 @@ const userRouter = createBrowserRouter([
 ]);
 
 export default function Router() {
-  const isLoading = useStore((state) => state.isLoading);
-  if (isLoading === true) {
-    return <LoadingSpinner />;
-  }
   return <RouterProvider router={userRouter} />;
 }
