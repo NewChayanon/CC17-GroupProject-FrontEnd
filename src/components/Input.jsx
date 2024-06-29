@@ -13,26 +13,20 @@ export default function Input({
   height = "",
 }) {
   return (
-    <div className="flex flex-col">
-      <label
-        className={`input input-bordered ${
+    <div className="flex flex-col w-full">
+      <input
+        placeholder={placeholder}
+        type={type}
+        className={`grow p-2 ${
           heightMap[height]
-        } flex items-center gap-2 bg-absolutewhite ${
-          error ? "input-error" : null
-        }`}
-      >
-        <input
-          placeholder={placeholder}
-          type={type}
-          className="grow"
-          value={value}
-          onChange={onChange}
-          name={name}
-        />
-      </label>
-      <div className="flex h-1">
-        {error ? <small className=" text-red-500">{error}</small> : null}
-      </div>
+        } bg-absolutewhite rounded-md border-2 focus:ring-0 focus:outline-none ${
+          error ? "border-red-500" : "border-graylighttext"
+        } `}
+        value={value}
+        onChange={onChange}
+        name={name}
+      />
+      {error ? <small className=" text-red-500">{error}</small> : null}
     </div>
   );
 }

@@ -37,6 +37,18 @@ export const createAuthSlice = (set) => ({
       }));
     }
   },
+  register: async (credentials) => {
+    try {
+      const response = await authApi.register(credentials);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      set(() => ({
+        error: error.response.data,
+      }));
+      return error.response.data;
+    }
+  },
   getAuthUser: async () => {
     set({ ...initialState, isLoading: true });
     try {
