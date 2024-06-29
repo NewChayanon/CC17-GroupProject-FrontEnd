@@ -46,22 +46,6 @@ export default function Modal({
             document.getElementById("modal")
           )
         : null}
-      {/* {open
-        ? createPortal(
-            <>
-              <div className="modal">
-                <div className={`bg-absolutewhite w-11/12 ${widthMap[width]}`}>
-                  <div className="flex justify-between items-center p-4">
-                    <h5 className="text-xl font-bold">{title}</h5>
-                    <button onClick={onClose}>&#10005;</button>
-                  </div>
-                  <div className="p-4 overflow-y-auto max-h-96">{children}</div>
-                </div>
-              </div>
-            </>,
-            document.getElementById("modal")
-          )
-        : null} */}
     </>
   );
 }
