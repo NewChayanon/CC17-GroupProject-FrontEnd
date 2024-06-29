@@ -10,11 +10,13 @@ import ffLogo from "../assets/FF-logo.png";
 import NavMenu from "../components/NavMenu.jsx";
 import { Link } from "react-router-dom";
 import useStore from "../zustand/store.js";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   // ทำ responsive 2 size 1) mobile 2) desktop
   const isAuthenticated = useStore((state) => state.isAuthenticated);
   const user = useStore((state) => state.user);
+  const navigate = useNavigate();
   const navMenuList = [
     {
       menuIcon: <VendorNearMeIcon />,
@@ -61,12 +63,12 @@ export default function Header() {
   ];
   return (
     <div>
-      <div className="navbar bg-secondary h-12 xl:h-24 flex">
-        <div className="flex-1">
-          <a className="btn btn-ghost text-xl">
-            <img className="w-auto h-full" src={ffLogo} />
+      <div className="navbar bg-secondary h-20 xl:h-24 flex justify-between items-center">
+        <div className="flex justify-between items-center">
+          <a className="btn btn-ghost text-md" onClick={() => navigate("/")}>
+            <img className="w-16 h-16" src={ffLogo} />
           </a>
-          <div>
+          <div className="text-darkbrown font-semibold">
             <p className="text-2xl">Freshy Foodie</p>
             <p className="text-base">Freshly Meet, Freshly Eat</p>
           </div>
@@ -85,7 +87,7 @@ export default function Header() {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                className="inline-block w-5 h-5 stroke-current"
+                className="inline-block w-7 h-7 stroke-current"
               >
                 <path
                   strokeLinecap="round"
