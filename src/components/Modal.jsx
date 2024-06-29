@@ -1,27 +1,51 @@
+import { createPortal } from "react-dom";
+
 /* eslint-disable react/prop-types */
-export default function Modal({ modalID, callToAction, children }) {
+const widthMap = {
+  small: "max-w-md",
+  mid: "max-w-3xl",
+  large: "max-w-5xl",
+};
+
+export default function Modal({
+  width = "mid",
+  title,
+  onClose,
+  open,
+  children,
+}) {
   return (
-    <div>
-      {/* You can open the modal using document.getElementById('ID').showModal() method */}
-      <button
-        className="btn bg-primary text-absolutewhite border-none shadow-md hover:bg-darkgreen"
-        onClick={() => document.getElementById(modalID).showModal()}
-      >
-        {callToAction}
-      </button>
-      <dialog id={modalID} className="modal">
-        <div className="modal-box bg-absolutewhite w-11/12 max-w-5xl">
-          {children}
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                ✕
-              </button>
-            </form>
-          </div>
-        </div>
-      </dialog>
-    </div>
+    <>
+      {open
+        ? createPortal(
+            <>
+              <div className="fixed inset-0 bg-white opacity-50 z-40 "></div>
+              <div className="fixed inset-0 z-40">
+                <div className="flex justify-center items-center min-h-screen ">
+                  <div
+                    className={`bg-absolutewhite rounded-3xl w-11/12 ${widthMap[width]}`}
+                  >
+                    <div className="flex justify-between items-start py-4 px-8">
+                      <div></div>
+                      <div className="pt-4">
+                        <p className="text-2xl font-medium text-darkgreen">
+                          {title}
+                        </p>
+                      </div>
+                      <button className="font-bold" onClick={onClose}>
+                        &#10005;
+                      </button>
+                    </div>
+                    <div className="px-4 pb-4 overflow-y-auto max-h-96">
+                      {children}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>,
+            document.getElementById("modal")
+          )
+        : null}
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 const bgMap = {
-  primary: "bg-primary hover:bg-primary-600",
+  primary: "bg-primary hover:bg-darkgreen",
   secondary: "bg-secondary hover:bg-sky-600",
   orange: "bg-orange-500 hover:bg-orange-600",
   ghost: "bg-none hover:bg-neutral-700",
