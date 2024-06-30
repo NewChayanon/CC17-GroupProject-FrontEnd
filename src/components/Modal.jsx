@@ -9,7 +9,7 @@ export default function Modal({ modalID, callToAction, children }) {
       >
         {callToAction}
       </button>
-      <dialog id={modalID} className="modal">
+      <dialog id={modalID} className="modal" style={{ width: "400px" }}>
         <div className="modal-box bg-absolutewhite w-11/12 max-w-5xl">
           {children}
           <div className="modal-action">

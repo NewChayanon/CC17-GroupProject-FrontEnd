@@ -32,6 +32,7 @@ export default function EventDetail() {
         <img src="" />
         <img src="" />
       </div>
+      {/* ============ Other Events List============ */}
       <div className="flex flex-col p-6">
         <div className="text-xl font-bold">Other Events from this seller</div>
         <div>

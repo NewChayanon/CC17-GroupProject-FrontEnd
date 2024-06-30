@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import eventApi from "../apis/event";
 import { MONTHS_NAME } from "../constants/date-constant";
 import { PinIcon, PinIconActive } from "../icons";
 import { getDayOfWeek } from "../utils/datetime-conversion";
+import useStore from "../zustand/store.js";
 
 export default function EventTabCard({
   selectedEventDetails,
@@ -10,11 +12,29 @@ export default function EventTabCard({
 }) {
   // Pin Status & Handle Click Pin
   const [isInterested, setIsInterested] = useState(false);
-  const handleClickPin = (e) => {
-    setIsInterested(!isInterested);
-    // ยิง API เพื่อ Update isInterested State BAckend
+  const isAuthenticated = useStore((state) => state.isAuthenticated);
+  console.log("selectedEventDetails in event card", selectedEventDetails);
+  useEffect(() => {
+    // Check current Interest Status of the event of this user
+    setIsInterested(selectedEventDetails.interest);
+  }, []);
+  const handleClickPin = async (e) => {
+    try {
+      // 1. เช็คก่อนว่า Login รึยีง ถ้ายัง >> เด้ง error
+      if (!isAuthenticated) {
+        return alert("Please Login First");
+      }
+      // 2. ยิง API เพื่อ Update isInterested State Backend โดยระบุ eventId
+      const result = await eventApi.toggleInterestEventById(
+        selectedEventDetails.id
+      );
+      console.log("Result from API updating interest status", result);
+      // 3. ถ้า update สำเร็จ >> setIsinterested เป็นอีกค่านึง ถ้าไม่สำเร็จ >> ส่ง error
+      setIsInterested(!isInterested);
+    } catch (err) {
+      console.log("error from updating interest", err);
+    }
   };
-  console.log("selectedEventDetails", selectedEventDetails);
   const eventStartDate = selectedEventDetails?.eventStartDate.split("/")[0];
   const eventStartMonth =
     MONTHS_NAME[selectedEventDetails?.eventStartDate.split("/")[1]];
@@ -43,6 +63,8 @@ export default function EventTabCard({
               10:00AM - 18:00PM
             </div>
           </div>
+
+          {/* ถ้าเป็น event card แบบ full version - จะแสดงปุ่มกด interest แบบ full version แต่ถ้าไม่ใช่ full version (แสดง other events) จะแสดงแค่ pin ขึ้นมา*/}
           {isFullVersion ? (
             <div onClick={handleClickPin}>
               {isInterested ? (
@@ -66,6 +88,7 @@ export default function EventTabCard({
         <div className="text-sm text-primary font-semibold">
           Location: {selectedEventDetails?.eventLocation}
         </div>
+        {/* ถ้าเป็น event card แบบ full version - จะแสดง event Details ด้วย*/}
         {isFullVersion && (
           <p
             className="text-sm text-graydarktext text-ellipsis overflow-hidden"

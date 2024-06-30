@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import EventCover from "../features/event/EventCover";
+import { AnnouncementIcon, CalendarIcon, ProductIcon } from "../icons";
 
 export default function EventNavBar() {
   const { pathname } = useLocation();
@@ -25,6 +26,7 @@ export default function EventNavBar() {
           onClick={handleClickMenu}
           id="detail"
         >
+          <CalendarIcon />
           Event Detail
         </div>
         <div
@@ -36,6 +38,7 @@ export default function EventNavBar() {
           onClick={handleClickMenu}
           id="promotion"
         >
+          <AnnouncementIcon />
           Promotion
         </div>
         <div
@@ -47,6 +50,7 @@ export default function EventNavBar() {
           onClick={handleClickMenu}
           id="products"
         >
+          <ProductIcon />
           Products
         </div>
       </div>

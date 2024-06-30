@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy } from "react";
+import StoreMainContainer from "../layouts/StoreMainContainer";
 
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const EventMainContainer = lazy(() => import("../layouts/EventMainContainer"));
@@ -78,9 +79,9 @@ const userRouter = createBrowserRouter([
   },
   {
     path: "store/:storeId",
-    element: <MainContainer />,
+    element: <StoreMainContainer />,
     children: [
-      { path: "detail", element: <StoreDetail /> },
+      { path: "profile", element: <StoreDetail /> },
       { path: "review", element: <Review /> },
     ],
   },

@@ -10,7 +10,7 @@ export default function EventCard({ event }) {
       <img
         className="rounded-md"
         style={{ height: "116px", width: "249px" }}
-        src="https://picsum.photos/seed/picsum/200/200"
+        src={event.eventImage}
         alt="event image"
       />
       <div className="flex justify-between items-end">
