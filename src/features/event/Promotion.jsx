@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import eventApi from "../../apis/event";
 import EventTabCard from "../../components/EventTabCard";
 import useStore from "../../zustand/store";
+import CouponDetailModal from "./CouponDetailModal";
 
 export default function Promotion() {
   const { pathname } = useLocation();
@@ -21,37 +22,45 @@ export default function Promotion() {
   useEffect(() => {
     setSelectedEventDetails(eventId);
   }, []);
-  const handleOpenVoucher = (e) => {};
+  const handleOpenVoucher = (e) => {
+    // เปิด modal ขึ้นมา
+  };
+
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col gap-4 justify-center p-6 bg-white">
-        <div className="flex flex-col gap-2">
-          <div className="text-xl font-bold text-primary">
-            Special deal from this store!
-          </div>
-          <div className="text-base">
-            Early bird customers who liked our LINE Official store get 20%Off
-            for the first time.
-          </div>
-          <div>
-            <div className="text-base font-semibold">Conditions</div>
+      {/* === Check if this event provides coupon or not === */}
+      {selectedEventDetails.voucherCode ? (
+        <div className="flex flex-col gap-4 justify-center p-6 bg-white">
+          <div className="flex flex-col gap-2">
+            <div className="text-xl font-bold text-primary">
+              Special deal from this store!
+            </div>
+            <div className="text-sm">
+              Early bird customers who liked our LINE Official store get 20%Off
+              for the first time.
+            </div>
             <div>
-              This promotion is valid until 31st December 2024. One Line user
-              can use only 1 time.
+              <div className="text-sm font-semibold">Conditions</div>
+              <div className="text-sm">
+                This promotion is valid until 31st December 2024. One Line user
+                can use only 1 time.
+              </div>
             </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-2">
-          <div className="text-xl font-bold text-primary">
-            Coupon for this event!
+          <div className="flex flex-col gap-2">
+            <div className="text-xl font-bold text-primary">
+              Coupon for this event!
+            </div>
+
+            <CouponTab selectedEventDetails={selectedEventDetails} />
+            <Modal modalID={1} callToAction="Get This Coupon">
+              <CouponDetailModal selectedEventDetails={selectedEventDetails} />
+            </Modal>
           </div>
-          <CouponTab />
-          <Button onClick={handleOpenVoucher}>Get this coupon!</Button>
-          <Modal modalID={1} callToAction="Open Modal">
-            Get This Coupon
-          </Modal>
         </div>
-      </div>
+      ) : (
+        <div>No Voucher For this event</div>
+      )}
     </div>
   );
 }

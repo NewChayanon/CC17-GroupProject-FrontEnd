@@ -13,7 +13,7 @@ export default function EventSummaryCard({
     navigate(`../event/${selectedEventId}/detail`);
   };
   return (
-    <div style={{ height: "360px", width: "430px" }}>
+    <div style={{ minHeight: "360px", width: "430px" }}>
       <div className="bg-white m-6 p-6 rounded-xl flex flex-col justify-center items-end gap-6">
         <EventTabCard selectedEventDetails={selectedEventDetails} />
         <Button onClick={handleGoToEventPage}>See the deal</Button>
