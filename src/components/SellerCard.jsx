@@ -6,7 +6,7 @@ export default function SellerTabCard({ selectedEventDetails }) {
   const handleClickSeeSellerPage = (e) => {
     console.log(e);
     // navigate to seller page and fetch seller data
-    navigate(`/store/${e.target.id}`);
+    navigate(`/store/${e.target.id}/profile`);
   };
   return (
     <div>

@@ -414,9 +414,10 @@ export function ProductIcon() {
     </svg>
   );
 }
-export function CouponIcon() {
+export function CouponIcon({ className = "text-red-500" }) {
   return (
     <svg
+      className={className}
       width="21"
       height="17"
       viewBox="0 0 21 17"
