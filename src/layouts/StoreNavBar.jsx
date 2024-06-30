@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import StoreFullCard from "../components/StoreFullCard";
-import SellerContainer from "../features/seller/SellerContainer";
+import MyStoreContainer from "../features/seller/MyStoreContainer";
 import StoreCover from "../features/store/StoreCover";
 
 export default function StoreNavBar() {
