@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ProductTabCard({ product }) {
   return (
-    <div className="flex gap-2 rounded-xl bg-white">
+    <div className="flex gap-2 rounded-xl bg-white shadow-md">
       <div style={{ overflow: "hidden" }}>
         <img
           className="rounded-l-xl"

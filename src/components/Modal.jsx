@@ -2,7 +2,7 @@ import { createPortal } from "react-dom";
 
 /* eslint-disable react/prop-types */
 const widthMap = {
-  small: "max-w-md",
+  small: "max-w-sm",
   mid: "max-w-3xl",
   large: "max-w-5xl",
 };
@@ -19,7 +19,7 @@ export default function Modal({
       {open
         ? createPortal(
             <>
-              <div className="fixed inset-0 bg-white opacity-50 z-40 "></div>
+              <div className="fixed inset-0 bg-graydarktext opacity-50 z-40 "></div>
               <div className="fixed inset-0 z-40">
                 <div className="flex justify-center items-center min-h-screen ">
                   <div

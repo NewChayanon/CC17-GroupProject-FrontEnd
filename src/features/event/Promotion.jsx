@@ -1,30 +1,45 @@
 import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 import CouponTab from "./CouponTab";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import eventApi from "../../apis/event";
 import EventTabCard from "../../components/EventTabCard";
 import useStore from "../../zustand/store";
 import CouponDetailModal from "./CouponDetailModal";
+import PlaseLoginCard from "../../components/PlaseLoginCard";
 
 export default function Promotion() {
   const { pathname } = useLocation();
+  const [openModal,setOpenModal] = useState(false) // {/* State for modal in case if user can get voucher */}
+  const [openLoginModal,setOpenLoginModal] = useState(false) // {/* State for modal in case if user has not logged in yet */}
   // Call API to get all event details - async await & keep data in state
   const setEventId = useStore((state) => state.setEventId);
   const eventId = useStore((state) => state.eventId);
   const eventIdfromPath = pathname.split("/")[2];
   setEventId(eventIdfromPath);
+  const isAuthenticated = useStore((state)=>state.isAuthenticated)
   const selectedEventDetails = useStore((state) => state.selectedEventDetails); // ข้อมูลมา
   const setSelectedEventDetails = useStore(
     (state) => state.setSelectedEventDetails
   );
+  const handleGetCoupon = async (e) => {
+    try{
+    // 1. check ว่า login แล้วหรือยัง ถ้ายังไม่ login จะ get coupon ไม่ได้
+    if (!isAuthenticated) {
+      return setOpenLoginModal(true)
+    }
+// 2. ถ้า login แล้ว >> ยิง API เพื่อไปขอ get coupon มาจาก Backend ถ้าสำเร็จ ให้เปิด modal เพื่อแสดง voucher
+const result = await eventApi.getCoupon(eventId)
+console.log("Result from getting coupon", result)
+setOpenModal(true)
+} catch(err){console.log("error from API to get coupon",err)}
+  }
   useEffect(() => {
     setSelectedEventDetails(eventId);
   }, []);
-  const handleOpenVoucher = (e) => {
-    // เปิด modal ขึ้นมา
-  };
+  
+  
 
   return (
     <div className="flex flex-col">
@@ -51,10 +66,21 @@ export default function Promotion() {
             <div className="text-xl font-bold text-primary">
               Coupon for this event!
             </div>
-
             <CouponTab selectedEventDetails={selectedEventDetails} />
-            <Modal modalID={1} callToAction="Get This Coupon">
-              <CouponDetailModal selectedEventDetails={selectedEventDetails} />
+            <Button onClick={handleGetCoupon} >Get Coupon</Button>
+            {/* Modal if user login and get coupon successfully */}
+           <Modal  width="small"
+            title="This coupon is collected!"
+            open={openModal}
+            onClose={() => setOpenModal(false)}>
+            <CouponDetailModal selectedEventDetails={selectedEventDetails} onCloseModal={() => setOpenModal(false)}/>
+            </Modal>
+             {/* Modal if user has not logged in yet */}
+            <Modal width="small"
+            title="Please Log-in to use the app features"
+            open={openLoginModal}
+            onClose={() => setOpenLoginModal(false)}>
+          <PlaseLoginCard onClose={() => setOpenLoginModal(false)}/>
             </Modal>
           </div>
         </div>
