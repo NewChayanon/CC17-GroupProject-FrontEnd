@@ -3,7 +3,7 @@ import { InstagramIcon } from "../icons";
 
 export default function Footer() {
   return (
-    <div className="navbar bg-primary h-12 xl:h-24 flex flex-col xl:flex-row xl:justify-between">
+    <div className="navbar bg-primary text-white h-12 xl:h-24 flex flex-col xl:flex-row xl:justify-between">
       <div className="flex gap-4">
         <Link to="/">About Us</Link>
         <div>|</div>
@@ -14,7 +14,7 @@ export default function Footer() {
           </Link>
         </div>
       </div>
-      <div>Copyright @2024 by “Freshy Foodie” </div>
+      <div className="text-sm">Copyright @2024 by “Freshy Foodie” </div>
     </div>
   );
 }

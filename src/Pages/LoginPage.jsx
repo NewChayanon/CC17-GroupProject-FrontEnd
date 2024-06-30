@@ -7,6 +7,7 @@ import Input from "../components/Input";
 import validateLogin from "../features/authentication/validators/login-validator";
 import Modal from "../components/Modal";
 import RegisterForm from "../features/authentication/RegisterForm";
+import Button from "../components/Button";
 
 const initialInput = {
   email: "",
@@ -18,9 +19,11 @@ export default function LoginPage() {
   const login = useStore((state) => state.login);
   const [input, setInput] = useState(initialInput);
   const [inputError, setInputError] = useState(initialInput);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
+    setInputError({ ...inputError, [e.target.name]: "" });
   };
 
   const handleGoogleLogin = (e) => {
@@ -41,7 +44,6 @@ export default function LoginPage() {
 
       const response = await login(input);
       if (response.message === "Invalid credential") {
-        console.log(response.message);
         setInputError({
           ...initialInput,
           password: "Wrong password. Please type again!",
@@ -57,13 +59,17 @@ export default function LoginPage() {
   return (
     <div className="bg-secondary h-screen flex flex-col">
       <Header />
-      <div className="flex flex-col flex-1 gap-4 h-screen justify-center items-center">
+      <div className="flex flex-col flex-1 p-4 gap-4 h-screen justify-center items-center">
         <div className="xl:hidden flex flex-col w-full items-center">
-          <p className="text-lg">Let&apos;s dive in!</p>
-          <p>Please log-in</p>
-          <p>to get voucher from the event.</p>
+          <p className="text-3xl font-bold text-darkyellow">
+            Let&apos;s dive in!
+          </p>
+          <p className="text-xl font-medium text-graydarktext">Please log-in</p>
+          <p className="text-sm font-medium text-graydarktext">
+            to get voucher from the event.
+          </p>
         </div>
-        <div className="flex flex-col gap-4 bg-absolutewhite p-12 rounded-3xl items-center">
+        <div className="flex flex-col gap-4 bg-lightyellow px-12 py-8 rounded-3xl items-center">
           <div className="flex flex-col gap-4 pb-2">
             <Input
               placeholder="Email"
@@ -83,21 +89,19 @@ export default function LoginPage() {
               error={inputError.password}
             />
           </div>
-          <button
-            onClick={handleSubmitForm}
-            className="btn w-40 h-10 min-h-10 border-0 shadow-sm text-absolutewhite bg-primary hover:bg-darkgreen"
-          >
-            Sign in
-          </button>
-          <button
-            onClick={handleGoogleLogin}
-            className="btn w-40 h-10 min-h-10 border-0 shadow-sm text-absolutewhite bg-primary hover:bg-darkgreen"
-          >
-            Google
-          </button>
+          <Button onClick={handleSubmitForm}>Sign in</Button>
+          <Button onClick={handleGoogleLogin}>Google</Button>
           <div className="divider h-0 m-0 border-t border-absoluteblack"></div>
-          <p>Don&apos;t have an account yet!</p>
-          <Modal modalID="register-modal" callToAction="Register">
+          <p className="text-sm font-medium text-graydarktext">
+            Don&apos;t have an account yet!
+          </p>
+          <Button onClick={() => setOpenModal(true)}>Register</Button>
+          <Modal
+            width="small"
+            title="User Registration"
+            open={openModal}
+            onClose={() => setOpenModal(false)}
+          >
             <RegisterForm />
           </Modal>
         </div>
