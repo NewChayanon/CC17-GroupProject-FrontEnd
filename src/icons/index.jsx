@@ -10,12 +10,7 @@ export function FFLogo() {
     >
       <rect width="99" height="97" fill="url(#pattern0_184_709)" />
       <defs>
-        <pattern
-          id="pattern0_184_709"
-          patternContentUnits="objectBoundingBox"
-          width="1"
-          height="1"
-        >
+        <pattern id="pattern0_184_709" patternContentUnits="objectBoundingBox" width="1" height="1">
           <use
             xlink:href="#image0_184_709"
             transform="matrix(0.00390625 0 0 0.00398679 0 -0.0103093)"
@@ -41,11 +36,7 @@ export function TimeIcon() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g
-        id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
         <path
@@ -61,13 +52,7 @@ export function TimeIcon() {
 }
 export function StoreIcon() {
   return (
-    <svg
-      width="21"
-      height="20"
-      viewBox="0 0 21 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="20" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M20.9156 6.33301C20.9157 6.14396 20.8642 5.95848 20.7666 5.79655L17.9448 1.09342C17.7589 0.785967 17.497 0.531521 17.1843 0.354562C16.8716 0.177603 16.5186 0.0840865 16.1594 0.0830078H4.83853C4.11144 0.0830078 3.42707 0.470508 3.05311 1.09447L0.231234 5.79655C0.133681 5.95848 0.0821776 6.14396 0.0822755 6.33301C0.0822755 7.37988 0.484359 8.32676 1.12394 9.06009V18.833C1.12394 19.1093 1.23369 19.3742 1.42904 19.5696C1.62439 19.7649 1.88934 19.8747 2.16561 19.8747H10.4989C10.7752 19.8747 11.0402 19.7649 11.2355 19.5696C11.4309 19.3742 11.5406 19.1093 11.5406 18.833V13.6247H15.7073V18.833C15.7073 19.1093 15.817 19.3742 16.0124 19.5696C16.2077 19.7649 16.4727 19.8747 16.7489 19.8747H18.8323C19.1085 19.8747 19.3735 19.7649 19.5688 19.5696C19.7642 19.3742 19.8739 19.1093 19.8739 18.833V9.06009C20.5135 8.32676 20.9156 7.37988 20.9156 6.33301ZM18.8156 6.59447C18.7515 7.09749 18.5063 7.55994 18.126 7.89527C17.7456 8.2306 17.256 8.41585 16.7489 8.41634C15.6 8.41634 14.6656 7.48197 14.6656 6.33301C14.6656 6.26217 14.6396 6.19967 14.625 6.13301L14.6458 6.12884L13.8531 2.16634H16.1594L18.8156 6.59447ZM8.4229 6.40072L9.26873 2.16634H11.7281L12.575 6.40072C12.5385 7.51842 11.6239 8.41634 10.4989 8.41634C9.37394 8.41634 8.45936 7.51842 8.4229 6.40072ZM4.83853 2.16634H7.14478L6.35311 6.12884L6.37394 6.13301C6.35832 6.19967 6.33228 6.26217 6.33228 6.33301C6.33228 7.48197 5.3979 8.41634 4.24894 8.41634C3.74185 8.41585 3.25231 8.2306 2.87192 7.89527C2.49153 7.55994 2.24636 7.09749 2.18228 6.59447L4.83853 2.16634ZM8.41561 14.6663H4.24894V11.5413H8.41561V14.6663Z"
         fill="#8D8D8D"
@@ -77,13 +62,7 @@ export function StoreIcon() {
 }
 export function InboxIcon() {
   return (
-    <svg
-      width="25"
-      height="25"
-      viewBox="0 0 25 25"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clip-path="url(#clip0_171_1129)">
         <path
           d="M8.49295 9.09017C8.36361 9.22028 8.29102 9.39629 8.29102 9.57975C8.29102 9.76322 8.36361 9.93922 8.49295 10.0693L12.4999 14.0971L16.5207 10.0763C16.6345 9.94343 16.6939 9.77255 16.6872 9.59777C16.6804 9.423 16.608 9.25721 16.4843 9.13353C16.3606 9.00985 16.1949 8.9374 16.0201 8.93065C15.8453 8.9239 15.6744 8.98335 15.5416 9.09711L13.1943 11.4374V1.38878C13.1943 1.2046 13.1212 1.02797 12.9909 0.897734C12.8607 0.7675 12.6841 0.694336 12.4999 0.694336C12.3157 0.694336 12.1391 0.7675 12.0089 0.897734C11.8786 1.02797 11.8055 1.2046 11.8055 1.38878V11.4582L9.45823 9.111C9.33146 8.983 9.15991 8.90928 8.97981 8.90539C8.7997 8.9015 8.62513 8.96776 8.49295 9.09017Z"
@@ -104,13 +83,7 @@ export function InboxIcon() {
 }
 export function LogoutIcon() {
   return (
-    <svg
-      width="25"
-      height="25"
-      viewBox="0 0 25 25"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M5.20869 3.64583H11.9792V4.6875H5.20833H4.6875V5.20833V19.7917V20.3125H5.20833H11.9792V21.3542H5.20833C4.77452 21.3542 4.41643 21.2059 4.10579 20.8953C3.79518 20.5847 3.64642 20.2261 3.64583 19.7913V5.20833C3.64583 4.7748 3.79422 4.41682 4.10547 4.1061C4.41715 3.79495 4.77563 3.64642 5.20869 3.64583ZM17.8906 13.0208H9.89583V11.9792H17.8906H19.148L18.2589 11.09L15.9613 8.79243L16.6766 8.03814L21.1384 12.5L16.6766 16.9619L15.9613 16.2076L18.2589 13.91L19.148 13.0208H17.8906Z"
         fill="#777777"
@@ -122,13 +95,7 @@ export function LogoutIcon() {
 }
 export function VendorNearMeIcon() {
   return (
-    <svg
-      width="25"
-      height="25"
-      viewBox="0 0 25 25"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M12.5001 3.125C12.9145 3.125 13.3119 3.28962 13.6049 3.58265C13.8979 3.87567 14.0626 4.2731 14.0626 4.6875C14.0626 5.1019 13.8979 5.49933 13.6049 5.79235C13.3119 6.08538 12.9145 6.25 12.5001 6.25C12.0857 6.25 11.6882 6.08538 11.3952 5.79235C11.1022 5.49933 10.9376 5.1019 10.9376 4.6875C10.9376 4.2731 11.1022 3.87567 11.3952 3.58265C11.6882 3.28962 12.0857 3.125 12.5001 3.125ZM12.5001 1.5625C11.6713 1.5625 10.8764 1.89174 10.2904 2.47779C9.7043 3.06384 9.37506 3.8587 9.37506 4.6875C9.37506 5.5163 9.7043 6.31116 10.2904 6.89721C10.8764 7.48326 11.6713 7.8125 12.5001 7.8125C13.3289 7.8125 14.1237 7.48326 14.7098 6.89721C15.2958 6.31116 15.6251 5.5163 15.6251 4.6875C15.6251 3.8587 15.2958 3.06384 14.7098 2.47779C14.1237 1.89174 13.3289 1.5625 12.5001 1.5625ZM14.4219 8.57812H10.5782C9.8447 8.57812 9.14125 8.8695 8.62259 9.38816C8.10394 9.90681 7.81256 10.6103 7.81256 11.3438V15.4687C7.79549 15.9029 7.94972 16.3264 8.242 16.6479C8.53429 16.9695 8.94122 17.1632 9.37506 17.1875V20.8281C9.37506 21.3254 9.5726 21.8023 9.92423 22.1539C10.2759 22.5056 10.7528 22.7031 11.2501 22.7031H13.7501C14.0016 22.7033 14.2507 22.6528 14.4823 22.5547C14.714 22.4566 14.9235 22.3128 15.0985 22.132C15.2734 21.9513 15.4102 21.7371 15.5007 21.5024C15.5911 21.2676 15.6334 21.0171 15.6251 20.7656V17.1875C16.0589 17.1632 16.4658 16.9695 16.7581 16.6479C17.0504 16.3264 17.2046 15.9029 17.1876 15.4687V11.3438C17.1876 10.6103 16.8962 9.90681 16.3775 9.38816C15.8589 8.8695 15.1554 8.57812 14.4219 8.57812ZM9.37506 15.625V11.3438C9.37296 11.1852 9.40264 11.0278 9.46236 10.8809C9.52208 10.7339 9.61062 10.6005 9.72277 10.4883C9.83491 10.3762 9.96838 10.2876 10.1153 10.2279C10.2622 10.1682 10.4196 10.1385 10.5782 10.1406H14.4219C14.5805 10.1385 14.7379 10.1682 14.8848 10.2279C15.0317 10.2876 15.1652 10.3762 15.2774 10.4883C15.3895 10.6005 15.478 10.7339 15.5378 10.8809C15.5975 11.0278 15.6272 11.1852 15.6251 11.3438V15.625H14.0626V20.7969C14.0626 20.8798 14.0296 20.9592 13.971 21.0178C13.9124 21.0765 13.8329 21.1094 13.7501 21.1094H11.2501C11.1672 21.1094 11.0877 21.0765 11.0291 21.0178C10.9705 20.9592 10.9376 20.8798 10.9376 20.7969V15.625H9.37506Z"
         fill="#20831E"
@@ -138,13 +105,7 @@ export function VendorNearMeIcon() {
 }
 export function VoucherListIcon() {
   return (
-    <svg
-      width="25"
-      height="25"
-      viewBox="0 0 25 25"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"
@@ -156,13 +117,7 @@ export function VoucherListIcon() {
 }
 export function MyFavoriteSeller() {
   return (
-    <svg
-      width="25"
-      height="25"
-      viewBox="0 0 25 25"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M12.5 2.08301C17.5729 2.08301 21.875 6.28405 21.875 11.3809C21.875 16.558 17.5031 20.1924 13.4656 22.6622C13.1708 22.8281 12.8383 22.9152 12.5 22.9152C12.1617 22.9152 11.8292 22.8281 11.5344 22.6622C7.50312 20.1695 3.125 16.5778 3.125 11.382C3.125 6.28405 7.42708 2.08301 12.5 2.08301Z"
         stroke="#8D8D8D"
@@ -191,11 +146,7 @@ export function InstagramIcon() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g
-        id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
         <path
@@ -221,13 +172,7 @@ export function InstagramIcon() {
 
 export function CalendarIcon() {
   return (
-    <svg
-      width="25"
-      height="25"
-      viewBox="0 0 25 25"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M5.20833 22.9167C4.63542 22.9167 4.14514 22.7128 3.7375 22.3052C3.32986 21.8976 3.12569 21.4069 3.125 20.8333V6.24999C3.125 5.67708 3.32917 5.1868 3.7375 4.77916C4.14583 4.37152 4.63611 4.16736 5.20833 4.16666H6.25V2.08333H8.33333V4.16666H16.6667V2.08333H18.75V4.16666H19.7917C20.3646 4.16666 20.8552 4.37083 21.2635 4.77916C21.6719 5.18749 21.8757 5.67777 21.875 6.24999V20.8333C21.875 21.4062 21.6712 21.8969 21.2635 22.3052C20.8559 22.7135 20.3653 22.9174 19.7917 22.9167H5.20833ZM5.20833 20.8333H19.7917V10.4167H5.20833V20.8333ZM5.20833 8.33333H19.7917V6.24999H5.20833V8.33333ZM7.29167 14.5833V12.5H17.7083V14.5833H7.29167ZM7.29167 18.75V16.6667H14.5833V18.75H7.29167Z"
         fill="#29A427"
@@ -235,6 +180,49 @@ export function CalendarIcon() {
     </svg>
   );
 }
+
+export function UserSummary() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        {" "}
+        <circle
+          cx="9"
+          cy="9"
+          r="2"
+          stroke="#949494"
+          stroke-width="1.9200000000000004"
+        ></circle>{" "}
+        <path
+          d="M13 15C13 16.1046 13 17 9 17C5 17 5 16.1046 5 15C5 13.8954 6.79086 13 9 13C11.2091 13 13 13.8954 13 15Z"
+          stroke="#949494"
+          stroke-width="1.9200000000000004"
+        ></path>{" "}
+        <path
+          d="M22 12C22 15.7712 22 17.6569 20.8284 18.8284C19.6569 20 17.7712 20 14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H14C17.7712 4 19.6569 4 20.8284 5.17157C21.298 5.64118 21.5794 6.2255 21.748 7"
+          stroke="#949494"
+          stroke-width="1.9200000000000004"
+          stroke-linecap="round"
+        ></path>{" "}
+        <path
+          d="M19 12H15"
+          stroke="#949494"
+          stroke-width="1.9200000000000004"
+          stroke-linecap="round"
+        ></path>{" "}
+        <path
+          d="M19 9H14"
+          stroke="#949494"
+          stroke-width="1.9200000000000004"
+          stroke-linecap="round"
+        ></path>{" "}
+        <path
+          d="M19 15H16"
+          stroke="#949494"
+          stroke-width="1.9200000000000004"
+          stroke-linecap="round"
 
 export function SearchIcon() {
   return (
@@ -300,6 +288,25 @@ export function LocationIcon() {
   );
 }
 
+
+export function BuyerIcon() {
+  return (
+    <svg
+      width="25px"
+      height="25px"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="#949494"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        {" "}
+        <path
+          d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"
+          stroke="#949494"
+
 export function ThumbsupIcon() {
   return (
     <svg
@@ -328,6 +335,42 @@ export function ThumbsupIcon() {
     </svg>
   );
 }
+
+export function InboxInbox() {
+  return (
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        {" "}
+        <path
+          stroke="#949494"
+          stroke-linejoin="round"
+          stroke-miterlimit="4.62"
+          stroke-width="2.56"
+          d="M5 16h5.5s1 3.5 5.5 3.5 5.5-3.5 5.5-3.5H27v8c0 1.5-1.5 3-3 3H8c-1.5 0-3-1.5-3-3v-8z"
+        ></path>{" "}
+        <path
+          stroke="#949494"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.56"
+          d="M27 16l-1-3M5 19.5V16l1-3"
+        ></path>{" "}
+        <path
+          stroke="#949494"
+          stroke-linecap="round"
+          stroke-width="2.56"
+          d="M13.5 9h5M13.5 13h5"
+        ></path>{" "}
+        <path
+          stroke="#949494"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2.56"
+          d="M9.5 13V5h13v8"
+        ></path>{" "}
+      </g>
 
 export function PinIcon() {
   return (
@@ -465,6 +508,24 @@ export function StarIcon() {
     </svg>
   );
 }
+
+export function ReportIcon() {
+  return (
+    <svg
+      fill="#949494"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="#949494"
+      stroke-width="0.72"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path
+          fill-rule="evenodd"
+          d="M3.25 4a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h2.5a.75.75 0 01.75.75v3.19l3.427-3.427A1.75 1.75 0 0111.164 17h9.586a.25.25 0 00.25-.25V4.25a.25.25 0 00-.25-.25H3.25zm-1.75.25c0-.966.784-1.75 1.75-1.75h17.5c.966 0 1.75.784 1.75 1.75v12.5a1.75 1.75 0 01-1.75 1.75h-9.586a.25.25 0 00-.177.073l-3.5 3.5A1.457 1.457 0 015 21.043V18.5H3.25a1.75 1.75 0 01-1.75-1.75V4.25zM12 6a.75.75 0 01.75.75v4a.75.75 0 01-1.5 0v-4A.75.75 0 0112 6zm0 9a1 1 0 100-2 1 1 0 000 2z"
+        ></path>
+      </g>
 
 export function StarDisabledIcon() {
   return (

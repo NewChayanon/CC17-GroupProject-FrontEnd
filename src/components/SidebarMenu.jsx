@@ -11,8 +11,13 @@ export default function SidebarMenu({ menuIcon, menuName, linkTo = "/" }) {
   }, []);
   return (
     <li className={`p-2`}>
-      <a className={`p-2 ${isActive && "bg-lightyellow"}`} href={linkTo}>
-        {menuIcon}
+      <a
+        className={`p-2 flex items-center space-x-2 ${isActive && "bg-lightyellow"}`}
+        href={linkTo}
+      >
+        <div className="flex-shrink-0 w-[25px] h-[25px] flex items-center justify-center">
+          {menuIcon}
+        </div>
         <p className="text-sm">{menuName}</p>
       </a>
     </li>
