@@ -4,6 +4,8 @@ import { MONTHS_NAME } from "../constants/date-constant";
 import { PinIcon, PinIconActive } from "../icons";
 import { getDayOfWeek } from "../utils/datetime-conversion";
 import useStore from "../zustand/store.js";
+import Modal from "./Modal";
+import PlaseLoginCard from "./PlaseLoginCard";
 
 export default function EventTabCard({
   selectedEventDetails,
@@ -13,16 +15,21 @@ export default function EventTabCard({
   // Pin Status & Handle Click Pin
   const [isInterested, setIsInterested] = useState(false);
   const isAuthenticated = useStore((state) => state.isAuthenticated);
+  const [openLoginModal,setOpenLoginModal] = useState(false)
   console.log("selectedEventDetails in event card", selectedEventDetails);
   useEffect(() => {
     // Check current Interest Status of the event of this user
-    setIsInterested(selectedEventDetails.interest);
+    if(selectedEventDetails.interestThisEvent){
+    setIsInterested(selectedEventDetails.interestThisEvent)}
+    else if(selectedEventDetails.interest){
+      setIsInterested(selectedEventDetails.interest)
+    }
   }, []);
   const handleClickPin = async (e) => {
     try {
       // 1. เช็คก่อนว่า Login รึยีง ถ้ายัง >> เด้ง error
       if (!isAuthenticated) {
-        return alert("Please Login First");
+        return setOpenLoginModal(true)
       }
       // 2. ยิง API เพื่อ Update isInterested State Backend โดยระบุ eventId
       const result = await eventApi.toggleInterestEventById(
@@ -30,7 +37,13 @@ export default function EventTabCard({
       );
       console.log("Result from API updating interest status", result);
       // 3. ถ้า update สำเร็จ >> setIsinterested เป็นอีกค่านึง ถ้าไม่สำเร็จ >> ส่ง error
-      setIsInterested(!isInterested);
+      setIsInterested((isInterested) => !isInterested);
+      // if(result.data.msg==="Interested success"){
+      //   setIsInterested(true)
+      // } else if (result.data.mes === "Uninterested success"){
+      //   setIsInterested(false)
+      // }
+      
     } catch (err) {
       console.log("error from updating interest", err);
     }
@@ -69,12 +82,12 @@ export default function EventTabCard({
             <div onClick={handleClickPin}>
               {isInterested ? (
                 <div className="flex gap-1 items-center bg-secondary py-1 px-2 rounded-lg text-sm text-primary">
-                  Uninterested
+                  Interested
                   <PinIconActive />
                 </div>
               ) : (
                 <div className="flex gap-1 items-center bg-graylighticon py-1 px-2 rounded-lg text-sm ">
-                  I'm interested
+                  Interest
                   <PinIcon />
                 </div>
               )}
@@ -106,6 +119,13 @@ export default function EventTabCard({
           </p>
         )}
       </div>
+      {/* ======== Modal เด้ง error กรณีที่ยังไม่ได้ login ======= */}
+      <Modal width="small"
+            title="Please Log-in to use the app features"
+            open={openLoginModal}
+            onClose={() => setOpenLoginModal(false)}>
+          <PlaseLoginCard onClose={() => setOpenLoginModal(false)}/>
+            </Modal>
     </div>
   );
 }

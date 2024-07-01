@@ -23,6 +23,9 @@ export default function Promotion() {
   const setSelectedEventDetails = useStore(
     (state) => state.setSelectedEventDetails
   );
+  useEffect(() => {
+    setSelectedEventDetails(eventId,isAuthenticated);
+  }, []);
   const handleGetCoupon = async (e) => {
     try{
     // 1. check ว่า login แล้วหรือยัง ถ้ายังไม่ login จะ get coupon ไม่ได้
@@ -38,7 +41,6 @@ setOpenModal(true)
   useEffect(() => {
     setSelectedEventDetails(eventId);
   }, []);
-  
   
 
   return (

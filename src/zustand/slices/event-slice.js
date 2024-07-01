@@ -12,11 +12,18 @@ export const createEventSlice = (set) => ({
       eventId: eventId,
     }));
   },
-  setSelectedEventDetails: async (eventId) => {
+  setSelectedEventDetails: async (eventId,isAuthenticated) => {
     try {
-      console.log("inside setselectedeventdetails"); // ตรงนี้ run แล้ว
-      const result = await eventApi.getEventById(eventId);
-      console.log("result from getting event details", result.data); // run แล่้ว ได่
+      let result 
+
+    if(isAuthenticated){
+      result = await eventApi.getEventByIdLoggedIn(eventId);
+      console.log("result from getting event details, loggedin", result.data); // run แล่้ว ได่
+    } else {
+      result = await eventApi.getEventByIdAnonymous(eventId);
+      console.log("result from getting event details, anonymous", result.data); // run แล่้ว ได่
+    }
+      
       // เรียก update eventDetail
       set(() => ({
         selectedEventDetails: result.data,
