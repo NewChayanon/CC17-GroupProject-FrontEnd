@@ -20,21 +20,33 @@ export const createAuthSlice = (set) => ({
     try {
       const response = await authApi.login(credentials);
       setAccessToken(response.data.accessToken);
-      const res = await authApi.getAuthUser();
       set(() => ({
         isAuthenticated: true,
-        user: res.data.user,
+        user: response.data.existUser,
         error: null,
       }));
+      return response.data;
+    } catch (error) {
+      set(() => ({
+        error: error.response.data,
+      }));
+      return error.response.data;
+    } finally {
+      set(() => ({
+        isLoading: false,
+      }));
+    }
+  },
+  register: async (credentials) => {
+    try {
+      const response = await authApi.register(credentials);
+      return response.data;
     } catch (error) {
       console.log(error);
       set(() => ({
         error: error.response.data,
       }));
-    } finally {
-      set(() => ({
-        isLoading: false,
-      }));
+      return error.response.data;
     }
   },
   getAuthUser: async () => {
