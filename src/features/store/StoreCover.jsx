@@ -1,12 +1,11 @@
 import React from "react";
 
-export default function StoreCover() {
+export default function StoreCover({selectedStoreDetails={}}) {
   return (
     <div
       className="flex items-center bg-red-500 "
       style={{ maxHeight: "230px", overflow: "hidden" }}
     >
-      {/* <img src={selectedEventDetails.eventImage} /> */}
       <img
         style={{
           width: "100%",
@@ -14,7 +13,7 @@ export default function StoreCover() {
           objectFit: "cover",
           display: "block",
         }}
-        src="https://picsum.photos/400"
+        src={selectedStoreDetails?.storeCoverImage}
       />
     </div>
   );

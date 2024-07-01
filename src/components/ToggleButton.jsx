@@ -10,9 +10,8 @@ export default function ToggleButton({
 }) {
   // Pin Status & Handle Click Pin
   const [isClicked, setIsClicked] = useState(false);
-  const handleClick = (e) => {
-    /// 1. Check ก่อนว่า login อยู่มั้ย ถ้าไม่ >> modal popup ว่ายังไม่มี
-    /// 2. ถ้า Login แล้ว ให้ toggle
+  const handleClick = () => {
+    onClick()
     setIsClicked(!isClicked);
   };
   return (
