@@ -38,14 +38,14 @@ export function TimeIcon() {
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
-        {' '}
+        {" "}
         <path
           d="M12 7V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
           stroke="#fff"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-        ></path>{' '}
+        ></path>{" "}
       </g>
     </svg>
   );
@@ -149,23 +149,23 @@ export function InstagramIcon() {
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
-        {' '}
+        {" "}
         <path
           fill-rule="evenodd"
           clip-rule="evenodd"
           d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"
           fill="#0F0F0F"
-        ></path>{' '}
+        ></path>{" "}
         <path
           d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
           fill="#0F0F0F"
-        ></path>{' '}
+        ></path>{" "}
         <path
           fill-rule="evenodd"
           clip-rule="evenodd"
           d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z"
           fill="#0F0F0F"
-        ></path>{' '}
+        ></path>{" "}
       </g>
     </svg>
   );
@@ -188,43 +188,43 @@ export function UserSummary() {
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
-        {' '}
+        {" "}
         <circle
           cx="9"
           cy="9"
           r="2"
           stroke="#949494"
           stroke-width="1.9200000000000004"
-        ></circle>{' '}
+        ></circle>{" "}
         <path
           d="M13 15C13 16.1046 13 17 9 17C5 17 5 16.1046 5 15C5 13.8954 6.79086 13 9 13C11.2091 13 13 13.8954 13 15Z"
           stroke="#949494"
           stroke-width="1.9200000000000004"
-        ></path>{' '}
+        ></path>{" "}
         <path
           d="M22 12C22 15.7712 22 17.6569 20.8284 18.8284C19.6569 20 17.7712 20 14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H14C17.7712 4 19.6569 4 20.8284 5.17157C21.298 5.64118 21.5794 6.2255 21.748 7"
           stroke="#949494"
           stroke-width="1.9200000000000004"
           stroke-linecap="round"
-        ></path>{' '}
+        ></path>{" "}
         <path
           d="M19 12H15"
           stroke="#949494"
           stroke-width="1.9200000000000004"
           stroke-linecap="round"
-        ></path>{' '}
+        ></path>{" "}
         <path
           d="M19 9H14"
           stroke="#949494"
           stroke-width="1.9200000000000004"
           stroke-linecap="round"
-        ></path>{' '}
+        ></path>{" "}
         <path
           d="M19 15H16"
           stroke="#949494"
           stroke-width="1.9200000000000004"
           stroke-linecap="round"
-        ></path>{' '}
+        ></path>{" "}
       </g>
     </svg>
   );
@@ -243,14 +243,14 @@ export function BuyerIcon() {
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
-        {' '}
+        {" "}
         <path
           d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"
           stroke="#949494"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-        ></path>{' '}
+        ></path>{" "}
       </g>
     </svg>
   );
@@ -262,34 +262,34 @@ export function InboxInbox() {
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
-        {' '}
+        {" "}
         <path
           stroke="#949494"
           stroke-linejoin="round"
           stroke-miterlimit="4.62"
           stroke-width="2.56"
           d="M5 16h5.5s1 3.5 5.5 3.5 5.5-3.5 5.5-3.5H27v8c0 1.5-1.5 3-3 3H8c-1.5 0-3-1.5-3-3v-8z"
-        ></path>{' '}
+        ></path>{" "}
         <path
           stroke="#949494"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="2.56"
           d="M27 16l-1-3M5 19.5V16l1-3"
-        ></path>{' '}
+        ></path>{" "}
         <path
           stroke="#949494"
           stroke-linecap="round"
           stroke-width="2.56"
           d="M13.5 9h5M13.5 13h5"
-        ></path>{' '}
+        ></path>{" "}
         <path
           stroke="#949494"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="2.56"
           d="M9.5 13V5h13v8"
-        ></path>{' '}
+        ></path>{" "}
       </g>
     </svg>
   );
