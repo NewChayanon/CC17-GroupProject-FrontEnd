@@ -17,7 +17,6 @@ export default function Promotion() {
   const setEventId = useStore((state) => state.setEventId);
   const eventId = useStore((state) => state.eventId);
   const eventIdfromPath = pathname.split("/")[2];
-  
   const isAuthenticated = useStore((state)=>state.isAuthenticated)
   const isLoading = useStore((state)=>state.isLoading)
   const selectedEventDetails = useStore((state) => state.selectedEventDetails); // ข้อมูลมา
@@ -34,11 +33,13 @@ export default function Promotion() {
     if (!isAuthenticated) {
       return setOpenLoginModal(true)
     }
-// 2. ถ้า login แล้ว >> ยิง API เพื่อไปขอ get coupon มาจาก Backend ถ้าสำเร็จ ให้เปิด modal เพื่อแสดง voucher
-const result = await eventApi.getCoupon(eventId)
-console.log("Result from getting coupon", result)
-setOpenModal(true)
-} catch(err){console.log("error from API to get coupon",err)}
+    // 2. ถ้า login แล้ว >> ยิง API เพื่อไปขอ get coupon มาจาก Backend ถ้าสำเร็จ ให้เปิด modal เพื่อแสดง voucher
+    const result = await eventApi.getCoupon(eventId)
+    console.log("Result from getting coupon", result)
+    setOpenModal(true)
+    } catch(err){
+      console.log("error from API to get coupon",err)
+    }
   }
   
   return (
