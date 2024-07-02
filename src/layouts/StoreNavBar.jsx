@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import useStore from "../zustand/store";
 import StoreFullCard from "../components/StoreFullCard";
-import SellerContainer from "../features/seller/SellerContainer";
+import MyStoreContainer from "../features/seller/MyStoreContainer";
 import StoreCover from "../features/store/StoreCover";
 import { useEffect } from "react";
 import { useState } from "react";

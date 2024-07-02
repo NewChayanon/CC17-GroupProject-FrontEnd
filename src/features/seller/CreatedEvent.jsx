@@ -1,3 +1,37 @@
 export default function CreatedEvent() {
-  return <div>CreatedEvent</div>;
+  return (
+    <>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+      <div>CreatedEvent</div>
+    </>
+  );
 }
