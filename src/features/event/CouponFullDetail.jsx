@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function CouponFullDetail({selectedEventDetails}) {
+  console.log("Event details inside full coupon", selectedEventDetails)
   return (
     <div
     className="shadow-lg flex rounded-xl relative px-4 gap-4"
@@ -19,17 +20,17 @@ export default function CouponFullDetail({selectedEventDetails}) {
     </div>
     <div className="flex flex-col">
       <div className="text-base text-primary">
-        {selectedEventDetails.sellerName}
+        {selectedEventDetails.sellerFirstName}
       </div>
       <div className="text-base ">Halloween Super Discount</div>
-      <div className="text-xs">{selectedEventDetails.voucherCondition}</div>
+      <div className="text-xs">{selectedEventDetails.voucherItem.voucherCondition}</div>
       <div className="flex justify-between">
         <div className="text-xs">
           Validity: {selectedEventDetails.eventStartDate} -{" "}
           {selectedEventDetails.eventEndDate}
         </div>
         <div className="text-xs">
-          Code: {selectedEventDetails.voucherCode}
+          Code: {selectedEventDetails.voucherItem.voucherCode}
         </div>
       </div>
     </div>

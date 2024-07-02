@@ -17,14 +17,16 @@ export default function Promotion() {
   const setEventId = useStore((state) => state.setEventId);
   const eventId = useStore((state) => state.eventId);
   const eventIdfromPath = pathname.split("/")[2];
-  setEventId(eventIdfromPath);
+  
   const isAuthenticated = useStore((state)=>state.isAuthenticated)
+  const isLoading = useStore((state)=>state.isLoading)
   const selectedEventDetails = useStore((state) => state.selectedEventDetails); // ข้อมูลมา
   const setSelectedEventDetails = useStore(
     (state) => state.setSelectedEventDetails
   );
   useEffect(() => {
-    setSelectedEventDetails(eventId,isAuthenticated);
+    setSelectedEventDetails(eventIdfromPath,isAuthenticated);
+    setEventId(eventIdfromPath);
   }, []);
   const handleGetCoupon = async (e) => {
     try{
@@ -38,38 +40,38 @@ console.log("Result from getting coupon", result)
 setOpenModal(true)
 } catch(err){console.log("error from API to get coupon",err)}
   }
-  useEffect(() => {
-    setSelectedEventDetails(eventId);
-  }, []);
   
-
   return (
     <div className="flex flex-col">
       {/* === Check if this event provides coupon or not === */}
-      {selectedEventDetails.voucherCode ? (
+      {!isLoading&& selectedEventDetails?.voucherItem ? (
         <div className="flex flex-col gap-4 justify-center p-6 bg-white">
           <div className="flex flex-col gap-2">
             <div className="text-xl font-bold text-primary">
               Special deal from this store!
             </div>
             <div className="text-sm">
-              Early bird customers who liked our LINE Official store get 20%Off
-              for the first time.
+            {selectedEventDetails?.voucherItem.voucherCondition}
             </div>
             <div>
               <div className="text-sm font-semibold">Conditions</div>
               <div className="text-sm">
-                This promotion is valid until 31st December 2024. One Line user
-                can use only 1 time.
+              {selectedEventDetails?.voucherItem.voucherCondition}
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-start gap-2">
             <div className="text-xl font-bold text-primary">
               Coupon for this event!
             </div>
             <CouponTab selectedEventDetails={selectedEventDetails} />
-            <Button onClick={handleGetCoupon} >Get Coupon</Button>
+            {/* Check if user already has coupon OR if coupon has run-out >> then disable the button */}
+            <div className="self-center">
+            {selectedEventDetails.voucherItem.userVoucherStatus[0]||selectedEventDetails.voucherItem.voucherRemainingAmount<=0
+            ?<Button onClick={handleGetCoupon} disabled={true} bg="ghost" color="ghost">Get Coupon</Button>
+            :<Button onClick={handleGetCoupon} disabled={false}>Get Coupon</Button>}
+            </div>
+    
             {/* Modal if user login and get coupon successfully */}
            <Modal  width="small"
             title="This coupon is collected!"

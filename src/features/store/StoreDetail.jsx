@@ -9,13 +9,15 @@ export default function StoreDetail() {
   const setStoreId = useStore((state) => state.setStoreId);
   const storeId = useStore((state) => state.storeId);
   const isAuthenticated = useStore((state)=>state.isAuthenticated)
+  const isLoading = useStore((state)=>state.isLoading)
   const storeIdfromPath = pathname.split("/")[2];
-  setStoreId(storeIdfromPath)
+  
   console.log("store ID from path", storeIdfromPath);
 const selectedStoreDetails = useStore((state)=>state.selectedStoreDetails)
 const setSelectedStoreDetails = useStore((state)=> state.setSelectedStoreDetails)
   useEffect(() => {
     setSelectedStoreDetails(storeIdfromPath,isAuthenticated);
+    setStoreId(storeIdfromPath)
   }, []);
 
   return (

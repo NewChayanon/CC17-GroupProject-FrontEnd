@@ -17,6 +17,7 @@ export const createEventSlice = (set) => ({
       let result 
 
     if(isAuthenticated){
+      console.log("event Id sent to fetch function", eventId)
       result = await eventApi.getEventByIdLoggedIn(eventId);
       console.log("result from getting event details, loggedin", result.data); // run แล่้ว ได่
     } else {
