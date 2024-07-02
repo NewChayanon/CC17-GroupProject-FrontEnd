@@ -88,7 +88,7 @@ const RightSidebarMainPage = () => {
         </div>
         {/* MAPPING EVENT END HERE */}
         <div className="flex pt-2 justify-end">
-          <Button onClick={() => navigate("created-events")}>
+          <Button onClick={() => navigate("created-events")} width="large">
             <p className="font-bold">Create new event</p>
           </Button>
         </div>

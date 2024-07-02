@@ -1,3 +1,3 @@
 export default function MyStoreMainPage() {
-  return <div>MyStoreMainPage</div>;
+  return <div className="bg-graybg min-h-full">MyStoreMainPage</div>;
 }

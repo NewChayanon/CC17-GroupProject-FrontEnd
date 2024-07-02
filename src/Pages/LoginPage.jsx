@@ -105,7 +105,7 @@ export default function LoginPage() {
           <p className="text-sm font-medium text-graydarktext">
             Don&apos;t have an account yet!
           </p>
-          <Button onClick={() => setOpenModal(true)}>
+          <Button onClick={() => setOpenModal(true)} bg="tertiary">
             <p className="font-bold">Register</p>
           </Button>
           <Modal

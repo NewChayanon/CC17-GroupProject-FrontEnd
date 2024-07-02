@@ -38,7 +38,7 @@ const CreatedEvent = lazy(() => import("../features/seller/CreatedEvent"));
 const MyStoreReviews = lazy(() => import("../features/seller/MyStoreReviews"));
 const MyStoreProfile = lazy(() => import("../features/seller/MyStoreProfile"));
 const SellerInbox = lazy(() => import("../features/seller/SellerInbox"));
-const FavoriteBuyer = lazy(() => import("../features/seller/FavoriteBuyer"));
+const Followers = lazy(() => import("../features/seller/Followers"));
 const SellerVoucher = lazy(() => import("../features/seller/SellerVoucher"));
 const Dashboard = lazy(() => import("../features/admin/Dashboard"));
 const ManageBuyer = lazy(() => import("../features/admin/ManageBuyer"));
@@ -120,8 +120,8 @@ const userRouter = createBrowserRouter([
       { path: "reviews", element: <MyStoreReviews /> },
       { path: "profile", element: <MyStoreProfile /> },
       { path: "inbox", element: <SellerInbox /> },
-      { path: "favoritebuyer", element: <FavoriteBuyer /> },
-      { path: "voucher", element: <SellerVoucher /> },
+      { path: "followers", element: <Followers /> },
+      { path: "coupon-list", element: <SellerVoucher /> },
     ],
   },
 ]);
