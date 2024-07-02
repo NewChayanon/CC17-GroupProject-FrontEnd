@@ -1,20 +1,24 @@
-import { Navigate } from "react-router-dom";
 import useStore from "../../zustand/store";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import NotLoginPage from "../../Pages/NotLoginPage";
+import { ROLE } from "../../constants/role-constants";
+import UnAuthorizedPage from "../../Pages/UnAuthorizedPage";
+import CreateMyStore from "../user/CreateMyStore";
 
 export default function myStoreProtectedRoute({ children }) {
-  const { user, isLoading } = useStore((state) => ({
-    isLoading: state.isLoading,
-    user: state.user,
-  }));
+  const isLoading = useStore((state) => state.isLoading);
+  const user = useStore((state) => state.user);
 
-  if (isLoading) {
-    return <LoadingSpinner />;
+  if (!user) return <NotLoginPage />;
+  if (user.role === ROLE.SELLER) {
+    return (
+      <>
+        {isLoading === true && <LoadingSpinner />}
+        {children}
+      </>
+    );
+  } else if (user.role === ROLE.BUYER) {
+    return <CreateMyStore />;
   }
-
-  if (!user || user.isSeller === false) {
-    return <Navigate to="/" />;
-  }
-
-  return <>{children}</>;
+  return <UnAuthorizedPage />;
 }

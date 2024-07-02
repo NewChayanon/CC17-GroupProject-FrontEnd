@@ -1,5 +1,3 @@
-import { func } from "joi";
-
 export function FFLogo() {
   return (
     <svg

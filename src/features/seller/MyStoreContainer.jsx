@@ -8,8 +8,14 @@ import { useLocation } from "react-router-dom";
 export default function MyStoreContainer() {
   const location = useLocation();
   const showRightSidebar = [
-    "/mystore/created-events",
+    "/mystore",
+    "/mystore/",
+    "/mystore/profile",
+    "/mystore/profile/",
+    "/mystore/followers",
+    "/mystore/followers/",
     "/mystore/reviews",
+    "/mystore/reviews/",
   ].includes(location.pathname);
 
   return (

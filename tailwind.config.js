@@ -20,7 +20,7 @@ export default {
         darkyellow: "#EBC12B",
         vividyellow: "#FFD850",
         lightyellow: "#FDE078",
-        darkbrown: "#695200",
+        darkbrown: "#564300",
         vividbrown: "#0806300",
         lightbrown: "#AC8704",
       },

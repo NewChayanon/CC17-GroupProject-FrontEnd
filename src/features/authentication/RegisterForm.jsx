@@ -22,11 +22,6 @@ export default function RegisterForm() {
     setInputError({ ...inputError, [e.target.name]: "" });
   };
 
-  const handleClose = () => {
-    setInput(initialInput);
-    setInputError(initialInput);
-  };
-
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
@@ -94,7 +89,9 @@ export default function RegisterForm() {
         value={input.confirmPassword}
         error={inputError.confirmPassword}
       />
-      <Button onClick={handleSubmitForm}>Confirm</Button>
+      <Button onClick={handleSubmitForm}>
+        <p className="font-bold">Confirm</p>
+      </Button>
     </div>
   );
 }

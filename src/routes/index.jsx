@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy } from "react";
-import StoreMainContainer from "../layouts/StoreMainContainer";
 
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const EventMainContainer = lazy(() => import("../layouts/EventMainContainer"));
@@ -24,6 +23,7 @@ const FavoriteStores = lazy(() => import("../features/user/FavoriteStores"));
 const CollectedCoupons = lazy(
   () => import("../features/user/CollectedCoupons")
 );
+const StoreMainContainer = lazy(() => import("../layouts/StoreMainContainer"));
 const UserSettings = lazy(() => import("../features/user/UserSettings"));
 const MyStoreContainer = lazy(
   () => import("../features/seller/MyStoreContainer")
@@ -31,8 +31,12 @@ const MyStoreContainer = lazy(
 const MyStoreProtectedRoute = lazy(
   () => import("../features/authentication/MyStoreProtectedRoute")
 );
+const MyStoreMainPage = lazy(
+  () => import("../features/seller/MyStoreMainPage")
+);
 const CreatedEvent = lazy(() => import("../features/seller/CreatedEvent"));
-const MyShop = lazy(() => import("../features/seller/MyShop"));
+const MyStoreReviews = lazy(() => import("../features/seller/MyStoreReviews"));
+const MyStoreProfile = lazy(() => import("../features/seller/MyStoreProfile"));
 const SellerInbox = lazy(() => import("../features/seller/SellerInbox"));
 const FavoriteBuyer = lazy(() => import("../features/seller/FavoriteBuyer"));
 const SellerVoucher = lazy(() => import("../features/seller/SellerVoucher"));
@@ -103,7 +107,6 @@ const userRouter = createBrowserRouter([
     ],
   },
 
-  // MY STORE IS NOT FINALIZED (TENTATIVE)
   {
     path: "mystore",
     element: (
@@ -112,15 +115,15 @@ const userRouter = createBrowserRouter([
       </MyStoreProtectedRoute>
     ),
     children: [
+      { path: "", element: <MyStoreMainPage /> },
       { path: "created-events", element: <CreatedEvent /> },
-      { path: "myshop", element: <MyShop /> },
+      { path: "reviews", element: <MyStoreReviews /> },
+      { path: "profile", element: <MyStoreProfile /> },
       { path: "inbox", element: <SellerInbox /> },
       { path: "favoritebuyer", element: <FavoriteBuyer /> },
       { path: "voucher", element: <SellerVoucher /> },
     ],
   },
-
-  // MY STORE IS NOT FINALIZED (TENTATIVE)
 ]);
 
 export default function Router() {
