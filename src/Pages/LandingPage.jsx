@@ -28,10 +28,10 @@ export default function LandingPage() {
       </div>
 
       <div className="relative bg-green-100 h-auto">
-        <p className="absolute text-darkgreen pt-10 pl-10 text-2xl font-semibold">
+        <div className="absolute text-darkgreen pt-10 pl-10 text-2xl font-semibold">
           " Whether you're <br />
           &nbsp;a buyer or a seller "
-        </p>
+        </div>
         <img
           src="./src/images/fruits-mobile-pic.png"
           alt="landing-page-main-image"

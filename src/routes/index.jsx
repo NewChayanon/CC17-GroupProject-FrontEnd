@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy } from "react";
+import AboutUs from "../Pages/AboutUs";
 
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const EventMainContainer = lazy(() => import("../layouts/EventMainContainer"));
@@ -49,6 +50,7 @@ const userRouter = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
   { path: "login", element: <LoginPage /> },
   { path: "not-login", element: <NotLoginPage /> },
+  { path: "about-us", element: <AboutUs /> },
   {
     path: "home",
     element: <MainContainer />,
