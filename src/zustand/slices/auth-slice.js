@@ -6,6 +6,7 @@ const initialState = {
   user: null,
   isLoading: false,
   error: null,
+  logoutModal: false,
 };
 
 export const createAuthSlice = (set) => ({
@@ -13,7 +14,9 @@ export const createAuthSlice = (set) => ({
   logout: () => {
     set({ ...initialState });
     removeAccessToken();
-    window.location.reload();
+    set(() => ({
+      logoutModal: true,
+    }));
   },
   login: async (credentials) => {
     set({ ...initialState, isLoading: true });

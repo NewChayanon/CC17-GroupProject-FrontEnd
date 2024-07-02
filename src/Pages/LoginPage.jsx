@@ -8,6 +8,7 @@ import validateLogin from "../features/authentication/validators/login-validator
 import Modal from "../components/Modal";
 import RegisterForm from "../features/authentication/RegisterForm";
 import Button from "../components/Button";
+import { ROLE } from "../constants/role-constants";
 
 const initialInput = {
   email: "",
@@ -48,6 +49,11 @@ export default function LoginPage() {
           ...initialInput,
           password: "Wrong password. Please type again!",
         });
+        return;
+      }
+
+      if (response.existUser.role === ROLE.ADMIN) {
+        navigate("/admin");
         return;
       }
       navigate("/home");
