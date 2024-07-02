@@ -11,20 +11,23 @@ export default function EventDetail() {
   const eventId = useStore((state) => state.eventId);
   const eventIdfromPath = pathname.split("/")[2];
   setEventId(eventIdfromPath);
-
   const selectedEventDetails = useStore((state) => state.selectedEventDetails); // ข้อมูลมา
   const setSelectedEventDetails = useStore(
     (state) => state.setSelectedEventDetails
   );
+  const isAuthenticated = useStore((state)=> state.isAuthenticated)
+  const isLoading = useStore((state)=>state.isLoading)
   useEffect(() => {
-    setSelectedEventDetails(eventId);
+    setSelectedEventDetails(eventIdfromPath,isAuthenticated);
+    setEventId(eventIdfromPath);
   }, []);
 
   return (
+
     <div>
       {/* ============ EventDetail Event Details ============ */}
       <div className="flex justify-center p-6 bg-white">
-        {selectedEventDetails && (
+        {!isLoading && selectedEventDetails && (
           <EventTabCard selectedEventDetails={selectedEventDetails} />
         )}
       </div>
