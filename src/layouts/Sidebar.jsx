@@ -91,7 +91,7 @@ export default function Sidebar() {
   const adminSidebarMenuList = [
     {
       menuIcon: <UserSummary />,
-      menuName: "User Summary",
+      menuName: "Executive Summary",
       linkTo: "/",
       handleClick: "",
       authRequired: false,
@@ -119,7 +119,7 @@ export default function Sidebar() {
     },
     {
       menuIcon: <ReportIcon />,
-      menuName: "Requested Report",
+      menuName: "Report List",
       linkTo: "/",
       handleClick: "",
       authRequired: true,
@@ -137,22 +137,22 @@ export default function Sidebar() {
               />
             ))
           : pathname.startsWith("/admin")
-          ? adminSidebarMenuList.map((sidebarMenu) => (
-              <SidebarMenu
-                menuIcon={sidebarMenu.menuIcon}
-                menuName={sidebarMenu.menuName}
-                linkTo={sidebarMenu.linkTo}
-              />
-            ))
-          : buyerSidebarMenuList.map((sidebarMenu) =>
-              sidebarMenu.authRequired && !isAuthenticated ? null : (
+            ? adminSidebarMenuList.map((sidebarMenu) => (
                 <SidebarMenu
                   menuIcon={sidebarMenu.menuIcon}
                   menuName={sidebarMenu.menuName}
                   linkTo={sidebarMenu.linkTo}
                 />
-              )
-            )}
+              ))
+            : buyerSidebarMenuList.map((sidebarMenu) =>
+                sidebarMenu.authRequired && !isAuthenticated ? null : (
+                  <SidebarMenu
+                    menuIcon={sidebarMenu.menuIcon}
+                    menuName={sidebarMenu.menuName}
+                    linkTo={sidebarMenu.linkTo}
+                  />
+                )
+              )}
       </ul>
     </div>
   );

@@ -52,11 +52,20 @@ export function TimeIcon() {
 }
 export function StoreIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M20.9156 6.33301C20.9157 6.14396 20.8642 5.95848 20.7666 5.79655L17.9448 1.09342C17.7589 0.785967 17.497 0.531521 17.1843 0.354562C16.8716 0.177603 16.5186 0.0840865 16.1594 0.0830078H4.83853C4.11144 0.0830078 3.42707 0.470508 3.05311 1.09447L0.231234 5.79655C0.133681 5.95848 0.0821776 6.14396 0.0822755 6.33301C0.0822755 7.37988 0.484359 8.32676 1.12394 9.06009V18.833C1.12394 19.1093 1.23369 19.3742 1.42904 19.5696C1.62439 19.7649 1.88934 19.8747 2.16561 19.8747H10.4989C10.7752 19.8747 11.0402 19.7649 11.2355 19.5696C11.4309 19.3742 11.5406 19.1093 11.5406 18.833V13.6247H15.7073V18.833C15.7073 19.1093 15.817 19.3742 16.0124 19.5696C16.2077 19.7649 16.4727 19.8747 16.7489 19.8747H18.8323C19.1085 19.8747 19.3735 19.7649 19.5688 19.5696C19.7642 19.3742 19.8739 19.1093 19.8739 18.833V9.06009C20.5135 8.32676 20.9156 7.37988 20.9156 6.33301ZM18.8156 6.59447C18.7515 7.09749 18.5063 7.55994 18.126 7.89527C17.7456 8.2306 17.256 8.41585 16.7489 8.41634C15.6 8.41634 14.6656 7.48197 14.6656 6.33301C14.6656 6.26217 14.6396 6.19967 14.625 6.13301L14.6458 6.12884L13.8531 2.16634H16.1594L18.8156 6.59447ZM8.4229 6.40072L9.26873 2.16634H11.7281L12.575 6.40072C12.5385 7.51842 11.6239 8.41634 10.4989 8.41634C9.37394 8.41634 8.45936 7.51842 8.4229 6.40072ZM4.83853 2.16634H7.14478L6.35311 6.12884L6.37394 6.13301C6.35832 6.19967 6.33228 6.26217 6.33228 6.33301C6.33228 7.48197 5.3979 8.41634 4.24894 8.41634C3.74185 8.41585 3.25231 8.2306 2.87192 7.89527C2.49153 7.55994 2.24636 7.09749 2.18228 6.59447L4.83853 2.16634ZM8.41561 14.6663H4.24894V11.5413H8.41561V14.6663Z"
-        fill="#8D8D8D"
-      />
+    <svg
+      width="25px"
+      height="25px"
+      fill="#949494"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="#949494"
+      stroke-width="0.00024000000000000003"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+      <g id="SVGRepo_iconCarrier">
+        <path d="M21.999 8a.997.997 0 0 0-.143-.515L19.147 2.97A2.01 2.01 0 0 0 17.433 2H6.565c-.698 0-1.355.372-1.714.971L2.142 7.485A.997.997 0 0 0 1.999 8c0 1.005.386 1.914 1 2.618V20a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-5h4v5a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-9.382c.614-.704 1-1.613 1-2.618zm-2.016.251A2.002 2.002 0 0 1 17.999 10c-1.103 0-2-.897-2-2 0-.068-.025-.128-.039-.192l.02-.004L15.219 4h2.214l2.55 4.251zm-9.977-.186L10.818 4h2.361l.813 4.065C13.957 9.138 13.079 10 11.999 10s-1.958-.862-1.993-1.935zM6.565 4h2.214l-.76 3.804.02.004c-.015.064-.04.124-.04.192 0 1.103-.897 2-2 2a2.002 2.002 0 0 1-1.984-1.749L6.565 4zm3.434 12h-4v-3h4v3z"></path>
+      </g>
     </svg>
   );
 }
@@ -183,46 +192,24 @@ export function CalendarIcon() {
 
 export function UserSummary() {
   return (
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      viewBox="0 0 1024 1024"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="#949494"
+      stroke="#949494"
+      stroke-width="40.96"
+    >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
-        {" "}
-        <circle
-          cx="9"
-          cy="9"
-          r="2"
-          stroke="#949494"
-          stroke-width="1.9200000000000004"
-        ></circle>{" "}
         <path
-          d="M13 15C13 16.1046 13 17 9 17C5 17 5 16.1046 5 15C5 13.8954 6.79086 13 9 13C11.2091 13 13 13.8954 13 15Z"
-          stroke="#949494"
-          stroke-width="1.9200000000000004"
-        ></path>{" "}
-        <path
-          d="M22 12C22 15.7712 22 17.6569 20.8284 18.8284C19.6569 20 17.7712 20 14 20H10C6.22876 20 4.34315 20 3.17157 18.8284C2 17.6569 2 15.7712 2 12C2 8.22876 2 6.34315 3.17157 5.17157C4.34315 4 6.22876 4 10 4H14C17.7712 4 19.6569 4 20.8284 5.17157C21.298 5.64118 21.5794 6.2255 21.748 7"
-          stroke="#949494"
-          stroke-width="1.9200000000000004"
-          stroke-linecap="round"
-        ></path>{" "}
-        <path
-          d="M19 12H15"
-          stroke="#949494"
-          stroke-width="1.9200000000000004"
-          stroke-linecap="round"
-        ></path>{" "}
-        <path
-          d="M19 9H14"
-          stroke="#949494"
-          stroke-width="1.9200000000000004"
-          stroke-linecap="round"
-        ></path>{" "}
-        <path
-          d="M19 15H16"
-          stroke="#949494"
-          stroke-width="1.9200000000000004"
-          stroke-linecap="round"
+          fill="#949494"
+          d="m665.216 768 110.848 192h-73.856L591.36 768H433.024L322.176 960H248.32l110.848-192H160a32 32 0 0 1-32-32V192H64a32 32 0 0 1 0-64h896a32 32 0 1 1 0 64h-64v544a32 32 0 0 1-32 32H665.216zM832 192H192v512h640V192zM352 448a32 32 0 0 1 32 32v64a32 32 0 0 1-64 0v-64a32 32 0 0 1 32-32zm160-64a32 32 0 0 1 32 32v128a32 32 0 0 1-64 0V416a32 32 0 0 1 32-32zm160-64a32 32 0 0 1 32 32v192a32 32 0 1 1-64 0V352a32 32 0 0 1 32-32z"
+        ></path>
+      </g>
+    </svg>
+  );
+}
 
 export function SearchIcon() {
   return (
@@ -234,11 +221,7 @@ export function SearchIcon() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g
-        id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
         <path
@@ -262,11 +245,7 @@ export function LocationIcon() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g
-        id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
         <path
@@ -288,24 +267,28 @@ export function LocationIcon() {
   );
 }
 
-
 export function BuyerIcon() {
   return (
     <svg
-      width="25px"
-      height="25px"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       stroke="#949494"
+      stroke-width="0.8399999999999999"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
+        <circle cx="12" cy="6" r="4" fill="#949494"></circle>{" "}
         <path
-          d="M6.29977 5H21L19 12H7.37671M20 16H8L6 3H3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"
-          stroke="#949494"
+          d="M20 17.5C20 19.9853 20 22 12 22C4 22 4 19.9853 4 17.5C4 15.0147 7.58172 13 12 13C16.4183 13 20 15.0147 20 17.5Z"
+          fill="#949494"
+        ></path>{" "}
+      </g>
+    </svg>
+  );
+}
 
 export function ThumbsupIcon() {
   return (
@@ -317,11 +300,7 @@ export function ThumbsupIcon() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g
-        id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
         <path
@@ -371,6 +350,9 @@ export function InboxInbox() {
           d="M9.5 13V5h13v8"
         ></path>{" "}
       </g>
+    </svg>
+  );
+}
 
 export function PinIcon() {
   return (
@@ -382,11 +364,7 @@ export function PinIcon() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g
-        id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
         <path
@@ -409,11 +387,7 @@ export function PinIconActive() {
       stroke-width="2.4"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-      <g
-        id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      ></g>
+      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
         <path
@@ -426,13 +400,7 @@ export function PinIconActive() {
 }
 export function AnnouncementIcon() {
   return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M10 6.66634H3.33335C2.89133 6.66634 2.4674 6.84194 2.15484 7.1545C1.84228 7.46706 1.66669 7.89098 1.66669 8.33301V11.6663C1.66669 12.1084 1.84228 12.5323 2.15484 12.8449C2.4674 13.1574 2.89133 13.333 3.33335 13.333H4.16669V16.6663C4.16669 16.8874 4.25448 17.0993 4.41076 17.2556C4.56705 17.4119 4.77901 17.4997 5.00002 17.4997H6.66669C6.8877 17.4997 7.09966 17.4119 7.25594 17.2556C7.41222 17.0993 7.50002 16.8874 7.50002 16.6663V13.333H10L14.1667 16.6663V3.33301L10 6.66634ZM17.9167 9.99967C17.9167 11.4247 17.1167 12.7163 15.8334 13.333V6.66634C17.1084 7.29134 17.9167 8.58301 17.9167 9.99967Z"
         fill="white"
@@ -443,13 +411,7 @@ export function AnnouncementIcon() {
 
 export function ProductIcon() {
   return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M12 6.41634C13.6667 5.33301 15.8334 5.83301 15.8334 5.83301C14.3334 3.83301 12.5834 3.91634 11.3334 4.33301V4.16634C12.25 2.83301 14.0834 2.91634 14.0834 2.91634C12.75 1.74967 11.5834 2.08301 10.8334 2.49967C10.4167 1.49967 10 0.833008 10 0.833008C9.66669 1.41634 9.41669 1.99967 9.16669 2.58301C8.41669 2.08301 7.16669 1.74967 5.83335 2.91634C5.83335 2.91634 7.75002 2.91634 8.66669 4.33301C7.41669 3.91634 5.66669 3.83301 4.16669 5.83301C4.16669 5.83301 6.33335 5.33301 8.00002 6.41634C6.25002 7.41634 5.00002 9.74967 5.00002 12.4997C5.00002 16.1663 7.25002 19.1663 10 19.1663C12.75 19.1663 15 16.1663 15 12.4997C15 9.74967 13.75 7.41634 12 6.41634ZM13.1667 13.9997C13.0834 14.333 13 14.6663 12.8334 14.9997L11.6667 13.333L10.4167 14.9997L11.75 16.7497C11.5 16.9163 11.3334 17.083 11.0834 17.2497L10 15.833L8.91669 17.2497C8.66669 17.1663 8.41669 16.9997 8.25002 16.7497L9.58335 14.9997L8.33335 13.333L7.08335 14.9163C7.00002 14.583 6.83335 14.2497 6.75002 13.9163L7.91669 12.4997L6.83335 10.9997C6.91669 10.6663 7.00002 10.333 7.16669 9.99967L8.33335 11.6663L9.58335 9.99967L8.25002 8.24967C8.50002 8.08301 8.66669 7.91634 8.91669 7.74967L10 9.16634L11.0834 7.74967C11.3334 7.83301 11.5834 7.99967 11.75 8.24967L10.4167 9.99967L11.6667 11.6663L12.9167 10.083C13 10.4163 13.1667 10.7497 13.25 11.083L12.0834 12.4997L13.1667 13.9997ZM10 10.833L11.25 12.4997L10 14.1663L8.75002 12.4997L10 10.833Z"
         fill="#20831E"
@@ -477,13 +439,7 @@ export function CouponIcon({ className = "text-red-500" }) {
 
 export function StarIcon() {
   return (
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 15 15"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clip-path="url(#clip0_231_2174)">
         <path
           opacity="0.16"
@@ -526,16 +482,13 @@ export function ReportIcon() {
           d="M3.25 4a.25.25 0 00-.25.25v12.5c0 .138.112.25.25.25h2.5a.75.75 0 01.75.75v3.19l3.427-3.427A1.75 1.75 0 0111.164 17h9.586a.25.25 0 00.25-.25V4.25a.25.25 0 00-.25-.25H3.25zm-1.75.25c0-.966.784-1.75 1.75-1.75h17.5c.966 0 1.75.784 1.75 1.75v12.5a1.75 1.75 0 01-1.75 1.75h-9.586a.25.25 0 00-.177.073l-3.5 3.5A1.457 1.457 0 015 21.043V18.5H3.25a1.75 1.75 0 01-1.75-1.75V4.25zM12 6a.75.75 0 01.75.75v4a.75.75 0 01-1.5 0v-4A.75.75 0 0112 6zm0 9a1 1 0 100-2 1 1 0 000 2z"
         ></path>
       </g>
+    </svg>
+  );
+}
 
 export function StarDisabledIcon() {
   return (
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 15 15"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clip-path="url(#clip0_231_2204)">
         <path
           opacity="0.16"
