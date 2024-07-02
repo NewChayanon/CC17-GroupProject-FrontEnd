@@ -11,12 +11,14 @@ import NavMenu from "../components/NavMenu.jsx";
 import { Link } from "react-router-dom";
 import useStore from "../zustand/store.js";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function Header() {
   // ทำ responsive 2 size 1) mobile 2) desktop
   const isAuthenticated = useStore((state) => state.isAuthenticated);
   const user = useStore((state) => state.user);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const navMenuList = [
     {
       menuIcon: <VendorNearMeIcon />,
@@ -61,9 +63,13 @@ export default function Header() {
       authRequired: true,
     },
   ];
+
+  console.log(pathname);
   return (
     <div>
-      <div className="navbar bg-secondary h-20 xl:h-24 flex justify-between items-center">
+      <div
+        className={`navbar ${pathname.includes("/admin") ? "bg-graylighttext" : pathname.includes("/mystore") ? "bg-tertiary" : "bg-secondary"} h-20 xl:h-24 flex justify-between items-center`}
+      >
         <div className="flex justify-between items-center">
           <a className="btn btn-ghost text-md" onClick={() => navigate("/")}>
             <img className="w-16 h-16" src={ffLogo} />
