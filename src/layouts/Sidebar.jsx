@@ -128,7 +128,7 @@ export default function Sidebar() {
   return (
     <div className="hidden xl:flex w-64 min-h-screen bg-white">
       <ul className="mt-3 z-[1] p-2 w-full shadow menu menu-sm dropdown-content bg-white rounded-box ">
-        {pathname.startsWith("/seller")
+        {pathname.startsWith("/mystore")
           ? sellerSidebarMenuList.map((sidebarMenu) => (
               <SidebarMenu
                 menuIcon={sidebarMenu.menuIcon}

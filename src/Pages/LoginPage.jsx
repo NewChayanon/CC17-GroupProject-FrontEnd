@@ -8,6 +8,7 @@ import validateLogin from "../features/authentication/validators/login-validator
 import Modal from "../components/Modal";
 import RegisterForm from "../features/authentication/RegisterForm";
 import Button from "../components/Button";
+import { ROLE } from "../constants/role-constants";
 
 const initialInput = {
   email: "",
@@ -50,6 +51,11 @@ export default function LoginPage() {
         });
         return;
       }
+
+      if (response.existUser.role === ROLE.ADMIN) {
+        navigate("/admin");
+        return;
+      }
       navigate("/home");
     } catch (error) {
       console.log(error);
@@ -89,13 +95,19 @@ export default function LoginPage() {
               error={inputError.password}
             />
           </div>
-          <Button onClick={handleSubmitForm}>Sign in</Button>
-          <Button onClick={handleGoogleLogin}>Google</Button>
+          <Button onClick={handleSubmitForm}>
+            <p className="font-bold">Sign in</p>
+          </Button>
+          <Button onClick={handleGoogleLogin}>
+            <p className="font-bold">Google</p>
+          </Button>
           <div className="divider h-0 m-0 border-t border-absoluteblack"></div>
           <p className="text-sm font-medium text-graydarktext">
             Don&apos;t have an account yet!
           </p>
-          <Button onClick={() => setOpenModal(true)}>Register</Button>
+          <Button onClick={() => setOpenModal(true)}>
+            <p className="font-bold">Register</p>
+          </Button>
           <Modal
             width="small"
             title="User Registration"

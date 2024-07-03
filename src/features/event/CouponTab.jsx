@@ -33,6 +33,12 @@ export default function CouponTab({ selectedEventDetails }) {
           </div>
         </div>
       </div>
+      {/* Check if User already has voucher or not. If yes, show "Collected" */}
+      {selectedEventDetails.voucherItem.userVoucherStatus[0]?(
+      <><div className="absolute w-full h-full bg-white opacity-50 "></div>
+      <div className="absolute w-full h-full bg-gray flex justify-center items-center text-2xl font-bold text-red-500 -rotate-12">--Collected!--</div>
+      </>
+      ):null}
       <div className="absolute bg-white rounded-full w-8 h-8 -left-4 top-1/2 transform -translate-y-1/2"></div>
       <div className="absolute bg-white rounded-full w-8 h-8 -right-4 top-1/2 transform -translate-y-1/2"></div>
     </div>
