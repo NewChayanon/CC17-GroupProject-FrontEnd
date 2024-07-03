@@ -1,10 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { lazy } from "react";
-import AboutUs from "../Pages/AboutUs";
 
 const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const EventMainContainer = lazy(() => import("../layouts/EventMainContainer"));
 const LandingPage = lazy(() => import("../Pages/LandingPage"));
+
+const AboutUs = lazy(() => import("../Pages/AboutUs"));
+const ContactUs = lazy(() => import("../Pages/ContactUs"));
 
 const LoginPage = lazy(() => import("../Pages/LoginPage"));
 const NotLoginPage = lazy(() => import("../Pages/NotLoginPage"));
@@ -24,15 +26,20 @@ const FavoriteStores = lazy(() => import("../features/user/FavoriteStores"));
 const CollectedCoupons = lazy(
   () => import("../features/user/CollectedCoupons")
 );
+const StoreMainContainer = lazy(() => import("../layouts/StoreMainContainer"));
 const UserSettings = lazy(() => import("../features/user/UserSettings"));
-const SellerContainer = lazy(
-  () => import("../features/seller/SellerContainer")
+const MyStoreContainer = lazy(
+  () => import("../features/seller/MyStoreContainer")
 );
-const SellerProtectedRoute = lazy(
-  () => import("../features/authentication/SellerProtectedRoute")
+const MyStoreProtectedRoute = lazy(
+  () => import("../features/authentication/MyStoreProtectedRoute")
+);
+const MyStoreMainPage = lazy(
+  () => import("../features/seller/MyStoreMainPage")
 );
 const CreatedEvent = lazy(() => import("../features/seller/CreatedEvent"));
-const MyShop = lazy(() => import("../features/seller/MyShop"));
+const MyStoreReviews = lazy(() => import("../features/seller/MyStoreReviews"));
+const MyStoreProfile = lazy(() => import("../features/seller/MyStoreProfile"));
 const SellerInbox = lazy(() => import("../features/seller/SellerInbox"));
 const FavoriteBuyer = lazy(() => import("../features/seller/FavoriteBuyer"));
 const SellerVoucher = lazy(() => import("../features/seller/SellerVoucher"));
@@ -51,6 +58,8 @@ const userRouter = createBrowserRouter([
   { path: "login", element: <LoginPage /> },
   { path: "not-login", element: <NotLoginPage /> },
   { path: "about-us", element: <AboutUs /> },
+  { path: "contact-us", element: <ContactUs /> },
+
   {
     path: "home",
     element: <MainContainer />,
@@ -82,9 +91,9 @@ const userRouter = createBrowserRouter([
   },
   {
     path: "store/:storeId",
-    element: <MainContainer />,
+    element: <StoreMainContainer />,
     children: [
-      { path: "detail", element: <StoreDetail /> },
+      { path: "profile", element: <StoreDetail /> },
       { path: "review", element: <Review /> },
     ],
   },
@@ -104,24 +113,23 @@ const userRouter = createBrowserRouter([
     ],
   },
 
-  // MY STORE IS NOT FINALIZED (TENTATIVE)
   {
     path: "mystore",
     element: (
-      <SellerProtectedRoute>
-        <SellerContainer />
-      </SellerProtectedRoute>
+      <MyStoreProtectedRoute>
+        <MyStoreContainer />
+      </MyStoreProtectedRoute>
     ),
     children: [
-      { path: "createdevent", element: <CreatedEvent /> },
-      { path: "myshop", element: <MyShop /> },
+      { path: "", element: <MyStoreMainPage /> },
+      { path: "created-events", element: <CreatedEvent /> },
+      { path: "reviews", element: <MyStoreReviews /> },
+      { path: "profile", element: <MyStoreProfile /> },
       { path: "inbox", element: <SellerInbox /> },
       { path: "favoritebuyer", element: <FavoriteBuyer /> },
       { path: "voucher", element: <SellerVoucher /> },
     ],
   },
-
-  // MY STORE IS NOT FINALIZED (TENTATIVE)
 ]);
 
 export default function Router() {

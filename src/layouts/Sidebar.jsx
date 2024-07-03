@@ -8,6 +8,10 @@ import {
   MyFavoriteSeller,
   VoucherListIcon,
   CalendarIcon,
+  UserSummary,
+  BuyerIcon,
+  ReportIcon,
+  InboxInbox,
 } from "../icons/index.jsx";
 import useStore from "../zustand/store.js";
 
@@ -84,11 +88,47 @@ export default function Sidebar() {
       handleClick: "",
     },
   ];
-
+  const adminSidebarMenuList = [
+    {
+      menuIcon: <UserSummary />,
+      menuName: "Executive Summary",
+      linkTo: "/",
+      handleClick: "",
+      authRequired: false,
+    },
+    {
+      menuIcon: <StoreIcon />,
+      menuName: "Seller",
+      linkTo: "/",
+      handleClick: "",
+      authRequired: true,
+    },
+    {
+      menuIcon: <BuyerIcon />,
+      menuName: "Buyer",
+      linkTo: "/",
+      handleClick: "",
+      authRequired: true,
+    },
+    {
+      menuIcon: <InboxInbox />,
+      menuName: "Inbox",
+      linkTo: "/",
+      handleClick: "",
+      authRequired: true,
+    },
+    {
+      menuIcon: <ReportIcon />,
+      menuName: "Report List",
+      linkTo: "/",
+      handleClick: "",
+      authRequired: true,
+    },
+  ];
   return (
     <div className="hidden xl:flex w-64 min-h-screen bg-white">
       <ul className="mt-3 z-[1] p-2 w-full shadow menu menu-sm dropdown-content bg-white rounded-box ">
-        {pathname.startsWith("/seller")
+        {pathname.startsWith("/mystore")
           ? sellerSidebarMenuList.map((sidebarMenu) => (
               <SidebarMenu
                 menuIcon={sidebarMenu.menuIcon}
@@ -96,15 +136,23 @@ export default function Sidebar() {
                 linkTo={sidebarMenu.linkTo}
               />
             ))
-          : buyerSidebarMenuList.map((sidebarMenu) =>
-              sidebarMenu.authRequired && !isAuthenticated ? null : (
+          : pathname.startsWith("/admin")
+            ? adminSidebarMenuList.map((sidebarMenu) => (
                 <SidebarMenu
                   menuIcon={sidebarMenu.menuIcon}
                   menuName={sidebarMenu.menuName}
                   linkTo={sidebarMenu.linkTo}
                 />
-              )
-            )}
+              ))
+            : buyerSidebarMenuList.map((sidebarMenu) =>
+                sidebarMenu.authRequired && !isAuthenticated ? null : (
+                  <SidebarMenu
+                    menuIcon={sidebarMenu.menuIcon}
+                    menuName={sidebarMenu.menuName}
+                    linkTo={sidebarMenu.linkTo}
+                  />
+                )
+              )}
       </ul>
     </div>
   );

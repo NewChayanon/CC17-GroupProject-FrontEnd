@@ -9,7 +9,6 @@ export default function MainContainer() {
       <Header />
       <div className="flex">
         <Sidebar />
-
         <div className="grow">
           <Outlet />
         </div>

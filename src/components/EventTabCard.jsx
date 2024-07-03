@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import eventApi from "../apis/event";
 import { MONTHS_NAME } from "../constants/date-constant";
 import { PinIcon, PinIconActive } from "../icons";
 import { getDayOfWeek } from "../utils/datetime-conversion";
+import useStore from "../zustand/store.js";
+import Modal from "./Modal";
+import PlaseLoginCard from "./PlaseLoginCard";
 
 export default function EventTabCard({
   selectedEventDetails,
@@ -10,11 +14,40 @@ export default function EventTabCard({
 }) {
   // Pin Status & Handle Click Pin
   const [isInterested, setIsInterested] = useState(false);
-  const handleClickPin = (e) => {
-    setIsInterested(!isInterested);
-    // ยิง API เพื่อ Update isInterested State BAckend
+  const isAuthenticated = useStore((state) => state.isAuthenticated);
+  const [openLoginModal,setOpenLoginModal] = useState(false)
+  console.log("selectedEventDetails in event card", selectedEventDetails);
+  useEffect(() => {
+    // Check current Interest Status of the event of this user
+    if(selectedEventDetails.interestThisEvent){
+    setIsInterested(selectedEventDetails.interestThisEvent)}
+    else if(selectedEventDetails.interest){
+      setIsInterested(selectedEventDetails.interest)
+    }
+  }, []);
+  const handleClickPin = async (e) => {
+    try {
+      // 1. เช็คก่อนว่า Login รึยีง ถ้ายัง >> เด้ง error
+      if (!isAuthenticated) {
+        return setOpenLoginModal(true)
+      }
+      // 2. ยิง API เพื่อ Update isInterested State Backend โดยระบุ eventId
+      const result = await eventApi.toggleInterestEventById(
+        selectedEventDetails.id
+      );
+      console.log("Result from API updating interest status", result);
+      // 3. ถ้า update สำเร็จ >> setIsinterested เป็นอีกค่านึง ถ้าไม่สำเร็จ >> ส่ง error
+      setIsInterested((isInterested) => !isInterested);
+      // if(result.data.msg==="Interested success"){
+      //   setIsInterested(true)
+      // } else if (result.data.mes === "Uninterested success"){
+      //   setIsInterested(false)
+      // }
+      
+    } catch (err) {
+      console.log("error from updating interest", err);
+    }
   };
-  console.log("selectedEventDetails", selectedEventDetails);
   const eventStartDate = selectedEventDetails?.eventStartDate.split("/")[0];
   const eventStartMonth =
     MONTHS_NAME[selectedEventDetails?.eventStartDate.split("/")[1]];
@@ -43,16 +76,18 @@ export default function EventTabCard({
               10:00AM - 18:00PM
             </div>
           </div>
+
+          {/* ถ้าเป็น event card แบบ full version - จะแสดงปุ่มกด interest แบบ full version แต่ถ้าไม่ใช่ full version (แสดง other events) จะแสดงแค่ pin ขึ้นมา*/}
           {isFullVersion ? (
             <div onClick={handleClickPin}>
               {isInterested ? (
                 <div className="flex gap-1 items-center bg-secondary py-1 px-2 rounded-lg text-sm text-primary">
-                  Uninterested
+                  Interested
                   <PinIconActive />
                 </div>
               ) : (
                 <div className="flex gap-1 items-center bg-graylighticon py-1 px-2 rounded-lg text-sm ">
-                  I'm interested
+                  Interest
                   <PinIcon />
                 </div>
               )}
@@ -66,6 +101,7 @@ export default function EventTabCard({
         <div className="text-sm text-primary font-semibold">
           Location: {selectedEventDetails?.eventLocation}
         </div>
+        {/* ถ้าเป็น event card แบบ full version - จะแสดง event Details ด้วย*/}
         {isFullVersion && (
           <p
             className="text-sm text-graydarktext text-ellipsis overflow-hidden"
@@ -83,6 +119,13 @@ export default function EventTabCard({
           </p>
         )}
       </div>
+      {/* ======== Modal เด้ง error กรณีที่ยังไม่ได้ login ======= */}
+      <Modal width="small"
+            title="Please Log-in to use the app features"
+            open={openLoginModal}
+            onClose={() => setOpenLoginModal(false)}>
+          <PlaseLoginCard onClose={() => setOpenLoginModal(false)}/>
+            </Modal>
     </div>
   );
 }
