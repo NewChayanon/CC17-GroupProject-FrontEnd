@@ -15,21 +15,21 @@ export default function EventTabCard({
   // Pin Status & Handle Click Pin
   const [isInterested, setIsInterested] = useState(false);
   const isAuthenticated = useStore((state) => state.isAuthenticated);
-  const [openLoginModal,setOpenLoginModal] = useState(false)
+  const [openLoginModal, setOpenLoginModal] = useState(false);
   console.log("selectedEventDetails in event card", selectedEventDetails);
   useEffect(() => {
     // Check current Interest Status of the event of this user
-    if(selectedEventDetails.interestThisEvent){
-    setIsInterested(selectedEventDetails.interestThisEvent)}
-    else if(selectedEventDetails.interest){
-      setIsInterested(selectedEventDetails.interest)
+    if (selectedEventDetails.interestThisEvent) {
+      setIsInterested(selectedEventDetails.interestThisEvent);
+    } else if (selectedEventDetails.interest) {
+      setIsInterested(selectedEventDetails.interest);
     }
   }, []);
   const handleClickPin = async (e) => {
     try {
       // 1. เช็คก่อนว่า Login รึยีง ถ้ายัง >> เด้ง error
       if (!isAuthenticated) {
-        return setOpenLoginModal(true)
+        return setOpenLoginModal(true);
       }
       // 2. ยิง API เพื่อ Update isInterested State Backend โดยระบุ eventId
       const result = await eventApi.toggleInterestEventById(
@@ -43,7 +43,6 @@ export default function EventTabCard({
       // } else if (result.data.mes === "Uninterested success"){
       //   setIsInterested(false)
       // }
-      
     } catch (err) {
       console.log("error from updating interest", err);
     }
@@ -53,7 +52,9 @@ export default function EventTabCard({
     MONTHS_NAME[selectedEventDetails?.eventStartDate.split("/")[1]];
   const eventStartDay = getDayOfWeek(selectedEventDetails?.eventStartDate);
   return (
-    <div className={`flex rounded-lg ${isFullVersion ? "" : "shadow-xl p-2"}`}>
+    <div
+      className={`flex rounded-lg ${isFullVersion ? "" : "shadow-md my-2 p-3"}`}
+    >
       <div className="flex flex-col gap-4">
         {isFullVersion && (
           <div className="text-xl font-bold">
@@ -120,12 +121,14 @@ export default function EventTabCard({
         )}
       </div>
       {/* ======== Modal เด้ง error กรณีที่ยังไม่ได้ login ======= */}
-      <Modal width="small"
-            title="Please Log-in to use the app features"
-            open={openLoginModal}
-            onClose={() => setOpenLoginModal(false)}>
-          <PlaseLoginCard onClose={() => setOpenLoginModal(false)}/>
-            </Modal>
+      <Modal
+        width="small"
+        title="Please Log-in to use the app features"
+        open={openLoginModal}
+        onClose={() => setOpenLoginModal(false)}
+      >
+        <PlaseLoginCard onClose={() => setOpenLoginModal(false)} />
+      </Modal>
     </div>
   );
 }
