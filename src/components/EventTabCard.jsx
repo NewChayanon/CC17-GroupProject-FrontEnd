@@ -11,6 +11,7 @@ export default function EventTabCard({
   selectedEventDetails,
   isFullVersion = true,
   hasVoucher = false,
+  requiredPin = true,
 }) {
   // Pin Status & Handle Click Pin
   const [isInterested, setIsInterested] = useState(false);
@@ -19,12 +20,8 @@ export default function EventTabCard({
   console.log("selectedEventDetails in event card", selectedEventDetails);
   useEffect(() => {
     // Check current Interest Status of the event of this user
-    if (selectedEventDetails.interestThisEvent) {
-      setIsInterested(selectedEventDetails.interestThisEvent);
-    } else if (selectedEventDetails.interest) {
-      setIsInterested(selectedEventDetails.interest);
-    }
-  }, []);
+    setIsInterested(selectedEventDetails.interest);
+  }, [selectedEventDetails]);
   const handleClickPin = async (e) => {
     try {
       // 1. เช็คก่อนว่า Login รึยีง ถ้ายัง >> เด้ง error
@@ -80,19 +77,21 @@ export default function EventTabCard({
 
           {/* ถ้าเป็น event card แบบ full version - จะแสดงปุ่มกด interest แบบ full version แต่ถ้าไม่ใช่ full version (แสดง other events) จะแสดงแค่ pin ขึ้นมา*/}
           {isFullVersion ? (
-            <div onClick={handleClickPin}>
-              {isInterested ? (
-                <div className="flex gap-1 items-center bg-secondary py-1 px-2 rounded-lg text-sm text-primary">
-                  Interested
-                  <PinIconActive />
-                </div>
-              ) : (
-                <div className="flex gap-1 items-center bg-graylighticon py-1 px-2 rounded-lg text-sm ">
-                  Interest
-                  <PinIcon />
-                </div>
-              )}
-            </div>
+            requiredPin ? (
+              <div onClick={handleClickPin}>
+                {isInterested ? (
+                  <div className="flex gap-1 items-center bg-secondary py-1 px-2 rounded-lg text-sm text-primary">
+                    Interested
+                    <PinIconActive />
+                  </div>
+                ) : (
+                  <div className="flex gap-1 items-center bg-graylighticon py-1 px-2 rounded-lg text-sm ">
+                    Interest
+                    <PinIcon />
+                  </div>
+                )}
+              </div>
+            ) : null
           ) : (
             <div onClick={handleClickPin}>
               {isInterested ? <PinIconActive /> : <PinIcon />}

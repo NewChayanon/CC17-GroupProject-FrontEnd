@@ -15,15 +15,14 @@ export default function EventDetail() {
   const setSelectedEventDetails = useStore(
     (state) => state.setSelectedEventDetails
   );
-  const isAuthenticated = useStore((state)=> state.isAuthenticated)
-  const isLoading = useStore((state)=>state.isLoading)
+  const isAuthenticated = useStore((state) => state.isAuthenticated);
+  const isLoading = useStore((state) => state.isLoading);
   useEffect(() => {
-    setSelectedEventDetails(eventIdfromPath,isAuthenticated);
+    setSelectedEventDetails(eventIdfromPath, isAuthenticated);
     setEventId(eventIdfromPath);
   }, []);
 
   return (
-
     <div>
       {/* ============ EventDetail Event Details ============ */}
       <div className="flex justify-center p-6 bg-white">
