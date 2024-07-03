@@ -2,7 +2,8 @@ import { useRef, useState } from "react";
 import storeApi from "../../apis/store";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import validateReview from "./validators/review-validator";
+import InputTextarea from "../../components/InputTextarea";
+import validateReport from "./validators/report-validator";
 const initialInput = {
   subject: "",
   message: "",
@@ -14,7 +15,7 @@ const initialInputError = {
   reportImage: "",
 };
 
-export default function ReportForm({ storeId }) {
+export default function ReportForm({ storeId, onClose }) {
   const [input, setInput] = useState(initialInput);
   const [inputError, setInputError] = useState(initialInputError);
   const fileEl = useRef(); // {current:undefined}
@@ -27,37 +28,37 @@ export default function ReportForm({ storeId }) {
     if (e.target.files[0]) {
       console.log("upload event", e);
       setInput({ ...input, [e.target.name]: e.target.files[0] });
+      console.log("e.target.file", e.target.files[0]);
     }
   };
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
-      const formData = new FormData();
+      // Validate input ของ report
+      const error = validateReport(input);
+      if (error) {
+        setInputError(error);
+        return;
+      }
+      // ถ้า validate ผ่าน >> Prepare formdata & เรียก API กับ BACKEND เพื่อ submit form เข้าไป
       // Prepare form data to submit
+      const formData = new FormData();
       for (let key in input) {
         formData.append(key, input[key]);
       }
-      console.log("final formData", formData);
       // API to submit formdata
       const result = await storeApi.reportStore(storeId, formData);
       console.log("result from submitting report", result);
-
-      // เขียน validate input ของ report
-      // const error = validateReview(input);
-      // if (error) {
-      //   setInputError(error);
-      //   return;
-      // }
+      onClose();
+      location.reload();
     } catch (err) {
       console.log("Error from posting report", err);
-      // เอา error มาแสดงต่อ
+      alert(err.msg);
     }
-
-    // ถ้า validate ผ่าน >> เรียก API กับ BACKEND เพื่อ submit form เข้าไป
   };
   return (
-    <div className="flex flex-col items-center gap-2 p-4">
-      <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 p-4">
+      <div className="flex flex-col items-center gap-4 border-b-2">
         <input
           type="file"
           ref={fileEl}
@@ -79,16 +80,20 @@ export default function ReportForm({ storeId }) {
           value={input.subject}
           error={inputError.subject}
         />
-        <Input
-          placeholder=""
-          height="10"
+        <InputTextarea
+          placeholder="Details"
+          rows="5"
+          cols="30"
           name="message"
           onChange={handleChangeInput}
           value={input.message}
           error={inputError.message}
         />
         {/* Image Input Type*/}
-        <Button onClick={() => fileEl.current.click()}>Upload Evidence</Button>
+        <div>Please upload an evidence to help us with the process.</div>
+        <Button bg="secondary" onClick={() => fileEl.current.click()}>
+          Upload Evidence
+        </Button>
         {/* <button onClick={() => fileEl.current.click()}>upload evidence</button> */}
         <div className="flex justify-center">
           <img
@@ -96,9 +101,12 @@ export default function ReportForm({ storeId }) {
               input.reportImage ? URL.createObjectURL(input.reportImage) : null
             }
           />
+          {inputError.reportImage ? (
+            <small className=" text-red-500">{inputError.reportImage}</small>
+          ) : null}
         </div>
-        <Button onClick={handleSubmitForm}>Submit Review</Button>
       </div>
+      <Button onClick={handleSubmitForm}>Submit Review</Button>
     </div>
   );
 }

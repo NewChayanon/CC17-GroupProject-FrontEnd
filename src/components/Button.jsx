@@ -1,9 +1,9 @@
 import React from "react";
 const bgMap = {
-  primary: "bg-primary hover:bg-darkgreen",
-  secondary: "bg-secondary hover:bg-sky-600",
+  primary: "bg-primary hover:opacity-80",
+  secondary: "bg-secondary hover:opacity-80",
   orange: "bg-orange-500 hover:bg-orange-600",
-  ghost: "bg-graybg hover:bg-graylighttext",
+  ghost: "bg-graybg hover:opacity-80",
 };
 const colorMap = {
   primary: "text-white",
