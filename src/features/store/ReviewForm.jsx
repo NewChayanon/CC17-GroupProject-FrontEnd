@@ -3,14 +3,14 @@ import Button from '../../components/Button'
 import Input from '../../components/Input'
 import validateReview from './validators/review-validator'
 const initialInput = {
-  rating:"5",
+  rating:"FIVE",
   topic:"",
-  details:""
+  comment:""
 }
 const initialInputError = {
   rating:"",
   topic:"",
-  details:""
+  comment:""
 }
 
 export default function ReviewForm() {
@@ -38,11 +38,11 @@ const handleSubmitForm = (e) => {
     <div>Let's rate this store</div>
     <form className="flex flex-col items-center gap-4">
       <div className="rating rating-lg">
-        <input type="radio" name="rating" value="1" onChange={handleChangeInput} className="mask mask-star-2 bg-secondary" />
-        <input type="radio" name="rating" value="2" onChange={handleChangeInput} className="mask mask-star-2 bg-secondary" />
-        <input type="radio" name="rating" value="3" onChange={handleChangeInput} className="mask mask-star-2 bg-secondary defaultChecked " />
-        <input type="radio" name="rating" value="4" onChange={handleChangeInput} className="mask mask-star-2 bg-secondary" />
-        <input type="radio" name="rating" value="5" onChange={handleChangeInput} className="mask mask-star-2 bg-secondary" />
+        <input type="radio" name="rating" value="ONE" onChange={handleChangeInput} className="mask mask-star-2 bg-secondary" />
+        <input type="radio" name="rating" value="TWO" onChange={handleChangeInput} className="mask mask-star-2 bg-secondary" />
+        <input type="radio" name="rating" value="THREE" onChange={handleChangeInput} className="mask mask-star-2 bg-secondary defaultChecked " />
+        <input type="radio" name="rating" value="FOUR" onChange={handleChangeInput} className="mask mask-star-2 bg-secondary" />
+        <input type="radio" name="rating" value="FIVE" onChange={handleChangeInput} className="mask mask-star-2 bg-secondary" />
       </div> 
       <div>Let us know more on what you think</div>
       <Input
@@ -54,12 +54,12 @@ const handleSubmitForm = (e) => {
                     error={inputError.topic}
                   />
       <Input
-                    placeholder="Details"
+                    placeholder="comment"
                     height="10"
-                    name="details"
+                    name="comment"
                     onChange={handleChangeInput}
-                    value={input.details}
-                    error={inputError.details}
+                    value={input.comment}
+                    error={inputError.comment}
                   />
 
           <Button onClick={handleSubmitForm}>Submit Review</Button>
