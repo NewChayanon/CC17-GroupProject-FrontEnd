@@ -53,13 +53,13 @@ export default function SearchBar() {
           Search By
         </option>
         <option value="PRODUCT">Product</option>
-        <option value="SELLER">Seller</option>
+        <option value="SELLER">Store</option>
         <option value="LOCATION">Location</option>
       </select>
       <input
         value={searchKeyword}
         onChange={handleSearchInput}
-        className="w-100 bg-white"
+        className="flex w-32 bg-white"
         type="text"
         placeholder="Search"
       ></input>
