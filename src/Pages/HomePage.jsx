@@ -61,10 +61,13 @@ export default function HomePage() {
   // Get one event from Database after user selects one particular event
 
   return (
-    <div>
-      <div className="relative">
+    <div className="flex flex-col w-auto h-auto">
+      <div className="relative w-auto">
         {/*==================== Search Box===================*/}
-        <div className="absolute z-40" style={{ top: "16px", margin: "auto" }}>
+        <div
+          className="absolute z-40 px-3"
+          style={{ top: "10px", margin: "auto" }}
+        >
           <SearchBar />
         </div>
         {/*==================== MAP ===================*/}
