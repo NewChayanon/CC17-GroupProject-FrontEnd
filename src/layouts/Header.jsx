@@ -16,9 +16,11 @@ import { useLocation } from "react-router-dom";
 export default function Header() {
   // ทำ responsive 2 size 1) mobile 2) desktop
   const isAuthenticated = useStore((state) => state.isAuthenticated);
+  const logout = useStore((state) => state.logout);
   const user = useStore((state) => state.user);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
   const navMenuList = [
     {
       menuIcon: <VendorNearMeIcon />,
@@ -58,13 +60,12 @@ export default function Header() {
     {
       menuIcon: <LogoutIcon />,
       menuName: "Logout",
-      linkTo: "/",
-      handleClick: "",
+      linkTo: "/home",
+      handleClick: () => logout(),
       authRequired: true,
     },
   ];
 
-  console.log(pathname);
   return (
     <div>
       <div
@@ -123,12 +124,14 @@ export default function Header() {
                 {/* Other Menu*/}
               </li>
 
-              {navMenuList.map((navMenu) =>
+              {navMenuList.map((navMenu, index) =>
                 navMenu.authRequired && !isAuthenticated ? null : (
                   <NavMenu
+                    key={index}
                     menuIcon={navMenu.menuIcon}
                     menuName={navMenu.menuName}
                     linkTo={navMenu.linkTo}
+                    onClick={navMenu.handleClick}
                   />
                 )
               )}
@@ -171,6 +174,7 @@ export default function Header() {
                     menuIcon={navMenu.menuIcon}
                     menuName={navMenu.menuName}
                     linkTo={navMenu.linkTo}
+                    onClick={navMenu.handleClick}
                   />
                 )
               )}

@@ -6,6 +6,9 @@ import EventSummaryCard from "../features/home/EventSummaryCard";
 import SellerSummaryCard from "../features/home/SellerSummaryCard";
 import SearchBar from "../components/SearchBar";
 import authApi from "../apis/auth";
+import Modal from "../components/Modal";
+import useStore from "../zustand/store";
+import LogoutModal from "../components/LogoutModal";
 
 // Fetch Event from API instead of using mockup Array
 const initialEventArray = [
@@ -25,6 +28,8 @@ export default function HomePage() {
   const [currentLocation, setCurrentLocation] = useState(defaultLocation);
   const [selectedEventId, setSelectedEventId] = useState(""); // change to "" later after test
   const [selectedEventDetails, setSelectedEventDetails] = useState({}); // เอา eventId ไปเรียก event Details มาแล้วเอามา set state ทีหลัง
+
+  const logoutModal = useStore((state) => state.logoutModal);
 
   // Try getting current location
   // Then, Fetch Event List based on Current Location
@@ -98,6 +103,14 @@ export default function HomePage() {
           <SellerSummaryCard selectedEventDetails={selectedEventDetails} />
         </div>
       )}
+      <Modal
+        open={logoutModal}
+        onClose={() => window.location.reload()}
+        width="small"
+        title="You have already logged out from the system!"
+      >
+        <LogoutModal />
+      </Modal>
     </div>
   );
 }
