@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Header from "../../layouts/Header";
 import Sidebar from "../../layouts/Sidebar";
-import Dashboard from "./Dashboard";
 import Footer from "../../layouts/Footer";
 
 export default function AdminContainer() {
@@ -11,7 +10,7 @@ export default function AdminContainer() {
       <div className="flex flex-1 overflow-hidden">
         <Sidebar />
         <div className="flex-1 overflow-y-auto">
-          <Dashboard />
+          <Outlet />
         </div>
       </div>
       <Footer />
