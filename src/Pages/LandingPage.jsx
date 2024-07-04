@@ -9,19 +9,21 @@ export default function LandingPage() {
     <div>
       {/* for temporary use */}
       <Header />
-      <div>
+      <div className="flex flex-wrap">
         <div className="relative">
           <p className="absolute text-darkgreen pt-8 pl-7 pr-7 text-xl font-semibold">
-            <div className="bg-white bg-opacity-70 p-4 rounded-xl">
+            <div className=" bg-white bg-opacity-70 p-4 rounded-xl">
               " Your go-to platform connecting passionate food lovers with
               &nbsp;dynamic, rotating sellers. "
             </div>
           </p>
-          <img
-            src="./src/images/durian-buyer-using-voucher.png"
-            alt="landing-page-main-image"
-            className="w-full h-96"
-          />
+          <div className="flex flex-auto">
+            <img
+              src="./src/images/durian-buyer-using-voucher.png"
+              alt="landing-page-main-image"
+              className="w-auto h-full"
+            />
+          </div>
         </div>
       </div>
 

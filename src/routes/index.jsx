@@ -123,11 +123,11 @@ const userRouter = createBrowserRouter([
     children: [
       { path: "", element: <MyStoreMainPage /> },
       { path: "created-events", element: <CreatedEvent /> },
-      { path: "reviews", element: <MyStoreReviews /> },
       { path: "profile", element: <MyStoreProfile /> },
+      { path: "reviews", element: <MyStoreReviews /> },
       { path: "inbox", element: <SellerInbox /> },
-      { path: "favoritebuyer", element: <FavoriteBuyer /> },
-      { path: "voucher", element: <SellerVoucher /> },
+      { path: "followers", element: <FavoriteBuyer /> },
+      { path: "coupon-list", element: <SellerVoucher /> },
     ],
   },
 ]);
