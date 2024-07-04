@@ -14,6 +14,8 @@ import {
   InboxInbox,
 } from "../icons/index.jsx";
 import useStore from "../zustand/store.js";
+import Dashboard from "../features/admin/Dashboard.jsx";
+import ManageSeller from "../features/admin/ManageSeller.jsx";
 
 export default function Sidebar() {
   const { pathname } = useLocation();
@@ -92,35 +94,35 @@ export default function Sidebar() {
     {
       menuIcon: <UserSummary />,
       menuName: "Executive Summary",
-      linkTo: "/",
+      linkTo: "/admin/dashboard",
       handleClick: "",
-      authRequired: false,
+      authRequired: true,
     },
     {
       menuIcon: <StoreIcon />,
       menuName: "Seller Data",
-      linkTo: "/",
+      linkTo: "/admin/seller",
       handleClick: "",
       authRequired: true,
     },
     {
       menuIcon: <BuyerIcon />,
       menuName: "Buyer Data",
-      linkTo: "/",
+      linkTo: "/admin/buyer",
       handleClick: "",
       authRequired: true,
     },
     {
       menuIcon: <InboxInbox />,
       menuName: "Inbox",
-      linkTo: "/",
+      linkTo: "/admin/announcement",
       handleClick: "",
       authRequired: true,
     },
     {
       menuIcon: <ReportIcon />,
       menuName: "Report List",
-      linkTo: "/",
+      linkTo: "/admin/report",
       handleClick: "",
       authRequired: true,
     },
