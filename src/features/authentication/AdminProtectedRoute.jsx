@@ -8,7 +8,12 @@ export default function AdminProtectedRoute({ children }) {
   const isLoading = useStore((state) => state.isLoading);
   const user = useStore((state) => state.user);
   if (!user || user.role === ROLE.BUYER || user.role === ROLE.SELLER)
-    return <UnAuthorizedPage />;
+    return (
+      <>
+        <UnAuthorizedPage />;
+      </>
+    );
+
   if (user.role === ROLE.ADMIN) {
     return (
       <>

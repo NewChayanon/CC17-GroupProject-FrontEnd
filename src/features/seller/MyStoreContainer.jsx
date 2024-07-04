@@ -16,6 +16,7 @@ export default function MyStoreContainer() {
     "/mystore/followers/",
     "/mystore/reviews",
     "/mystore/reviews/",
+    "/mystore/unauthorized",
   ].includes(location.pathname);
 
   return (
