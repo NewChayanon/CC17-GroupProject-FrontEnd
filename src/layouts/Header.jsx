@@ -74,7 +74,7 @@ export default function Header() {
         <a className="btn btn-ghost text-md" onClick={() => navigate("/")}>
           <img className="w-12 h-12" src={ffLogo} />
         </a>
-        <div className="text-darkbrown font-semibold">
+        <div className="text-verydarkbrown font-semibold">
           <p className="text-xl">Freshy Foodie</p>
           <p className="text-sm">Freshly Meet, Freshly Eat</p>
         </div>

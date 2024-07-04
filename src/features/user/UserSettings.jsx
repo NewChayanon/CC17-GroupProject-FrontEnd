@@ -72,7 +72,7 @@ export default function UserSettings() {
           <div className="p-4 text-sm flex flex-col gap-2">
             <div>
               <input
-                placeholder="durainlover123"
+                placeholder="durianlover123"
                 className="p-1 pl-2 w-36 rounded-md"
                 name=""
               />
