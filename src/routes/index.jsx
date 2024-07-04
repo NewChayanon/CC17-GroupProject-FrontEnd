@@ -5,6 +5,9 @@ const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const EventMainContainer = lazy(() => import("../layouts/EventMainContainer"));
 const LandingPage = lazy(() => import("../Pages/LandingPage"));
 
+const AboutUs = lazy(() => import("../Pages/AboutUs"));
+const ContactUs = lazy(() => import("../Pages/ContactUs"));
+
 const LoginPage = lazy(() => import("../Pages/LoginPage"));
 const NotLoginPage = lazy(() => import("../Pages/NotLoginPage"));
 const HomePage = lazy(() => import("../Pages/HomePage"));
@@ -54,6 +57,9 @@ const userRouter = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
   { path: "login", element: <LoginPage /> },
   { path: "not-login", element: <NotLoginPage /> },
+  { path: "about-us", element: <AboutUs /> },
+  { path: "contact-us", element: <ContactUs /> },
+
   {
     path: "home",
     element: <MainContainer />,
