@@ -14,7 +14,7 @@ export default function Dashboard() {
             <div className="w-[25px] h-[25px]">
               <UserBreakdownIcon iconColor="fill-primary" />
             </div>
-            <div>User Breakdown</div>
+            User Breakdown
           </div>
           <div className="flex flex-row justify-center items-center px-4 gap-4">
             <CardWithBorder
@@ -43,7 +43,7 @@ export default function Dashboard() {
             <div className="w-[25px] h-[25px]">
               <AdminCalender iconColor="fill-tertiary" />
             </div>
-            <div>Event Summary</div>
+            Event Summary
           </div>
           <div className="flex flex-row justify-center items-center px-4 gap-4">
             <CardWithBorder
@@ -63,9 +63,8 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="w-full h-[28rem] bg-absolutewhite rounded-2xl flex flex-row justify-center items-center px-7 gap-8">
-        <div className="w-full h-96 lg:w-1/2 mx-auto bg-verylightyellow p-2 rounded-2xl flex justify-center items-center">
-          <CustomBarChart />
-        </div>
+        <CustomBarChart />
+
         <div className="flex flex-col justify-center items-center w-full lg:w-1/2 h-full mx-auto p-6 bg-absolutewhite">
           <CustomDoughnutChart />
         </div>
