@@ -121,14 +121,14 @@ export default function Sidebar() {
     },
     {
       menuIcon: <StoreIcon />,
-      menuName: "Seller",
+      menuName: "Seller Data",
       linkTo: "/",
       handleClick: "",
       authRequired: true,
     },
     {
       menuIcon: <BuyerIcon />,
-      menuName: "Buyer",
+      menuName: "Buyer Data",
       linkTo: "/",
       handleClick: "",
       authRequired: true,
