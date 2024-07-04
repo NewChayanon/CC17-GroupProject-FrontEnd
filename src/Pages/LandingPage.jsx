@@ -9,26 +9,26 @@ export default function LandingPage() {
     <div>
       {/* for temporary use */}
       <Header />
-      <div>
+      <div className="flex flex-wrap">
         <div className="relative">
-          <p className="absolute text-darkgreen pt-8 pl-8 text-xl font-semibold">
-            <div className="bg-white bg-opacity-70 p-6 rounded-xl">
-              " Your go-to platform connecting <br />
-              &nbsp;passionate food lovers with
-              <br />
+          <p className="absolute text-darkgreen pt-8 pl-7 pr-7 text-xl font-semibold">
+            <div className=" bg-white bg-opacity-70 p-4 rounded-xl">
+              " Your go-to platform connecting passionate food lovers with
               &nbsp;dynamic, rotating sellers. "
             </div>
           </p>
-          <img
-            src="./src/images/durian-buyer-using-voucher.png"
-            alt="landing-page-main-image"
-            className="w-full h-96"
-          />
+          <div className="flex flex-auto">
+            <img
+              src="./src/images/durian-buyer-using-voucher.png"
+              alt="landing-page-main-image"
+              className="w-auto h-full"
+            />
+          </div>
         </div>
       </div>
 
       <div className="relative bg-green-100 h-auto">
-        <div className="absolute text-darkgreen pt-10 pl-10 text-2xl font-semibold">
+        <div className="absolute text-darkgreen pt-10 pl-10 text-xl font-semibold">
           " Whether you're <br />
           &nbsp;a buyer or a seller "
         </div>
@@ -37,8 +37,8 @@ export default function LandingPage() {
           alt="landing-page-main-image"
           className="w-full h-72 pt-12 pl-12 pr-12"
         />
-        <div className="pt-7 pl-7 pr-7 flex">
-          <div className="bg-white w-full pt-8 h-80 text-vividgreen rounded-xl flex flex-col items-center">
+        <div className="pt-7 pl-5 pr-5 flex">
+          <div className="bg-white w-full pt-8 h-full text-vividgreen rounded-xl flex flex-col items-center">
             <div className="font-semibold text-2xl">Advantage for Buyers</div>
             <div className="flex justify-center items-center gap-1 p-4 text-sm">
               <div className="flex flex-col items-center p-2 gap-3">
@@ -49,12 +49,12 @@ export default function LandingPage() {
                     className=""
                   />
                 </div>
-                <div className="p-2 text-center">
+                <div className="p-1 text-center">
                   Follow your favorite sellers and stay updated with their
                   schedules.
                 </div>
               </div>
-              <div className="flex flex-col items-center p-2 gap-4">
+              <div className="flex flex-col items-center p-1 gap-4">
                 <div>
                   <img
                     src="./src/images/advantage-buyer-2.png"
@@ -66,7 +66,7 @@ export default function LandingPage() {
                   Discover unique food sellers in your area.
                 </div>
               </div>
-              <div className="flex flex-col items-center p-2 gap-4">
+              <div className="flex flex-col items-center p-1 gap-4">
                 <div>
                   <img
                     src="./src/images/advantage-buyer-3.png"
@@ -82,11 +82,11 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="pt-7 pl-7 pr-7 flex">
-          <div className="bg-lightyellow w-full pt-8 h-80  text-tertiary rounded-xl flex flex-col items-center">
+        <div className="pt-5 pl-5 pr-5 flex">
+          <div className="bg-lightyellow w-full pt-8 h-pfull  text-tertiary rounded-xl flex flex-col items-center">
             <div className="font-semibold text-2xl">Advantage for Sellers</div>
             <div className="flex justify-center items-center gap-1 p-4 text-sm">
-              <div className="flex flex-col items-center p-2 gap-4">
+              <div className="flex flex-col items-center p-1 gap-4">
                 <div>
                   <img
                     src="./src/images/advantage-seller-1.png"
@@ -94,11 +94,11 @@ export default function LandingPage() {
                     className=""
                   />
                 </div>
-                <div className="p-2 text-center">
+                <div className="p-1 text-center">
                   Organize and manage your events effortlessly.
                 </div>
               </div>
-              <div className="flex flex-col items-center p-2 gap-4">
+              <div className="flex flex-col items-center p-1 gap-4">
                 <div>
                   <img
                     src="./src/images/advantage-seller-2.png"

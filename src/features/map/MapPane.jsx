@@ -68,7 +68,7 @@ export default function MapPane({
 
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAP_API_KEY}>
-      <div style={{ height: "286px", width: "430px" }}>
+      <div style={{ height: "286px", width: "full" }}>
         <Map
           defaultZoom={12}
           defaultCenter={currentLocation}
