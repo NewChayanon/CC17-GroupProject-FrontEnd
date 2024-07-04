@@ -16,11 +16,11 @@ export default function EventNavBar() {
     <div>
       <EventCover />
       {/* ============ EventDetail Menu Bar ============ */}
-      <div className="flex w-full h-8 bg-primary">
+      <div className="flex w-full h-8 bg-primary relative">
         <div
           className={`${
             activeMenu === "detail"
-              ? "bg-white text-primary font-semibold rounded-t-md"
+              ? "bg-white text-primary font-semibold rounded-tr-md"
               : "bg-primary text-white"
           } flex justify-center items-center grow`}
           onClick={handleClickMenu}
@@ -32,7 +32,7 @@ export default function EventNavBar() {
         <div
           className={`${
             activeMenu === "promotion"
-              ? "bg-white text-primary font-semibold rounded-t-md"
+              ? "bg-white text-primary font-semibold rounded-tr-md"
               : "bg-primary text-white"
           } flex justify-center items-center grow`}
           onClick={handleClickMenu}
@@ -44,7 +44,7 @@ export default function EventNavBar() {
         <div
           className={`${
             activeMenu === "products"
-              ? "bg-white text-primary font-semibold rounded-t-md"
+              ? "bg-white text-primary font-semibold rounded-tr-md"
               : "bg-primary text-white"
           } flex justify-center items-center grow`}
           onClick={handleClickMenu}
