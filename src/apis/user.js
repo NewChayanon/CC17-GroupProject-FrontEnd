@@ -2,6 +2,8 @@ import axios from "../config/axios";
 
 const userApi = {};
 userApi.getInterestedEvent = () => axios.get("user/event");
+userApi.getCollectedCoupon = () => axios.get("user/coupon-list");
+userApi.useCoupon = (voucherItemId) => axios.patch(`user/use/${voucherItemId}`);
 // storeApi.getStoreByIdAnonymous = (storeId) =>
 //   axios.get(`auth/storeProfile/${storeId}`);
 // // storeApi.getStoreByIdLoggedIn = (storeId) => axios.get(`user/storeProfile/${storeId}`);
