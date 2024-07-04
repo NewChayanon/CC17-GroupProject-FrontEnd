@@ -18,27 +18,15 @@ export default function StoreNavBar() {
     (state) => state.setSelectedStoreDetails
   );
   setStoreId(storeIdfromPath);
+  // Fetch store data from API
   useEffect(() => {
-    console.log(
-      "In store navbar use effect - calling setSelectedStore details"
-    ); // ตรงนี้รันปกติ
     setSelectedStoreDetails(storeIdfromPath, isAuthenticated);
   }, []);
-
+  // Update "isfollow" state of each user/each store to render
   useEffect(() => {
-    console.log(
-      "In store navbar use effect - calling setIsFollow status" // ตรงนี้รันปกติ
-    );
-    // ควรจะ fetch ขึ้นมารอบแรก แต่ไม่ขึ้น ทำให้ .follow แล้วระเบิด >> ตั้งแต่บรรทัดนี้ไม่รัน เพราะว่าต่า setSelecedStoreDetail น่าจะยังไม่มา
-    console.log(
-      "In store navbar use effect - checking if store details is available",
-      setSelectedStoreDetails.followed
-    ); // ตรงนี้ไม่รัน
-    if (!isAuthenticated || !setSelectedStoreDetails.followed) return;
-    console.log("In use effect - follow status", selectedStoreDetails.followed);
-    setIsFollowed((prev) => selectedStoreDetails.followed);
-  }, []);
-  console.log("Final Follow status", isFollowed);
+    if (!isAuthenticated || !selectedStoreDetails?.followed) return;
+    setIsFollowed(selectedStoreDetails.followed);
+  }, [selectedStoreDetails]);
 
   const activeMenu = pathname.split("/")[3];
   const handleClickMenu = (e) => {
