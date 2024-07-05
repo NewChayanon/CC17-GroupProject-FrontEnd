@@ -7,7 +7,7 @@ import EventSideBarCard from "./EventSideBarCard";
 import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 
-const RightSidebarMainPage = () => {
+const RightSideBarMainPage = () => {
   // FOR TEMPORARY USAGE WAIT FOR API
   const socialNetworkIcon = {
     facebook: true,
@@ -97,4 +97,4 @@ const RightSidebarMainPage = () => {
   );
 };
 
-export default RightSidebarMainPage;
+export default RightSideBarMainPage;

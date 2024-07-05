@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import RightSidebarMainPage from "./components/RightSideBarMainPage";
+import RightSideBarMainPage from "./components/RightSideBarMainPage";
 import RightSideBarProfile from "./components/RightSideBarProfile";
 import RightSideBarFollower from "./components/RightSideBarFollower";
 
@@ -12,7 +12,7 @@ const RightSidebar = () => {
       ) : location.pathname.includes("followers") ? (
         <RightSideBarFollower />
       ) : (
-        <RightSidebarMainPage />
+        <RightSideBarMainPage />
       )}
     </div>
   );
