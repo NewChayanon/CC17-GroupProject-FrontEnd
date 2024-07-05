@@ -5,6 +5,9 @@ const MainContainer = lazy(() => import("../layouts/MainContainer"));
 const EventMainContainer = lazy(() => import("../layouts/EventMainContainer"));
 const LandingPage = lazy(() => import("../Pages/LandingPage"));
 
+const AboutUs = lazy(() => import("../Pages/AboutUs"));
+const ContactUs = lazy(() => import("../Pages/ContactUs"));
+
 const LoginPage = lazy(() => import("../Pages/LoginPage"));
 const NotLoginPage = lazy(() => import("../Pages/NotLoginPage"));
 const HomePage = lazy(() => import("../Pages/HomePage"));
@@ -54,6 +57,9 @@ const userRouter = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
   { path: "login", element: <LoginPage /> },
   { path: "not-login", element: <NotLoginPage /> },
+  { path: "about-us", element: <AboutUs /> },
+  { path: "contact-us", element: <ContactUs /> },
+
   {
     path: "home",
     element: <MainContainer />,
@@ -103,7 +109,7 @@ const userRouter = createBrowserRouter([
       { path: "seller", element: <ManageSeller /> },
       { path: "buyer", element: <ManageBuyer /> },
       { path: "announcement", element: <Announcement /> },
-      { path: "requested-report", element: <RequestedReport /> },
+      { path: "report", element: <RequestedReport /> },
     ],
   },
 
@@ -117,8 +123,8 @@ const userRouter = createBrowserRouter([
     children: [
       { path: "", element: <MyStoreMainPage /> },
       { path: "created-events", element: <CreatedEvent /> },
-      { path: "reviews", element: <MyStoreReviews /> },
       { path: "profile", element: <MyStoreProfile /> },
+      { path: "reviews", element: <MyStoreReviews /> },
       { path: "inbox", element: <SellerInbox /> },
       { path: "followers", element: <Followers /> },
       { path: "coupon-list", element: <SellerVoucher /> },

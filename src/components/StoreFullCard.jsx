@@ -9,29 +9,30 @@ import Modal from "./Modal";
 import PlaseLoginCard from "./PlaseLoginCard";
 import ToggleButton from "./ToggleButton";
 
-export default function StoreFullCard({ selectedStoreDetails,isFollowed,setIsFollowed }) {
-  // Store Follow Status & Handle Click Follow
-  // const [isFollowed,setIsFollowed] = useState(false)
-  const [openLoginModal,setOpenLoginModal] = useState(false)
-  const isAuthenticated = useStore((state)=>state.isAuthenticated)
+export default function StoreFullCard({
+  selectedStoreDetails,
+  isFollowed,
+  setIsFollowed,
+}) {
+  const [openLoginModal, setOpenLoginModal] = useState(false);
+  const isAuthenticated = useStore((state) => state.isAuthenticated);
   console.log("selectedStore details in storeCard", selectedStoreDetails);
 
-  // Update Follow Status in case if 
-  // useEffect(()=>{
-  //   console.log("In useeffect - follow status", selectedStoreDetails.followed)
-  //   setIsFollowed(selectedStoreDetails.followed)
-  // },[]) 
   const handleClickFollowShop = async (e) => {
     try {
-     // 1. เช็คก่อนว่า Login รึยีง ถ้ายัง >> เด้ง error
-     if (!isAuthenticated) {
-      return setOpenLoginModal(true)
+      // 1. เช็คก่อนว่า Login รึยีง ถ้ายัง >> เด้ง error
+      if (!isAuthenticated) {
+        return setOpenLoginModal(true);
+      }
+      /// 2. trigger การ follow/unfollow ผ่าน API โดยการระบุ storeId
+      const result = await storeApi.toggleFollowStoreById(
+        selectedStoreDetails.id
+      );
+      console.log("Result from API updating follow status", result);
+      setIsFollowed((isFollowed) => !isFollowed);
+    } catch (err) {
+      console.log("error from updating interest", err);
     }
-    /// 2. trigger การ follow/unfollow ผ่าน API โดยการระบุ storeId
-    const result = await storeApi.toggleFollowStoreById(selectedStoreDetails.id)
-    console.log("Result from API updating follow status",result);
-    setIsFollowed((isFollowed) => !isFollowed)
-  } catch(err){ console.log("error from updating interest", err);}
   };
   return (
     <div className="bg-white">
@@ -75,26 +76,33 @@ export default function StoreFullCard({ selectedStoreDetails,isFollowed,setIsFol
               </div>
             </div>
             {/* ========= Follow/unfollow Button ========= */}
-            {/* <ToggleButton
-              onClick={handleClickFollowShop}
-              activeStateWord="Followed"
-              inactiveStateWord="Follow"
-              activeStateIcon={<StarIcon />}
-              inactiveStateIcon={<StarDisabledIcon />}
-            /> */}
             <div onClick={handleClickFollowShop}>
-            {isFollowed?<ToggleButton actionWord="Followed" actionIcon={<StarIcon/>} isActive={true}/> :<ToggleButton actionWord="Follow" actionIcon={<StarDisabledIcon/>} isActive={false}/>}
+              {isFollowed ? (
+                <ToggleButton
+                  actionWord="Followed"
+                  actionIcon={<StarIcon />}
+                  isActive={true}
+                />
+              ) : (
+                <ToggleButton
+                  actionWord="Follow"
+                  actionIcon={<StarDisabledIcon />}
+                  isActive={false}
+                />
+              )}
             </div>
           </div>
         </div>
       </div>
       {/* ======== Modal เด้ง error กรณีที่ยังไม่ได้ login ======= */}
-      <Modal width="small"
-            title="Please Log-in to use the app features"
-            open={openLoginModal}
-            onClose={() => setOpenLoginModal(false)}>
-          <PlaseLoginCard onClose={() => setOpenLoginModal(false)}/>
-            </Modal>
+      <Modal
+        width="small"
+        title="Please Log-in to use the app features"
+        open={openLoginModal}
+        onClose={() => setOpenLoginModal(false)}
+      >
+        <PlaseLoginCard onClose={() => setOpenLoginModal(false)} />
+      </Modal>
     </div>
   );
 }

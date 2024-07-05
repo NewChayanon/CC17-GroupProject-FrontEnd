@@ -16,7 +16,7 @@ export default function EventNavBar() {
     <div>
       <EventCover />
       {/* ============ EventDetail Menu Bar ============ */}
-      <div className="flex w-full h-8 bg-primary">
+      <div className="flex w-full h-8 bg-primary relative">
         <div
           className={`${
             activeMenu === "detail"

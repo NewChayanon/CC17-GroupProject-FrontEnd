@@ -36,9 +36,7 @@ export default function Modal({
                         &#10005;
                       </button>
                     </div>
-                    <div className="px-4 pb-4 overflow-y-auto">
-                      {children}
-                    </div>
+                    <div className="px-4 pb-4 overflow-y-auto">{children}</div>
                   </div>
                 </div>
               </div>

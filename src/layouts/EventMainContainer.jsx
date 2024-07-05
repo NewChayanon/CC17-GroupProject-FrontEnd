@@ -6,7 +6,7 @@ import EventNavBar from "./EventNavBar";
 
 export default function EventMainContainer() {
   return (
-    <div className="bg-graybg" style={{ width: "430px", margin: "auto" }}>
+    <div className="bg-graybg" style={{ width: "auto", margin: "auto" }}>
       <Header />
       <EventNavBar />
       <div className="flex">

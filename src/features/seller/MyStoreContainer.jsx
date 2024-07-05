@@ -12,10 +12,13 @@ export default function MyStoreContainer() {
     "/mystore/",
     "/mystore/profile",
     "/mystore/profile/",
+    "/mystore/created-events",
+    "/mystore/created-events/",
     "/mystore/followers",
     "/mystore/followers/",
     "/mystore/reviews",
     "/mystore/reviews/",
+    "/mystore/unauthorized",
   ].includes(location.pathname);
 
   return (
@@ -23,12 +26,14 @@ export default function MyStoreContainer() {
       <Header />
       <div className="flex flex-1 overflow-hidden">
         <Sidebar />
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex flex-1 overflow-y-auto">
           <Outlet />
         </div>
         {showRightSidebar && <RightSidebar />}
       </div>
-      <Footer />
+      <div className="z-50">
+        <Footer />
+      </div>
     </div>
   );
 }
