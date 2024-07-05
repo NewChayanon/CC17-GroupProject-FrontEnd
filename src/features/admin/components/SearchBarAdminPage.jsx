@@ -1,11 +1,13 @@
 import MagnifierSvg from "../../../icons/MagnifierSvg";
 
-export default function SearchBarAdminPage({ placeholder }) {
+export default function SearchBarAdminPage({ placeholder, searchQuery, handleSearch }) {
   return (
     <div className="flex justify-center w-[550px]">
       <div className="relative w-full">
         <input
           type="text"
+          value={searchQuery}
+          onChange={handleSearch}
           className="w-full py-3 pl-3 pr-10 border rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-absolutewhite"
           placeholder={placeholder}
         />
