@@ -18,7 +18,7 @@ export default function MyStoreMainPage() {
   };
 
   return (
-    <div className="relative bg-graybg min-h-full flex flex-col justify-between overflow-hidden">
+    <div className="relative bg-graybg min-h-full w-full flex flex-col justify-between overflow-hidden">
       {/* MAP GOES HERE IN THIS DIV BELOW */}
       <div></div>
       {/* MAP GOES HERE IN THIS DIV ABOVE */}
