@@ -7,7 +7,7 @@ import EventSideBarCard from "./EventSideBarCard";
 import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 
-const RightSidebarMainPage = () => {
+const RightSideBarMainPage = () => {
   // FOR TEMPORARY USAGE WAIT FOR API
   const socialNetworkIcon = {
     facebook: true,
@@ -88,7 +88,7 @@ const RightSidebarMainPage = () => {
         </div>
         {/* MAPPING EVENT END HERE */}
         <div className="flex pt-2 justify-end">
-          <Button onClick={() => navigate("created-events")}>
+          <Button onClick={() => navigate("created-events")} width="large">
             <p className="font-bold">Create new event</p>
           </Button>
         </div>
@@ -97,4 +97,4 @@ const RightSidebarMainPage = () => {
   );
 };
 
-export default RightSidebarMainPage;
+export default RightSideBarMainPage;
