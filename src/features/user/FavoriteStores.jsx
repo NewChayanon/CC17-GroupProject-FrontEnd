@@ -26,7 +26,8 @@ export default function FavoriteStores() {
     setIsUpdateFavoriteStore(false);
   }, [isUpdateFavoriteStore]);
   return (
-    <div>
+    <div className="flex flex-col gap-4">
+      <div>Search Box</div>
       {favoriteStores.map((storeDetail, index) => (
         <FavoriteStoreCard
           storeDetail={storeDetail}

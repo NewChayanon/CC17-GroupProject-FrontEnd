@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 import storeApi from "../../../apis/store";
 import { StarDisabledIcon, StarIcon } from "../../../icons";
 
-export default function FavoriteStoreCard({ storeDetail, key }) {
+export default function FavoriteStoreCard({
+  storeDetail,
+  key,
+  setIsUpdateFavoriteStore,
+}) {
   const [isFollowed, setIsFollowed] = useState(false);
-  const storeId = storeDetail.storeId;
   useEffect(() => {
     setIsFollowed(storeDetail.follow);
   }, [storeDetail]);
@@ -14,7 +17,9 @@ export default function FavoriteStoreCard({ storeDetail, key }) {
   // function to handle click unfollow store
   const handleClickUnfollow = async (e) => {
     try {
-      const result = await storeApi.toggleFollowStoreById(storeId);
+      const result = await storeApi.toggleFollowStoreById(
+        storeDetail.storeProfileId
+      );
       console.log("Result from unfollowing seller");
       // Update state การ unfollow store ให้เป็น true เพื่อให้หน้า user/favorite-stores rerender
       setIsUpdateFavoriteStore(true);
@@ -31,7 +36,7 @@ export default function FavoriteStoreCard({ storeDetail, key }) {
         />
       </div>
       <div className="grow py-2">
-        <Link to={`/store/${storeId}/profile`}>
+        <Link to={`/store/${storeDetail.storeProfileId}/profile`}>
           <div className="text-base font-bold">{storeDetail.storeName}</div>
         </Link>
         <div className="flex gap-2">
