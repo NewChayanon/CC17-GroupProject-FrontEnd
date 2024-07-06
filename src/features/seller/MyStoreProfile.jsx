@@ -24,7 +24,22 @@ export default function MyStoreProfile() {
             alt="Add image button"
             className="w-7 h-7"
           />
-          <div>MyStoreProfile</div>
+          <div className="border border-graylighttext rounded">
+            <div className="text-lg font-bold text-graydarktext">
+              About the seller
+            </div>
+            <div className="text-base text-primary">
+              About Seller description
+            </div>
+          </div>
+          <div>
+            <div className="text-lg font-bold text-graydarktext">
+              Lovelove Durian
+            </div>
+            <div className="text-base text-primary">
+              About Store description
+            </div>
+          </div>
         </div>
       </div>
     </>

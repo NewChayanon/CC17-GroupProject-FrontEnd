@@ -23,11 +23,14 @@ export default function EventNavBar() {
             activeMenu === "detail"
               ? "bg-white text-primary font-semibold rounded-tr-md"
               : "bg-primary text-white"
-          } flex justify-center items-center grow`}
+          } flex justify-center items-center grow hover:cursor-pointer`}
           onClick={handleClickMenu}
           id="detail"
         >
-          <CalendarIcon />
+          <CalendarIcon
+            id="detail"
+            fill={activeMenu === "detail" ? true : false}
+          />
           Event Detail
         </div>
         <div
@@ -35,11 +38,14 @@ export default function EventNavBar() {
             activeMenu === "promotion"
               ? "bg-white text-primary font-semibold rounded-tr-md"
               : "bg-primary text-white"
-          } flex justify-center items-center grow`}
+          } flex justify-center items-center grow hover:cursor-pointer`}
           onClick={handleClickMenu}
           id="promotion"
         >
-          <AnnouncementIcon />
+          <AnnouncementIcon
+            id="promotion"
+            fill={activeMenu === "promotion" ? true : false}
+          />
           Promotion
         </div>
         <div
@@ -47,11 +53,14 @@ export default function EventNavBar() {
             activeMenu === "products"
               ? "bg-white text-primary font-semibold rounded-tr-md"
               : "bg-primary text-white"
-          } flex justify-center items-center grow`}
+          } flex justify-center items-center grow hover:cursor-pointer`}
           onClick={handleClickMenu}
           id="products"
         >
-          <ProductIcon />
+          <ProductIcon
+            id="products"
+            fill={activeMenu === "products" ? true : false}
+          />
           Products
         </div>
       </div>

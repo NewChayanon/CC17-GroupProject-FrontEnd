@@ -95,7 +95,7 @@ const CustomLineChart = () => {
 
   return (
     <div className="relative w-full h-full bg-verylightyellow p-6 rounded-2xl">
-      <div className="absolute top-6 right-6 z-10 bg-absolutewhite">
+      <div className="absolute top-4 right-4 z-10 bg-absolutewhite">
         <DatePicker
           selected={startDate}
           onChange={(date) => setStartDate(date)}

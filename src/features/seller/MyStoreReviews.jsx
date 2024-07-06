@@ -13,7 +13,7 @@ export function ReviewMock() {
           lovers!
         </div>
         <div className="flex justify-between">
-          <div className="text-primary font-bold">Supaporn Phantavee</div>{" "}
+          <div className="text-primary font-bold">Supaporn Phantavee</div>
           <div className="text-graydarktext font-semibold"> coupon used O</div>
         </div>
         <div className="flex text-sm pb-5">

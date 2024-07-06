@@ -14,6 +14,7 @@ const HomePage = lazy(() => import("../Pages/HomePage"));
 const EventDetail = lazy(() => import("../features/event/EventDetail"));
 const Product = lazy(() => import("../features/event/Product"));
 const Promotion = lazy(() => import("../features/event/Promotion"));
+
 const StoreDetail = lazy(() => import("../features/store/StoreDetail"));
 const Review = lazy(() => import("../features/store/Review"));
 const UserProtectedRoute = lazy(
@@ -25,6 +26,12 @@ const UserInbox = lazy(() => import("../features/user/UserInbox"));
 const FavoriteStores = lazy(() => import("../features/user/FavoriteStores"));
 const CollectedCoupons = lazy(
   () => import("../features/user/CollectedCoupons")
+);
+const ActivateStoreFromMobile = lazy(
+  () => import("../features/store/ActivateStoreFromMobile")
+);
+const InvalidMyStoreFromMobile = lazy(
+  () => import("../features/store/InvalidMyStoreFromMobile")
 );
 const StoreMainContainer = lazy(() => import("../layouts/StoreMainContainer"));
 const UserSettings = lazy(() => import("../features/user/UserSettings"));
@@ -41,7 +48,7 @@ const CreatedEvent = lazy(() => import("../features/seller/CreatedEvent"));
 const MyStoreReviews = lazy(() => import("../features/seller/MyStoreReviews"));
 const MyStoreProfile = lazy(() => import("../features/seller/MyStoreProfile"));
 const SellerInbox = lazy(() => import("../features/seller/SellerInbox"));
-const FavoriteBuyer = lazy(() => import("../features/seller/FavoriteBuyer"));
+const Followers = lazy(() => import("../features/seller/Followers"));
 const SellerVoucher = lazy(() => import("../features/seller/SellerVoucher"));
 const Dashboard = lazy(() => import("../features/admin/Dashboard"));
 const ManageBuyer = lazy(() => import("../features/admin/ManageBuyer"));
@@ -109,7 +116,7 @@ const userRouter = createBrowserRouter([
       { path: "seller", element: <ManageSeller /> },
       { path: "buyer", element: <ManageBuyer /> },
       { path: "announcement", element: <Announcement /> },
-      { path: "requested-report", element: <RequestedReport /> },
+      { path: "report", element: <RequestedReport /> },
     ],
   },
 
@@ -126,8 +133,16 @@ const userRouter = createBrowserRouter([
       { path: "profile", element: <MyStoreProfile /> },
       { path: "reviews", element: <MyStoreReviews /> },
       { path: "inbox", element: <SellerInbox /> },
-      { path: "followers", element: <FavoriteBuyer /> },
+      { path: "followers", element: <Followers /> },
       { path: "coupon-list", element: <SellerVoucher /> },
+      {
+        path: "activate-store-from-mobile",
+        element: <ActivateStoreFromMobile />,
+      },
+      {
+        path: "invalid-from-mobile",
+        element: <InvalidMyStoreFromMobile />,
+      },
     ],
   },
 ]);

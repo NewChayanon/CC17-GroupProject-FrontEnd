@@ -88,7 +88,11 @@ const CustomBarChart = () => {
     },
   };
 
-  return <Bar data={data} options={options} />;
+  return (
+    <div className="w-full h-96 lg:w-1/2 mx-auto bg-verylightyellow p-2 rounded-2xl flex justify-center items-center">
+      <Bar data={data} options={options} />
+    </div>
+  );
 };
 
 export default CustomBarChart;
