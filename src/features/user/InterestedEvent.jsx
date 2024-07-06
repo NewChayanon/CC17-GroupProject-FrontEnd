@@ -4,6 +4,8 @@ import EventsBySellerBox from "../interestevent/EventsBySellerBox";
 
 export default function InterestedEvent() {
   const [interestedEventArr, setInerestedEventArr] = useState([]);
+  const [updateInterestEventStatus, setUpdateInterestEventStatus] =
+    useState(false);
   const fetchInterestedEvent = async () => {
     try {
       const result = await userApi.getInterestedEvent();
@@ -21,7 +23,8 @@ export default function InterestedEvent() {
   // ให้ fetch data ใหม่ทุกครั้งที่ 1. เปิดหน้า user/interest เข้ามา 2. เมื่อมีการกด unpin interested event ในหน้านี้: monitor อะไรได้?
   useEffect(() => {
     fetchInterestedEvent();
-  }, []);
+    setUpdateInterestEventStatus(false);
+  }, [updateInterestEventStatus]);
 
   // Handle event data by grouping by seller name
   const eventObjByStore = interestedEventArr.reduce((acc, eventObj) => {
@@ -47,6 +50,7 @@ export default function InterestedEvent() {
           eventsObjectBySeller={eventsObjectBySeller}
           key={index}
           index={index}
+          setUpdateInterestEventStatus={setUpdateInterestEventStatus}
         />
       ))}
     </div>
