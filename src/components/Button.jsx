@@ -1,7 +1,8 @@
 import React from "react";
 const bgMap = {
-  primary: "bg-primary hover:opacity-80",
+  primary: "bg-primary hover:bg-darkgreen",
   secondary: "bg-secondary hover:opacity-80",
+  tertiary: "bg-tertiary hover:bg-darkbrown",
   orange: "bg-orange-500 hover:bg-orange-600",
   ghost: "bg-graybg hover:opacity-80",
 };
@@ -19,7 +20,8 @@ const borderMap = {
 };
 const widthMap = {
   mid: "w-40",
-  large: "w-full",
+  large: "w-56",
+  full: "w-full",
 };
 
 export default function Button({

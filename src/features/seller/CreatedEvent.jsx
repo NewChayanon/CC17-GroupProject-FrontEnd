@@ -17,9 +17,9 @@ export function EventMock() {
             </div>
           </div>
           <div className="p-3 flex gap-3">
-            <div class="flex flex-col w-12 h-12 rounded-lg items-center justify-center bg-graylighticon">
-              <p class="text-gray-800 text-sm font-bold">12</p>
-              <p class="text-graylighttext text-sm font-bold">May</p>
+            <div className="flex flex-col w-12 h-12 rounded-lg items-center justify-center bg-graylighticon">
+              <p className="text-gray-800 text-sm font-bold">12</p>
+              <p className="text-graylighttext text-sm font-bold">May</p>
             </div>
             <div className="flex flex-col justify-center">
               <div>Thursday</div>
