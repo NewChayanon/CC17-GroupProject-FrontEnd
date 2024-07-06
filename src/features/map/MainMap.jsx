@@ -2,6 +2,7 @@
 
 import { useJsApiLoader } from "@react-google-maps/api";
 import { useState, useEffect, useRef, useCallback, Children } from "react";
+import authApi from "../../apis/auth";
 const libraries = ["places", "core", "maps", "marker"];
 
 export default function Map({
@@ -104,14 +105,26 @@ export default function Map({
         if (position) {
           // Place a marker at the selected place location
           setMarker(position, place.name, place.formatted_address);
-          setAutoComplete(null);
+          setCenter((prev) => position);
+          // ต้อง call api เพื่อที่จะถึง near me ใหม่มา โดยที่เอา lat long ของใหม่เป็นศก แล้วให้ไป trigger useEffect ที่แสดง pin ของ event near me
+          fetchEventNearMe(center);
         }
       });
     }
   }, [autoComplete]);
 
-  // ยิง API เรียก array of event near me มาใหม่จาก backend
-
+  const fetchEventNearMe = async (center) => {
+    try {
+      const body = {};
+      body.userLocation = center.lat + "," + center.lng;
+      console.log("body", body);
+      const result = await authApi.getNearMe(body);
+      console.log("result from get nearMe after change new center", result);
+      setEventArray(result.data);
+    } catch (err) {
+      console.log("error from fetching event near me API", err);
+    }
+  };
   // Create function to set market to the selected place (โดยการระบุ lat lng)
   function setMarker(location, name, address) {
     if (!map) return;

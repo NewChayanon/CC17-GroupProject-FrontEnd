@@ -52,7 +52,7 @@ export default function HomePage() {
     const body = {};
     body.userLocation = currentLocation.lat + "," + currentLocation.lng;
     console.log("body", body);
-    const fetchEvent = async (body) => {
+    const fetchEventNearMe = async (body) => {
       try {
         const result = await authApi.getNearMe(body);
         console.log("result from get nearMe", result);
@@ -61,7 +61,7 @@ export default function HomePage() {
         console.log("error from fetching event near me API", err);
       }
     };
-    fetchEvent();
+    fetchEventNearMe();
   }, []);
   // Get one event from Database after user selects one particular event
 
