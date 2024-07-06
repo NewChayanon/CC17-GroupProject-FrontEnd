@@ -3,19 +3,25 @@ import { AnnouncementIcon, CalendarIcon, ProductIcon } from "../../icons";
 import EventDetailTab from "./components/EventDetailTab";
 import PromotionTab from "./components/PromotionTab";
 import ProductTab from "./components/ProductTab";
+import useStore from "../../zustand/store";
+import { useEffect } from "react";
 
 export default function MyStoreMainPage() {
   const [slideUp, setSlideUp] = useState(false);
   const [activeMenu, setActiveMenu] = useState("detail");
+  const getMyStore = useStore((state) => state.getMyStore);
 
   const handleSlideUp = () => {
     setSlideUp(!slideUp);
   };
 
   const handleClickMenu = (e) => {
-    console.log(e.target);
     setActiveMenu(e.target.id);
   };
+
+  useEffect(() => {
+    getMyStore();
+  }, []);
 
   return (
     <div className="relative bg-graybg min-h-full w-full flex flex-col justify-between overflow-hidden">
