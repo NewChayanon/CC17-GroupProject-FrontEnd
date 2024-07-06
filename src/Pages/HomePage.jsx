@@ -49,13 +49,16 @@ export default function HomePage() {
   }, []);
   // Get the event from Database by sending the current lat & lng of users
   useEffect(() => {
-    const fetchEvent = async () => {
+    const body = {};
+    body.userLocation = currentLocation.lat + "," + currentLocation.lng;
+    console.log("body", body);
+    const fetchEvent = async (body) => {
       try {
-        const result = await authApi.getNearMe();
+        const result = await authApi.getNearMe(body);
         console.log("result from get nearMe", result);
         setEventArray(result.data);
       } catch (err) {
-        console.log(err);
+        console.log("error from fetching event near me API", err);
       }
     };
     fetchEvent();
