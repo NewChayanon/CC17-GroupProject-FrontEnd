@@ -1,7 +1,11 @@
 import React from "react";
 import EventTabCard from "../../components/EventTabCard";
 
-export default function EventsBySellerBox({ eventsObjectBySeller, index }) {
+export default function EventsBySellerBox({
+  eventsObjectBySeller,
+  index,
+  setUpdateInterestEventStatus,
+}) {
   let isEven;
   if (index % 2 === 0) {
     isEven = true;
@@ -23,6 +27,7 @@ export default function EventsBySellerBox({ eventsObjectBySeller, index }) {
           isFullVersion={false}
           key={index}
           hasCoupon={true}
+          setUpdateInterestEventStatus={setUpdateInterestEventStatus}
         />
       ))}
     </div>

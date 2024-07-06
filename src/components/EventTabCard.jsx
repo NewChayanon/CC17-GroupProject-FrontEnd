@@ -17,6 +17,7 @@ export default function EventTabCard({
   isFullVersion = true,
   hasCoupon = false,
   requiredPin = true,
+  setUpdateInterestEventStatus,
 }) {
   // Pin Status & Handle Click Pin
   const [isInterested, setIsInterested] = useState(false);
@@ -46,8 +47,9 @@ export default function EventTabCard({
         );
       }
       console.log("Result from API updating interest status", result);
-      // 3. ถ้า update สำเร็จ >> setIsinterested เป็นอีกค่านึง ถ้าไม่สำเร็จ >> ส่ง error
+      // 3. ถ้า update สำเร็จ >> setIsinterested เป็นอีกค่านึง + setUpdateInterestEventStatus เป็น true เพื่อ trigger ให้หน้านี้ rerender ใหม่หลังจากที่ interested event หายไปอันนึง
       setIsInterested((isInterested) => !isInterested);
+      setUpdateInterestEventStatus(true);
     } catch (err) {
       console.log("error from updating interest", err);
     }

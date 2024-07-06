@@ -9,6 +9,8 @@ import authApi from "../apis/auth";
 import Modal from "../components/Modal";
 import useStore from "../zustand/store";
 import LogoutModal from "../components/LogoutModal";
+import Places from "../features/map/Places";
+import Map from "../features/map/MainMap";
 
 // Fetch Event from API instead of using mockup Array
 const initialEventArray = [
@@ -66,7 +68,7 @@ export default function HomePage() {
         {/*==================== Search Box===================*/}
         <div
           className="absolute z-40 px-3"
-          style={{ top: "10px", margin: "auto" }}
+          style={{ top: "30px", margin: "auto" }}
         >
           <SearchBar />
         </div>
@@ -77,14 +79,21 @@ export default function HomePage() {
         >
           Map Mock
         </div> */}
-        <div className="z-10">
+        {/* <div className="z-10">
           <MapPane
             currentLocation={currentLocation}
             setCurrentLocation={setCurrentLocation}
             eventArray={eventArray}
             setEventArray={setEventArray}
           />
-        </div>
+        </div> */}
+        {/* <Places /> */}
+        <Map
+          currentLocation={currentLocation}
+          setCurrentLocation={setCurrentLocation}
+          eventArray={eventArray}
+          setEventArray={setEventArray}
+        />
       </div>
       {/*==================== EVENT CAROUSEL (EVENT LIST NEAR ME) ===================*/}
       <div>
