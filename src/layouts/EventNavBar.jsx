@@ -1,7 +1,8 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import EventCover from "../features/event/EventCover";
-import { AnnouncementIcon, CalendarIcon, ProductIcon } from "../icons";
+import { AnnouncementIcon, ProductIcon } from "../icons";
+import { CalendarIcon } from "../icons/calendar-icon";
 
 export default function EventNavBar() {
   const { pathname } = useLocation();

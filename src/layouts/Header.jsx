@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import useStore from "../zustand/store.js";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { InterestedEventIcon } from "../icons/interested-event-icon.jsx";
 
 export default function Header() {
   // ทำ responsive 2 size 1) mobile 2) desktop
@@ -24,7 +25,7 @@ export default function Header() {
   const navMenuList = [
     {
       menuIcon: <VendorNearMeIcon />,
-      menuName: "Seller Near Me",
+      menuName: "Stores Near Me",
       linkTo: "/home",
       handleClick: "",
       authRequired: false,
@@ -37,6 +38,13 @@ export default function Header() {
       authRequired: true,
     },
     {
+      menuIcon: <InterestedEventIcon />,
+      menuName: "My Interested Events",
+      linkTo: "/user/interested-event",
+      handleClick: "",
+      authRequired: true,
+    },
+    {
       menuIcon: <InboxIcon />,
       menuName: "Inbox",
       linkTo: "/user/inbox",
@@ -45,15 +53,15 @@ export default function Header() {
     },
     {
       menuIcon: <MyFavoriteSeller />,
-      menuName: "My Favorite Seller",
-      linkTo: "/user/favoriteseller",
+      menuName: "My Favorite Stores",
+      linkTo: "/user/favorite-stores",
       handleClick: "",
       authRequired: true,
     },
     {
       menuIcon: <VoucherListIcon />,
       menuName: "Voucher List",
-      linkTo: "/user/voucher",
+      linkTo: "/user/collected-coupons",
       handleClick: "",
       authRequired: true,
     },
