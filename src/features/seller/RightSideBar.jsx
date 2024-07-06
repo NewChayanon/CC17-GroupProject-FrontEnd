@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import RightSideBarMainPage from "./components/RightSideBarMainPage";
+import RightSideBarMainPage from "./components/RightSIdeBarMainPage";
 import RightSideBarProfile from "./components/RightSideBarProfile";
 import RightSideBarFollower from "./components/RightSideBarFollower";
 
