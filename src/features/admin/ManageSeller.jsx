@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import SearchBarAdminPage from "./components/SearchBarAdminPage";
+import SearchBarAdminPage from "../../components/SearchBarAdminPage";
 import StoreList from "./components/StoreList";
-import Pagination from "./components/Pagination";
+import Pagination from "../../components/Pagination";
 import { useDebounce } from "../../hooks/useDebounce";
 
 export default function ManageSeller() {
@@ -150,8 +150,7 @@ export default function ManageSeller() {
       lastUpdated: "2024-05-02 10:20:00",
       blocked: false,
     },
-
-    // Add more store data here
+    // Your store data...
   ]);
 
   const [filteredStores, setFilteredStores] = useState(stores);
@@ -228,6 +227,9 @@ export default function ManageSeller() {
           totalItems={filteredStores.length}
           paginate={paginate}
           currentPage={currentPage}
+          showFirstLastButtons={true}
+          firstLabel="<<"
+          lastLabel=">>"
         />
       </div>
       <div className="w-full h-full bg-green-200">Seller Data</div>
