@@ -880,14 +880,13 @@ export function MapPinIcon() {
   );
 }
 
-export function EditIcon() {
+export function EditIcon({ isGreen = false }) {
   return (
     <svg
       width="20"
       viewBox="0 0 21 20"
       fill="none"
-      stroke="#8D8D8D"
-      className="hover:stroke-graydarktext hover:cursor-pointer"
+      className={`${isGreen ? "hover:stroke-graydarktext stroke-darkgreen" : "hover:stroke-graydarktext stroke-graylighttext"} hover:cursor-pointer`}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -915,9 +914,8 @@ export function DeleteIcon() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        className="hover:fill-graydarktext hover:cursor-pointer"
+        className="hover:fill-graydarktext fill-graylighttext hover:cursor-pointer"
         d="M3.2915 19.375C2.71859 19.375 2.22831 19.1712 1.82067 18.7635C1.41303 18.3559 1.20886 17.8653 1.20817 17.2917V3.75H0.166504V1.66667H5.37484V0.625H11.6248V1.66667H16.8332V3.75H15.7915V17.2917C15.7915 17.8646 15.5877 18.3552 15.18 18.7635C14.7724 19.1719 14.2818 19.3757 13.7082 19.375H3.2915ZM5.37484 15.2083H7.45817V5.83333H5.37484V15.2083ZM9.5415 15.2083H11.6248V5.83333H9.5415V15.2083Z"
-        fill="#8D8D8D"
       />
     </svg>
   );

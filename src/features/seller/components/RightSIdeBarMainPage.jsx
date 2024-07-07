@@ -12,18 +12,8 @@ const RightSideBarMainPage = () => {
   const navigate = useNavigate();
   const storeDetail = useStore((state) => state.storeDetail);
   const { myEvent, myStoreProfile } = storeDetail;
-
-  // TEMP USE FOR PARSING DATE MONTH //
-  function parseDateString(dateString) {
-    const [day, month, year] = dateString.split("/").map(Number);
-    return new Date(year, month - 1, day);
-  }
-
-  function formatMonth(date) {
-    const monthFormatter = new Intl.DateTimeFormat("en", { month: "short" });
-    return monthFormatter.format(date);
-  }
-  // TEMP USE FOR PARSING DATE MONTH //
+  const formatMonth = useStore((state) => state.formatMonth);
+  const formatDate = useStore((state) => state.formatDate);
 
   return (
     <>
@@ -68,17 +58,17 @@ const RightSideBarMainPage = () => {
                 </p>
               </div>
               <div className="flex gap-1 pt-1">
-                <a href={myStoreProfile.facebook}>
+                <a href={myStoreProfile.facebook} target="_blank">
                   <FacebookIconForStoreEvent
                     isActive={myStoreProfile.facebook}
                   />
                 </a>
-                <a href={myStoreProfile.instagram}>
+                <a href={myStoreProfile.instagram} target="_blank">
                   <InstagramIconForStoreEvent
                     isActive={myStoreProfile.instagram}
                   />
                 </a>
-                <a href={myStoreProfile.line}>
+                <a href={myStoreProfile.line} target="_blank">
                   <LineIconForStoreEvent isActive={myStoreProfile.line} />
                 </a>
               </div>
@@ -99,9 +89,9 @@ const RightSideBarMainPage = () => {
               myStoreProfile.eventNow.map((e) => (
                 <EventSideBarCard
                   key={e.eventId}
-                  startDate={parseDateString(e.startDate).getDate()}
-                  startMonth={formatMonth(parseDateString(e.startDate))}
-                  endDate={e.endDate}
+                  startDate={new Date(e.startDate).getUTCDate()}
+                  startMonth={formatMonth(e.startDate)}
+                  endDate={formatDate(e.endDate)}
                   openTime={e.openTime}
                   location={e.locationName}
                 />
@@ -121,9 +111,9 @@ const RightSideBarMainPage = () => {
               myStoreProfile.upComingEvent.map((e) => (
                 <EventSideBarCard
                   key={e.eventId}
-                  startDate={parseDateString(e.startDate).getDate()}
-                  startMonth={formatMonth(parseDateString(e.startDate))}
-                  endDate={e.endDate}
+                  startDate={new Date(e.startDate).getUTCDate()}
+                  startMonth={formatMonth(e.startDate)}
+                  endDate={formatDate(e.endDate)}
                   openTime={e.openTime}
                   location={e.locationName}
                 />
