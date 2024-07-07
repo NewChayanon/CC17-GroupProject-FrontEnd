@@ -10,15 +10,16 @@ export default function Map({
   setCurrentLocation,
   eventArray,
   setEventArray,
+  setSelectedEventId,
 }) {
   // set a state for a map created
-  console.log("eventArray", eventArray);
+  console.log("EventArray at the start of MainMap component", eventArray);
   const [map, setMap] = useState(null);
   // set a state for autocomplete
   const [autoComplete, setAutoComplete] = useState(null);
   // State for the selected place from autocomplete
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [zoomLevel, setZoomLevel] = useState(12);
+  const [zoomLevel, setZoomLevel] = useState(15);
   const [center, setCenter] = useState(currentLocation);
   const [bounds, setBounds] = useState(null);
   // เช็คว่า API load แล้วรึยัง
@@ -49,6 +50,8 @@ export default function Map({
       const mapOptions = {
         center: center,
         zoom: zoomLevel,
+        minZoom: 10,
+        maxZoom: 18,
         mapId: import.meta.env.VITE_GOOGLE_MAP_MAP_ID,
         // mapId: "MY-MAP-1234",
       };
@@ -82,6 +85,7 @@ export default function Map({
     console.log("end of useeffect");
   }, [isLoaded, currentLocation]);
 
+  // Setup the new marker for events when event array is updated
   useEffect(() => {
     if (eventArray) {
       eventArray.forEach((event) => {
@@ -89,7 +93,7 @@ export default function Map({
           lat: +event.eventLocation.split(",")[0],
           lng: +event.eventLocation.split(",")[1],
         };
-        setMarker(location, event.eventName, event.eventStartDate);
+        setMarker(location, event.eventName, event.eventStartDate, event.id);
       });
     }
   }, [isLoaded, eventArray]);
@@ -107,29 +111,43 @@ export default function Map({
           setMarker(position, place.name, place.formatted_address);
           setCenter((prev) => position);
           // ต้อง call api เพื่อที่จะถึง near me ใหม่มา โดยที่เอา lat long ของใหม่เป็นศก แล้วให้ไป trigger useEffect ที่แสดง pin ของ event near me
-          fetchEventNearMe(center);
+          console.log("Inside useeffect after confirm place in search box"); // run แล้ว หลังจาก confirm search
+          console.log("Position data before modifying", position);
+          fetchEventNearMe(position); // run แล้วหลังจาก confirm search
+          console.log(
+            "After call fetcheventnearme after change place in search box"
+          );
+          // fetchEventNearMe(center)
         }
       });
     }
   }, [autoComplete]);
 
-  const fetchEventNearMe = async (center) => {
+  const fetchEventNearMe = async (position) => {
     try {
-      const body = {};
-      body.userLocation = center.lat + "," + center.lng;
-      console.log("body", body);
-      const result = await authApi.getNearMe(body);
-      console.log("result from get nearMe after change new center", result);
+      const params = {};
+      params.userLocation = position.lat() + "," + position.lng();
+      console.log("Params", params); // params ถูกแล้ว {userLocation: '7.8836389,98.38796599999999'}
+      const result = await authApi.getNearMe(params); // ตรงนี้รันแล้ว หลังจากที่ search box is confirmed
+      console.log(
+        "result from get nearMe after change new cente (inside component)r",
+        result
+      );
       setEventArray(result.data);
     } catch (err) {
       console.log("error from fetching event near me API", err);
     }
   };
   // Create function to set market to the selected place (โดยการระบุ lat lng)
-  function setMarker(location, name, address) {
+  function setMarker(
+    location,
+    name,
+    locationAddressOrEventDetails,
+    eventId = 0
+  ) {
+    // Marker นี้ควรจะโชว์ เมื่อกดคลิกที่ pin เท่านั้น และสามารถปิดได้ด้วย
     if (!map) return;
-    map.setCenter(location);
-
+    // Render Marker
     const marker = new google.maps.marker.AdvancedMarkerElement({
       map: map,
       position: location,
@@ -138,10 +156,11 @@ export default function Map({
     // Setup content for
     const content = document.createElement("div");
     content.style.width = "100px";
-    content.style.height = "100px";
-    content.style.color = "#007bff";
-    content.textContent = address;
+    // content.style.minHeight = "50px";
+    content.style.color = "#20831E";
+    content.textContent = locationAddressOrEventDetails;
 
+    // Render infoCard with onClose to close the item
     const infoCard = new google.maps.InfoWindow({
       position: location,
       headerContent: name,
@@ -149,7 +168,21 @@ export default function Map({
       ariaLabel: "hello world hello world",
       content: content,
     });
-    infoCard.open({ map: map, anchor: marker });
+    // Add click event listener to marker to open infoCard
+    marker.addListener("click", (e) => {
+      console.log("console log click marker event", e);
+      // setSelectedEventId(e.id);
+      infoCard.open({
+        map: map,
+        anchor: marker,
+      });
+    });
+
+    // Optional: Close the infoCard when clicking anywhere on the map (outside the marker)
+    map.addListener("click", () => {
+      infoCard.close();
+    });
+    // infoCard.open({ map: map, anchor: marker });
   }
 
   return (

@@ -33,8 +33,7 @@ export default function HomePage() {
 
   const logoutModal = useStore((state) => state.logoutModal);
 
-  // Try getting current location
-  // Then, Fetch Event List based on Current Location
+  // Get current location of user and setCurrentLocation
   useEffect(() => {
     const fetchLocation = async () => {
       try {
@@ -47,23 +46,29 @@ export default function HomePage() {
     };
     fetchLocation();
   }, []);
-  // Get the event from Database by sending the current lat & lng of users
+
+  // Use current location to Get the event from Database by sending the current lat & lng of users
   useEffect(() => {
-    const body = {};
-    body.userLocation = currentLocation.lat + "," + currentLocation.lng;
-    console.log("body", body);
-    const fetchEventNearMe = async (body) => {
+    const params = {};
+    params.userLocation = currentLocation.lat + "," + currentLocation.lng;
+    console.log("params", params);
+    const fetchEventNearMe = async (params) => {
       try {
-        const result = await authApi.getNearMe(body);
-        console.log("result from get nearMe", result);
+        console.log("API request params", params);
+        const result = await authApi.getNearMe(params);
+        console.log(
+          "Main Homepage: result from get nearMe(first download only",
+          result
+        );
         setEventArray(result.data);
       } catch (err) {
         console.log("error from fetching event near me API", err);
       }
     };
-    fetchEventNearMe();
+    fetchEventNearMe(params);
+    // }
   }, []);
-  // Get one event from Database after user selects one particular event
+  // ตรงนี้ ลองดู ถ้าเกิด render event ไม่ขึ้น ให้ใส่ current location เป็น dependency
 
   return (
     <div className="flex flex-col w-auto h-auto">

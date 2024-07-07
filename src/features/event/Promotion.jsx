@@ -13,6 +13,7 @@ export default function Promotion() {
   const [openModal, setOpenModal] = useState(false); // {/* State for modal in case if user can get voucher */}
   const [openLoginModal, setOpenLoginModal] = useState(false); // {/* State for modal in case if user has not logged in yet */}
   const [openErrModal, setOpenErrModal] = useState(false);
+  const [isRedeemed, setIsRedeemed] = useState(false);
   // Call API to get all event details - async await & keep data in state
   const setEventId = useStore((state) => state.setEventId);
   const eventId = useStore((state) => state.eventId);
@@ -26,7 +27,8 @@ export default function Promotion() {
   useEffect(() => {
     setSelectedEventDetails(eventIdfromPath, isAuthenticated);
     setEventId(eventIdfromPath);
-  }, []);
+    setIsRedeemed(false);
+  }, [isRedeemed]);
   const handleGetCoupon = async (e) => {
     try {
       // 1. check ว่า login แล้วหรือยัง ถ้ายังไม่ login จะ get coupon ไม่ได้
@@ -36,6 +38,7 @@ export default function Promotion() {
       // 2. ถ้า login แล้ว >> ยิง API เพื่อไปขอ get coupon มาจาก Backend ถ้าสำเร็จ ให้เปิด modal เพื่อแสดง voucher
       const result = await eventApi.getCoupon(eventId);
       console.log("Result from getting coupon", result);
+      setIsRedeemed(true);
       setOpenModal(true);
     } catch (err) {
       console.log("error from API to get coupon", err);
