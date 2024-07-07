@@ -8,6 +8,6 @@ authApi.register = (body) => axios.post("/auth/register", body);
 
 authApi.getAuthUser = () => axios.get("/user/me");
 
-authApi.getNearMe = () => axios.get("/auth/near-me");
+authApi.getNearMe = (body) => axios.get("/auth/near-me", body);
 
 export default authApi;

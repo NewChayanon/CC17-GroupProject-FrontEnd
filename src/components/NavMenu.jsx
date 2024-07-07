@@ -11,7 +11,7 @@ export default function NavMenu({ menuIcon, menuName, linkTo = "/", onClick }) {
   }, []);
 
   return (
-    <li className={`p-2.5 ${isActive && "bg-lightyellow"}`}>
+    <li className={`max-w-full rounded-md ${isActive && "bg-lightyellow"}`}>
       <Link to={linkTo} onClick={onClick}>
         {menuIcon}
         <p className="text-sm">{menuName}</p>

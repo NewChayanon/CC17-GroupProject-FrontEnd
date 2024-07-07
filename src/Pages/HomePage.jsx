@@ -9,6 +9,8 @@ import authApi from "../apis/auth";
 import Modal from "../components/Modal";
 import useStore from "../zustand/store";
 import LogoutModal from "../components/LogoutModal";
+import Places from "../features/map/Places";
+import Map from "../features/map/MainMap";
 
 // Fetch Event from API instead of using mockup Array
 const initialEventArray = [
@@ -47,16 +49,19 @@ export default function HomePage() {
   }, []);
   // Get the event from Database by sending the current lat & lng of users
   useEffect(() => {
-    const fetchEvent = async () => {
+    const body = {};
+    body.userLocation = currentLocation.lat + "," + currentLocation.lng;
+    console.log("body", body);
+    const fetchEventNearMe = async (body) => {
       try {
-        const result = await authApi.getNearMe();
+        const result = await authApi.getNearMe(body);
         console.log("result from get nearMe", result);
         setEventArray(result.data);
       } catch (err) {
-        console.log(err);
+        console.log("error from fetching event near me API", err);
       }
     };
-    fetchEvent();
+    fetchEventNearMe();
   }, []);
   // Get one event from Database after user selects one particular event
 
@@ -66,7 +71,7 @@ export default function HomePage() {
         {/*==================== Search Box===================*/}
         <div
           className="absolute z-40 px-3"
-          style={{ top: "10px", margin: "auto" }}
+          style={{ top: "30px", margin: "auto" }}
         >
           <SearchBar />
         </div>
@@ -77,14 +82,21 @@ export default function HomePage() {
         >
           Map Mock
         </div> */}
-        <div className="z-10">
+        {/* <div className="z-10">
           <MapPane
             currentLocation={currentLocation}
             setCurrentLocation={setCurrentLocation}
             eventArray={eventArray}
             setEventArray={setEventArray}
           />
-        </div>
+        </div> */}
+        {/* <Places /> */}
+        <Map
+          currentLocation={currentLocation}
+          setCurrentLocation={setCurrentLocation}
+          eventArray={eventArray}
+          setEventArray={setEventArray}
+        />
       </div>
       {/*==================== EVENT CAROUSEL (EVENT LIST NEAR ME) ===================*/}
       <div>
