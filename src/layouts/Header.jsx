@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import useStore from "../zustand/store.js";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import SettingsIcon from "../icons/SettingsIcon.jsx";
 
 export default function Header() {
   // ทำ responsive 2 size 1) mobile 2) desktop
@@ -23,18 +24,18 @@ export default function Header() {
 
   const navMenuList = [
     {
+      menuIcon: <StoreIcon />,
+      menuName: "My Store",
+      linkTo: "/mystore",
+      handleClick: "",
+      authRequired: true,
+    },
+    {
       menuIcon: <VendorNearMeIcon />,
-      menuName: "Seller Near Me",
+      menuName: "Sellers nearby",
       linkTo: "/home",
       handleClick: "",
       authRequired: false,
-    },
-    {
-      menuIcon: <StoreIcon />,
-      menuName: "My Store",
-      linkTo: "/home/seller",
-      handleClick: "",
-      authRequired: true,
     },
     {
       menuIcon: <InboxIcon />,
@@ -52,8 +53,22 @@ export default function Header() {
     },
     {
       menuIcon: <VoucherListIcon />,
-      menuName: "Voucher List",
+      menuName: "Collected Coupons",
       linkTo: "/user/voucher",
+      handleClick: "",
+      authRequired: true,
+    },
+    {
+      menuIcon: <SettingsIcon />,
+      menuName: "Settings",
+      linkTo: "/user/settings",
+      handleClick: "",
+      authRequired: true,
+    },
+    {
+      menuIcon: <VoucherListIcon />,
+      menuName: "Contact Us",
+      linkTo: "/contact-us",
       handleClick: "",
       authRequired: true,
     },
