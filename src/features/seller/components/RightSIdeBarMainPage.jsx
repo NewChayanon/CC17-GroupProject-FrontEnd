@@ -47,14 +47,14 @@ const RightSideBarMainPage = () => {
           />
           <div className="w-full px-2 py-0.5">
             <p className="text-sm text-ellipsis overflow-hidden font-medium text-graydarktext">
-              TEST EVENLONGERNAME
+              FirstName Superlong-Last
             </p>
           </div>
         </div>
         <div className="flex p-2 justify-between items-start">
           <div className="w-3/5 overflow-hidden h-8">
             <p className="text-lg text-ellipsis overflow-hidden font-medium text-darkgreen">
-              StoreNameadawdawdwd EVENfweffasdad LONGERRRRRRdwadwd REEEEEEEEE
+              StoreName
             </p>
           </div>
           <div className="flex gap-1 pt-1">

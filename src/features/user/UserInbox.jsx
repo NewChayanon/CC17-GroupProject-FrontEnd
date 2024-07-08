@@ -1,4 +1,5 @@
-import { SearchIcon } from "../../icons";
+import { useNavigate } from "react-router-dom";
+import { AnnouncementIcon, SearchIcon } from "../../icons";
 import durianProfileLogo from "../../images/profile-mock-durian-pic.png";
 
 function UserMessageBox() {
@@ -26,6 +27,7 @@ function UserMessageBox() {
 }
 
 export default function UserInbox() {
+  const navigate = useNavigate();
   return (
     <div className="">
       <form className="flex justify-between items-center gap-2 px-4 py-3">
@@ -37,20 +39,19 @@ export default function UserInbox() {
           placeholder="Search Inbox "
         />
         <SearchIcon />
+        <div
+          className="xl:hidden"
+          onClick={() => navigate("/user/inbox-message")}
+        >
+          <AnnouncementIcon />
+        </div>
       </form>
-
       <UserMessageBox />
-
       <UserMessageBox />
-
       <UserMessageBox />
-
       <UserMessageBox />
-
       <UserMessageBox />
-
       <UserMessageBox />
-
       <UserMessageBox />
       <UserMessageBox />
       <UserMessageBox />

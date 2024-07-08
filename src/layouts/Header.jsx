@@ -54,7 +54,7 @@ export default function Header() {
     {
       menuIcon: <VoucherListIcon />,
       menuName: "Collected Coupons",
-      linkTo: "/user/voucher",
+      linkTo: "/user/collected-coupons",
       handleClick: "",
       authRequired: true,
     },
