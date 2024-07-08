@@ -33,8 +33,8 @@ export default function SearchBar() {
       findPlaces(searchKeyword);
       // searchPlaces();
     } else {
-      // รอยิง api ไปหา Server
     }
+    // รอยิง api ไปหา Server
   };
 
   return (
@@ -53,7 +53,7 @@ export default function SearchBar() {
           Search By
         </option>
         <option value="PRODUCT">Product</option>
-        <option value="SELLER">Store</option>
+        <option value="STORE">Store</option>
         <option value="LOCATION">Location</option>
       </select>
       <input

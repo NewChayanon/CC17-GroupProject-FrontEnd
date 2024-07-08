@@ -39,7 +39,7 @@ export default function HomePage() {
       try {
         const result = await getCurrentLocation();
         console.log("result from getcurrentlocation", result);
-        setCurrentLocation(result);
+        setCurrentLocation((prev) => result);
       } catch (err) {
         console.log(err);
       }
@@ -67,7 +67,7 @@ export default function HomePage() {
     };
     fetchEventNearMe(params);
     // }
-  }, []);
+  }, [currentLocation]);
   // ตรงนี้ ลองดู ถ้าเกิด render event ไม่ขึ้น ให้ใส่ current location เป็น dependency
 
   return (

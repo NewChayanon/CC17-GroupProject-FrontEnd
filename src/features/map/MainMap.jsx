@@ -32,21 +32,26 @@ export default function Map({
   const mapRef = useRef(null);
   const placeAutoCompleteRef = useRef(null);
   // Event handler function to handle map change (zoomlevel, center)
-  const handleMapChange = useCallback(() => {
-    console.log("map info inside handle change function", map);
-    if (map) {
-      // mapRef.current = map;
-      console.log("Map Instance", map); // ค่านี้มาอยู่
-      console.log("Map new zoom level", map.zoom);
-      setZoomLevel(map.getZoom());
-      console.log("map new center", map.getCenter().toJSON()); // ได้ค่า lat,lng เดิม
-      setCenter(map.getCenter().toJSON());
-    }
-  }, [map]);
+  // const handleMapChange = useCallback(() => {
+  //   console.log("map info inside handle change function", map);
+  //   if (map) {
+  //     // mapRef.current = map;
+  //     console.log("Map Instance", map); // ค่านี้มาอยู่
+  //     console.log("Map new zoom level", map.zoom);
+  //     setZoomLevel(map.getZoom());
+  //     console.log("map new center", map.getCenter().toJSON()); // ได้ค่า lat,lng เดิม
+  //     setCenter(map.getCenter().toJSON());
+  //   }
+  // }, [map]);
 
+  // Useeffect to detect change in currentlocation
+  useEffect(() => {
+    setCenter(currentLocation);
+  }, [currentLocation]);
   // first load map and show map
   useEffect(() => {
     if (isLoaded && mapRef.current) {
+      console.log("current location before instantiate the map", center);
       const mapOptions = {
         center: center,
         zoom: zoomLevel,
@@ -58,10 +63,11 @@ export default function Map({
       // Create a map instance
       const gMap = new google.maps.Map(mapRef.current, mapOptions);
       setMap(gMap);
-      // Add event listener function to the map
-      gMap.addListener("zoom_changed", handleMapChange);
-      gMap.addListener("dragend", handleMapChange);
-      gMap.addListener("idle", handleMapChange);
+      console.log("Map instantiated done");
+      // // Add event listener function to the map
+      // gMap.addListener("zoom_changed", handleMapChange);
+      // gMap.addListener("dragend", handleMapChange);
+      // gMap.addListener("idle", handleMapChange);
 
       // Create Autocomplete searchbox instance with options (limit search of places & return fields (geometry = lat&lng))
       // Prepare Limit condition the place bound to thailand's area by southwest & northeast lat&lng
@@ -84,7 +90,7 @@ export default function Map({
       console.log("Setup autocomplete instance done");
     }
     console.log("end of useeffect");
-  }, [isLoaded, currentLocation]);
+  }, [isLoaded, currentLocation, center]);
 
   // Setup the new marker for events when event array is updated
   useEffect(() => {
