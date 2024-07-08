@@ -5,6 +5,7 @@ import SellerVoucher from "../seller/SellerVoucher";
 
 export default function CollectedCoupons() {
   const [collectedCouponArr, setCollectedCouponArr] = useState([]);
+  const [isCouponCollected, setIsCouponCollected] = useState(false);
   const fetchCollectedCoupon = async () => {
     try {
       const result = await userApi.getCollectedCoupon();
@@ -15,8 +16,9 @@ export default function CollectedCoupons() {
     }
   };
   useEffect(() => {
+    setIsCouponCollected(false);
     fetchCollectedCoupon();
-  }, []);
+  }, [isCouponCollected]);
 
   return (
     <div className=" bg-white p-8 flex flex-col gap-4">
@@ -27,6 +29,7 @@ export default function CollectedCoupons() {
             key={index}
             selectedEventDetails={coupon}
             useEnabled={true}
+            setIsCouponCollected={setIsCouponCollected}
           />
         ))}
       </div>

@@ -13,6 +13,7 @@ import useStore from "../zustand/store.js";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import SettingsIcon from "../icons/SettingsIcon.jsx";
+import { InterestedEventIcon } from "../icons/interested-event-icon.jsx";
 
 export default function Header() {
   // ทำ responsive 2 size 1) mobile 2) desktop
@@ -46,8 +47,8 @@ export default function Header() {
     },
     {
       menuIcon: <MyFavoriteSeller />,
-      menuName: "My Favorite Seller",
-      linkTo: "/user/favoriteseller",
+      menuName: "My Favorite Stores",
+      linkTo: "/user/favorite-stores",
       handleClick: "",
       authRequired: true,
     },

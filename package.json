@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@googlemaps/markerclusterer": "^2.5.3",
+    "@reach/combobox": "^0.18.0",
     "@react-google-maps/api": "^2.19.3",
     "@vis.gl/react-google-maps": "^1.1.0",
     "axios": "^1.7.2",
@@ -24,6 +25,8 @@
     "react-datepicker": "^7.2.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.24.0",
+    "react-toastify": "^10.0.5",
+    "use-places-autocomplete": "^4.0.1",
     "zustand": "^4.5.4"
   },
   "devDependencies": {

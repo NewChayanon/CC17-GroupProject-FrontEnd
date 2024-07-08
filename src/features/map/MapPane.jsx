@@ -45,9 +45,9 @@ export default function MapPane({
     console.log("Map bounds", map.detail.bounds);
 
     const updateState = () => {
-      setZoomLevel(map.detail.zoom);
-      setCenter(map.detail.center);
-      setBounds(map.detail.bounds);
+      setZoomLevel(map.detail.zoom); // set new zoom level
+      setCenter(map.detail.center); // set center of the map with center
+      setBounds(map.detail.bounds); // set new bound
     };
     // Use the idle event listener to update zoom and center state
     // map.addListener("idle", updateState);
@@ -68,7 +68,7 @@ export default function MapPane({
 
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAP_API_KEY}>
-      <div style={{ height: "286px", width: "full" }}>
+      <div className="w-full h-[286px]">
         <Map
           defaultZoom={12}
           defaultCenter={currentLocation}

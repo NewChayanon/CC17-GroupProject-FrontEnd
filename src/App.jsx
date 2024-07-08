@@ -1,7 +1,8 @@
 import LoadingSpinner from "./components/LoadingSpinner";
 import Router from "./routes";
 import { Suspense, useEffect } from "react";
-import loadGoogleMapsAPI from "./features/map/google-loadmap-api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   useEffect(() => {
@@ -13,6 +14,7 @@ function App() {
     <>
       <Suspense fallback={<LoadingSpinner />}>
         <Router />
+        <ToastContainer position="top-right" theme="dark" autoClose={3000} />
       </Suspense>
     </>
   );

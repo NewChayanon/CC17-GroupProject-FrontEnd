@@ -9,6 +9,8 @@ import authApi from "../apis/auth";
 import Modal from "../components/Modal";
 import useStore from "../zustand/store";
 import LogoutModal from "../components/LogoutModal";
+import Places from "../features/map/Places";
+import Map from "../features/map/MainMap";
 
 // Fetch Event from API instead of using mockup Array
 const initialEventArray = [
@@ -31,8 +33,7 @@ export default function HomePage() {
 
   const logoutModal = useStore((state) => state.logoutModal);
 
-  // Try getting current location
-  // Then, Fetch Event List based on Current Location
+  // Get current location of user and setCurrentLocation
   useEffect(() => {
     const fetchLocation = async () => {
       try {
@@ -45,20 +46,29 @@ export default function HomePage() {
     };
     fetchLocation();
   }, []);
-  // Get the event from Database by sending the current lat & lng of users
+
+  // Use current location to Get the event from Database by sending the current lat & lng of users
   useEffect(() => {
-    const fetchEvent = async () => {
+    const params = {};
+    params.userLocation = currentLocation.lat + "," + currentLocation.lng;
+    console.log("params", params);
+    const fetchEventNearMe = async (params) => {
       try {
-        const result = await authApi.getNearMe();
-        console.log("result from get nearMe", result);
+        console.log("API request params", params);
+        const result = await authApi.getNearMe(params);
+        console.log(
+          "Main Homepage: result from get nearMe(first download only",
+          result
+        );
         setEventArray(result.data);
       } catch (err) {
-        console.log(err);
+        console.log("error from fetching event near me API", err);
       }
     };
-    fetchEvent();
+    fetchEventNearMe(params);
+    // }
   }, []);
-  // Get one event from Database after user selects one particular event
+  // ตรงนี้ ลองดู ถ้าเกิด render event ไม่ขึ้น ให้ใส่ current location เป็น dependency
 
   return (
     <div className="flex flex-col w-auto h-auto">
@@ -66,7 +76,7 @@ export default function HomePage() {
         {/*==================== Search Box===================*/}
         <div
           className="absolute z-40 px-3"
-          style={{ top: "10px", margin: "auto" }}
+          style={{ top: "30px", margin: "auto" }}
         >
           <SearchBar />
         </div>
@@ -77,14 +87,21 @@ export default function HomePage() {
         >
           Map Mock
         </div> */}
-        <div className="z-10">
+        {/* <div className="z-10">
           <MapPane
             currentLocation={currentLocation}
             setCurrentLocation={setCurrentLocation}
             eventArray={eventArray}
             setEventArray={setEventArray}
           />
-        </div>
+        </div> */}
+        {/* <Places /> */}
+        <Map
+          currentLocation={currentLocation}
+          setCurrentLocation={setCurrentLocation}
+          eventArray={eventArray}
+          setEventArray={setEventArray}
+        />
       </div>
       {/*==================== EVENT CAROUSEL (EVENT LIST NEAR ME) ===================*/}
       <div>
