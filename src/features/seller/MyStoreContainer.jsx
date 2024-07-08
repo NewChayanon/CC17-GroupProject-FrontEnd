@@ -21,17 +21,33 @@ export default function MyStoreContainer() {
     "/mystore/unauthorized",
   ].includes(location.pathname);
 
+  // return (
+  //   <div className="h-auto flex flex-col ">
+  //     <Header />
+  //     <div className="flex flex-1 overflow-hidden">
+  //       <Sidebar />
+  //       <div className="flex flex-1 h-[calc(100vh-136px)] overflow-y-auto flex-wrap">
+  //         <Outlet />
+  //       </div>
+  //       {showRightSidebar && <RightSidebar />}
+  //     </div>
+  //     <div className="z-50">
+  //       <Footer />
+  //     </div>
+  //   </div>
+  // );
+
   return (
-    <div className="h-auto flex flex-col ">
+    <div className="xl:h-screen h-auto flex flex-col ">
       <Header />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden bg-graybg">
         <Sidebar />
-        <div className="flex flex-1 h-[calc(100vh-136px)] overflow-y-auto flex-wrap">
+        <div className="flex flex-1 h-[calc(100vh-136px)] xl:h-auto overflow-y-auto flex-wrap">
           <Outlet />
         </div>
         {showRightSidebar && <RightSidebar />}
       </div>
-      <div className="z-50">
+      <div className="z-30">
         <Footer />
       </div>
     </div>

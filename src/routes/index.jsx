@@ -23,6 +23,10 @@ const UserProtectedRoute = lazy(
 const InterestedEvent = lazy(() => import("../features/user/InterestedEvent"));
 
 const UserInbox = lazy(() => import("../features/user/UserInbox"));
+
+const UserInboxMessage = lazy(
+  () => import("../features/user/UserInboxMessage")
+);
 const FavoriteStores = lazy(() => import("../features/user/FavoriteStores"));
 const CollectedCoupons = lazy(
   () => import("../features/user/CollectedCoupons")
@@ -82,6 +86,7 @@ const userRouter = createBrowserRouter([
     children: [
       { path: "interested-event", element: <InterestedEvent /> },
       { path: "inbox", element: <UserInbox /> },
+      { path: "inbox-message", element: <UserInboxMessage /> },
       { path: "favorite-stores", element: <FavoriteStores /> },
       { path: "collected-coupons", element: <CollectedCoupons /> },
       { path: "settings", element: <UserSettings /> },
