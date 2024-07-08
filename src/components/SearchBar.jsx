@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import searchPlaces from "../apis/3rdparty/googleMapApi";
+import authApi from "../apis/auth";
 import findPlaces from "../features/map/google-search-location";
 import { SearchIcon } from "../icons";
 
@@ -12,29 +13,34 @@ export default function SearchBar() {
     setSearchKeyword(e.target.value);
   };
   const handleSelectSearchBy = (e) => {
-    setSearchBy(event.target.value);
+    setSearchBy(e.target.value);
   };
   const handleSelectWhen = (e) => {
     setSearchWhen(e.target.value);
   };
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log(
-      "Search By",
-      searchBy,
-      "Search When",
-      searchWhen,
-      "Search Keyword",
-      searchKeyword
-    );
-    alert("Searching!");
-    if (searchBy === "LOCATION") {
-      // ยิงไปใช้ service ของ google
-      findPlaces(searchKeyword);
-      // searchPlaces();
-    } else {
+  const handleSearch = async (e) => {
+    try {
+      e.preventDefault();
+      console.log(
+        "Search By",
+        searchBy,
+        "Search When",
+        searchWhen,
+        "Search Keyword",
+        searchKeyword
+      );
+      alert("Searching!");
+
+      const result = await authApi.getEventBySearch(
+        searchBy,
+        searchKeyword,
+        searchWhen
+      );
+      console.log("result from search", result.data);
+      // รอยิง api ไปหา Server
+    } catch (err) {
+      console.log("error from api getting event from search", err);
     }
-    // รอยิง api ไปหา Server
   };
 
   return (
@@ -52,9 +58,9 @@ export default function SearchBar() {
         <option value="" disabled>
           Search By
         </option>
-        <option value="PRODUCT">Product</option>
-        <option value="STORE">Store</option>
-        <option value="LOCATION">Location</option>
+        <option value="product">Product</option>
+        <option value="store">Store</option>
+        <option value="location">Location</option>
       </select>
       <input
         value={searchKeyword}
@@ -73,10 +79,10 @@ export default function SearchBar() {
         <option value="" disabled>
           When
         </option>
-        <option value="TODAY">Today</option>
-        <option value="TOMORROW">Tomorrow</option>
-        <option value="THISWEEK">This Week</option>
-        <option value="THISMONTH">This Month</option>
+        <option value="today">Today</option>
+        <option value="tomorrow">Tomorrow</option>
+        <option value="thisweek">This Week</option>
+        <option value="thismonth">This Month</option>
       </select>
       <button type="submit">
         <SearchIcon />

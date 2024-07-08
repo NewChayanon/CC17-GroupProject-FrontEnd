@@ -103,7 +103,12 @@ export default function Map({
           lat: +event.eventLocation.split(",")[0],
           lng: +event.eventLocation.split(",")[1],
         };
-        setMarkerForEvents(location, event.eventName, event.eventStartDate);
+        setMarkerForEvents(
+          location,
+          event.eventName,
+          event.eventStartDate,
+          event.id
+        );
       });
     }
   }, [isLoaded, eventArray]);
@@ -148,6 +153,7 @@ export default function Map({
       console.log("error from fetching event near me API", err);
     }
   };
+
   // Has 2 setmarker functions 1) For searched place 2) For events near me
   // Create function to set market to the selected place (โดยการระบุ lat lng)
   function setMarker(location, name, locationAddressOrEventDetails) {
@@ -191,14 +197,35 @@ export default function Map({
     // });
     // infoCard.open({ map: map, anchor: marker });
   }
-  function setMarkerForEvents(location, name, locationAddressOrEventDetails) {
+  function setMarkerForEvents(
+    location,
+    name,
+    locationAddressOrEventDetails,
+    eventId
+  ) {
     // Marker นี้ควรจะโชว์ เมื่อกดคลิกที่ pin เท่านั้น และสามารถปิดได้ด้วย
     if (!map) return;
     // Render Marker
-    const marker = new google.maps.marker.AdvancedMarkerElement({
+    const svgMarker = {
+      path: "M-1.547 12l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM0 0q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
+      fillColor: "green",
+      fillOpacity: 0.6,
+      strokeWeight: 0,
+      rotation: 0,
+      scale: 2,
+      anchor: new google.maps.Point(0, 20),
+    };
+    // const marker = new google.maps.marker.AdvancedMarkerElement({
+    //   map: map,
+    //   position: location,
+    //   title: "Marker Title",
+    //   icon: svgMarker,
+    // });
+    const marker = new google.maps.Marker({
       map: map,
       position: location,
-      title: "Marker",
+      title: "Marker Title",
+      icon: svgMarker,
     });
     // Setup content for
     const content = document.createElement("div");
@@ -217,7 +244,7 @@ export default function Map({
     });
     // Add click event listener to marker to open infoCard
     marker.addListener("click", (e) => {
-      console.log("console log click marker event", e);
+      console.log("event from clicking marker", e);
       // setSelectedEventId(e.id);
       infoCard.open({
         map: map,
