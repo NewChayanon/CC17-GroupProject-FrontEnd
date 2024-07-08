@@ -17,7 +17,7 @@ export default function Map({
   const [map, setMap] = useState(null);
   // set a state for autocomplete
   const [autoComplete, setAutoComplete] = useState(null);
-  // State for the selected place from autocomplete
+  // State for the selected place from autocomplete to use to locate the new pin
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(15);
   const [center, setCenter] = useState(currentLocation);
@@ -69,6 +69,7 @@ export default function Map({
         new google.maps.LatLng({ lat: 6.193508, lng: 97.403605 }),
         new google.maps.LatLng({ lat: 20.360655, lng: 105.478816 })
       );
+      // Setup Autocomplete
       const gAutoComplete = new google.maps.places.Autocomplete(
         placeAutoCompleteRef.current,
         {
@@ -98,22 +99,22 @@ export default function Map({
     }
   }, [isLoaded, eventArray]);
 
-  // listen to change in searchbox autoComplete to get the updated place and repin the location
+  // Event listener to listen to change in searchbox autoComplete to get the updated place and repin the location
   useEffect(() => {
     if (autoComplete) {
       autoComplete.addListener("place_changed", () => {
         const place = autoComplete.getPlace();
-        console.log("place", place); // จะได้ค่าตามที่เราระบุไว้ใน placesautocomplete(fields) คือ 'formatted_address','geometry', 'name'
+        console.log("place", place); // ทำงานปกติ: จะได้ค่าตามที่เราระบุไว้ใน placesautocomplete(fields) คือ 'formatted_address','geometry', 'name'
         setSelectedPlace(place.formatted_address);
         const position = place.geometry?.location; // get lat,lng of the selected place
         if (position) {
           // Place a marker at the selected place location
           setMarker(position, place.name, place.formatted_address);
-          setCenter((prev) => position);
+          setCenter(position);
           // ต้อง call api เพื่อที่จะถึง near me ใหม่มา โดยที่เอา lat long ของใหม่เป็นศก แล้วให้ไป trigger useEffect ที่แสดง pin ของ event near me
           console.log("Inside useeffect after confirm place in search box"); // run แล้ว หลังจาก confirm search
           console.log("Position data before modifying", position);
-          fetchEventNearMe(position); // run แล้วหลังจาก confirm search
+          fetchEventNearMe(position); // run แล้วหลังจาก confirm search ด้วย lat/lng ใหม่
           console.log(
             "After call fetcheventnearme after change place in search box"
           );
@@ -139,15 +140,11 @@ export default function Map({
     }
   };
   // Create function to set market to the selected place (โดยการระบุ lat lng)
-  function setMarker(
-    location,
-    name,
-    locationAddressOrEventDetails,
-    eventId = 0
-  ) {
+  function setMarker(location, name, locationAddressOrEventDetails) {
     // Marker นี้ควรจะโชว์ เมื่อกดคลิกที่ pin เท่านั้น และสามารถปิดได้ด้วย
     if (!map) return;
     // Render Marker
+    map.setCenter(location); // set center ใหม่ให้กับ map ด้วยค่า new place ที่ search มา
     const marker = new google.maps.marker.AdvancedMarkerElement({
       map: map,
       position: location,
@@ -179,9 +176,9 @@ export default function Map({
     });
 
     // Optional: Close the infoCard when clicking anywhere on the map (outside the marker)
-    map.addListener("click", () => {
-      infoCard.close();
-    });
+    // map.addListener("click", () => {
+    //   infoCard.close();
+    // });
     // infoCard.open({ map: map, anchor: marker });
   }
 
