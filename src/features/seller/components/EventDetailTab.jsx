@@ -188,6 +188,14 @@ export default function EventDetailTab({ slideUp }) {
           MAP HERE
         </div>
       </div>
+      <div className="flex gap-4">
+        <div className="w-1/2">
+          <p>Start Date</p>
+        </div>
+        <div className="w-1/2">
+          <p>End Date</p>
+        </div>
+      </div>
       <Button onClick={submitEditEvent}>
         <p className="font-bold">Save change</p>
       </Button>
