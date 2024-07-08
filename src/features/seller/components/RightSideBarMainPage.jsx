@@ -106,7 +106,7 @@ const RightSideBarMainPage = () => {
                 Upcoming events
               </p>
             </div>
-            {/* MAPPING EVENT HERE */}
+            MAPPING EVENT HERE
             {myStoreProfile.upComingEvent.length > 0 ? (
               myStoreProfile.upComingEvent.map((e) => (
                 <EventSideBarCard
@@ -123,7 +123,7 @@ const RightSideBarMainPage = () => {
                 No upcoming event
               </p>
             )}
-            {/* MAPPING EVENT END HERE */}
+            MAPPING EVENT END HERE
             <div className="flex pt-2 justify-end">
               <Button onClick={() => navigate("created-events")} width="large">
                 <p className="font-bold">Create new event</p>

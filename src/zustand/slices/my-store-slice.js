@@ -87,4 +87,14 @@ export const createMyStoreSlice = (set) => ({
     const formattedDate = `${parts[2].value} ${parts[0].value} ${parts[4].value}`;
     return formattedDate;
   },
+
+  addDefaultTime: (date) => {
+    const dateTimeString = `${date}T00:00:00.000Z`;
+    return dateTimeString;
+  },
+
+  addDefaultDate: (time) => {
+    const dateTimeString = `1970-01-01T${time}:00.000Z`;
+    return dateTimeString;
+  },
 });
