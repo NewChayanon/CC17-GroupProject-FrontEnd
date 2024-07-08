@@ -21,6 +21,7 @@ const borderMap = {
 const widthMap = {
   mid: "w-40",
   large: "w-56",
+  xl: "w-80",
   full: "w-full",
 };
 
