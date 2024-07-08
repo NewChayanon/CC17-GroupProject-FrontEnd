@@ -5,6 +5,7 @@ const initialState = {
   isLoadingMyStore: false,
   errorMyStore: null,
   selectedEvent: null,
+  eventInfo: null,
 };
 
 export const createMyStoreSlice = (set) => ({
@@ -86,5 +87,28 @@ export const createMyStoreSlice = (set) => ({
     const parts = formatter.formatToParts(date);
     const formattedDate = `${parts[2].value} ${parts[0].value} ${parts[4].value}`;
     return formattedDate;
+  },
+
+  getCreatedEvents: async () => {
+    set({ isLoadingMyStore: true });
+    try {
+      const response = await myStoreApi.getAllEventList();
+      set(() => ({
+        eventInfo: response.data,
+        errorMyStore: null,
+      }));
+      return response.data;
+    } catch (err) {
+      if (err.response) {
+        set(() => ({
+          errorMyStore: err.response.data,
+        }));
+        return err.response.data;
+      }
+    } finally {
+      set(() => ({
+        isLoadingMyStore: false,
+      }));
+    }
   },
 });

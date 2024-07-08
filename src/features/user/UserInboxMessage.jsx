@@ -31,7 +31,7 @@ export default function UserInboxMessage() {
           </div>
           <div
             className="text-primary font-semibold md:hidden xl:hidden cursor-pointer"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/user/inbox")}
           >
             &lt; Back to the main inbox
           </div>
