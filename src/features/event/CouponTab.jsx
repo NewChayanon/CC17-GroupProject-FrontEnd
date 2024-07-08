@@ -4,11 +4,13 @@ import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 import { voucherStatus } from "../../constants/voucher-constant";
 import CouponDetailModal from "./CouponDetailModal";
+import { toast } from "react-toastify";
 
 // NOTE: Coupon tab ใช้แสดงผลใน 2 menu 1) event/promotion 2) user/collected-coupon
 export default function CouponTab({
   selectedEventDetails,
   useEnabled = false,
+  setIsCouponCollected,
 }) {
   const [openModal, setOpenModal] = useState(false); // {/* State for modal in case if user can get voucher */}
   // ถ้า useEnabled = true และ userVoucherStatus = "COLLECTED" >> สามารถกดใช้งาน voucher ได้
@@ -20,7 +22,7 @@ export default function CouponTab({
       selectedEventDetails.userVoucherStatus === voucherStatus.COLLECTED
     ) {
       setOpenModal(true);
-    } else alert("cannot use voucher");
+    } else alert("cannot use coupon");
   };
   // 2. ถ้ากด use coupon แล้ว >> ยิง api ไปบอกหลังบ้านว่าใช้งานแล้ว โดยระบุ voucherItemId
   // 3. ถ้า use coupon success >> ปิด modal & refresh page >> status เปลี่ยนเป็น "used"
@@ -30,9 +32,9 @@ export default function CouponTab({
         selectedEventDetails.voucherItemId
       );
       console.log("result from API to use coupon", result.data.msg);
-      alert(result.data.msg);
+      toast.success("Coupon is used successfully!");
+      setIsCouponCollected(true);
       setOpenModal(false);
-      location.reload();
     } catch (err) {
       console.log("Error from API to use coupon", err);
     }
