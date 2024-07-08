@@ -221,11 +221,10 @@ export default function Map({
     //   title: "Marker Title",
     //   icon: svgMarker,
     // });
-    const marker = new google.maps.Marker({
+    const marker = new google.maps.marker.AdvancedMarkerElement({
       map: map,
       position: location,
       title: "Marker Title",
-      icon: svgMarker,
     });
     // Setup content for
     const content = document.createElement("div");

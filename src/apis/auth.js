@@ -12,7 +12,7 @@ authApi.getAuthUser = () => axios.get("/user/me");
 authApi.getNearMe = (params) => axios.get("/auth/near-me", { params });
 
 authApi.getEventBySearch = (searchBy, searchKeyword, when) =>
-  axios.get("/search-bar/", {
+  axios.get("auth/search-bar/", {
     params: {
       searchBy,
       searchKeyword,

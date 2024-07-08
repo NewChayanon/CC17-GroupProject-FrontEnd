@@ -64,7 +64,7 @@ export default function CouponTab({
         <div className="text-base text-primary">
           {selectedEventDetails.sellerName}
         </div>
-        <div className="text-base ">Halloween Super Discount</div>
+        <div className="text-base ">{selectedEventDetails.eventName}</div>
         <div className="text-xs">{selectedEventDetails.voucherCondition}</div>
         <div className="flex justify-between">
           <div className="text-xs">

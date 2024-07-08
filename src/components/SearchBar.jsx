@@ -4,7 +4,7 @@ import authApi from "../apis/auth";
 import findPlaces from "../features/map/google-search-location";
 import { SearchIcon } from "../icons";
 
-export default function SearchBar() {
+export default function SearchBar({ eventArray, setEventArray }) {
   const [searchBy, setSearchBy] = useState("");
   const [searchWhen, setSearchWhen] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -21,22 +21,18 @@ export default function SearchBar() {
   const handleSearch = async (e) => {
     try {
       e.preventDefault();
-      console.log(
-        "Search By",
-        searchBy,
-        "Search When",
-        searchWhen,
-        "Search Keyword",
-        searchKeyword
-      );
-      alert("Searching!");
-
       const result = await authApi.getEventBySearch(
         searchBy,
         searchKeyword,
         searchWhen
       );
-      console.log("result from search", result.data);
+      console.log("result from search", result.data); // ได้ event array
+      if (!result.data[0]) {
+        return alert("no matched event is found");
+      }
+      // Update eventArray based on event array returned from API
+      setEventArray(result.data);
+
       // รอยิง api ไปหา Server
     } catch (err) {
       console.log("error from api getting event from search", err);
