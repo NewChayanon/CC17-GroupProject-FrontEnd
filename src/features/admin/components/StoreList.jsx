@@ -1,7 +1,5 @@
-// src/components/StoreList.jsx
-import React from "react";
-
-const StoreList = ({ stores, toggleBlock, sortStores }) => {
+/* eslint-disable react/prop-types */
+export default function StoreList({ stores, toggleBlock, sortStores }) {
   return (
     <div className="overflow-hidden border rounded-lg">
       <table className="min-w-full divide-y divide-gray-200">
@@ -16,21 +14,21 @@ const StoreList = ({ stores, toggleBlock, sortStores }) => {
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+              className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer text-center"
               onClick={() => sortStores("storeId")}
             >
               Store ID
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+              className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer text-center"
               onClick={() => sortStores("userId")}
             >
               User ID
             </th>
             <th
               scope="col"
-              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center"
             >
               Action
             </th>
@@ -44,9 +42,9 @@ const StoreList = ({ stores, toggleBlock, sortStores }) => {
                 <div className="text-sm text-gray-500">{store.email}</div>
                 <div className="text-xs text-gray-400">Last updated: {store.lastUpdated}</div>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">{store.storeId}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{store.userId}</td>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="px-6 py-4 whitespace-nowrap text-center">{store.storeId}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-center">{store.userId}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-center min-w-[105px]">
                 <button
                   className={`text-sm font-medium ${store.blocked ? "text-red-600" : "text-green-600"}`}
                   onClick={() => toggleBlock(store.id)}
@@ -60,6 +58,4 @@ const StoreList = ({ stores, toggleBlock, sortStores }) => {
       </table>
     </div>
   );
-};
-
-export default StoreList;
+}
