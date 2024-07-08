@@ -88,13 +88,16 @@ export default function Map({
 
   // Setup the new marker for events when event array is updated
   useEffect(() => {
+    console.log(
+      "Use effect to set marker for events near me after search new place" // ตรงนี้รันอยู่ เวลา search new place
+    );
     if (eventArray) {
       eventArray.forEach((event) => {
         let location = {
           lat: +event.eventLocation.split(",")[0],
           lng: +event.eventLocation.split(",")[1],
         };
-        setMarker(location, event.eventName, event.eventStartDate, event.id);
+        setMarkerForEvents(location, event.eventName, event.eventStartDate);
       });
     }
   }, [isLoaded, eventArray]);
@@ -139,12 +142,53 @@ export default function Map({
       console.log("error from fetching event near me API", err);
     }
   };
+  // Has 2 setmarker functions 1) For searched place 2) For events near me
   // Create function to set market to the selected place (โดยการระบุ lat lng)
   function setMarker(location, name, locationAddressOrEventDetails) {
     // Marker นี้ควรจะโชว์ เมื่อกดคลิกที่ pin เท่านั้น และสามารถปิดได้ด้วย
     if (!map) return;
     // Render Marker
     map.setCenter(location); // set center ใหม่ให้กับ map ด้วยค่า new place ที่ search มา
+    const marker = new google.maps.marker.AdvancedMarkerElement({
+      map: map,
+      position: location,
+      title: "Marker",
+    });
+    // Setup content for
+    const content = document.createElement("div");
+    content.style.width = "100px";
+    // content.style.minHeight = "50px";
+    content.style.color = "#20831E";
+    content.textContent = locationAddressOrEventDetails;
+
+    // Render infoCard with onClose to close the item
+    const infoCard = new google.maps.InfoWindow({
+      position: location,
+      headerContent: name,
+      minWidth: 100,
+      ariaLabel: "hello world hello world",
+      content: content,
+    });
+    // Add click event listener to marker to open infoCard
+    marker.addListener("click", (e) => {
+      console.log("console log click marker event", e);
+      // setSelectedEventId(e.id);
+      infoCard.open({
+        map: map,
+        anchor: marker,
+      });
+    });
+
+    // Optional: Close the infoCard when clicking anywhere on the map (outside the marker)
+    // map.addListener("click", () => {
+    //   infoCard.close();
+    // });
+    // infoCard.open({ map: map, anchor: marker });
+  }
+  function setMarkerForEvents(location, name, locationAddressOrEventDetails) {
+    // Marker นี้ควรจะโชว์ เมื่อกดคลิกที่ pin เท่านั้น และสามารถปิดได้ด้วย
+    if (!map) return;
+    // Render Marker
     const marker = new google.maps.marker.AdvancedMarkerElement({
       map: map,
       position: location,
