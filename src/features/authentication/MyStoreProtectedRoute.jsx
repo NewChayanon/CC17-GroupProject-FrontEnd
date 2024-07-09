@@ -7,13 +7,16 @@ import CreateMyStore from "../user/CreateMyStore";
 
 export default function myStoreProtectedRoute({ children }) {
   const isLoading = useStore((state) => state.isLoading);
+  const isMyStoreLoading = useStore((state) => state.isMyStoreLoading);
   const user = useStore((state) => state.user);
 
   if (!user) return <NotLoginPage />;
   if (user.role === ROLE.SELLER) {
     return (
       <>
-        {isLoading === true && <LoadingSpinner />}
+        {(isLoading === true || isMyStoreLoading === true) && (
+          <LoadingSpinner />
+        )}
         {children}
       </>
     );

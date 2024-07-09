@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import useStore from "../zustand/store.js";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import SettingsIcon from "../icons/SettingsIcon.jsx";
 import { InterestedEventIcon } from "../icons/interested-event-icon.jsx";
 
 export default function Header() {
@@ -24,25 +25,18 @@ export default function Header() {
 
   const navMenuList = [
     {
+      menuIcon: <StoreIcon />,
+      menuName: "My Store",
+      linkTo: "/mystore",
+      handleClick: "",
+      authRequired: true,
+    },
+    {
       menuIcon: <VendorNearMeIcon />,
-      menuName: "Stores Near Me",
+      menuName: "Sellers nearby",
       linkTo: "/home",
       handleClick: "",
       authRequired: false,
-    },
-    {
-      menuIcon: <StoreIcon />,
-      menuName: "My Store",
-      linkTo: "/home/seller",
-      handleClick: "",
-      authRequired: true,
-    },
-    {
-      menuIcon: <InterestedEventIcon />,
-      menuName: "My Interested Events",
-      linkTo: "/user/interested-event",
-      handleClick: "",
-      authRequired: true,
     },
     {
       menuIcon: <InboxIcon />,
@@ -60,8 +54,22 @@ export default function Header() {
     },
     {
       menuIcon: <VoucherListIcon />,
-      menuName: "Voucher List",
+      menuName: "Collected Coupons",
       linkTo: "/user/collected-coupons",
+      handleClick: "",
+      authRequired: true,
+    },
+    {
+      menuIcon: <SettingsIcon />,
+      menuName: "Settings",
+      linkTo: "/user/settings",
+      handleClick: "",
+      authRequired: true,
+    },
+    {
+      menuIcon: <VoucherListIcon />,
+      menuName: "Contact Us",
+      linkTo: "/contact-us",
       handleClick: "",
       authRequired: true,
     },
