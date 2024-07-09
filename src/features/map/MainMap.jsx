@@ -3,6 +3,7 @@
 import { useJsApiLoader } from "@react-google-maps/api";
 import { useState, useEffect, useRef, useCallback, Children } from "react";
 import authApi from "../../apis/auth";
+import SearchBar from "../../components/SearchBar";
 const libraries = ["places", "core", "maps", "marker"];
 
 export default function Map({
@@ -22,6 +23,7 @@ export default function Map({
   const [zoomLevel, setZoomLevel] = useState(15);
   const [center, setCenter] = useState(currentLocation);
   const [bounds, setBounds] = useState(null);
+  const [searchKeyword, setSearchKeyword] = useState("");
   // เช็คว่า API load แล้วรึยัง
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY,
@@ -48,7 +50,7 @@ export default function Map({
   useEffect(() => {
     setCenter(currentLocation);
   }, [currentLocation]);
-  // first load map and show map
+  // ========= first load map and show map ===========//
   useEffect(() => {
     if (isLoaded && mapRef.current) {
       console.log("current location before instantiate the map", center);
@@ -92,7 +94,7 @@ export default function Map({
     console.log("end of useeffect");
   }, [isLoaded, currentLocation, center]);
 
-  // Setup the new marker for events when event array is updated
+  // ======== Setup the new marker for events when event array is updated ========//
   useEffect(() => {
     console.log(
       "Use effect to set marker for events near me after search new place" // ตรงนี้รันอยู่ เวลา search new place
@@ -113,7 +115,7 @@ export default function Map({
     }
   }, [isLoaded, eventArray]);
 
-  // Event listener to listen to change in searchbox autoComplete to get the updated place and repin the location
+  // ======== Event listener to listen to change in searchbox autoComplete to get the updated place and repin the location
   useEffect(() => {
     if (autoComplete) {
       autoComplete.addListener("place_changed", () => {
@@ -125,6 +127,11 @@ export default function Map({
           // Place a marker at the selected place location
           setMarker(position, place.name, place.formatted_address);
           setCenter(position);
+          // Set search keyword ให้เป็น lat,lng format เพื่อที่จะใช้ในการยิง API ไป get near me มาด้วย
+
+          const latlng = position.lat() + "," + position.lng();
+          console.log("Lat,long value for searchbox", latlng);
+          setSearchKeyword(latlng);
           // ต้อง call api เพื่อที่จะถึง near me ใหม่มา โดยที่เอา lat long ของใหม่เป็นศก แล้วให้ไป trigger useEffect ที่แสดง pin ของ event near me
           console.log("Inside useeffect after confirm place in search box"); // run แล้ว หลังจาก confirm search
           console.log("Position data before modifying", position);
@@ -259,16 +266,26 @@ export default function Map({
   }
 
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="flex flex-col relative">
+      {/* add searchbox */}
+      <div className="absolute z-20 top-4">
+        <SearchBar
+          searchKeyword={searchKeyword}
+          setSearchKeyword={setSearchKeyword}
+          eventArray={eventArray}
+          setEventArray={setEventArray}
+          placeAutoCompleteRef={placeAutoCompleteRef}
+        />
+      </div>
       {/* Show search box */}
-      <input
-        // type="text"
+      {/* <input
+        type="text"
         ref={placeAutoCompleteRef}
         className="bg-white text-black h-6 w-80"
-      />
+      /> */}
       {/* Show map */}
       {isLoaded ? (
-        <div className="h-[286px]" ref={mapRef}></div>
+        <div className="h-[300px]" ref={mapRef}></div>
       ) : (
         <p>Loading...</p>
       )}

@@ -4,10 +4,16 @@ import authApi from "../apis/auth";
 import findPlaces from "../features/map/google-search-location";
 import { SearchIcon } from "../icons";
 
-export default function SearchBar({ eventArray, setEventArray }) {
+export default function SearchBar({
+  eventArray,
+  setEventArray,
+  placeAutoCompleteRef,
+  searchKeyword,
+  setSearchKeyword,
+}) {
   const [searchBy, setSearchBy] = useState("");
   const [searchWhen, setSearchWhen] = useState("");
-  const [searchKeyword, setSearchKeyword] = useState("");
+  // const [searchKeyword, setSearchKeyword] = useState(""); // Lift state up to parent component (Main Map) to allow googleplaceautocomplete to update state
 
   const handleSearchInput = (e) => {
     setSearchKeyword(e.target.value);
@@ -20,7 +26,10 @@ export default function SearchBar({ eventArray, setEventArray }) {
   };
   const handleSearch = async (e) => {
     try {
-      e.preventDefault();
+      console.log(
+        "search keyword before sending API to get events",
+        searchKeyword
+      );
       const result = await authApi.getEventBySearch(
         searchBy,
         searchKeyword,
@@ -32,18 +41,17 @@ export default function SearchBar({ eventArray, setEventArray }) {
       }
       // Update eventArray based on event array returned from API
       setEventArray(result.data);
-
-      // รอยิง api ไปหา Server
+      // Reset search keyword
+      setSearchKeyword("");
+      setSearchBy("");
+      setSearchWhen("");
     } catch (err) {
       console.log("error from api getting event from search", err);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSearch}
-      className="flex gap-2 p-2 bg-white rounded-lg h-9 text-sm text-graydarktext"
-    >
+    <div className="flex gap-2 p-2 w-full bg-white shadow-md rounded-lg min-h-10 text-sm text-graydarktext">
       <select
         name="searchby"
         id="searchby"
@@ -58,13 +66,25 @@ export default function SearchBar({ eventArray, setEventArray }) {
         <option value="store">Store</option>
         <option value="location">Location</option>
       </select>
+      <div className="flex items-center text-graydarktext">|</div>
+
+      {/* Input for the case when user select search by "store" or "product"*/}
       <input
         value={searchKeyword}
         onChange={handleSearchInput}
-        className="flex w-32 bg-white"
+        className={`grow-1 bg-white ${searchBy == "location" && "hidden"}`}
         type="text"
-        placeholder="Search"
+        placeholder={`${searchBy === "" ? "select search by first" : "Type keyword"}`}
       ></input>
+
+      {/* Google Map PlaceAutocomplete input  Input for the case when user select search by "location"*/}
+      <input
+        type="text"
+        ref={placeAutoCompleteRef}
+        className={`grow-1 bg-white ${searchBy !== "location" && "hidden"}`}
+        placeholder="Type location"
+      />
+      <div className="flex items-center text-graydarktext">|</div>
       <select
         name="when"
         id="when"
@@ -80,9 +100,9 @@ export default function SearchBar({ eventArray, setEventArray }) {
         <option value="thisweek">This Week</option>
         <option value="thismonth">This Month</option>
       </select>
-      <button type="submit">
+      <button type="button" onClick={handleSearch}>
         <SearchIcon />
       </button>
-    </form>
+    </div>
   );
 }

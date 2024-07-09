@@ -63,14 +63,14 @@ export default function HomePage() {
   return (
     <div className="flex flex-col w-auto h-auto">
       <div className="relative w-auto">
-        {/*==================== Search Box===================*/}
-        <div
+        {/*==================== Search Bar Component===================*/}
+        {/* <div
           className="absolute z-40 px-3"
           style={{ top: "30px", margin: "auto" }}
         >
           <SearchBar eventArray={eventArray} setEventArray={setEventArray} />
-        </div>
-        {/*==================== MAP ===================*/}
+        </div> */}
+        {/*==================== MAP Component ===================*/}
 
         <Map
           currentLocation={currentLocation}
