@@ -5,6 +5,7 @@ const initialState = {
   isLoadingMyStore: false,
   errorMyStore: null,
   selectedEvent: null,
+  eventInfo: null,
 };
 
 export const createMyStoreSlice = (set) => ({
@@ -96,5 +97,28 @@ export const createMyStoreSlice = (set) => ({
   addDefaultDate: (time) => {
     const dateTimeString = `1970-01-01T${time}:00.000Z`;
     return dateTimeString;
+  },
+
+  getCreatedEvents: async () => {
+    set({ isLoadingMyStore: true });
+    try {
+      const response = await myStoreApi.getAllEventList();
+      set(() => ({
+        eventInfo: response.data,
+        errorMyStore: null,
+      }));
+      return response.data;
+    } catch (err) {
+      if (err.response) {
+        set(() => ({
+          errorMyStore: err.response.data,
+        }));
+        return err.response.data;
+      }
+    } finally {
+      set(() => ({
+        isLoadingMyStore: false,
+      }));
+    }
   },
 });

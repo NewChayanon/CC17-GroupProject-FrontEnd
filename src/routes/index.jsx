@@ -49,6 +49,7 @@ const MyStoreMainPage = lazy(
   () => import("../features/seller/MyStoreMainPage")
 );
 const CreatedEvent = lazy(() => import("../features/seller/CreatedEvent"));
+const CreateNewEvent = lazy(() => import("../features/seller/CreateNewEvent"));
 const MyStoreReviews = lazy(() => import("../features/seller/MyStoreReviews"));
 const MyStoreProfile = lazy(() => import("../features/seller/MyStoreProfile"));
 const SellerInbox = lazy(() => import("../features/seller/SellerInbox"));
@@ -135,6 +136,7 @@ const userRouter = createBrowserRouter([
     children: [
       { path: "", element: <MyStoreMainPage /> },
       { path: "created-events", element: <CreatedEvent /> },
+      { path: "create-new-event", element: <CreateNewEvent /> },
       { path: "profile", element: <MyStoreProfile /> },
       { path: "reviews", element: <MyStoreReviews /> },
       { path: "inbox", element: <SellerInbox /> },
