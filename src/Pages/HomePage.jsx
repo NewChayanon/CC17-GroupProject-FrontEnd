@@ -61,7 +61,7 @@ export default function HomePage() {
   }, [currentLocation]);
 
   return (
-    <div className="flex flex-col w-auto h-auto">
+    <div className="flex flex-col w-auto h-full">
       <div className="relative w-auto">
         {/*==================== MAP Component ===================*/}
 

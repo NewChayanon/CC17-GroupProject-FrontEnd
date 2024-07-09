@@ -107,10 +107,6 @@ export default function Map({
           lng: +event.eventLocation.split(",")[1],
         };
         let eventDetail = { ...event };
-        console.log(
-          "event details object to attach to each marker",
-          eventDetail
-        );
         setMarkerForEvents(
           location,
           event.eventName,
@@ -288,18 +284,24 @@ export default function Map({
       position: location,
       title: "Marker Title",
     });
-    // Setup content for
-    const content = document.createElement("div");
-    content.style.width = "100px";
-    content.style.color = "#20831E";
-    content.textContent = locationAddressOrEventDetails;
 
-    // Create button
+    const content = document.createElement("button");
+    content.style.width = "120px";
+    content.style.color = "#20831E";
+    content.textContent = `Start: ${locationAddressOrEventDetails}`;
+
+    // Create button to see event details
     const button = document.createElement("button");
-    button.textContent = "Select Event";
+    button.textContent = "See Event Details";
     button.id = eventId;
     button.dataset.eventDetails = JSON.stringify(eventDetail); // Store the event details as a JSON string
-    console.log("event Detail to send to Setmarker function", eventDetail); // หน้าตามาเป็น object ถูกแล้ว
+    button.classList.add(
+      "bg-primary",
+      "text-white",
+      "rounded-md",
+      "py-2",
+      "px-2"
+    ); // Add the CSS class to the button
     // console.log("event detail to attach to the marker", button.value);
     button.addEventListener("click", (e) => {
       console.log("event from clicking a button", e);
