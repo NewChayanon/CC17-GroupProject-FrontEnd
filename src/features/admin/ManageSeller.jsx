@@ -10,8 +10,8 @@ export default function ManageSeller() {
       id: 1,
       name: "Aaron",
       email: "duriany12@gmail.com",
-      storeId: 11,
-      userId: 44,
+      storeId: 10,
+      userId: 1,
       lastUpdated: "2024-05-02 10:20:00",
       blocked: false,
     },
@@ -19,8 +19,8 @@ export default function ManageSeller() {
       id: 2,
       name: "Brother",
       email: "duriany12@gmail.com",
-      storeId: 22,
-      userId: 33,
+      storeId: 9,
+      userId: 2,
       lastUpdated: "2024-05-02 10:20:00",
       blocked: false,
     },
@@ -28,8 +28,8 @@ export default function ManageSeller() {
       id: 3,
       name: "Carol",
       email: "duriany12@gmail.com",
-      storeId: 33,
-      userId: 22,
+      storeId: 8,
+      userId: 3,
       lastUpdated: "2024-05-02 10:20:00",
       blocked: false,
     },
@@ -80,7 +80,7 @@ export default function ManageSeller() {
     },
     {
       id: 10,
-      name: "Frandrive",
+      name: "Frandrive31",
       email: "duriany12@gmail.com",
       storeId: 44,
       userId: 11,
@@ -89,7 +89,7 @@ export default function ManageSeller() {
     },
     {
       id: 11,
-      name: "Frandrive",
+      name: "Frandrive32",
       email: "duriany12@gmail.com",
       storeId: 44,
       userId: 11,
@@ -98,7 +98,7 @@ export default function ManageSeller() {
     },
     {
       id: 13,
-      name: "Frandrive",
+      name: "Frandrive33",
       email: "duriany12@gmail.com",
       storeId: 44,
       userId: 11,
@@ -154,7 +154,6 @@ export default function ManageSeller() {
   ]);
 
   const [filteredStores, setFilteredStores] = useState(stores);
-  const [sortConfig, setSortConfig] = useState({ key: "name", direction: "asc" });
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -168,32 +167,19 @@ export default function ManageSeller() {
 
   useEffect(() => {
     if (debouncedSearchQuery) {
-      const filtered = stores.filter((store) =>
-        store.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase())
-      );
+      const filtered = stores.filter((store) => {
+        const query = debouncedSearchQuery.toLowerCase();
+        return (
+          store.name.toLowerCase().includes(query) ||
+          store.storeId.toString().includes(query) ||
+          store.userId.toString().includes(query)
+        );
+      });
       setFilteredStores(filtered);
     } else {
       setFilteredStores(stores);
     }
   }, [debouncedSearchQuery, stores]);
-
-  const sortStores = (key) => {
-    let direction = "asc";
-    if (sortConfig.key === key && sortConfig.direction === "asc") {
-      direction = "desc";
-    }
-    const sortedArray = [...filteredStores].sort((a, b) => {
-      if (a[key] < b[key]) {
-        return direction === "asc" ? -1 : 1;
-      }
-      if (a[key] > b[key]) {
-        return direction === "asc" ? 1 : -1;
-      }
-      return 0;
-    });
-    setFilteredStores(sortedArray);
-    setSortConfig({ key, direction });
-  };
 
   const toggleBlock = (storeId) => {
     const updatedStores = filteredStores.map((store) =>
@@ -208,31 +194,71 @@ export default function ManageSeller() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const columns = [
+    {
+      key: "name",
+      label: "Store Name",
+      sortable: true,
+      render: (value) => <div className="text-sm font-medium text-gray-900">{value}</div>,
+    },
+    {
+      key: "storeId",
+      label: "Store ID",
+      sortable: true,
+      className: "text-center",
+    },
+    {
+      key: "userId",
+      label: "User ID",
+      sortable: true,
+      className: "text-center",
+    },
+  ];
+
+  const actions = [
+    {
+      label: (store) => (store.blocked ? "Unblock" : "Block"),
+      onClick: toggleBlock,
+      className: (store) => (store.blocked ? "text-red-600" : "text-green-600"),
+    },
+  ];
+
   return (
-    <div className="flex justify-between p-6 gap-6">
-      <div className="w-full h-screen overflow-y-auto px-4">
-        <div className="sticky top-0 z-10 w-full flex justify-center items-center">
+    <div className="flex gap-6 bg-graybg">
+      <div className="flex flex-col h-full w-full m-6">
+        <div className="sticky top-0 z-10 bg-graybg">
           <SearchBarAdminPage
             placeholder="Durian (search store)"
             searchQuery={searchQuery}
             handleSearch={handleSearch}
           />
         </div>
-        <div className="text-lg font-bold p-2">
-          Showing {currentStores.length} of {stores.length} stores
+        <div className="flex-1 p-4 pt-2">
+          <div className="text-md p-2 pt-0">
+            Showing {currentStores.length} of {stores.length} stores
+          </div>
+          <div className="">
+            <StoreList
+              stores={currentStores}
+              columns={columns}
+              actions={actions}
+              initialSortConfig={{ key: "name", direction: "asc" }}
+            />
+          </div>
         </div>
-        <StoreList stores={currentStores} toggleBlock={toggleBlock} sortStores={sortStores} />
-        <Pagination
-          itemsPerPage={itemsPerPage}
-          totalItems={filteredStores.length}
-          paginate={paginate}
-          currentPage={currentPage}
-          showFirstLastButtons={true}
-          firstLabel="<<"
-          lastLabel=">>"
-        />
+        <div className="p-2 py-0">
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            totalItems={filteredStores.length}
+            paginate={paginate}
+            currentPage={currentPage}
+            showFirstLastButtons={true}
+            firstLabel="<<"
+            lastLabel=">>"
+          />
+        </div>
       </div>
-      <div className="w-full h-full bg-green-200">Seller Data</div>
+      <div className="w-screen h-screen bg-green-200 sticky z-10 top-0">Seller data</div>
     </div>
   );
 }
