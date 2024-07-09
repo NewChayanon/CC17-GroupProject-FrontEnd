@@ -5,7 +5,7 @@ import Input from "../../components/Input";
 export default function ActivateStoreFromMobile() {
   const navigate = useNavigate();
   return (
-    <div className="flex w-full h-auto justify-center p-24 bg-tertiary">
+    <div className="flex w-full h-auto justify-center p-24 bg-tertiary border border-yellow-600 border-x-0 border-b-0 ">
       <div className="flex flex-col h-fit bg-white p-8 pt-4 rounded-2xl gap-3">
         <div className="flex justify-between pt-2">
           <div className="flex flex-col text-primary font-semibold ">
