@@ -57,7 +57,7 @@ export default function Sidebar() {
     {
       menuIcon: <VoucherListIcon />,
       menuName: "Voucher List",
-      linkTo: "/user/voucher",
+      linkTo: "/user/collected-coupons",
       handleClick: "",
       authRequired: true,
     },

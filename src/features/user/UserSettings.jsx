@@ -182,7 +182,7 @@ export default function UserSettings() {
           <img
             src={addImageButton}
             alt="Add image button"
-            className="w-7 h-7"
+            className="w-7 h-7 cursor-pointer"
           />
         </div>
         <div className="flex">

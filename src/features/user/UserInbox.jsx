@@ -1,10 +1,60 @@
-import Footer from "../../layouts/Footer";
-import Header from "../../layouts/Header";
+import { useNavigate } from "react-router-dom";
+import { AnnouncementIcon, SearchIcon } from "../../icons";
+import durianProfileLogo from "../../images/profile-mock-durian-pic.png";
 
-export default function UserInbox() {
+function UserMessageBox() {
   return (
     <>
-      <div>UserInbox</div>
+      <div className="flex p-3 pl-4 hover:bg-slate-100">
+        <div className="pr-4 py-2 xl:w-auto xl:h-auto">
+          <img
+            src={durianProfileLogo}
+            alt="Durian profile mock picture"
+            className="w-auto h-auto xl:w-16 xl:h-16 "
+          />
+        </div>
+        <div className="flex flex-col">
+          <div className="font-semibold">Freshie Foodie - Admin</div>
+          <div className="text-xs">
+            We are excited to let our followers know that we offered vouchers
+            from September 2024
+          </div>
+        </div>
+        <div className="text-xs pl-7 pr-2 flex items-start pt-1">18:20</div>
+      </div>
     </>
+  );
+}
+
+export default function UserInbox() {
+  const navigate = useNavigate();
+  return (
+    <div className="">
+      <form className="flex justify-between items-center gap-2 px-4 py-3">
+        <input
+          value=""
+          onChange=""
+          className="flex w-full bg-white p-1 pl-4 border border-gray-300 rounded-full"
+          type="text"
+          placeholder="Search Inbox "
+        />
+        <SearchIcon />
+        <div
+          className="xl:hidden"
+          onClick={() => navigate("/user/inbox-message")}
+        >
+          <AnnouncementIcon />
+        </div>
+      </form>
+      <UserMessageBox />
+      <UserMessageBox />
+      <UserMessageBox />
+      <UserMessageBox />
+      <UserMessageBox />
+      <UserMessageBox />
+      <UserMessageBox />
+      <UserMessageBox />
+      <UserMessageBox />
+    </div>
   );
 }

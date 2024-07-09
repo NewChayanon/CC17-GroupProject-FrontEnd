@@ -32,7 +32,11 @@ export default function CouponFullDetail({
         <div className="text-base text-primary">
           {selectedEventDetails.sellerFirstName}
         </div>
-        <div className="text-base ">Halloween Super Discount</div>
+        <div className="text-base ">
+          {useEnabled
+            ? selectedEventDetails.eventName
+            : selectedEventDetails.voucherItem.eventName}
+        </div>
         <div className="text-xs">
           {useEnabled
             ? selectedEventDetails.voucherCondition
