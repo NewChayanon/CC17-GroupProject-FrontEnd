@@ -37,7 +37,7 @@ export default function Button({
 }) {
   return (
     <button
-      className={`px-1 py-1 rounded-full ${bgMap[bg]} ${colorMap[color]} ${borderMap[border]} ${widthMap[width]} ${disabled && "btn-disabled"} shadow-sm shadow-neutral-950 hover:scale-95`}
+      className={`px-1 py-1 rounded-xl ${bgMap[bg]} ${colorMap[color]} ${borderMap[border]} ${widthMap[width]} ${disabled && "btn-disabled"} shadow-sm shadow-neutral-950 hover:scale-95`}
       onClick={onClick}
       id={id}
       type="button"
