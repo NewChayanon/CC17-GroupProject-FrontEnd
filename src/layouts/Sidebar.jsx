@@ -137,7 +137,7 @@ export default function Sidebar() {
     },
     {
       menuIcon: <InboxInbox />,
-      menuName: "Inbox",
+      menuName: "Announcement",
       linkTo: "/admin/announcement",
       handleClick: "",
       authRequired: true,
