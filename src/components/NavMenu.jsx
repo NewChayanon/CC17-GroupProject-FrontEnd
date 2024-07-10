@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-export default function NavMenu({ menuIcon, menuName, linkTo = "/", onClick }) {
+export default function NavMenu({ menuIcon, menuName, linkTo, onClick }) {
   const { pathname } = useLocation();
-  const [isActive, setIsActive] = useState(false);
-  useEffect(() => {
-    if (pathname === linkTo) {
-      setIsActive(true);
-    }
-  }, []);
+  let isActive = false;
+  if (pathname === linkTo) {
+    isActive = true;
+  }
 
   return (
     <li className={`max-w-full rounded-md ${isActive && "bg-verylightyellow"}`}>

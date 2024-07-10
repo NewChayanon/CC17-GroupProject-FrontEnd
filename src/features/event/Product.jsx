@@ -10,13 +10,13 @@ export default function Product() {
   const eventId = useStore((state) => state.eventId);
   const eventIdfromPath = pathname.split("/")[2];
   setEventId(eventIdfromPath);
-  const isAuthenticated = useStore((state)=>state.isAuthenticated)
+  const isAuthenticated = useStore((state) => state.isAuthenticated);
   const selectedEventDetails = useStore((state) => state.selectedEventDetails); // ข้อมูลมา
   const setSelectedEventDetails = useStore(
     (state) => state.setSelectedEventDetails
   );
   useEffect(() => {
-    setSelectedEventDetails(eventIdfromPath,isAuthenticated);
+    setSelectedEventDetails(eventIdfromPath, isAuthenticated);
     setEventId(eventIdfromPath);
   }, []);
   return (
