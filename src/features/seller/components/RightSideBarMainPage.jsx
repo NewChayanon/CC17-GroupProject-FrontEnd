@@ -141,6 +141,7 @@ const RightSideBarMainPage = () => {
                   )}
                   location={e.locationName}
                   onClick={() => setSelectedEvent(e)}
+                  onClickEdit={() => handleEditEvent(e)}
                 />
               ))
             ) : (
