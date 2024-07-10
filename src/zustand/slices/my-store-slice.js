@@ -12,7 +12,6 @@ const initialState = {
   slideUp: false,
   showText: false,
   redirectEdit: false,
-
 };
 
 export const createMyStoreSlice = (set) => ({
@@ -129,7 +128,6 @@ export const createMyStoreSlice = (set) => ({
     }
   },
 
-
   getMyStoreInfo: async () => {
     set({ isLoadingMyStore: true });
     try {
@@ -151,6 +149,7 @@ export const createMyStoreSlice = (set) => ({
         isLoadingMyStore: false,
       }));
     }
+  },
 
   convertTime: (time24) => {
     let [hours, minutes] = time24.split(":");
@@ -176,6 +175,5 @@ export const createMyStoreSlice = (set) => ({
     set(() => ({
       showText: boolean,
     }));
-
   },
 });
