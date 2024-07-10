@@ -36,7 +36,7 @@ export default function Sidebar() {
     {
       menuIcon: <StoreIcon />,
       menuName: "My Store",
-      linkTo: "/seller",
+      linkTo: "/mystore",
       handleClick: "",
       authRequired: true,
     },
@@ -49,8 +49,8 @@ export default function Sidebar() {
     },
     {
       menuIcon: <MyFavoriteSeller />,
-      menuName: "My Favorite Seller",
-      linkTo: "/",
+      menuName: "Favorite Stores",
+      linkTo: "/user/favorite-stores",
       handleClick: "",
       authRequired: true,
     },
@@ -61,19 +61,12 @@ export default function Sidebar() {
       handleClick: "",
       authRequired: true,
     },
-    {
-      menuIcon: <LogoutIcon />,
-      menuName: "Logout",
-      linkTo: "/",
-      handleClick: "",
-      authRequired: true,
-    },
   ];
   const sellerSidebarMenuList = [
     {
       menuIcon: <DashboardIcon />,
       menuName: "Store Main Page",
-      linkTo: "/mystore/",
+      linkTo: "/mystore",
       handleClick: "",
     },
     {
@@ -91,7 +84,7 @@ export default function Sidebar() {
     {
       menuIcon: <ReviewerIcon />,
       menuName: "Store Reviews",
-      linkTo: "/mystore/reviews ",
+      linkTo: "/mystore/reviews",
       handleClick: "",
     },
     {
