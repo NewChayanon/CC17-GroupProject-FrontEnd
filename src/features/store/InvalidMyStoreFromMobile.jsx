@@ -1,8 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
+import { useEffect } from "react";
+import useStore from "../../zustand/store";
 
 export default function InvalidMyStoreFromMobile() {
   const navigate = useNavigate();
+  const getMyStore = useStore((state) => state.getMyStore);
+  const storeDetail = useStore((state) => state.storeDetail);
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      await getMyStore();
+    };
+    fetchdata();
+  }, []);
+
   return (
     <div className="flex w-full h-auto justify-center p-16 bg-tertiary">
       <div className="flex flex-col h-fit bg-white p-8 pt-4 rounded-2xl gap-3">
@@ -16,10 +28,12 @@ export default function InvalidMyStoreFromMobile() {
                 <div>Store No. </div>
                 <div>Store Name</div>
               </div>
-              <div className="flex flex-col leading-relaxed text-tertiary">
-                <div>: AA42041</div>
-                <div>: Durian Lover Shop</div>
-              </div>
+              {storeDetail && (
+                <div className="flex flex-col leading-relaxed text-tertiary">
+                  <div>: AA42041</div>
+                  <div>: {storeDetail.myStoreProfile?.storeName}</div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -30,9 +44,7 @@ export default function InvalidMyStoreFromMobile() {
           email. You can click the link in the email that will direct you to
           access your store's main page.
           <div className="pt-3 flex justify-center">
-            <Button onClick={() => navigate("/mystore/invalid-from-mobile")}>
-              I understood!
-            </Button>
+            <Button onClick={() => navigate("/mystore")}>I understood!</Button>
           </div>
           <div className="flex flex-col items-center gap-1 pt-3">
             <div className="text-sm cursor-pointer underline leading-snug text-primary font-semibold">

@@ -9,6 +9,8 @@ userApi.getFavoriteStore = () => axios.get("user/favorite");
 userApi.changeInfoSettings = (formData) =>
   axios.patch("user/change-info", formData);
 
+userApi.createStore = (body) => axios.post("user/create-store", body);
+
 // storeApi.getStoreByIdAnonymous = (storeId) =>
 //   axios.get(`auth/storeProfile/${storeId}`);
 // // storeApi.getStoreByIdLoggedIn = (storeId) => axios.get(`user/storeProfile/${storeId}`);
