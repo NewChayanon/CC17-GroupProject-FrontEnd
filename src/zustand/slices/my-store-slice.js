@@ -1,4 +1,5 @@
 import myStoreApi from "../../apis/my-store";
+import userApi from "../../apis/user";
 
 const initialState = {
   storeDetail: {},
@@ -38,6 +39,18 @@ export const createMyStoreSlice = (set) => ({
       }));
     }
   },
+
+  activateMyStore: async (body) => {
+    try {
+      await userApi.createStore(body);
+    } catch (error) {
+      console.log(error);
+      set(() => ({
+        errorMyStore: error.response.data,
+      }));
+    }
+  },
+
   setSelectedEvent: async (event) => {
     try {
       const response = await myStoreApi.getEventDetailByEventId(event.eventId);
