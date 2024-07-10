@@ -11,6 +11,8 @@ export default function SearchBar({
   searchKeyword,
   setSearchKeyword,
   currentLocation,
+  center,
+  setCenter,
 }) {
   const [searchBy, setSearchBy] = useState("");
   const [searchWhen, setSearchWhen] = useState("");
@@ -27,10 +29,6 @@ export default function SearchBar({
   };
   const handleSearch = async (e) => {
     try {
-      console.log(
-        "search keyword before sending API to get events",
-        searchKeyword
-      );
       const result = await authApi.getEventBySearch(
         currentLocation,
         searchBy,
@@ -43,6 +41,14 @@ export default function SearchBar({
       }
       // Update eventArray based on event array returned from API
       setEventArray(result.data);
+      // Set map center to be lat lng of the first event in eventArray for case of search by product or store only
+      if (searchBy !== "location") {
+        const latlngOfFirstEvent = {};
+        latlngOfFirstEvent.lat = +result.data[0].eventLocation.split(",")[0];
+        latlngOfFirstEvent.lng = +result.data[0].eventLocation.split(",")[1];
+        console.log("Latlng of first event", latlngOfFirstEvent);
+        setCenter(latlngOfFirstEvent);
+      }
       // Reset search keyword
       setSearchKeyword("");
       setSearchBy("");

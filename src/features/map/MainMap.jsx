@@ -116,7 +116,7 @@ export default function Map({
         );
       });
     }
-  }, [isLoaded, eventArray]);
+  }, [isLoaded, eventArray, map]);
 
   // ======== Event listener to listen to change in searchbox autoComplete to get the updated place and repin the location
   useEffect(() => {
@@ -290,6 +290,7 @@ export default function Map({
           placeAutoCompleteRef={placeAutoCompleteRef}
           currentLocation={currentLocation}
           center={center}
+          setCenter={setCenter}
         />
       </div>
       {/* Show map */}
