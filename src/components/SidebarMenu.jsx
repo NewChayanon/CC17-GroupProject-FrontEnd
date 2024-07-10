@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-export default function SidebarMenu({ menuIcon, menuName, linkTo = "/" }) {
+export default function SidebarMenu({ menuIcon, menuName, linkTo, onClick }) {
   const { pathname } = useLocation();
-  const [isActive, setIsActive] = useState(false);
-  useEffect(() => {
-    if (pathname === linkTo) {
-      setIsActive(true);
-    }
-  }, []);
+
+  let isActive;
+  if (pathname === linkTo || pathname === linkTo + "/") isActive = true;
+
   return (
-    <li className={`p-2`}>
+    <li onClick={onClick} className={`p-2`}>
       <a
         className={`p-2 flex items-center space-x-2 ${isActive && "bg-lightyellow"} hover:text-primary`}
         href={linkTo}

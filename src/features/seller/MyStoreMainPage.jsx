@@ -6,17 +6,23 @@ import ProductTab from "./components/ProductTab";
 import useStore from "../../zustand/store";
 import { useEffect } from "react";
 import { useRef } from "react";
+import SellerMap from "./map/sellerMap";
 
 export default function MyStoreMainPage() {
-  const [slideUp, setSlideUp] = useState(false);
-  const [showText, setShowText] = useState(false);
   const [activeMenu, setActiveMenu] = useState("detail");
+  const slideUp = useStore((state) => state.slideUp);
+  const setSlideUp = useStore((state) => state.setSlideUp);
+  const showText = useStore((state) => state.showText);
+  const setShowText = useStore((state) => state.setShowText);
   const getMyStore = useStore((state) => state.getMyStore);
   const setSelectedEvent = useStore((state) => state.setSelectedEvent);
   const storeDetail = useStore((state) => state.storeDetail);
   const selectedEvent = useStore((state) => state.selectedEvent);
   const formatMonth = useStore((state) => state.formatMonth);
   const getWeekday = useStore((state) => state.getWeekday);
+  const convertTime = useStore((state) => state.convertTime);
+  const redirectEdit = useStore((state) => state.redirectEdit);
+  const setRedirectEdit = useStore((state) => state.setRedirectEdit);
   const { myStoreProfile } = storeDetail;
 
   const timeoutRef = useRef(null);
@@ -54,18 +60,18 @@ export default function MyStoreMainPage() {
         } else return;
       }
     };
-    fetchdata();
+    if (redirectEdit === false) fetchdata();
+    else if (redirectEdit === true) setRedirectEdit(false);
   }, []);
 
   return (
     <div className="relative bg-graybg min-h-full w-full flex flex-col justify-between overflow-hidden">
-      {/* MAP GOES HERE IN THIS DIV BELOW */}
-      <div></div>
-      {/* MAP GOES HERE IN THIS DIV ABOVE */}
+      <SellerMap />
+
       {selectedEvent && myStoreProfile ? (
         <>
           <div
-            className={`absolute flex flex-col gap-4 -bottom-[70%] xl:-bottom-[62%] 2xl:-bottom-[70%] bg-lightyellow h-[95%] w-full transition-transform duration-500 ${slideUp ? "-translate-y-[70%] xl:-translate-y-[62%] 2xl:-translate-y-[70%]" : "translate-y-0"}`}
+            className={`absolute flex flex-col gap-4 -bottom-[70%] xl:-bottom-[65%] 2xl:-bottom-[70%] bg-verylightyellow h-[95%] w-full transition-transform duration-500 ${slideUp ? "-translate-y-[70%] xl:-translate-y-[65%] 2xl:-translate-y-[70%]" : "translate-y-0"}`}
           >
             <div className="flex w-full p-4 gap-3">
               <div className="flex flex-col w-1/2 gap-2">
@@ -94,7 +100,17 @@ export default function MyStoreMainPage() {
                       {getWeekday(selectedEvent.eventStartDate)}
                     </p>
                     <p className="text-xs text-graylighttext font-bold">
-                      {selectedEvent.openTime}
+                      {convertTime(
+                        selectedEvent.openTime
+                          .split("T")[1]
+                          .split(":00.000Z")[0]
+                      )}{" "}
+                      -{" "}
+                      {convertTime(
+                        selectedEvent.closingTime
+                          .split("T")[1]
+                          .split(":00.000Z")[0]
+                      )}
                     </p>
                   </div>
                 </div>
@@ -170,7 +186,7 @@ export default function MyStoreMainPage() {
               </div>
             </div>
           </div>
-          <div className="sticky px-4 py-2 flex bg-transparent justify-end">
+          <div className="sticky px-4 py-2 flex bg-verylightyellow justify-end">
             <button onClick={slideUp ? handleSlideDown : handleSlideUp}>
               <p className="text-darkgreen underline font-semibold text-sm">
                 {slideUp ? "Hide full detail" : "View full detail"}
