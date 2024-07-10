@@ -3,7 +3,11 @@ import eventApi from "../apis/event";
 import { MONTHS_NAME } from "../constants/date-constant";
 import { voucherStatus } from "../constants/voucher-constant";
 import { CouponIcon, PinIcon, PinIconActive } from "../icons";
-import { getDayOfWeek } from "../utils/datetime-conversion";
+import {
+  getDateFromDateString,
+  getDayOfWeek,
+  getMonthName,
+} from "../utils/datetime-conversion";
 import useStore from "../zustand/store.js";
 import Modal from "./Modal";
 import PlaseLoginCard from "./PlaseLoginCard";
@@ -54,9 +58,10 @@ export default function EventTabCard({
       console.log("error from updating interest", err);
     }
   };
-  const eventStartDate = selectedEventDetails?.eventStartDate.split("/")[0];
-  const eventStartMonth =
-    MONTHS_NAME[selectedEventDetails?.eventStartDate.split("/")[1]];
+  const eventStartDate = getDateFromDateString(
+    selectedEventDetails?.eventStartDate
+  );
+  const eventStartMonth = getMonthName(selectedEventDetails?.eventStartDate);
   const eventStartDay = getDayOfWeek(selectedEventDetails?.eventStartDate);
   return (
     <div

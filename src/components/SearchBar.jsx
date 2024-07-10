@@ -10,6 +10,7 @@ export default function SearchBar({
   placeAutoCompleteRef,
   searchKeyword,
   setSearchKeyword,
+  currentLocation,
 }) {
   const [searchBy, setSearchBy] = useState("");
   const [searchWhen, setSearchWhen] = useState("");
@@ -31,6 +32,7 @@ export default function SearchBar({
         searchKeyword
       );
       const result = await authApi.getEventBySearch(
+        currentLocation,
         searchBy,
         searchKeyword,
         searchWhen

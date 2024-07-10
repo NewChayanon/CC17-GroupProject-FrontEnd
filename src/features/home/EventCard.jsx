@@ -1,5 +1,6 @@
 import React from "react";
 import { LocationIcon, ThumbsupIcon } from "../../icons";
+import { formatDateString } from "../../utils/datetime-conversion";
 
 export default function EventCard({ event }) {
   return (
@@ -16,7 +17,8 @@ export default function EventCard({ event }) {
       <div className="flex justify-between items-end">
         <div className="w-2/3">
           <p style={{ fontSize: "8px" }}>
-            {event.eventStartDate} - {event.eventEndDate}
+            {formatDateString(event.eventStartDate)} -{" "}
+            {formatDateString(event.eventEndDate)}
           </p>
           <p style={{ fontSize: "12px", fontWeight: "bold" }}>
             {event.storeName}
