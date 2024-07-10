@@ -33,6 +33,13 @@ export default function Header() {
     },
     {
       menuIcon: <VendorNearMeIcon />,
+      menuName: "User Log-in",
+      linkTo: "/login",
+      handleClick: "",
+      authRequired: false,
+    },
+    {
+      menuIcon: <VendorNearMeIcon />,
       menuName: "Sellers nearby",
       linkTo: "/home",
       handleClick: "",
@@ -122,7 +129,7 @@ export default function Header() {
           {/* Dropdown Menu*/}
           <ul
             tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-48"
+            className="mt-3 z-[40] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-48"
           >
             {/* User Profile*/}
             <li>
@@ -134,7 +141,7 @@ export default function Header() {
                     src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
                   />
                 </div>
-                <p>Hi {user ? user.name : "Guest"}</p>
+                <p>Hi {user ? user.name : "Guest"}!</p>
               </div>
               {/* Other Menu*/}
             </li>
