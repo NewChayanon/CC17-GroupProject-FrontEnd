@@ -37,7 +37,11 @@ export default function SearchBar({
       );
       console.log("result from search", result.data); // ได้ event array
       if (!result.data[0]) {
-        return alert("no matched event is found");
+        setEventArray([]);
+        setSearchKeyword("");
+        setSearchBy("");
+        setSearchWhen("");
+        return;
       }
       // Update eventArray based on event array returned from API
       setEventArray(result.data);
@@ -59,7 +63,7 @@ export default function SearchBar({
   };
 
   return (
-    <div className="flex gap-2 p-2 w-full bg-white shadow-md rounded-lg min-h-10 text-sm text-graydarktext">
+    <div className="flex gap-2 w-full bg-white shadow-md rounded-lg min-h-10 text-sm text-graydarktext">
       <select
         name="searchby"
         id="searchby"

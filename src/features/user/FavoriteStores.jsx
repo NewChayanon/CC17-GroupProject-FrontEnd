@@ -3,6 +3,8 @@ import userApi from "../../apis/user";
 import SearchBarAdminPage from "../../components/SearchBarAdminPage";
 import FavoriteStoreCard from "./components/FavoriteStoreCard";
 import { useDebounce } from "../../hooks/useDebounce";
+import EmptyState from "../../components/EmptyState";
+import { StoreIcon } from "../../icons";
 
 export default function FavoriteStores() {
   const [favoriteStores, setFavoriteStore] = useState([]);
@@ -56,13 +58,22 @@ export default function FavoriteStores() {
         searchQuery={searchQuery}
         handleSearch={handleSearch}
       />
-      {filteredFavoriteStores.map((storeDetail, index) => (
-        <FavoriteStoreCard
-          storeDetail={storeDetail}
-          key={index}
-          setIsUpdateFavoriteStore={setIsUpdateFavoriteStore}
+      {filteredFavoriteStores[0] ? (
+        <>
+          {filteredFavoriteStores.map((storeDetail, index) => (
+            <FavoriteStoreCard
+              storeDetail={storeDetail}
+              key={index}
+              setIsUpdateFavoriteStore={setIsUpdateFavoriteStore}
+            />
+          ))}{" "}
+        </>
+      ) : (
+        <EmptyState
+          icon={<StoreIcon />}
+          message="You have not followed any store yet."
         />
-      ))}
+      )}
     </div>
   );
 }
