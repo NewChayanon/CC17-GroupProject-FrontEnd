@@ -6,9 +6,13 @@ const initialState = {
   errorMyStore: null,
   selectedEvent: null,
   eventInfo: null,
+
+  storeInfo: {},
+
   slideUp: false,
   showText: false,
   redirectEdit: false,
+
 };
 
 export const createMyStoreSlice = (set) => ({
@@ -125,6 +129,29 @@ export const createMyStoreSlice = (set) => ({
     }
   },
 
+
+  getMyStoreInfo: async () => {
+    set({ isLoadingMyStore: true });
+    try {
+      const response = await myStoreApi.getMyStoreInfo();
+      set(() => ({
+        storeInfo: response.data,
+        errorMyStore: null,
+      }));
+      return response.data;
+    } catch (err) {
+      if (err.response) {
+        set(() => ({
+          errorMyStore: err.response.data,
+        }));
+        return err.response.data;
+      }
+    } finally {
+      set(() => ({
+        isLoadingMyStore: false,
+      }));
+    }
+
   convertTime: (time24) => {
     let [hours, minutes] = time24.split(":");
     hours = parseInt(hours, 10);
@@ -149,5 +176,6 @@ export const createMyStoreSlice = (set) => ({
     set(() => ({
       showText: boolean,
     }));
+
   },
 });

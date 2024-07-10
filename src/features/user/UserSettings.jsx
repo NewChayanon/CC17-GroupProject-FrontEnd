@@ -52,18 +52,6 @@ function RadioButtons({ handleChange }) {
   );
 }
 
-// const initialInputError = {
-//   displayName: "",
-//   firstName: "",
-//   lastName: "",
-//   email: "",
-//   dateOfBirth: "",
-//   mobile: "",
-//   gender: "",
-//   password: "",
-//   confirmPassword: "",
-// };
-
 export default function UserSettings() {
   const navigate = useNavigate();
   const initialInput = useStore((state) => state.user);

@@ -79,32 +79,16 @@ export default function LoginPage() {
         </div>
         <div className="flex flex-col gap-4 bg-lightyellow px-12 py-8 rounded-3xl items-center">
           <div className="flex flex-col gap-4 pb-2">
-            <input
-              placeholder="Email"
-              name="email"
-              className="h-10 pl-3 rounded-sm"
-              onChange={handleChangeInput}
-              value={input.email}
-              error={inputError.email}
-            />
-            {/* <Input
+            <Input
               placeholder="Email"
               height="10"
               name="email"
               onChange={handleChangeInput}
               value={input.email}
               error={inputError.email}
-            /> */}
-            <input
-              name="password"
-              type="password"
-              placeholder="Password"
-              className="h-10 pl-3 rounded-sm"
-              onChange={handleChangeInput}
-              value={input.email}
-              error={inputError.email}
             />
-            {/* <Input
+
+            <Input
               placeholder="Password"
               height="10"
               name="password"
@@ -112,7 +96,7 @@ export default function LoginPage() {
               onChange={handleChangeInput}
               value={input.password}
               error={inputError.password}
-            /> */}
+            />
           </div>
 
           <Button onClick={handleSubmitForm}>
