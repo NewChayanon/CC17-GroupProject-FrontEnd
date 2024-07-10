@@ -6,6 +6,9 @@ const initialState = {
   errorMyStore: null,
   selectedEvent: null,
   eventInfo: null,
+  slideUp: false,
+  showText: false,
+  redirectEdit: false,
 };
 
 export const createMyStoreSlice = (set) => ({
@@ -120,5 +123,31 @@ export const createMyStoreSlice = (set) => ({
         isLoadingMyStore: false,
       }));
     }
+  },
+
+  convertTime: (time24) => {
+    let [hours, minutes] = time24.split(":");
+    hours = parseInt(hours, 10);
+    const period = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    return `${hours}:${minutes} ${period}`;
+  },
+
+  setSlideUp: (boolean) => {
+    set(() => ({
+      slideUp: boolean,
+    }));
+  },
+
+  setRedirectEdit: (boolean) => {
+    set(() => ({
+      redirectEdit: boolean,
+    }));
+  },
+
+  setShowText: (boolean) => {
+    set(() => ({
+      showText: boolean,
+    }));
   },
 });

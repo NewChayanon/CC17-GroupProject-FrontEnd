@@ -48,7 +48,7 @@ export default function EventDetailTab({ slideUp }) {
     setInputError(initialInputError);
     setInputSubmit(initialInputError);
     setInput(initialInput);
-  }, [slideUp]);
+  }, [slideUp, selectedEvent]);
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;

@@ -14,6 +14,19 @@ const RightSideBarMainPage = () => {
   const { myEvent, myStoreProfile } = storeDetail;
   const formatMonth = useStore((state) => state.formatMonth);
   const formatDate = useStore((state) => state.formatDate);
+  const convertTime = useStore((state) => state.convertTime);
+  const setSelectedEvent = useStore((state) => state.setSelectedEvent);
+  const setSlideUp = useStore((state) => state.setSlideUp);
+  const setShowText = useStore((state) => state.setShowText);
+  const setRedirectEdit = useStore((state) => state.setRedirectEdit);
+
+  const handleEditEvent = (e) => {
+    setSelectedEvent(e);
+    setRedirectEdit(true);
+    setSlideUp(true);
+    setShowText(true);
+    navigate("/mystore");
+  };
 
   return (
     <>
@@ -92,8 +105,15 @@ const RightSideBarMainPage = () => {
                   startDate={new Date(e.startDate).getUTCDate()}
                   startMonth={formatMonth(e.startDate)}
                   endDate={formatDate(e.endDate)}
-                  openTime={e.openTime}
+                  openTime={convertTime(
+                    e.openTime.split("T")[1].split(":00.000Z")[0]
+                  )}
+                  closingTime={convertTime(
+                    e.closingTime.split("T")[1].split(":00.000Z")[0]
+                  )}
                   location={e.locationName}
+                  onClick={() => setSelectedEvent(e)}
+                  onClickEdit={() => handleEditEvent(e)}
                 />
               ))
             ) : (
@@ -106,7 +126,6 @@ const RightSideBarMainPage = () => {
                 Upcoming events
               </p>
             </div>
-            MAPPING EVENT HERE
             {myStoreProfile.upComingEvent.length > 0 ? (
               myStoreProfile.upComingEvent.map((e) => (
                 <EventSideBarCard
@@ -114,8 +133,14 @@ const RightSideBarMainPage = () => {
                   startDate={new Date(e.startDate).getUTCDate()}
                   startMonth={formatMonth(e.startDate)}
                   endDate={formatDate(e.endDate)}
-                  openTime={e.openTime}
+                  openTime={convertTime(
+                    e.openTime.split("T")[1].split(":00.000Z")[0]
+                  )}
+                  closingTime={convertTime(
+                    e.closingTime.split("T")[1].split(":00.000Z")[0]
+                  )}
                   location={e.locationName}
+                  onClick={() => setSelectedEvent(e)}
                 />
               ))
             ) : (
@@ -123,7 +148,6 @@ const RightSideBarMainPage = () => {
                 No upcoming event
               </p>
             )}
-            MAPPING EVENT END HERE
             <div className="flex pt-2 justify-end">
               <Button onClick={() => navigate("created-events")} width="large">
                 <p className="font-bold">Create new event</p>
