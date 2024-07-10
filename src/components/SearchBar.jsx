@@ -1,47 +1,65 @@
 import React, { useState } from "react";
 import searchPlaces from "../apis/3rdparty/googleMapApi";
+import authApi from "../apis/auth";
 import findPlaces from "../features/map/google-search-location";
 import { SearchIcon } from "../icons";
 
-export default function SearchBar() {
+export default function SearchBar({
+  eventArray,
+  setEventArray,
+  placeAutoCompleteRef,
+  searchKeyword,
+  setSearchKeyword,
+  currentLocation,
+  center,
+  setCenter,
+}) {
   const [searchBy, setSearchBy] = useState("");
   const [searchWhen, setSearchWhen] = useState("");
-  const [searchKeyword, setSearchKeyword] = useState("");
+  // const [searchKeyword, setSearchKeyword] = useState(""); // Lift state up to parent component (Main Map) to allow googleplaceautocomplete to update state
 
   const handleSearchInput = (e) => {
     setSearchKeyword(e.target.value);
   };
   const handleSelectSearchBy = (e) => {
-    setSearchBy(event.target.value);
+    setSearchBy(e.target.value);
   };
   const handleSelectWhen = (e) => {
     setSearchWhen(e.target.value);
   };
-  const handleSearch = (e) => {
-    e.preventDefault();
-    console.log(
-      "Search By",
-      searchBy,
-      "Search When",
-      searchWhen,
-      "Search Keyword",
-      searchKeyword
-    );
-    alert("Searching!");
-    if (searchBy === "LOCATION") {
-      // ยิงไปใช้ service ของ google
-      findPlaces(searchKeyword);
-      // searchPlaces();
-    } else {
-      // รอยิง api ไปหา Server
+  const handleSearch = async (e) => {
+    try {
+      const result = await authApi.getEventBySearch(
+        currentLocation,
+        searchBy,
+        searchKeyword,
+        searchWhen
+      );
+      console.log("result from search", result.data); // ได้ event array
+      if (!result.data[0]) {
+        return alert("no matched event is found");
+      }
+      // Update eventArray based on event array returned from API
+      setEventArray(result.data);
+      // Set map center to be lat lng of the first event in eventArray for case of search by product or store only
+      if (searchBy !== "location") {
+        const latlngOfFirstEvent = {};
+        latlngOfFirstEvent.lat = +result.data[0].eventLocation.split(",")[0];
+        latlngOfFirstEvent.lng = +result.data[0].eventLocation.split(",")[1];
+        console.log("Latlng of first event", latlngOfFirstEvent);
+        setCenter(latlngOfFirstEvent);
+      }
+      // Reset search keyword
+      setSearchKeyword("");
+      setSearchBy("");
+      setSearchWhen("");
+    } catch (err) {
+      console.log("error from api getting event from search", err);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSearch}
-      className="flex gap-2 p-2 bg-white rounded-lg h-9 text-sm text-graydarktext"
-    >
+    <div className="flex gap-2 p-2 w-full bg-white shadow-md rounded-lg min-h-10 text-sm text-graydarktext">
       <select
         name="searchby"
         id="searchby"
@@ -52,17 +70,29 @@ export default function SearchBar() {
         <option value="" disabled>
           Search By
         </option>
-        <option value="PRODUCT">Product</option>
-        <option value="SELLER">Store</option>
-        <option value="LOCATION">Location</option>
+        <option value="product">Product</option>
+        <option value="store">Store</option>
+        <option value="location">Location</option>
       </select>
+      <div className="flex items-center text-graydarktext">|</div>
+
+      {/* Input for the case when user select search by "store" or "product"*/}
       <input
         value={searchKeyword}
         onChange={handleSearchInput}
-        className="flex w-32 bg-white"
+        className={`grow-1 bg-white ${searchBy == "location" && "hidden"}`}
         type="text"
-        placeholder="Search"
+        placeholder={`${searchBy === "" ? "select search by first" : "Type keyword"}`}
       ></input>
+
+      {/* Google Map PlaceAutocomplete input  Input for the case when user select search by "location"*/}
+      <input
+        type="text"
+        ref={placeAutoCompleteRef}
+        className={`grow-1 bg-white ${searchBy !== "location" && "hidden"}`}
+        placeholder="Type location"
+      />
+      <div className="flex items-center text-graydarktext">|</div>
       <select
         name="when"
         id="when"
@@ -73,14 +103,14 @@ export default function SearchBar() {
         <option value="" disabled>
           When
         </option>
-        <option value="TODAY">Today</option>
-        <option value="TOMORROW">Tomorrow</option>
-        <option value="THISWEEK">This Week</option>
-        <option value="THISMONTH">This Month</option>
+        <option value="today">Today</option>
+        <option value="tomorrow">Tomorrow</option>
+        <option value="thisweek">This Week</option>
+        <option value="thismonth">This Month</option>
       </select>
-      <button type="submit">
+      <button type="button" onClick={handleSearch}>
         <SearchIcon />
       </button>
-    </form>
+    </div>
   );
 }

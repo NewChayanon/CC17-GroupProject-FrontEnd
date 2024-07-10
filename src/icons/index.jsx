@@ -343,10 +343,10 @@ export function SearchIcon() {
 export function LocationIcon({ iconColor }) {
   return (
     <svg
-      width="20px"
-      height="20px"
+      width="12px"
+      height="12px"
       viewBox="0 0 24 24"
-      fill="none"
+      fill={iconColor}
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
@@ -366,6 +366,7 @@ export function LocationIcon({ iconColor }) {
         <path
           d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z"
           stroke="#FFFFFF"
+          className={iconColor}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -909,13 +910,10 @@ export function DeleteIcon() {
     <svg
       width="17px"
       viewBox="0 0 17 20"
-      fill="none"
+      className="hover:fill-graydarktext fill-graylighttext hover:cursor-pointer"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        className="hover:fill-graydarktext fill-graylighttext hover:cursor-pointer"
-        d="M3.2915 19.375C2.71859 19.375 2.22831 19.1712 1.82067 18.7635C1.41303 18.3559 1.20886 17.8653 1.20817 17.2917V3.75H0.166504V1.66667H5.37484V0.625H11.6248V1.66667H16.8332V3.75H15.7915V17.2917C15.7915 17.8646 15.5877 18.3552 15.18 18.7635C14.7724 19.1719 14.2818 19.3757 13.7082 19.375H3.2915ZM5.37484 15.2083H7.45817V5.83333H5.37484V15.2083ZM9.5415 15.2083H11.6248V5.83333H9.5415V15.2083Z"
-      />
+      <path d="M3.2915 19.375C2.71859 19.375 2.22831 19.1712 1.82067 18.7635C1.41303 18.3559 1.20886 17.8653 1.20817 17.2917V3.75H0.166504V1.66667H5.37484V0.625H11.6248V1.66667H16.8332V3.75H15.7915V17.2917C15.7915 17.8646 15.5877 18.3552 15.18 18.7635C14.7724 19.1719 14.2818 19.3757 13.7082 19.375H3.2915ZM5.37484 15.2083H7.45817V5.83333H5.37484V15.2083ZM9.5415 15.2083H11.6248V5.83333H9.5415V15.2083Z" />
     </svg>
   );
 }

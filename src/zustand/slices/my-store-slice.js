@@ -6,7 +6,13 @@ const initialState = {
   errorMyStore: null,
   selectedEvent: null,
   eventInfo: null,
+
   storeInfo: {},
+
+  slideUp: false,
+  showText: false,
+  redirectEdit: false,
+
 };
 
 export const createMyStoreSlice = (set) => ({
@@ -90,6 +96,16 @@ export const createMyStoreSlice = (set) => ({
     return formattedDate;
   },
 
+  addDefaultTime: (date) => {
+    const dateTimeString = `${date}T00:00:00.000Z`;
+    return dateTimeString;
+  },
+
+  addDefaultDate: (time) => {
+    const dateTimeString = `1970-01-01T${time}:00.000Z`;
+    return dateTimeString;
+  },
+
   getCreatedEvents: async () => {
     set({ isLoadingMyStore: true });
     try {
@@ -113,6 +129,7 @@ export const createMyStoreSlice = (set) => ({
     }
   },
 
+
   getMyStoreInfo: async () => {
     set({ isLoadingMyStore: true });
     try {
@@ -134,5 +151,31 @@ export const createMyStoreSlice = (set) => ({
         isLoadingMyStore: false,
       }));
     }
+
+  convertTime: (time24) => {
+    let [hours, minutes] = time24.split(":");
+    hours = parseInt(hours, 10);
+    const period = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    return `${hours}:${minutes} ${period}`;
+  },
+
+  setSlideUp: (boolean) => {
+    set(() => ({
+      slideUp: boolean,
+    }));
+  },
+
+  setRedirectEdit: (boolean) => {
+    set(() => ({
+      redirectEdit: boolean,
+    }));
+  },
+
+  setShowText: (boolean) => {
+    set(() => ({
+      showText: boolean,
+    }));
+
   },
 });
