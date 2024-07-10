@@ -22,6 +22,7 @@ export default function EventDetailTab({ slideUp }) {
   const selectedEvent = useStore((state) => state.selectedEvent);
   const editEvent = useStore((state) => state.editEvent);
   const addDefaultTime = useStore((state) => state.addDefaultTime);
+  const addDefaultDate = useStore((state) => state.addDefaultDate);
   const getMyStore = useStore((state) => state.getMyStore);
   const setSelectedEvent = useStore((state) => state.setSelectedEvent);
   const fileEl = useRef();
@@ -36,7 +37,7 @@ export default function EventDetailTab({ slideUp }) {
     startDate: selectedEvent.eventStartDate.split("T")[0],
     endDate: selectedEvent.eventEndDate.split("T")[0],
     openTime: selectedEvent.openTime.split("T")[1].split(":00.000Z")[0],
-    closingTime: "",
+    closingTime: selectedEvent.closingTime.split("T")[1].split(":00.000Z")[0],
   };
 
   const [input, setInput] = useState(initialInput);
@@ -84,6 +85,44 @@ export default function EventDetailTab({ slideUp }) {
         break;
       }
 
+      case "openTime": {
+        if (value > input.closingTime) {
+          setInputError({
+            ...inputError,
+            [name]: "cannot set open time after end time",
+          });
+          return;
+        }
+        const openTimeWithDate = addDefaultDate(value);
+        setInput({ ...input, [name]: value });
+        setInputSubmit({
+          ...inputSubmit,
+          openTime: openTimeWithDate,
+          closingTime: addDefaultDate(input.closingTime),
+        });
+        setInputError({ ...inputError, [name]: "" });
+        break;
+      }
+
+      case "closingTime": {
+        if (value < input.openTime) {
+          setInputError({
+            ...inputError,
+            [name]: "cannot set end time before start time",
+          });
+          return;
+        }
+        const closingTimeWithDate = addDefaultDate(value);
+        setInput({ ...input, [name]: value });
+        setInputSubmit({
+          ...inputSubmit,
+          closingTime: closingTimeWithDate,
+          openTime: addDefaultDate(input.openTime),
+        });
+        setInputError({ ...inputError, [name]: "" });
+        break;
+      }
+
       default: {
         setInput({ ...input, [name]: value });
         setInputSubmit({ ...inputSubmit, [name]: value });
@@ -107,7 +146,9 @@ export default function EventDetailTab({ slideUp }) {
       const formData = new FormData();
       Object.keys(inputSubmit).forEach((key) => {
         if (inputSubmit[key]) formData.append(key, inputSubmit[key]);
+        console.log(inputSubmit[key]);
       });
+
       const id = { ...selectedEvent };
       await editEvent(id.eventId, formData);
       await getMyStore();
@@ -292,39 +333,49 @@ export default function EventDetailTab({ slideUp }) {
           </p>
           <div className="flex">
             <div className="w-1/2 flex justify-center">
-              <div className="w-full flex items-center gap-2 justify-evenly">
-                <label
-                  className="font-medium text-xs text-graylighttext"
-                  htmlFor="openTime"
-                >
-                  Start time:
-                </label>
-                <input
-                  className="border p-1 text-xs w-32 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  type="time"
-                  id="openTime"
-                  name="openTime"
-                  value={input.openTime}
-                  onChange={handleChangeInput}
-                />
+              <div className="flex flex-col items-center">
+                <div className="w-full flex items-center gap-2 justify-evenly">
+                  <label
+                    className="font-medium text-xs text-graylighttext"
+                    htmlFor="openTime"
+                  >
+                    Start time:
+                  </label>
+                  <input
+                    className="border p-1 text-xs w-32 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    type="time"
+                    id="openTime"
+                    name="openTime"
+                    value={input.openTime}
+                    onChange={handleChangeInput}
+                  />
+                </div>
+                <small className="text-xs text-red-600">
+                  {inputError.openTime}
+                </small>
               </div>
             </div>
             <div className="w-1/2 flex justify-center">
-              <div className="w-full flex items-center gap-2 justify-evenly">
-                <label
-                  className="font-medium text-xs text-graylighttext"
-                  htmlFor="closingTime"
-                >
-                  End time:
-                </label>
-                <input
-                  className="border p-1 text-xs w-32 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                  type="time"
-                  id="closingTime"
-                  name="closingTime"
-                  value={input.closingTime}
-                  onChange={handleChangeInput}
-                />
+              <div className="flex flex-col items-center">
+                <div className="w-full flex items-center gap-2 justify-evenly">
+                  <label
+                    className="font-medium text-xs text-graylighttext"
+                    htmlFor="closingTime"
+                  >
+                    End time:
+                  </label>
+                  <input
+                    className="border p-1 text-xs w-32 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    type="time"
+                    id="closingTime"
+                    name="closingTime"
+                    value={input.closingTime}
+                    onChange={handleChangeInput}
+                  />
+                </div>
+                <small className="text-xs text-red-600">
+                  {inputError.closingTime}
+                </small>
               </div>
             </div>
           </div>
