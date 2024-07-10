@@ -9,7 +9,7 @@ export default function NavMenu({ menuIcon, menuName, linkTo, onClick }) {
   }
 
   return (
-    <li className={`max-w-full rounded-md ${isActive && "bg-lightyellow"}`}>
+    <li className={`max-w-full rounded-md ${isActive && "bg-verylightyellow"}`}>
       <Link to={linkTo} onClick={onClick}>
         {menuIcon}
         <p className="text-sm">{menuName}</p>

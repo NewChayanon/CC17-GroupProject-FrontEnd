@@ -132,7 +132,11 @@ export default function LandingPage() {
             buying or selling!
           </div>
           <div className="p-3">
-            <Button onClick={() => navigate("/home")}>Try using now!</Button>
+            <Button onClick={() => navigate("/home")}>
+              <div className="font-normal h-8 flex justify-center items-center">
+                Try using now!
+              </div>
+            </Button>
           </div>
         </div>
         <div className="flex justify-center">
