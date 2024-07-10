@@ -26,7 +26,7 @@ export default function MyStoreContainer() {
       <Header />
       <div className="flex flex-1 overflow-hidden bg-graybg">
         <Sidebar />
-        <div className="flex flex-1 h-[calc(100vh-136px)] xl:h-auto overflow-y-auto flex-wrap">
+        <div className="flex flex-1 h-[calc(100vh-136px)] xl:h-auto w-full max-w-[1280px] overflow-y-auto justify-center flex-wrap">
           <Outlet />
         </div>
         {showRightSidebar && <RightSidebar />}

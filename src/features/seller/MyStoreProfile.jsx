@@ -65,11 +65,6 @@ export default function MyStoreProfile() {
 
       console.log(sendData);
       setIsLoading(true);
-      // const error = validateSettings(sendData);
-
-      // if (error) {
-      //   return setInputError(error);
-      // }
 
       const formData = new FormData();
       formData.append(
@@ -80,11 +75,6 @@ export default function MyStoreProfile() {
         "storeProfileDescription",
         textArea.storeProfileDescription
       );
-      // formData.append("dateOfBirth", input.dateOfBirth);
-      // formData.append("mobile", input.mobile);
-      // formData.append("gender", input.gender);
-      // formData.append("password", input.password);
-      // formData.append("confirmPassword", input.confirmPassword);
 
       if (imageFile) {
         formData.append("profileImage", imageFile);
@@ -111,39 +101,32 @@ export default function MyStoreProfile() {
     };
     fetchdata();
   }, []);
+
   return (
     <>
       {isLoading ? <LoadingSpinner /> : null}
-
-      <div className="flex flex-wrap w-[655px]">
-        <div className="relative flex flex-col">
-          <div className="relative flex flex-col w-auto h-auto pb-20">
-            <div className="relative ">
+      <div className="relative flex flex-wrap w-full">
+        <div className="flex flex-col">
+          <div className="flex flex-col w-auto h-auto pb-20">
+            <div className="h-[160px] sm:h-[264px]">
               <input
                 className="hidden"
                 type="file"
                 ref={coverFileEl}
                 onChange={handleCoverImageChange}
               />
-
-              {coverImage && (
-                <div
-                  className="w-full h-[150px] sm:w-[655px] sm:h-[245px]  flex flex-col justify-center items-center"
-                  style={{
-                    backgroundImage: `url(${coverImage})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
-                ></div>
-              )}
-              {!coverImage && (
-                <img
-                  src={orangeCover}
-                  alt="orange cover mock"
-                  className="relative w-full h-full sm:w-auto sm:h-full md:w-auto md:h-full lg:w-auto lg:h-full xl:w-auto xl:h-full"
-                ></img>
-              )}
-              <div className="absolute z-[20]">
+              <img
+                src={coverImage || orangeCover}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                }}
+                alt="orange cover mock"
+                className="w-full bg-no-repeat flex flex-col justify-center items-center"
+              />
+              <div className="absolute z-20 bottom-2 right-2">
                 <img
                   src={addImageButton}
                   alt="Add image button"
@@ -152,36 +135,21 @@ export default function MyStoreProfile() {
                 />
               </div>
             </div>
-            <div className="relative bg-slate-400 hidden">
-              Hidden message for relative
-            </div>
           </div>
-          <div className="absolute z-2 p-8 pt-[120px] sm:pt-[200px] ">
+          <div className="absolute z-2 p-8 pt-[110px] sm:pt-[200px]">
             <input
               className="hidden"
               type="file"
               ref={fileEl}
               onChange={handleImageChange}
             />
-            {image && (
-              <div
-                className="w-[100px] h-[100px] sm:w-[125px] sm:h-[125px] flex flex-col justify-center items-center rounded-full"
-                style={{
-                  backgroundImage: `url(${image})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
-            )}
-            {!image && (
-              <img
-                src={durianProfileLogo}
-                alt="Durian profile mock picture"
-                className="w-[100px] h-[100px] sm:w-[125px] sm:h-[125px] "
-              />
-            )}
+            <img
+              src={image || durianProfileLogo}
+              alt="Durian profile mock picture"
+              className="w-[100px] h-[100px] sm:w-[125px] sm:h-[125px] rounded-full"
+            />
           </div>
-          <div className="absolute z-10 pt-[190px] pl-[110px] sm:pt-[290px] sm:pl-[130px]   ">
+          <div className="absolute z-10 pt-[180px] pl-[110px] sm:pt-[290px] sm:pl-[130px]">
             <img
               src={addImageButton}
               alt="Add image button"
@@ -190,7 +158,7 @@ export default function MyStoreProfile() {
             />
           </div>
 
-          <div className="absolute flex flex-col pt-[160px] pl-[165px] sm:pt-[260px] sm:pl-[190px]  pr-6">
+          <div className="absolute flex flex-col pt-[165px] pl-[165px] sm:pt-[270px] sm:pl-[190px] pr-6">
             <div className="flex gap-10 ">
               <div className="text-primary font-semibold">
                 {storeInfo.storeProfileName}
