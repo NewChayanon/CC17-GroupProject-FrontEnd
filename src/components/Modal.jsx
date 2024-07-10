@@ -23,12 +23,12 @@ export default function Modal({
               <div className="fixed inset-0 z-40">
                 <div className="flex justify-center items-center min-h-screen ">
                   <div
-                    className={`bg-absolutewhite rounded-3xl w-11/12 ${widthMap[width]}`}
+                    className={`bg-absolutewhite px-3 rounded-3xl w-8/10 ${widthMap[width]}`}
                   >
-                    <div className="flex justify-between items-start py-4 px-8">
+                    <div className="flex justify-between items-start py-4 px-3">
                       <div></div>
                       <div className="pt-4">
-                        <p className="text-2xl font-medium text-darkgreen">
+                        <p className="text-2xl font-semibold text-primary">
                           {title}
                         </p>
                       </div>

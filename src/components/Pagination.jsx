@@ -20,7 +20,7 @@ export default function Pagination({
 
   return (
     <nav className={className}>
-      <ul className="flex justify-center mt-4">
+      <ul className="flex justify-center mt-4 mb-4">
         {showFirstLastButtons && (
           <li className="mx-1">
             <button
