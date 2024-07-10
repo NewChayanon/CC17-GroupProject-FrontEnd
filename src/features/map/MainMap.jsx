@@ -21,7 +21,7 @@ export default function Map({
   const [autoComplete, setAutoComplete] = useState(null);
   // State for the selected place from autocomplete to use to locate the new pin
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [zoomLevel, setZoomLevel] = useState(15);
+  const [zoomLevel, setZoomLevel] = useState(13);
   const [center, setCenter] = useState(currentLocation);
   const [bounds, setBounds] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -83,7 +83,7 @@ export default function Map({
         placeAutoCompleteRef.current,
         {
           bounds: thailandBound,
-          fields: ["formatted_address", "geometry", "name"],
+          fields: ["formatted_address", "geometry", "name", "photos"],
           componentRestrictions: {
             country: ["th"],
           },
@@ -116,7 +116,7 @@ export default function Map({
         );
       });
     }
-  }, [isLoaded, eventArray]);
+  }, [isLoaded, eventArray, map]);
 
   // ======== Event listener to listen to change in searchbox autoComplete to get the updated place and repin the location
   useEffect(() => {
@@ -126,45 +126,45 @@ export default function Map({
         console.log("place", place); // ทำงานปกติ: จะได้ค่าตามที่เราระบุไว้ใน placesautocomplete(fields) คือ 'formatted_address','geometry', 'name'
         setSelectedPlace(place.formatted_address);
         const position = place.geometry?.location; // get lat,lng of the selected place
+        console.log("place photos", place.photos[0].getUrl());
         if (position) {
           // Place a marker at the selected place location
           setMarker(position, place.name, place.formatted_address);
           setCenter(position);
           // Set search keyword ให้เป็น lat,lng format เพื่อที่จะใช้ในการยิง API ไป get near me มาด้วย
-
           const latlng = position.lat() + "," + position.lng();
           console.log("Lat,long value for searchbox", latlng);
           setSearchKeyword(latlng);
           // ต้อง call api เพื่อที่จะถึง near me ใหม่มา โดยที่เอา lat long ของใหม่เป็นศก แล้วให้ไป trigger useEffect ที่แสดง pin ของ event near me
           console.log("Inside useeffect after confirm place in search box"); // run แล้ว หลังจาก confirm search
-          console.log("Position data before modifying", position);
-          fetchEventNearMe(position); // run แล้วหลังจาก confirm search ด้วย lat/lng ใหม่
-          console.log(
-            "After call fetcheventnearme after change place in search box"
-          );
-          // fetchEventNearMe(center)
+          // console.log("Position data before modifying", position);
+          // fetchEventNearMe(position); // run แล้วหลังจาก confirm search ด้วย lat/lng ใหม่
+          // console.log(
+          //   "After call fetcheventnearme after change place in search box"
+          // );
         }
       });
     }
   }, [autoComplete]);
 
-  const fetchEventNearMe = async (position) => {
-    try {
-      const params = {};
-      params.userLocation = position.lat() + "," + position.lng();
-      console.log("Params", params); // params ถูกแล้ว {userLocation: '7.8836389,98.38796599999999'}
-      const result = await authApi.getNearMe(params); // ตรงนี้รันแล้ว หลังจากที่ search box is confirmed
-      console.log(
-        "result from get nearMe after change new cente (inside component)r",
-        result
-      );
-      setEventArray(result.data);
-    } catch (err) {
-      console.log("error from fetching event near me API", err);
-    }
-  };
+  // const fetchEventNearMe = async (position) => {
+  //   try {
+  //     const params = {};
+  //     params.userLocation = position.lat() + "," + position.lng();
+  //     console.log("Params", params); // params ถูกแล้ว {userLocation: '7.8836389,98.38796599999999'}
+  //     const result = await authApi.getNearMe(params); // ตรงนี้รันแล้ว หลังจากที่ search box is confirmed
+  //     console.log(
+  //       "result from get nearMe after change new cente (inside component)r",
+  //       result
+  //     );
+  //     setEventArray(result.data);
+  //   } catch (err) {
+  //     console.log("error from fetching event near me API", err);
+  //   }
+  // };
 
   // Has 2 setmarker functions 1) For searched place 2) For events near me
+
   // Create function to set market to the selected place (โดยการระบุ lat lng)
   function setMarker(location, name, locationAddressOrEventDetails) {
     // Marker นี้ควรจะโชว์ เมื่อกดคลิกที่ pin เท่านั้น และสามารถปิดได้ด้วย
@@ -206,68 +206,6 @@ export default function Map({
     // });
     // infoCard.open({ map: map, anchor: marker });
   }
-  // function setMarkerForEvents(
-  //   location,
-  //   name,
-  //   locationAddressOrEventDetails,
-  //   eventId
-  // ) {
-  //   // Marker นี้ควรจะโชว์ เมื่อกดคลิกที่ pin เท่านั้น และสามารถปิดได้ด้วย
-  //   if (!map) return;
-  //   // Render Marker
-  //   const svgMarker = {
-  //     path: "M-1.547 12l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM0 0q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
-  //     fillColor: "green",
-  //     fillOpacity: 0.6,
-  //     strokeWeight: 0,
-  //     rotation: 0,
-  //     scale: 2,
-  //     anchor: new google.maps.Point(0, 20),
-  //   };
-  //   // const marker = new google.maps.marker.AdvancedMarkerElement({
-  //   //   map: map,
-  //   //   position: location,
-  //   //   title: "Marker Title",
-  //   //   icon: svgMarker,
-  //   // });
-  //   const marker = new google.maps.marker.AdvancedMarkerElement({
-  //     map: map,
-  //     position: location,
-  //     title: "Marker Title",
-  //   });
-  //   // Setup content for
-  //   const content = document.createElement("div");
-  //   content.style.width = "100px";
-  //   // content.style.minHeight = "50px";
-  //   content.style.color = "#20831E";
-  //   content.textContent = locationAddressOrEventDetails;
-
-  //   // Render infoCard with onClose to close the item
-  //   const infoCard = new google.maps.InfoWindow({
-  //     position: location,
-  //     headerContent: name,
-  //     minWidth: 100,
-  //     ariaLabel: "hello world hello world",
-  //     content: content,
-  //   });
-  //   // Add click event listener to marker to open infoCard
-  //   marker.addListener("click", (e) => {
-  //     console.log("event from clicking marker", e);
-  //     // setSelectedEventId(e.id);
-  //     infoCard.open({
-  //       map: map,
-  //       anchor: marker,
-  //     });
-  //     // if clicked on any event >> set center to that event's location
-  //     // setCenter(location); // set center แล้ว marker เดิมมันหายไป
-  //   });
-
-  //   // Optional: Close the infoCard when clicking anywhere on the map (outside the marker)
-  //   // map.addListener("click", () => {
-  //   //   infoCard.close();
-  //   // });
-  //   // infoCard.open({ map: map, anchor: marker });
-  // }
 
   function setMarkerForEvents(
     location,
@@ -350,14 +288,11 @@ export default function Map({
           eventArray={eventArray}
           setEventArray={setEventArray}
           placeAutoCompleteRef={placeAutoCompleteRef}
+          currentLocation={currentLocation}
+          center={center}
+          setCenter={setCenter}
         />
       </div>
-      {/* Show search box */}
-      {/* <input
-        type="text"
-        ref={placeAutoCompleteRef}
-        className="bg-white text-black h-6 w-80"
-      /> */}
       {/* Show map */}
       {isLoaded ? (
         <div className="h-[300px]" ref={mapRef}></div>

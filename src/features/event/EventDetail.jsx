@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import eventApi from "../../apis/event";
 import EventTabCard from "../../components/EventTabCard";
 import useStore from "../../zustand/store";
+import EventLocationPhoto from "./EventLocationPhoto";
 
 export default function EventDetail() {
   const { pathname } = useLocation();
@@ -30,9 +31,13 @@ export default function EventDetail() {
           <EventTabCard selectedEventDetails={selectedEventDetails} />
         )}
       </div>
+      {/* Photos of the Location */}
+
       <div className="bg-secondary" style={{ height: "250px" }}>
-        <img src="" />
-        <img src="" />
+        {/* <EventLocationPhoto
+          latitude={selectedEventDetails?.eventLocation.split(",")[0]}
+          longitude={selectedEventDetails?.eventLocation.split(",")[1]}
+        /> */}
       </div>
       {/* ============ Other Events List============ */}
       <div className="flex flex-col p-6">
