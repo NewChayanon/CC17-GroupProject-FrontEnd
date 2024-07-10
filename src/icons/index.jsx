@@ -343,10 +343,10 @@ export function SearchIcon() {
 export function LocationIcon({ iconColor }) {
   return (
     <svg
-      width="20px"
-      height="20px"
+      width="12px"
+      height="12px"
       viewBox="0 0 24 24"
-      fill="none"
+      fill={iconColor}
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
@@ -366,6 +366,7 @@ export function LocationIcon({ iconColor }) {
         <path
           d="M12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z"
           stroke="#FFFFFF"
+          className={iconColor}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"

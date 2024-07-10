@@ -21,7 +21,7 @@ export default function Map({
   const [autoComplete, setAutoComplete] = useState(null);
   // State for the selected place from autocomplete to use to locate the new pin
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [zoomLevel, setZoomLevel] = useState(15);
+  const [zoomLevel, setZoomLevel] = useState(13);
   const [center, setCenter] = useState(currentLocation);
   const [bounds, setBounds] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -132,40 +132,39 @@ export default function Map({
           setMarker(position, place.name, place.formatted_address);
           setCenter(position);
           // Set search keyword ให้เป็น lat,lng format เพื่อที่จะใช้ในการยิง API ไป get near me มาด้วย
-
           const latlng = position.lat() + "," + position.lng();
           console.log("Lat,long value for searchbox", latlng);
           setSearchKeyword(latlng);
           // ต้อง call api เพื่อที่จะถึง near me ใหม่มา โดยที่เอา lat long ของใหม่เป็นศก แล้วให้ไป trigger useEffect ที่แสดง pin ของ event near me
           console.log("Inside useeffect after confirm place in search box"); // run แล้ว หลังจาก confirm search
-          console.log("Position data before modifying", position);
-          fetchEventNearMe(position); // run แล้วหลังจาก confirm search ด้วย lat/lng ใหม่
-          console.log(
-            "After call fetcheventnearme after change place in search box"
-          );
-          // fetchEventNearMe(center)
+          // console.log("Position data before modifying", position);
+          // fetchEventNearMe(position); // run แล้วหลังจาก confirm search ด้วย lat/lng ใหม่
+          // console.log(
+          //   "After call fetcheventnearme after change place in search box"
+          // );
         }
       });
     }
   }, [autoComplete]);
 
-  const fetchEventNearMe = async (position) => {
-    try {
-      const params = {};
-      params.userLocation = position.lat() + "," + position.lng();
-      console.log("Params", params); // params ถูกแล้ว {userLocation: '7.8836389,98.38796599999999'}
-      const result = await authApi.getNearMe(params); // ตรงนี้รันแล้ว หลังจากที่ search box is confirmed
-      console.log(
-        "result from get nearMe after change new cente (inside component)r",
-        result
-      );
-      setEventArray(result.data);
-    } catch (err) {
-      console.log("error from fetching event near me API", err);
-    }
-  };
+  // const fetchEventNearMe = async (position) => {
+  //   try {
+  //     const params = {};
+  //     params.userLocation = position.lat() + "," + position.lng();
+  //     console.log("Params", params); // params ถูกแล้ว {userLocation: '7.8836389,98.38796599999999'}
+  //     const result = await authApi.getNearMe(params); // ตรงนี้รันแล้ว หลังจากที่ search box is confirmed
+  //     console.log(
+  //       "result from get nearMe after change new cente (inside component)r",
+  //       result
+  //     );
+  //     setEventArray(result.data);
+  //   } catch (err) {
+  //     console.log("error from fetching event near me API", err);
+  //   }
+  // };
 
   // Has 2 setmarker functions 1) For searched place 2) For events near me
+
   // Create function to set market to the selected place (โดยการระบุ lat lng)
   function setMarker(location, name, locationAddressOrEventDetails) {
     // Marker นี้ควรจะโชว์ เมื่อกดคลิกที่ pin เท่านั้น และสามารถปิดได้ด้วย
@@ -293,12 +292,6 @@ export default function Map({
           center={center}
         />
       </div>
-      {/* Show search box */}
-      {/* <input
-        type="text"
-        ref={placeAutoCompleteRef}
-        className="bg-white text-black h-6 w-80"
-      /> */}
       {/* Show map */}
       {isLoaded ? (
         <div className="h-[300px]" ref={mapRef}></div>

@@ -5,6 +5,7 @@ import Modal from "../../components/Modal";
 import { voucherStatus } from "../../constants/voucher-constant";
 import CouponDetailModal from "./CouponDetailModal";
 import { toast } from "react-toastify";
+import { formatDateString } from "../../utils/datetime-conversion";
 
 // NOTE: Coupon tab ใช้แสดงผลใน 2 menu 1) event/promotion 2) user/collected-coupon
 export default function CouponTab({
@@ -65,14 +66,19 @@ export default function CouponTab({
           {selectedEventDetails.sellerName}
         </div>
         <div className="text-base ">{selectedEventDetails.eventName}</div>
-        <div className="text-xs">{selectedEventDetails.voucherCondition}</div>
+        <div className="text-xs">
+          {selectedEventDetails?.voucherItem?.voucherCondition ||
+            selectedEventDetails?.voucherCondition}
+        </div>
         <div className="flex justify-between">
           <div className="text-xs">
-            Validity: {selectedEventDetails.eventStartDate} -{" "}
-            {selectedEventDetails.eventEndDate}
+            Validity: {formatDateString(selectedEventDetails.eventStartDate)} -{" "}
+            {formatDateString(selectedEventDetails.eventEndDate)}
           </div>
           <div className="text-xs">
-            Code: {selectedEventDetails.voucherCode}
+            Code:{" "}
+            {selectedEventDetails?.voucherItem?.voucherCode ||
+              selectedEventDetails?.voucherCode}
           </div>
         </div>
       </div>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import eventApi from "../apis/event";
-import { MONTHS_NAME } from "../constants/date-constant";
 import { voucherStatus } from "../constants/voucher-constant";
 import { CouponIcon, PinIcon, PinIconActive } from "../icons";
 import {
@@ -87,8 +86,14 @@ export default function EventTabCard({
             </div>
           </div>
           {/* ======== Voucher Icon Display========= 1. event ไม่แจก voucher "getvoucher" = [] 2. มีแต่ user ยังไม่กดรับ "un-collected" 3. กดรับแล้ว "collected, used, expired"*/}
-          {typeof selectedEventDetails.getVoucher ===
+          {/* {typeof selectedEventDetails.getVoucher ===
           "object" ? null : selectedEventDetails.getVoucher ===
+            voucherStatus.UNCOLLECTED ? (
+            <CouponIcon isActive={false} />
+          ) : (
+            <CouponIcon isActive={true} />
+          )} */}
+          {selectedEventDetails.getVoucher ? null : selectedEventDetails.getVoucher ===
             voucherStatus.UNCOLLECTED ? (
             <CouponIcon isActive={false} />
           ) : (
