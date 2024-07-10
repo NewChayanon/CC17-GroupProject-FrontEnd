@@ -561,12 +561,12 @@ export function ProductIcon({ id, fill = true }) {
     </svg>
   );
 }
-export function CouponIcon({ isActive = true }) {
+export function CouponIcon({ isActive = true, size = 20 }) {
   return (
     <svg
       className={isActive ? "fill-primary" : "fill-graylighticon"}
-      width="21"
-      height="17"
+      width={size}
+      height={size}
       viewBox="0 0 21 17"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

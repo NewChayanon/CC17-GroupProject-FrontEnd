@@ -4,6 +4,7 @@ import { useJsApiLoader } from "@react-google-maps/api";
 import { useState, useEffect, useRef, useCallback, Children } from "react";
 import authApi from "../../apis/auth";
 import SearchBar from "../../components/SearchBar";
+import ResetLocationIcon from "../../icons/resetlocation-icon";
 const libraries = ["places", "core", "maps", "marker"];
 
 export default function Map({
@@ -13,6 +14,7 @@ export default function Map({
   setEventArray,
   setSelectedEventId,
   setSelectedEventDetails,
+  fetchLocation,
 }) {
   // set a state for a map created
   console.log("EventArray at the start of MainMap component", eventArray);
@@ -281,7 +283,8 @@ export default function Map({
   return (
     <div className="flex flex-col relative">
       {/* add searchbox */}
-      <div className="absolute z-20 top-4">
+      {/* <div className="absolute z-20 top-4"> */}
+      <div className="bg-graybg">
         <SearchBar
           searchKeyword={searchKeyword}
           setSearchKeyword={setSearchKeyword}
@@ -295,10 +298,17 @@ export default function Map({
       </div>
       {/* Show map */}
       {isLoaded ? (
-        <div className="h-[300px]" ref={mapRef}></div>
+        <div className="h-[360px]" ref={mapRef}></div>
       ) : (
         <p>Loading...</p>
       )}
+      {/* Reset center button */}
+      <div
+        onClick={() => fetchLocation()}
+        className="absolute bottom-2 left-2 bg-white shadow-lg rounded-full p-2"
+      >
+        <ResetLocationIcon />
+      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ export default function MainContainer() {
   return (
     <div className="bg-graybg w-auto m-auto">
       <Header />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden ">
         <Sidebar />
         <div className="grow">
           <Outlet />

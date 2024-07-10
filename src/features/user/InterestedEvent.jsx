@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import userApi from "../../apis/user";
+import EmptyState from "../../components/EmptyState";
+import { CouponIcon } from "../../icons";
 import EventsBySellerBox from "../interestevent/EventsBySellerBox";
 
 export default function InterestedEvent() {
@@ -45,14 +47,23 @@ export default function InterestedEvent() {
 
   return (
     <div>
-      {finalEventArr.map((eventsObjectBySeller, index) => (
-        <EventsBySellerBox
-          eventsObjectBySeller={eventsObjectBySeller}
-          key={index}
-          index={index}
-          setUpdateInterestEventStatus={setUpdateInterestEventStatus}
+      {finalEventArr[0] ? (
+        <>
+          {finalEventArr.map((eventsObjectBySeller, index) => (
+            <EventsBySellerBox
+              eventsObjectBySeller={eventsObjectBySeller}
+              key={index}
+              index={index}
+              setUpdateInterestEventStatus={setUpdateInterestEventStatus}
+            />
+          ))}
+        </>
+      ) : (
+        <EmptyState
+          message="No interested event is found"
+          icon={<CouponIcon isActive={false} />}
         />
-      ))}
+      )}
     </div>
   );
 }

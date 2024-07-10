@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import eventApi from "../../apis/event";
+import EventMap from "../../components/EventMap";
 import EventTabCard from "../../components/EventTabCard";
 import useStore from "../../zustand/store";
-import EventLocationPhoto from "./EventLocationPhoto";
 
 export default function EventDetail() {
   const { pathname } = useLocation();
@@ -21,6 +21,10 @@ export default function EventDetail() {
   useEffect(() => {
     setSelectedEventDetails(eventIdfromPath, isAuthenticated);
     setEventId(eventIdfromPath);
+    // const eventLatLng = {};
+    // eventLatLng.lat = +selectedEventDetails.eventLocation.split(",")[0];
+    // eventLocation.lng = +selectedEventDetails.eventLocation.split(",")[1];
+    // console.log("Lat Long for this event", eventLatLng);
   }, []);
 
   return (
@@ -31,14 +35,8 @@ export default function EventDetail() {
           <EventTabCard selectedEventDetails={selectedEventDetails} />
         )}
       </div>
-      {/* Photos of the Location */}
-
-      <div className="bg-secondary" style={{ height: "250px" }}>
-        {/* <EventLocationPhoto
-          latitude={selectedEventDetails?.eventLocation.split(",")[0]}
-          longitude={selectedEventDetails?.eventLocation.split(",")[1]}
-        /> */}
-      </div>
+      {/* Map of the event */}
+      <EventMap eventLocation={{ lat: 13.76, lng: 100.5 }} />
       {/* ============ Other Events List============ */}
       <div className="flex flex-col p-6">
         <div className="text-xl font-bold">Other Events from this seller</div>

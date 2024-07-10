@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import SettingsIcon from "../icons/SettingsIcon.jsx";
 import { InterestedEventIcon } from "../icons/interested-event-icon.jsx";
+import { SettingIcon } from "../icons/setting-icon.jsx";
 
 export default function Header() {
   // ทำ responsive 2 size 1) mobile 2) desktop
@@ -39,6 +40,13 @@ export default function Header() {
       authRequired: false,
     },
     {
+      menuIcon: <VendorNearMeIcon />,
+      menuName: "Interested Events",
+      linkTo: "/user/interested-event",
+      handleClick: "",
+      authRequired: true,
+    },
+    {
       menuIcon: <InboxIcon />,
       menuName: "Inbox",
       linkTo: "/user/inbox",
@@ -60,7 +68,7 @@ export default function Header() {
       authRequired: true,
     },
     {
-      menuIcon: <SettingsIcon />,
+      menuIcon: <SettingIcon />,
       menuName: "Settings",
       linkTo: "/user/settings",
       handleClick: "",
