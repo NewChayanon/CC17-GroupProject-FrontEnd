@@ -15,6 +15,7 @@ import EmptyState from "../components/EmptyState";
 import { CouponIcon } from "../icons";
 import DurianLogoBW from "../icons/DurianLogoBW";
 import { useNavigate } from "react-router-dom";
+import { setAccessToken } from "../utils/local-storage";
 
 // Fetch Event from API instead of using mockup Array
 const defaultLocation = { lat: 13.76, lng: 100.5 }; // Bangkok Location
@@ -100,14 +101,14 @@ export default function HomePage() {
 
         if (tokenFromUrl) {
           const base64Token = decodeURIComponent(tokenFromUrl);
-          localStorage.setItem("token", base64Token);
+          setAccessToken(base64Token);
+          // localStorage.setItem("token", base64Token);
           setToken(base64Token); // Store the decoded token
-
           // Assuming `login` is an asynchronous function that handles login
           // Navigate to the home page or wherever you need after successful login
-          navigate("/home");
+          // navigate("/home");
           const result = await getAuthUser(); // Adjust the arguments as per your login function
-          console.log("result from getAuthUser");
+          console.log("result from getAuthUser", result);
         } else {
           // Handle login failure if necessary
           console.error("Login failed");
