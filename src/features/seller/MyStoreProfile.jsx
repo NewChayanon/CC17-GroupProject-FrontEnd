@@ -17,7 +17,9 @@ export default function MyStoreProfile() {
   const getMyStoreInfo = useStore((state) => state.getMyStoreInfo);
   const editStoreDescription = useStore((state) => state.editStoreDescription);
   const updateCoverImage = useStore((state) => state.updateCoverImage);
-  const updateUserProfileImage = useStore((state) => state.updateUserProfileImage);
+  const updateUserProfileImage = useStore(
+    (state) => state.updateUserProfileImage
+  );
   const storeInfo = useStore((state) => state.storeInfo);
   const [isLoading, setIsLoading] = useState(false);
   const [input, setInput] = useState(initialInput);
@@ -31,7 +33,7 @@ export default function MyStoreProfile() {
   const [imageFile, setImageFile] = useState(null);
   const [coverImageFile, setCoverImageFile] = useState(null);
 
-  const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const fileEl = useRef();
   const coverFileEl = useRef();
@@ -108,7 +110,12 @@ export default function MyStoreProfile() {
         <div className="flex flex-col w-full">
           <div className="flex flex-col w-full h-auto pb-20">
             <div className="h-[160px] sm:h-[264px]">
-              <input className="hidden" type="file" ref={coverFileEl} onChange={handleCoverImageChange} />
+              <input
+                className="hidden"
+                type="file"
+                ref={coverFileEl}
+                onChange={handleCoverImageChange}
+              />
               <img
                 src={coverImage || orangeCover}
                 style={{
@@ -121,22 +128,45 @@ export default function MyStoreProfile() {
                 className="w-full bg-no-repeat flex flex-col justify-center items-center"
               />
               <div className="absolute z-20 top-[8rem] sm:top-[14rem] right-2">
-                <img src={addImageButton} alt="Add image button" className="w-7 h-7 cursor-pointer" onClick={() => coverFileEl.current.click()} />
+                <img
+                  src={addImageButton}
+                  alt="Add image button"
+                  className="w-7 h-7 cursor-pointer"
+                  onClick={() => coverFileEl.current.click()}
+                />
               </div>
             </div>
           </div>
           <div className="absolute z-2 p-8 pt-[110px] sm:pt-[200px]">
-            <input className="hidden" type="file" ref={fileEl} onChange={handleImageChange} />
-            <img src={image || durianProfileLogo} alt="Durian profile mock picture" className="w-[100px] h-[100px] sm:w-[125px] sm:h-[125px] rounded-full" />
+            <input
+              className="hidden"
+              type="file"
+              ref={fileEl}
+              onChange={handleImageChange}
+            />
+            <img
+              src={image || durianProfileLogo}
+              alt="Durian profile mock picture"
+              className="w-[100px] h-[100px] sm:w-[125px] sm:h-[125px] rounded-full"
+            />
           </div>
           <div className="absolute z-10 pt-[180px] pl-[110px] sm:pt-[290px] sm:pl-[130px]">
-            <img src={addImageButton} alt="Add image button" className="w-7 h-7 cursor-pointer" onClick={() => fileEl.current.click()} />
+            <img
+              src={addImageButton}
+              alt="Add image button"
+              className="w-7 h-7 cursor-pointer"
+              onClick={() => fileEl.current.click()}
+            />
           </div>
 
           <div className="absolute flex flex-col pt-[165px] pl-[165px] sm:pt-[270px] sm:pl-[190px] pr-6">
             <div className="flex gap-10 ">
-              <div className="text-primary font-semibold">{storeInfo.storeProfileName}</div>
-              <div className="flex justify-end">OOO</div>
+              <div className="text-primary font-semibold">
+                {storeInfo.storeProfileName}
+              </div>
+              <div className="flex justify-end">
+                <div className="flex gap-1 pt-1"></div>
+              </div>
             </div>
             <div className="text-xs pl-2 font-semibold text-gray-500">
               <div className="flex">
@@ -156,7 +186,9 @@ export default function MyStoreProfile() {
           <div className="p-4 pt-6 ">
             <div className=" flex flex-col border border-gray-300 rounded-xl p-3">
               <div className="flex justify-between pb-1 pr-1 pt-0">
-                <div className="text-base  pl-2 font-bold text-graydarktext">About the seller</div>
+                <div className="text-base  pl-2 font-bold text-graydarktext">
+                  About the seller
+                </div>
                 {editSellerContent ? (
                   <div
                     className="underline cursor-pointer text-sm text-lightgreen hover:text-darkgreen"
@@ -181,7 +213,9 @@ export default function MyStoreProfile() {
               </div>
               <div className="text-base ">
                 {editSellerContent ? (
-                  <div className="p-2 text-sm text-graydarktext rounded-lg w-full h-auto">{textArea.storeProfileSellerDescription}</div>
+                  <div className="p-2 text-sm text-graydarktext rounded-lg w-full h-auto">
+                    {textArea.storeProfileSellerDescription}
+                  </div>
                 ) : (
                   <div>
                     <textarea
@@ -195,7 +229,9 @@ export default function MyStoreProfile() {
               </div>
               <div>
                 <div className="flex justify-between pb-1 pr-1 pt-2">
-                  <div className="text-base font-bold pl-2 text-graydarktext">About {storeInfo.storeProfileName}</div>
+                  <div className="text-base font-bold pl-2 text-graydarktext">
+                    About {storeInfo.storeProfileName}
+                  </div>
                   {editStoreContent ? (
                     <div
                       className="underline cursor-pointer text-sm text-lightgreen hover:text-darkgreen"
@@ -220,7 +256,9 @@ export default function MyStoreProfile() {
                 </div>
                 <div className="text-base">
                   {editStoreContent ? (
-                    <div className="p-2 text-sm  text-graydarktext rounded-lg w-full h-auto">{textArea.storeProfileDescription}</div>
+                    <div className="p-2 text-sm  text-graydarktext rounded-lg w-full h-auto">
+                      {textArea.storeProfileDescription}
+                    </div>
                   ) : (
                     <div>
                       <textarea
@@ -239,7 +277,10 @@ export default function MyStoreProfile() {
                 </div>
               ) : (
                 <div className="flex justify-center py-4">
-                  <button className="bg-gray-300 text-gray-100 py-1 px-4 shadow rounded-xl " disabled>
+                  <button
+                    className="bg-gray-300 text-gray-100 py-1 px-4 shadow rounded-xl "
+                    disabled
+                  >
                     Confirm Change
                   </button>
                 </div>
@@ -248,10 +289,15 @@ export default function MyStoreProfile() {
           </div>
           <div className="p-4">
             <div className="bg-white p-4 flex flex-col">
-              <div className="text-primary font-semibold">Featured Products</div>
-              <div className="flex justify-center py-4 pt-7">
-                <Button onClick={()=>setOpen(true)}>&nbsp;Add more product&nbsp;</Button>
-                <Modal open={open} onClose={()=>setOpen(false)}>
+              <div className="text-primary font-semibold">
+                Featured Products
+              </div>
+              <div className="flex flex-col items-center gap-10 justify-center py-4 pt-7">
+                <ProductTab />
+                <Button onClick={() => setOpen(true)}>
+                  &nbsp;Add more product&nbsp;
+                </Button>
+                <Modal open={open} onClose={() => setOpen(false)}>
                   <AddMoreProduct onSuccess={() => setOpen(false)} />
                 </Modal>
               </div>

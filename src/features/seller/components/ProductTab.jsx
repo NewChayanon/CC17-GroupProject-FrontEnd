@@ -16,7 +16,7 @@ export default function ProductTab() {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       {productInfo.map((el) => (
         <SmallProductTabCard
           productImage={el.productImage}
