@@ -23,7 +23,7 @@ export default function EventNavBar() {
             activeMenu === "detail"
               ? "bg-white text-primary font-semibold rounded-tr-md"
               : "bg-primary text-white"
-          } flex justify-center items-center grow hover:cursor-pointer`}
+          } flex justify-center items-center gap-1 grow hover:cursor-pointer`}
           onClick={handleClickMenu}
           id="detail"
         >
@@ -31,14 +31,14 @@ export default function EventNavBar() {
             id="detail"
             fill={activeMenu === "detail" ? true : false}
           />
-          Event Detail
+          <div id="detail">Event Detail</div>
         </div>
         <div
           className={`${
             activeMenu === "promotion"
               ? "bg-white text-primary font-semibold rounded-tr-md"
               : "bg-primary text-white"
-          } flex justify-center items-center grow hover:cursor-pointer`}
+          } flex justify-center items-center gap-1 grow hover:cursor-pointer`}
           onClick={handleClickMenu}
           id="promotion"
         >
@@ -46,14 +46,14 @@ export default function EventNavBar() {
             id="promotion"
             fill={activeMenu === "promotion" ? true : false}
           />
-          Promotion
+          <div id="promotion">Promotion</div>
         </div>
         <div
           className={`${
             activeMenu === "products"
               ? "bg-white text-primary font-semibold rounded-tr-md"
               : "bg-primary text-white"
-          } flex justify-center items-center grow hover:cursor-pointer`}
+          } flex justify-center items-center gap-1 grow hover:cursor-pointer`}
           onClick={handleClickMenu}
           id="products"
         >
@@ -61,7 +61,7 @@ export default function EventNavBar() {
             id="products"
             fill={activeMenu === "products" ? true : false}
           />
-          Products
+          <div id="products">Products</div>
         </div>
       </div>
     </div>

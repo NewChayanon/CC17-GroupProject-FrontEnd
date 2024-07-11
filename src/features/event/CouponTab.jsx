@@ -43,8 +43,9 @@ export default function CouponTab({
 
   return (
     <div
+      type="button"
       onClick={handleOpenCouponDetailModal}
-      className="shadow-lg flex rounded-xl relative px-4 gap-4 w-full h-[120px]"
+      className="shadow-lg flex rounded-xl relative px-4 gap-4 w-full h-[120px] hover:scale-95 active:scale-95"
     >
       <div className="absolute bg-white rounded-full w-8 h-8 -left-4 top-1/2 transform -translate-y-1/2"></div>
       <div className="absolute bg-white rounded-full w-8 h-8 -right-4 top-1/2 transform -translate-y-1/2"></div>
@@ -85,8 +86,8 @@ export default function CouponTab({
       {/* ====== Check if User is in event page, and if they already collect voucher or not. if yes. show" collected" */}
       {selectedEventDetails.voucherItem?.userVoucherStatus[0] ? (
         <>
-          <div className="absolute w-full h-full bg-white opacity-50 "></div>
-          <div className="absolute w-full h-full bg-gray flex justify-center items-center text-2xl font-bold text-red-500 -rotate-12">
+          <div className="absolute w-full h-full bg-white opacity-70 "></div>
+          <div className="absolute w-full h-full bg-gray flex justify-center items-center text-2xl font-bold text-primary -rotate-12">
             --Collected!--
           </div>
         </>
@@ -96,8 +97,8 @@ export default function CouponTab({
       selectedEventDetails.userVoucherStatus === voucherStatus.USED ? (
         <>
           <div className="absolute w-full h-full bg-white opacity-50 "></div>
-          <div className="absolute w-full h-full bg-gray flex justify-center items-center text-2xl font-bold text-red-500 -rotate-12">
-            {selectedEventDetails.userVoucherStatus}
+          <div className="absolute w-full h-full bg-gray flex justify-center items-center text-2xl font-bold text-tertiary -rotate-12">
+            {`--- ${selectedEventDetails.userVoucherStatus} ---`}
           </div>
         </>
       ) : null}
