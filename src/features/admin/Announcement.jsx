@@ -6,6 +6,8 @@ import dayjs from "dayjs";
 import StoreList from "./components/StoreList";
 import Pagination from "../../components/Pagination";
 import adminApi from "../../apis/admin";
+import Button from "../../components/Button";
+import InputTextarea from "../../components/InputTextarea";
 
 export default function Announcement() {
   const [announces, setAnnounces] = useState([]);
@@ -26,6 +28,7 @@ export default function Announcement() {
 const fetchInbox = async()=>{
 try {
   const result = await adminApi.allMessage()
+  console.log(result.data)
   setAnnounces(result.data)
 } catch (error) {
   console.log(error)
@@ -114,7 +117,19 @@ useEffect(()=>{
           />
         </div>
       </div>
-      <div className="w-screen h-screen bg-blue-400 sticky z-10 top-0">Announcement data</div>
+      <div className=" px-5  w-screen h-screen bg-blue-400 sticky top-0">
+        <div className="m-10 h-[800px]">
+          <div className="p-5 border-dashed border-2 border-gray-500 flex justify-center rounded-xl  ">
+            <Button width="xl" >Create New Announcement</Button>
+          </div>
+          <>
+          <h1>subject</h1>
+          </>
+          <div className="pt-10">
+            <InputTextarea></InputTextarea>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

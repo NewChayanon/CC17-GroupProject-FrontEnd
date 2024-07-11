@@ -136,7 +136,7 @@ export default function ManageSeller() {
           />
         </div>
       </div>
-      <div className="w-screen h-screen bg-green-200 sticky z-10 top-0">Seller data</div>
+      {/* <div className="w-screen h-screen bg-green-200 sticky z-10 top-0">Seller data</div> */}
     </div>
   );
 }
