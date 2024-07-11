@@ -146,7 +146,6 @@ export default function EventDetailTab({ slideUp }) {
       const formData = new FormData();
       Object.keys(inputSubmit).forEach((key) => {
         if (inputSubmit[key]) formData.append(key, inputSubmit[key]);
-        console.log(inputSubmit[key]);
       });
 
       const id = { ...selectedEvent };
