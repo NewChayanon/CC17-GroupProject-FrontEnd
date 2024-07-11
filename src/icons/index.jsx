@@ -274,8 +274,8 @@ export function CalendarIcon({ id, fill = true }) {
   return (
     <svg
       className={`${fill ? "fill-primary" : "fill-absolutewhite group-hover:fill-graylighticon"}`}
-      width="25"
-      height="25"
+      width="20"
+      height="20"
       viewBox="0 0 25 25"
       xmlns="http://www.w3.org/2000/svg"
       id={id}
