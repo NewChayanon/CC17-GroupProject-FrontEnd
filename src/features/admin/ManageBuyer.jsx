@@ -5,18 +5,20 @@ import { useEffect } from "react";
 import StoreList from "./components/StoreList";
 import Pagination from "../../components/Pagination";
 import adminApi from "../../apis/admin";
+import Button from "../../components/Button";
+import InputTextarea from "../../components/InputTextarea";
 
 export default function ManageBuyer() {
   const [buyers, setBuyers] = useState([]);
-  console.log('buyers',buyers)
+  console.log("buyers", buyers);
 
   const [filteredBuyers, setFilteredBuyers] = useState(buyers);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [countRow, setCountRow] = useState(0)
+  const [countRow, setCountRow] = useState(0);
   const itemsPerPage = 10;
 
-  console.log('filteredBuyers',filteredBuyers)
+  console.log("filteredBuyers", filteredBuyers);
 
   const debouncedSearchQuery = useDebounce(searchQuery, 1200);
 
@@ -25,28 +27,27 @@ export default function ManageBuyer() {
     setCurrentPage(1);
   };
 
-  const fetchAllBuyer = async()=>{
+  const fetchAllBuyer = async () => {
     try {
       const data = {
-        pages : currentPage,
-        pageSize  : itemsPerPage,
-        sortBy: "id"
-      }
-      const buyer = await adminApi.allBuyer(data)
-      console.log('buyer',buyer.data)
-      setBuyers(buyer.data.result)
-      setCountRow(buyer.data.countBuyer)
+        pages: currentPage,
+        pageSize: itemsPerPage,
+        sortBy: "id",
+      };
+      const buyer = await adminApi.allBuyer(data);
+      console.log("buyer", buyer.data);
+      setBuyers(buyer.data.result);
+      setCountRow(buyer.data.countBuyer);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  useEffect(()=>{
-    fetchAllBuyer()
-  },[])
-
-  
+  };
   useEffect(() => {
-    console.log('buyerssssss',buyers)
+    fetchAllBuyer();
+  }, []);
+
+  useEffect(() => {
+    console.log("buyerssssss", buyers);
     if (debouncedSearchQuery) {
       const filtered = buyers.filter((buyer) => {
         const query = debouncedSearchQuery.toLowerCase();
@@ -70,11 +71,11 @@ export default function ManageBuyer() {
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
-  console.log('indexOfLastItem',indexOfLastItem)
+  console.log("indexOfLastItem", indexOfLastItem);
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  console.log('indexOfFirstItem',indexOfFirstItem)
+  console.log("indexOfFirstItem", indexOfFirstItem);
   const currentBuyers = filteredBuyers.slice(indexOfFirstItem, indexOfLastItem);
-  console.log('currentBuyers',currentBuyers)
+  console.log("currentBuyers", currentBuyers);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -83,7 +84,9 @@ export default function ManageBuyer() {
       key: "username",
       label: "Buyer Name",
       sortable: true,
-      render: (value) => <div className="text-sm font-medium text-gray-900">{value}</div>,
+      render: (value) => (
+        <div className="text-sm font-medium text-gray-900">{value}</div>
+      ),
     },
     {
       key: "storeProfileId",
@@ -106,8 +109,7 @@ export default function ManageBuyer() {
       className: (buyer) => (buyer.blocked ? "text-red-600" : "text-green-600"),
     },
   ];
-  console.log('buyers1',buyers)
-
+  console.log("buyers1", buyers);
 
   return (
     <div className="flex gap-6 bg-graybg">
@@ -144,7 +146,8 @@ export default function ManageBuyer() {
           />
         </div>
       </div>
-      <div className="w-screen h-screen bg-purple-400 sticky z-10 top-0">Buyer data</div>
     </div>
   );
 }
+
+

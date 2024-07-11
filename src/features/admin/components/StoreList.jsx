@@ -23,8 +23,14 @@ export default function StoreList({ stores, columns, actions, initialSortConfig 
   });
 
   const renderCell = (store, column) => {
-    const dateTime = new Date(store.updatedAt).toLocaleString("en-GB")
+    if (column.key === "createdAt") {
+      const dateTime = new Date(store.createdAt).toLocaleString("en-GB")
+      return (
+        <div className="text-sm font-medium">{dateTime}</div>
+      )
+    }
     if (column.key === "username" || column.key === "storeName") {
+      const dateTime = new Date(store.updatedAt).toLocaleString("en-GB")
       return (
         <div>
           <div className="text-sm font-medium text-gray-900">{store.username}</div>
