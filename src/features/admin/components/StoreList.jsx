@@ -23,12 +23,19 @@ export default function StoreList({ stores, columns, actions, initialSortConfig 
   });
 
   const renderCell = (store, column) => {
-    if (column.key === "name") {
+    if (column.key === "createdAt") {
+      const dateTime = new Date(store.createdAt).toLocaleString("en-GB")
+      return (
+        <div className="text-sm font-medium">{dateTime}</div>
+      )
+    }
+    if (column.key === "username" || column.key === "storeName") {
+      const dateTime = new Date(store.updatedAt).toLocaleString("en-GB")
       return (
         <div>
-          <div className="text-sm font-medium text-gray-900">{store.name}</div>
+          <div className="text-sm font-medium text-gray-900">{store.username}</div>
           <div className="text-sm text-gray-500">{store.email}</div>
-          <div className="text-xs text-gray-400">Last updated: {store.lastUpdated}</div>
+          <div className="text-xs text-gray-400">Last updated: {dateTime}</div>
         </div>
       );
     }
@@ -80,7 +87,9 @@ export default function StoreList({ stores, columns, actions, initialSortConfig 
               {columns.map((column) => (
                 <td
                   key={column.key}
-                  className={`px-6 py-4 whitespace-nowrap ${column.key === "name" ? "text-left" : column.key === "topic" ? "text-left overflow-hidden text-ellipsis max-w-44" : "text-center"}`}
+                  className={`px-6 py-4 whitespace-nowrap ${column.key === "username" ? "text-left" : column.key === "topic" ? "text-left overflow-hidden text-ellipsis max-w-44" : column.key === "storeName" ? "text-left" : "text-center"}`}
+
+                  
                 >
                   {renderCell(store, column)}
                 </td>

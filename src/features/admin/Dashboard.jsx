@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { AdminCalender, UserBreakdownIcon } from "../../icons";
+import useStore from "../../zustand/store";
 import CardWithBorder from "./components/CardWithBorder";
 import CustomBarChart from "./components/CustomBarChart";
 import CustomDoughnutChart from "./components/CustomDoughnutChart";
@@ -6,6 +8,20 @@ import CustomLineChart from "./components/CustomLineChart";
 import SolidCard from "./components/SolidCard";
 
 export default function Dashboard() {
+  const adminGetAllUser = useStore((state) => state.adminGetAllUser);
+  const adminGetAllEvents = useStore((state) => state.adminGetAllEvents);
+  const allUsers = useStore((state) => state.allUsers);
+  const allEvents = useStore((state) => state.allEvents);
+
+  useEffect(() => {
+    adminGetAllUser();
+    adminGetAllEvents();
+  }, [adminGetAllUser, adminGetAllEvents]);
+
+  const buyerAndSellerCount = +allUsers.length;
+  const buyersCount = +allUsers.filter((user) => user.role === "BUYER").length;
+  const storesCount = +allUsers.filter((user) => user.role === "SELLER").length;
+
   return (
     <div className="flex flex-col gap-8 justify-center items-center m-8">
       <div className="w-full h-[250px] rounded-lg flex flex-row justify-center items-center gap-8">
@@ -21,19 +37,19 @@ export default function Dashboard() {
               borderColor="bg-primary"
               backgroundColor="bg-absolutewhite"
               textColor="text-primary"
-              amount="110"
+              amount={buyerAndSellerCount}
               cardTitle="All users"
             />
             <SolidCard
               backgroundColor="bg-primary"
               textColor="text-absolutewhite"
-              amount="70"
+              amount={buyersCount}
               cardTitle="Buyers"
             />
             <SolidCard
               backgroundColor="bg-tertiary"
               textColor="text-absolutewhite"
-              amount="40"
+              amount={storesCount}
               cardTitle="Stores"
             />
           </div>
@@ -50,23 +66,28 @@ export default function Dashboard() {
               borderColor="bg-tertiary"
               backgroundColor="bg-absolutewhite"
               textColor="text-tertiary"
-              amount="100"
+              amount={allEvents.AllEvents}
               cardTitle="Total Events"
             />
             <SolidCard
               backgroundColor="bg-tertiary"
               textColor="text-absolutewhite"
-              amount="60"
+              amount={allEvents.countIsActiveEvents}
               cardTitle="Upcoming"
             />
           </div>
         </div>
       </div>
+
       <div className="w-full h-[28rem] bg-absolutewhite rounded-2xl flex flex-row justify-center items-center px-7 gap-8">
-        <CustomBarChart />
+        <CustomBarChart buyersCount={buyersCount} storesCount={storesCount} />
 
         <div className="flex flex-col justify-center items-center w-full lg:w-1/2 h-full mx-auto p-6 bg-absolutewhite">
-          <CustomDoughnutChart />
+          <CustomDoughnutChart
+            buyersCount={buyersCount}
+            storesCount={storesCount}
+            buyerAndSellerCount={buyerAndSellerCount}
+          />
         </div>
       </div>
       <div className="w-full h-[400px] flex justify-center items-center">

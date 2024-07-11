@@ -15,7 +15,11 @@ export default function EventMap({ eventLocation }) {
   const mapRef = useRef(null);
   // Set center to be lat,lng of this location
   useEffect(() => {
-    setCenter(eventLocation);
+    const eventLatLng = {};
+    // eventLatLng.lat = +eventLocation.split(",")[0];
+    // eventLatLng.lng = +eventLocation.split(",")[1];
+    // console.log("Lat Long for this event", eventLatLng);
+    setCenter(center);
   }, []);
 
   useEffect(() => {

@@ -6,15 +6,12 @@ import StoreNavBar from "./StoreNavBar";
 
 export default function StoreMainContainer() {
   return (
-    <div
-      className="bg-graybg"
-      style={{ width: "auto", margin: "auto" }}
-    >
+    <div className="bg-graybg" style={{ width: "auto", margin: "auto" }}>
       <Header />
       <StoreNavBar />
       <div className="flex">
         <Sidebar />
-        <div className="grow">
+        <div className="grow min-h-[540px]">
           <Outlet />
         </div>
       </div>

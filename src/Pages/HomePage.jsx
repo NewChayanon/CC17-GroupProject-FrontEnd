@@ -14,18 +14,21 @@ import Map from "../features/map/MainMap";
 import EmptyState from "../components/EmptyState";
 import { CouponIcon } from "../icons";
 import DurianLogoBW from "../icons/DurianLogoBW";
+import { useNavigate } from "react-router-dom";
+import { setAccessToken } from "../utils/local-storage";
 
 // Fetch Event from API instead of using mockup Array
-const defaultLocation = { lat: 13.76, lng: 100.5 }; // Bangkok Location
+const defaultLocation = { lat: 13.758361, lng: 100.5353489 }; // Bangkok Location
 
 export default function HomePage() {
   const [eventArray, setEventArray] = useState([]);
   const [currentLocation, setCurrentLocation] = useState(defaultLocation);
   const [selectedEventId, setSelectedEventId] = useState(""); // change to "" later after test
   const [selectedEventDetails, setSelectedEventDetails] = useState({}); // เอา eventId ไปเรียก event Details มาแล้วเอามา set state ทีหลัง
-
+  const [token, setToken] = useState(null);
+  const getAuthUser = useStore((state) => state.getAuthUser);
   const logoutModal = useStore((state) => state.logoutModal);
-
+  const navigate = useNavigate();
   // Get current location of user and setCurrentLocation
   const fetchLocation = async () => {
     try {
@@ -36,19 +39,7 @@ export default function HomePage() {
       console.log(err);
     }
   };
-  // Useeffect to fetch current location
-  // useEffect(() => {
-  //   const fetchLocation = async () => {
-  //     try {
-  //       const result = await getCurrentLocation();
-  //       console.log("result from getcurrentlocation", result);
-  //       setCurrentLocation((prev) => result);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   fetchLocation();
-  // }, []);
+
   useEffect(() => {
     fetchLocation();
   }, []);
@@ -75,8 +66,38 @@ export default function HomePage() {
     // }
   }, [currentLocation]);
 
+  // Update token after login
+  useEffect(() => {
+    console.log("Running useEffect to update token");
+    const getTokenFromUrl = async () => {
+      try {
+        const query = new URLSearchParams(window.location.search);
+        const tokenFromUrl = query.get("token");
+
+        if (tokenFromUrl) {
+          const base64Token = decodeURIComponent(tokenFromUrl);
+          setAccessToken(base64Token);
+          // localStorage.setItem("token", base64Token);
+          setToken(base64Token); // Store the decoded token
+          // Assuming `login` is an asynchronous function that handles login
+          // Navigate to the home page or wherever you need after successful login
+          // navigate("/home");
+          const result = await getAuthUser(); // Adjust the arguments as per your login function
+          console.log("result from getAuthUser", result);
+        } else {
+          // Handle login failure if necessary
+          console.error("Login failed");
+        }
+      } catch (error) {
+        console.error("Error while processing token:", error);
+        // Handle error if necessary
+      }
+    };
+    getTokenFromUrl();
+  }, []);
+
   return (
-    <div className="flex flex-col w-auto h-full">
+    <div className="flex flex-col w-auto min-h-[800px]">
       <div className="relative w-auto">
         {/*==================== MAP Component ===================*/}
 

@@ -18,6 +18,7 @@ export default function EventDetail() {
   );
   const isAuthenticated = useStore((state) => state.isAuthenticated);
   const isLoading = useStore((state) => state.isLoading);
+  console.log("selectedEventDetails", selectedEventDetails);
   useEffect(() => {
     setSelectedEventDetails(eventIdfromPath, isAuthenticated);
     setEventId(eventIdfromPath);
@@ -28,28 +29,34 @@ export default function EventDetail() {
   }, []);
 
   return (
-    <div>
-      {/* ============ EventDetail Event Details ============ */}
-      <div className="flex justify-center p-6 bg-white">
-        {!isLoading && selectedEventDetails && (
-          <EventTabCard selectedEventDetails={selectedEventDetails} />
-        )}
-      </div>
-      {/* Map of the event */}
-      <EventMap eventLocation={{ lat: 13.76, lng: 100.5 }} />
-      {/* ============ Other Events List============ */}
-      <div className="flex flex-col p-6">
-        <div className="text-xl font-bold">Other Events from this seller</div>
-        <div>
-          {selectedEventDetails &&
-            selectedEventDetails.eventOther.map((otherEvent) => (
-              <EventTabCard
-                selectedEventDetails={otherEvent}
-                isFullVersion={false}
-              />
-            ))}
-        </div>
-      </div>
+    <div className="bg-white">
+      {selectedEventDetails && (
+        <>
+          {/* ============ EventDetail Event Details ============ */}
+          <div className="flex justify-center p-6 bg-white">
+            {!isLoading && selectedEventDetails && (
+              <EventTabCard selectedEventDetails={selectedEventDetails} />
+            )}
+          </div>
+          {/* Map of the event */}
+          <EventMap eventLocation={{ lat: 13.7649, lng: 100.538 }} />
+          {/* ============ Other Events List============ */}
+          <div className="flex flex-col p-6">
+            <div className="text-xl font-bold">
+              Other Events from this seller
+            </div>
+            <div>
+              {selectedEventDetails &&
+                selectedEventDetails.eventOther.map((otherEvent) => (
+                  <EventTabCard
+                    selectedEventDetails={otherEvent}
+                    isFullVersion={false}
+                  />
+                ))}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
