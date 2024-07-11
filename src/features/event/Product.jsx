@@ -21,7 +21,7 @@ export default function Product() {
   }, []);
   return (
     selectedEventDetails && (
-      <div className="m-6 flex flex-col gap-4">
+      <div className="m-6 flex flex-col gap-4 h-full">
         {selectedEventDetails?.eventList.map((product) => (
           <ProductTabCard product={product} />
         ))}

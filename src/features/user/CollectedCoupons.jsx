@@ -79,7 +79,7 @@ export default function CollectedCoupons() {
   };
 
   return (
-    <div className=" bg-white p-4 flex flex-col gap-4">
+    <div className=" bg-white p-4 flex flex-col gap-4 h-full">
       <SearchBarAdminPage
         placeholder="Search coupon by event or store name"
         searchQuery={searchQuery}

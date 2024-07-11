@@ -46,7 +46,7 @@ export default function InterestedEvent() {
   console.log("finalEventArr", finalEventArr);
 
   return (
-    <div>
+    <div className="h-full">
       {finalEventArr[0] ? (
         <>
           {finalEventArr.map((eventsObjectBySeller, index) => (

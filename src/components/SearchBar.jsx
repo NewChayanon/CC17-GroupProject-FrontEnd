@@ -63,7 +63,7 @@ export default function SearchBar({
   };
 
   return (
-    <div className="flex gap-2 w-full bg-white shadow-md rounded-lg min-h-10 text-sm text-graydarktext">
+    <div className="flex gap-2 bg-white shadow-md rounded-lg min-h-10 text-sm text-graydarktext">
       <select
         name="searchby"
         id="searchby"

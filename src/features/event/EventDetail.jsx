@@ -18,39 +18,45 @@ export default function EventDetail() {
   );
   const isAuthenticated = useStore((state) => state.isAuthenticated);
   const isLoading = useStore((state) => state.isLoading);
-
+  console.log("selectedEventDetails", selectedEventDetails);
   useEffect(() => {
     setSelectedEventDetails(eventIdfromPath, isAuthenticated);
     setEventId(eventIdfromPath);
-    const eventLatLng = {};
-    eventLatLng.lat = +selectedEventDetails.eventLocation.split(",")[0];
-    eventLocation.lng = +selectedEventDetails.eventLocation.split(",")[1];
-    console.log("Lat Long for this event", eventLatLng);
-  }, [selectedEventDetails]);
+    // const eventLatLng = {};
+    // eventLatLng.lat = +selectedEventDetails.eventLocation.split(",")[0];
+    // eventLocation.lng = +selectedEventDetails.eventLocation.split(",")[1];
+    // console.log("Lat Long for this event", eventLatLng);
+  }, []);
 
   return (
-    <div>
-      {/* ============ EventDetail Event Details ============ */}
-      <div className="flex justify-center p-6 bg-white">
-        {!isLoading && selectedEventDetails && (
-          <EventTabCard selectedEventDetails={selectedEventDetails} />
-        )}
-      </div>
-      {/* Map of the event */}
-      <EventMap eventLocation={{ lat: 13.7, lng: 100.8 }} />
-      {/* ============ Other Events List============ */}
-      <div className="flex flex-col p-6">
-        <div className="text-xl font-bold">Other Events from this seller</div>
-        <div>
-          {selectedEventDetails &&
-            selectedEventDetails.eventOther.map((otherEvent) => (
-              <EventTabCard
-                selectedEventDetails={otherEvent}
-                isFullVersion={false}
-              />
-            ))}
-        </div>
-      </div>
+    <div className="bg-white">
+      {selectedEventDetails && (
+        <>
+          {/* ============ EventDetail Event Details ============ */}
+          <div className="flex justify-center p-6 bg-white">
+            {!isLoading && selectedEventDetails && (
+              <EventTabCard selectedEventDetails={selectedEventDetails} />
+            )}
+          </div>
+          {/* Map of the event */}
+          <EventMap eventLocation={{ lat: 13.7649, lng: 100.538 }} />
+          {/* ============ Other Events List============ */}
+          <div className="flex flex-col p-6">
+            <div className="text-xl font-bold">
+              Other Events from this seller
+            </div>
+            <div>
+              {selectedEventDetails &&
+                selectedEventDetails.eventOther.map((otherEvent) => (
+                  <EventTabCard
+                    selectedEventDetails={otherEvent}
+                    isFullVersion={false}
+                  />
+                ))}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
