@@ -1,4 +1,5 @@
 import myStoreApi from "../../apis/my-store";
+import userApi from "../../apis/user";
 
 const initialState = {
   storeDetail: {},
@@ -38,6 +39,18 @@ export const createMyStoreSlice = (set) => ({
       }));
     }
   },
+
+  activateMyStore: async (body) => {
+    try {
+      await userApi.createStore(body);
+    } catch (error) {
+      console.log(error);
+      set(() => ({
+        errorMyStore: error.response.data,
+      }));
+    }
+  },
+
   setSelectedEvent: async (event) => {
     try {
       const response = await myStoreApi.getEventDetailByEventId(event.eventId);
@@ -68,6 +81,58 @@ export const createMyStoreSlice = (set) => ({
         }));
         return error.response.msg;
       }
+    }
+  },
+
+  editStoreDescription: async (body) => {
+    set({ isLoadingMyStore: true });
+    try {
+      const response = await myStoreApi.editStoreDescription(body);
+      set((state) => ({
+        storeInfo: {
+          ...state.storeInfo,
+          storeProfileSellerDescription: response.data.sellerDescription,
+          storeProfileDescription: response.data.description,
+        },
+      }));
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.msg,
+        }));
+      }
+    } finally {
+      set({ isLoadingMyStore: false });
+    }
+  },
+
+  updateCoverImage: async (formData) => {
+    set({ isLoadingMyStore: true });
+    try {
+      await myStoreApi.updateCoverImage(formData);
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.msg,
+        }));
+      }
+    } finally {
+      set({ isLoadingMyStore: false });
+    }
+  },
+
+  updateUserProfileImage: async (formData) => {
+    set({ isLoadingMyStore: true });
+    try {
+      await myStoreApi.updateUserProfileImage(formData);
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.msg,
+        }));
+      }
+    } finally {
+      set({ isLoadingMyStore: false });
     }
   },
 

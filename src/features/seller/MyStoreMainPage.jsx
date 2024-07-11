@@ -128,7 +128,7 @@ export default function MyStoreMainPage() {
               className={`h-full overflow-y-auto bg-graybg ${showText ? "" : "hidden"}`}
             >
               <div className="flex w-full h-8 bg-primary">
-                <div className="group flex w-1/3">
+                <div className="group text-sm flex w-1/3">
                   <div
                     className={`${
                       activeMenu === "detail"
@@ -194,7 +194,11 @@ export default function MyStoreMainPage() {
             </button>
           </div>
         </>
-      ) : null}
+      ) : (
+        <div className="bg-verylightyellow h-full flex justify-center items-center font-bold text-xl">
+          Your store has no event yet.
+        </div>
+      )}
     </div>
   );
 }

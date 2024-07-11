@@ -12,8 +12,12 @@ import myStoreApi from "../../apis/my-store";
 
 export default function MyStoreProfile() {
   const initialInput = useStore((state) => state.user);
-  // const initialTextArea = useStore((state) => state.getMyStoreInfo);
   const getMyStoreInfo = useStore((state) => state.getMyStoreInfo);
+  const editStoreDescription = useStore((state) => state.editStoreDescription);
+  const updateCoverImage = useStore((state) => state.updateCoverImage);
+  const updateUserProfileImage = useStore(
+    (state) => state.updateUserProfileImage
+  );
   const storeInfo = useStore((state) => state.storeInfo);
   const [isLoading, setIsLoading] = useState(false);
   const [input, setInput] = useState(initialInput);
@@ -38,6 +42,8 @@ export default function MyStoreProfile() {
       reader.onloadend = () => setImage(reader.result);
 
       reader.readAsDataURL(file);
+
+      setAllowSaveChange(true);
     }
   };
 
@@ -49,6 +55,8 @@ export default function MyStoreProfile() {
       reader.onloadend = () => setCoverImage(reader.result);
 
       reader.readAsDataURL(file);
+
+      setAllowSaveChange(true);
     }
   };
 
@@ -56,48 +64,25 @@ export default function MyStoreProfile() {
     setTextArea({ ...textArea, [e.target.name]: e.target.value });
   };
 
-  const submitChange = async () => {
+  const handleSubmit = async (e) => {
     try {
-      const sendData = {
-        storeProfileSellerDescription: textArea.storeProfileSellerDescription,
-        storeProfileDescription: textArea.storeProfileDescription,
-      };
-
-      console.log(sendData);
-      setIsLoading(true);
-      // const error = validateSettings(sendData);
-
-      // if (error) {
-      //   return setInputError(error);
-      // }
-
-      const formData = new FormData();
-      formData.append(
-        "storeProfileSellerDescription",
-        textArea.storeProfileSellerDescription
-      );
-      formData.append(
-        "storeProfileDescription",
-        textArea.storeProfileDescription
-      );
-      // formData.append("dateOfBirth", input.dateOfBirth);
-      // formData.append("mobile", input.mobile);
-      // formData.append("gender", input.gender);
-      // formData.append("password", input.password);
-      // formData.append("confirmPassword", input.confirmPassword);
-
-      if (imageFile) {
-        formData.append("profileImage", imageFile);
+      e.preventDefault();
+      if (coverImageFile) {
+        const formData = new FormData();
+        formData.append("coverImage", coverImageFile);
+        await updateCoverImage(formData);
+        setCoverImageFile(null);
       }
-
-      console.log(formData);
-      const response = await myStoreApi.editStoreDescription(formData);
-      console.log(response);
-      // setInputError({ ...initialInput });
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setIsLoading(false);
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append("userProfileImage", imageFile);
+        await updateUserProfileImage(formData);
+        setImageFile(null);
+      }
+      await editStoreDescription();
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -108,42 +93,37 @@ export default function MyStoreProfile() {
         storeProfileSellerDescription: res.storeProfileSellerDescription,
         storeProfileDescription: res.storeProfileDescription,
       });
+      setCoverImage(res.storeProfileImage);
+      setImage(res.userProfileImage);
     };
     fetchdata();
   }, []);
+
   return (
     <>
       {isLoading ? <LoadingSpinner /> : null}
-
-      <div className="flex flex-wrap w-[655px]">
-        <div className="relative flex flex-col">
-          <div className="relative flex flex-col w-auto h-auto pb-20">
-            <div className="relative ">
+      <div className="relative flex flex-wrap w-full">
+        <div className="flex flex-col w-full">
+          <div className="flex flex-col w-full h-auto pb-20">
+            <div className="h-[160px] sm:h-[264px]">
               <input
                 className="hidden"
                 type="file"
                 ref={coverFileEl}
                 onChange={handleCoverImageChange}
               />
-
-              {coverImage && (
-                <div
-                  className="w-full h-[150px] sm:w-[655px] sm:h-[245px]  flex flex-col justify-center items-center"
-                  style={{
-                    backgroundImage: `url(${coverImage})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
-                ></div>
-              )}
-              {!coverImage && (
-                <img
-                  src={orangeCover}
-                  alt="orange cover mock"
-                  className="relative w-full h-full sm:w-auto sm:h-full md:w-auto md:h-full lg:w-auto lg:h-full xl:w-auto xl:h-full"
-                ></img>
-              )}
-              <div className="absolute z-[20]">
+              <img
+                src={coverImage || orangeCover}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                }}
+                alt="orange cover mock"
+                className="w-full bg-no-repeat flex flex-col justify-center items-center"
+              />
+              <div className="absolute z-20 top-[8rem] sm:top-[14rem] right-2">
                 <img
                   src={addImageButton}
                   alt="Add image button"
@@ -152,36 +132,21 @@ export default function MyStoreProfile() {
                 />
               </div>
             </div>
-            <div className="relative bg-slate-400 hidden">
-              Hidden message for relative
-            </div>
           </div>
-          <div className="absolute z-2 p-8 pt-[120px] sm:pt-[200px] ">
+          <div className="absolute z-2 p-8 pt-[110px] sm:pt-[200px]">
             <input
               className="hidden"
               type="file"
               ref={fileEl}
               onChange={handleImageChange}
             />
-            {image && (
-              <div
-                className="w-[100px] h-[100px] sm:w-[125px] sm:h-[125px] flex flex-col justify-center items-center rounded-full"
-                style={{
-                  backgroundImage: `url(${image})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
-            )}
-            {!image && (
-              <img
-                src={durianProfileLogo}
-                alt="Durian profile mock picture"
-                className="w-[100px] h-[100px] sm:w-[125px] sm:h-[125px] "
-              />
-            )}
+            <img
+              src={image || durianProfileLogo}
+              alt="Durian profile mock picture"
+              className="w-[100px] h-[100px] sm:w-[125px] sm:h-[125px] rounded-full"
+            />
           </div>
-          <div className="absolute z-10 pt-[190px] pl-[110px] sm:pt-[290px] sm:pl-[130px]   ">
+          <div className="absolute z-10 pt-[180px] pl-[110px] sm:pt-[290px] sm:pl-[130px]">
             <img
               src={addImageButton}
               alt="Add image button"
@@ -190,7 +155,7 @@ export default function MyStoreProfile() {
             />
           </div>
 
-          <div className="absolute flex flex-col pt-[160px] pl-[165px] sm:pt-[260px] sm:pl-[190px]  pr-6">
+          <div className="absolute flex flex-col pt-[165px] pl-[165px] sm:pt-[270px] sm:pl-[190px] pr-6">
             <div className="flex gap-10 ">
               <div className="text-primary font-semibold">
                 {storeInfo.storeProfileName}
@@ -242,7 +207,7 @@ export default function MyStoreProfile() {
               </div>
               <div className="text-base ">
                 {editSellerContent ? (
-                  <div className="p-2 text-sm   text-graydarktext rounded-lg w-full h-auto">
+                  <div className="p-2 text-sm text-graydarktext rounded-lg w-full h-auto">
                     {textArea.storeProfileSellerDescription}
                   </div>
                 ) : (
@@ -258,7 +223,7 @@ export default function MyStoreProfile() {
               </div>
               <div>
                 <div className="flex justify-between pb-1 pr-1 pt-2">
-                  <div className="text-base font-bold pl-2  text-graydarktext">
+                  <div className="text-base font-bold pl-2 text-graydarktext">
                     About {storeInfo.storeProfileName}
                   </div>
                   {editStoreContent ? (
@@ -289,18 +254,20 @@ export default function MyStoreProfile() {
                       {textArea.storeProfileDescription}
                     </div>
                   ) : (
-                    <textarea
-                      className="p-2 text-sm  text-primary rounded-lg w-full h-28"
-                      onChange={handleChangeTextArea}
-                      name="storeProfileDescription"
-                      value={textArea.storeProfileDescription}
-                    />
+                    <div>
+                      <textarea
+                        className="p-2 text-sm text-primary rounded-lg w-full overflow-auto h-64"
+                        onChange={handleChangeTextArea}
+                        name="storeProfileDescription"
+                        value={textArea.storeProfileDescription}
+                      />
+                    </div>
                   )}
                 </div>
               </div>
               {allowSaveChange ? (
                 <div className="flex justify-center py-4">
-                  <Button>Confirm Change</Button>
+                  <Button onClick={handleSubmit}>Confirm Change</Button>
                 </div>
               ) : (
                 <div className="flex justify-center py-4">
@@ -319,21 +286,6 @@ export default function MyStoreProfile() {
               <div className="text-primary font-semibold">
                 Featured Products
               </div>
-
-              {/* {getMyStoreInfo && (
-              <div className="flex flex-col pt-3 gap-3">
-                {getMyStoreInfo.map((el) => (
-                  <ProductTab
-                    key={el.products.productId}
-                    productImage={el.products.productImage}
-                    productName={el.products.productName}
-                    productDescription={el.products.productDescription}
-                    productPrice={el.products.productPrice}
-                    productUnit={el.products.productUnit}
-                  />
-                ))}
-              </div>
-            )} */}
               <div className="flex justify-center py-4 pt-7">
                 <Button>&nbsp;Add more product&nbsp;</Button>
               </div>

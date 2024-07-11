@@ -91,6 +91,14 @@ const userRouter = createBrowserRouter([
       { path: "favorite-stores", element: <FavoriteStores /> },
       { path: "collected-coupons", element: <CollectedCoupons /> },
       { path: "settings", element: <UserSettings /> },
+      {
+        path: "activate-store-from-mobile",
+        element: <ActivateStoreFromMobile />,
+      },
+      {
+        path: "invalid-from-mobile",
+        element: <InvalidMyStoreFromMobile />,
+      },
     ],
   },
   {
@@ -142,14 +150,6 @@ const userRouter = createBrowserRouter([
       { path: "inbox", element: <SellerInbox /> },
       { path: "followers", element: <Followers /> },
       { path: "coupon-list", element: <SellerVoucher /> },
-      {
-        path: "activate-store-from-mobile",
-        element: <ActivateStoreFromMobile />,
-      },
-      {
-        path: "invalid-from-mobile",
-        element: <InvalidMyStoreFromMobile />,
-      },
     ],
   },
 ]);

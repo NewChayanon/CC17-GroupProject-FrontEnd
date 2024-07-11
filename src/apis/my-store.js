@@ -14,7 +14,13 @@ myStoreApi.editEvent = (eventId, body) =>
 
 myStoreApi.getMyStoreInfo = () => axios.get("/user/my-store-profile");
 
-myStoreApi.editStoreDescription = (formData) =>
-  axios.patch("mystore/edit-description-store", formData);
+myStoreApi.editStoreDescription = (body) =>
+  axios.patch("user/edit-description-store", body);
+
+myStoreApi.updateCoverImage = (formData) =>
+  axios.patch("user/update-coverImage", formData);
+
+myStoreApi.updateUserProfileImage = (formData) =>
+  axios.patch("user/store-profile-page/edit-user-profile-image", formData);
 
 export default myStoreApi;

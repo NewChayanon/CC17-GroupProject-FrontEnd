@@ -1,21 +1,29 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-export default function NavMenu({ menuIcon, menuName, linkTo = "/", onClick }) {
+export default function NavMenu({ menuIcon, menuName, linkTo, onClick }) {
   const { pathname } = useLocation();
-  const [isActive, setIsActive] = useState(false);
-  useEffect(() => {
-    if (pathname === linkTo) {
-      setIsActive(true);
-    }
-  }, []);
+  let isActive = false;
+  if (pathname === linkTo || pathname === linkTo + "/") isActive = true;
 
   return (
-    <li className={`max-w-full rounded-md ${isActive && "bg-verylightyellow"}`}>
-      <Link to={linkTo} onClick={onClick}>
+    <li
+      onClick={onClick}
+      className={`max-w-full rounded-md ${isActive && "bg-verylightyellow"}`}
+    >
+      <a
+        className={`p-2 flex items-center space-x-2 ${isActive && "bg-lightyellow"} hover:text-primary`}
+        href={linkTo}
+      >
+        <div className="flex-shrink-0 w-[25px] h-[25px] flex items-center justify-center">
+          {menuIcon}
+        </div>
+        <p className="text-sm">{menuName}</p>
+      </a>
+      {/* <Link to={linkTo}>
         {menuIcon}
         <p className="text-sm">{menuName}</p>
-      </Link>
+      </Link> */}
     </li>
   );
 }

@@ -40,7 +40,7 @@ const RightSideBarMainPage = () => {
                 objectFit: "cover",
                 display: "block",
               }}
-              src={myStoreProfile.userCoverImage}
+              src={myStoreProfile.storeProfileImage}
               alt="store cover image"
             />
           </div>
@@ -55,7 +55,7 @@ const RightSideBarMainPage = () => {
                   display: "block",
                   borderRadius: "50%",
                 }}
-                src={myStoreProfile.storeProfileImage}
+                src={myStoreProfile.userCoverImage}
                 alt="personal photo"
               />
               <div className="w-full px-2 py-0.5">
