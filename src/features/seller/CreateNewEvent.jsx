@@ -131,7 +131,7 @@ export default function CreateNewEvent() {
         break;
       }
 
-      case "evenItem": {
+      case "eventItem": {
         break;
       }
 
