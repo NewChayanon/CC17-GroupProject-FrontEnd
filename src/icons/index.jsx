@@ -339,11 +339,10 @@ export function SearchIcon() {
     </svg>
   );
 }
-export function LocationIcon({ iconColor }) {
+export function LocationIcon({ iconColor, small = true }) {
   return (
     <svg
-      width="12px"
-      height="12px"
+      className={`${small ? "w-3" : "w-12"}`}
       viewBox="0 0 24 24"
       fill={iconColor}
       xmlns="http://www.w3.org/2000/svg"

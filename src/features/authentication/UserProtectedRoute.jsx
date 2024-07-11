@@ -9,7 +9,13 @@ export default function UserProtectedRoute({ children }) {
   const isLoading = useStore((state) => state.isLoading);
   const user = useStore((state) => state.user);
 
-  if (!user) return <NotLoginPage />;
+  if (!user)
+    return (
+      <>
+        {isLoading === true && <LoadingSpinner />}
+        <NotLoginPage />
+      </>
+    );
   if (user.role === ROLE.BUYER || user.role === ROLE.SELLER) {
     return (
       <>
@@ -18,6 +24,11 @@ export default function UserProtectedRoute({ children }) {
       </>
     );
   } else if (user.role === ROLE.ADMIN) {
-    return <UnAuthorizedPage />;
+    return (
+      <>
+        {isLoading === true && <LoadingSpinner />}
+        <NotLoginPage />
+      </>
+    );
   }
 }

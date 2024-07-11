@@ -5,13 +5,15 @@ import Button from "../../components/Button";
 import { useState } from "react";
 import useStore from "../../zustand/store";
 import { useEffect } from "react";
-import ProductTab from "./components/ProductTab";
 import { useRef } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import myStoreApi from "../../apis/my-store";
+
+const initialInput = {
+  description: "",
+  sellerDescription: "",
+};
 
 export default function MyStoreProfile() {
-  const initialInput = useStore((state) => state.user);
   const getMyStoreInfo = useStore((state) => state.getMyStoreInfo);
   const editStoreDescription = useStore((state) => state.editStoreDescription);
   const updateCoverImage = useStore((state) => state.updateCoverImage);
@@ -20,9 +22,8 @@ export default function MyStoreProfile() {
   );
   const storeInfo = useStore((state) => state.storeInfo);
   const [isLoading, setIsLoading] = useState(false);
-  const [input, setInput] = useState(initialInput);
-
-  const [textArea, setTextArea] = useState({});
+  const [textArea, setTextArea] = useState(initialInput);
+  const [textAreaError, setTextAreaError] = useState(initialInput);
   const [editSellerContent, setEditSellerContent] = useState(getMyStoreInfo);
   const [editStoreContent, setEditStoreContent] = useState(getMyStoreInfo);
   const [allowSaveChange, setAllowSaveChange] = useState(false);
@@ -62,11 +63,29 @@ export default function MyStoreProfile() {
 
   const handleChangeTextArea = (e) => {
     setTextArea({ ...textArea, [e.target.name]: e.target.value });
+    setTextAreaError(initialInput);
   };
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     try {
       e.preventDefault();
+      if (!textArea.description || !textArea.sellerDescription) {
+        if (!textArea.description) {
+          setTextAreaError({
+            ...textAreaError,
+            description: "description cannot be empty",
+          });
+        }
+        if (!textArea.sellerDescription) {
+          setTextAreaError({
+            ...textAreaError,
+            sellerDescription: "seller description cannot be empty",
+          });
+        }
+        return;
+      }
+
       if (coverImageFile) {
         const formData = new FormData();
         formData.append("coverImage", coverImageFile);
@@ -79,10 +98,13 @@ export default function MyStoreProfile() {
         await updateUserProfileImage(formData);
         setImageFile(null);
       }
-      await editStoreDescription();
+
+      await editStoreDescription(textArea);
       window.location.reload();
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -90,8 +112,8 @@ export default function MyStoreProfile() {
     const fetchdata = async () => {
       const res = await getMyStoreInfo();
       setTextArea({
-        storeProfileSellerDescription: res.storeProfileSellerDescription,
-        storeProfileDescription: res.storeProfileDescription,
+        sellerDescription: res.storeProfileSellerDescription,
+        description: res.storeProfileDescription,
       });
       setCoverImage(res.storeProfileImage);
       setImage(res.userProfileImage);
@@ -187,6 +209,7 @@ export default function MyStoreProfile() {
                   <div
                     className="underline cursor-pointer text-sm text-lightgreen hover:text-darkgreen"
                     onClick={() => {
+                      setTextAreaError(initialInput);
                       setEditSellerContent(false);
                       setAllowSaveChange(false);
                     }}
@@ -207,15 +230,22 @@ export default function MyStoreProfile() {
               </div>
               <div className="text-base ">
                 {editSellerContent ? (
-                  <div className="p-2 text-sm text-graydarktext rounded-lg w-full h-auto">
-                    {textArea.storeProfileSellerDescription}
+                  <div className="p-2 rounded-lg w-full h-auto flex flex-col">
+                    <p className="text-sm text-graydarktext">
+                      {textArea.sellerDescription}
+                    </p>
+                    {textAreaError.sellerDescription ? (
+                      <small className="text-xs text-red-500">
+                        {textAreaError.sellerDescription}
+                      </small>
+                    ) : null}
                   </div>
                 ) : (
                   <div>
                     <textarea
                       className="p-2 text-sm text-primary rounded-lg w-full h-28"
-                      name="storeProfileSellerDescription"
-                      value={textArea.storeProfileSellerDescription}
+                      name="sellerDescription"
+                      value={textArea.sellerDescription}
                       onChange={handleChangeTextArea}
                     />
                   </div>
@@ -230,6 +260,7 @@ export default function MyStoreProfile() {
                     <div
                       className="underline cursor-pointer text-sm text-lightgreen hover:text-darkgreen"
                       onClick={() => {
+                        setTextAreaError(initialInput);
                         setEditStoreContent(false);
                         setAllowSaveChange(false);
                       }}
@@ -250,16 +281,23 @@ export default function MyStoreProfile() {
                 </div>
                 <div className="text-base">
                   {editStoreContent ? (
-                    <div className="p-2 text-sm  text-graydarktext rounded-lg w-full h-auto">
-                      {textArea.storeProfileDescription}
+                    <div className="p-2 rounded-lg w-full h-auto flex flex-col">
+                      <p className="text-sm text-graydarktext">
+                        {textArea.description}
+                      </p>
+                      {textAreaError?.description ? (
+                        <small className="text-xs text-red-500">
+                          {textAreaError.description}
+                        </small>
+                      ) : null}
                     </div>
                   ) : (
                     <div>
                       <textarea
                         className="p-2 text-sm text-primary rounded-lg w-full overflow-auto h-64"
                         onChange={handleChangeTextArea}
-                        name="storeProfileDescription"
-                        value={textArea.storeProfileDescription}
+                        name="description"
+                        value={textArea.description}
                       />
                     </div>
                   )}

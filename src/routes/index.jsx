@@ -126,7 +126,7 @@ const userRouter = createBrowserRouter([
       </AdminProtectedRoute>
     ),
     children: [
-      { path: "dashboard", element: <Dashboard /> },
+      { path: "", element: <Dashboard /> },
       { path: "seller", element: <ManageSeller /> },
       { path: "buyer", element: <ManageBuyer /> },
       { path: "announcement", element: <Announcement /> },
