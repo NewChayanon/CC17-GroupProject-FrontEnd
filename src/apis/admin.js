@@ -8,5 +8,6 @@ adminApi.createMessage = (body) => axios.post("/admin/new-message", body);
 adminApi.allMessage = () => axios.get("/admin/all-messages");
 adminApi.allBuyer = (params) => axios.get("/admin/buyer", { params });
 adminApi.allSeller = (params) => axios.get("/admin/seller", { params });
+adminApi.blockUsers = (userId) => axios.patch(`/admin/block/${userId}`, { userId });
 
 export default adminApi;

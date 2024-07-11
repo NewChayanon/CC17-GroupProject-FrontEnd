@@ -13,17 +13,20 @@ export default function StoreList({ stores, columns, actions, initialSortConfig 
   };
 
   const sortedStores = [...stores].sort((a, b) => {
-    if (a[sortConfig.key] < b[sortConfig.key]) {
+    const aValue = a[sortConfig.key] === "N/A" ? Number.MAX_SAFE_INTEGER : a[sortConfig.key];
+    const bValue = b[sortConfig.key] === "N/A" ? Number.MAX_SAFE_INTEGER : b[sortConfig.key];
+
+    if (aValue < bValue) {
       return sortConfig.direction === "asc" ? -1 : 1;
     }
-    if (a[sortConfig.key] > b[sortConfig.key]) {
+    if (aValue > bValue) {
       return sortConfig.direction === "asc" ? 1 : -1;
     }
     return 0;
   });
 
   const renderCell = (store, column) => {
-    const dateTime = new Date(store.updatedAt).toLocaleString("en-GB")
+    const dateTime = new Date(store.updatedAt).toLocaleString("en-GB");
     if (column.key === "username" || column.key === "storeName") {
       return (
         <div>
@@ -82,8 +85,6 @@ export default function StoreList({ stores, columns, actions, initialSortConfig 
                 <td
                   key={column.key}
                   className={`px-6 py-4 whitespace-nowrap ${column.key === "username" ? "text-left" : column.key === "topic" ? "text-left overflow-hidden text-ellipsis max-w-44" : column.key === "storeName" ? "text-left" : "text-center"}`}
-
-                  
                 >
                   {renderCell(store, column)}
                 </td>

@@ -8,15 +8,15 @@ import adminApi from "../../apis/admin";
 
 export default function ManageBuyer() {
   const [buyers, setBuyers] = useState([]);
-  console.log('buyers',buyers)
+  console.log("buyers", buyers);
 
   const [filteredBuyers, setFilteredBuyers] = useState(buyers);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [countRow, setCountRow] = useState(0)
+  const [countRow, setCountRow] = useState(0);
   const itemsPerPage = 10;
 
-  console.log('filteredBuyers',filteredBuyers)
+  console.log("filteredBuyers", filteredBuyers);
 
   const debouncedSearchQuery = useDebounce(searchQuery, 1200);
 
@@ -25,42 +25,40 @@ export default function ManageBuyer() {
     setCurrentPage(1);
   };
 
-  const fetchAllBuyer = async()=>{
+  const fetchAllBuyer = async () => {
     try {
       const data = {
-        pages : currentPage,
-        pageSize  : itemsPerPage,
-        sortBy: "id"
-      }
-      const buyer = await adminApi.allBuyer(data)
-      console.log('buyer',buyer.data)
-      setBuyers(buyer.data.result)
-      setCountRow(buyer.data.countBuyer)
+        pages: currentPage,
+        pageSize: itemsPerPage,
+        sortBy: "id",
+      };
+      const buyer = await adminApi.allBuyer(data);
+      console.log("buyer", buyer.data);
+      setBuyers(buyer.data.result);
+      setCountRow(buyer.data.countBuyer);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  useEffect(()=>{
-    fetchAllBuyer()
-  },[])
-
-  
+  };
   useEffect(() => {
-    console.log('buyerssssss',buyers)
+    fetchAllBuyer();
+  }, []);
+
+  useEffect(() => {
     if (debouncedSearchQuery) {
       const filtered = buyers.filter((buyer) => {
         const query = debouncedSearchQuery.toLowerCase();
         return (
-          buyer.name.toLowerCase().includes(query) ||
-          buyer.buyerId.toString().includes(query) ||
-          buyer.userId.toString().includes(query)
+          buyer.username.toLowerCase().includes(query) ||
+          buyer.storeProfileId.toString().includes(query) ||
+          buyer.id.toString().includes(query)
         );
       });
       setFilteredBuyers(filtered);
     } else {
       setFilteredBuyers(buyers);
     }
-  }, [buyers]);
+  }, [debouncedSearchQuery, buyers]);
 
   const toggleBlock = (buyerId) => {
     const updatedBuyers = filteredBuyers.map((buyer) =>
@@ -70,11 +68,11 @@ export default function ManageBuyer() {
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
-  console.log('indexOfLastItem',indexOfLastItem)
+  console.log("indexOfLastItem", indexOfLastItem);
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  console.log('indexOfFirstItem',indexOfFirstItem)
+  console.log("indexOfFirstItem", indexOfFirstItem);
   const currentBuyers = filteredBuyers.slice(indexOfFirstItem, indexOfLastItem);
-  console.log('currentBuyers',currentBuyers)
+  console.log("currentBuyers", currentBuyers);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -106,8 +104,7 @@ export default function ManageBuyer() {
       className: (buyer) => (buyer.blocked ? "text-red-600" : "text-green-600"),
     },
   ];
-  console.log('buyers1',buyers)
-
+  console.log("buyers1", buyers);
 
   return (
     <div className="flex gap-6 bg-graybg">
@@ -128,7 +125,7 @@ export default function ManageBuyer() {
               stores={currentBuyers}
               columns={columns}
               actions={actions}
-              initialSortConfig={{ key: "name", direction: "asc" }}
+              initialSortConfig={{ key: "username", direction: "asc" }}
             />
           </div>
         </div>
@@ -144,7 +141,7 @@ export default function ManageBuyer() {
           />
         </div>
       </div>
-      <div className="w-screen h-screen bg-purple-400 sticky z-10 top-0">Buyer data</div>
+      {/* <div className="w-screen h-screen bg-purple-400 sticky z-10 top-0">Buyer data</div> */}
     </div>
   );
 }
