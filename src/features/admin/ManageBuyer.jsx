@@ -114,7 +114,7 @@ export default function ManageBuyer() {
   return (
     <div className="flex gap-6 bg-graybg">
       <div className="flex flex-col h-full w-full m-6">
-        <div className="sticky top-0 z-10 bg-graybg">
+        <div className="sticky top-0 bg-graybg">
           <SearchBarAdminPage
             placeholder="Durian (search buyer)"
             searchQuery={searchQuery}
