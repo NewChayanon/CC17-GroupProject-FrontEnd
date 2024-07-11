@@ -39,12 +39,13 @@ export default function CreatedEvent() {
               <EventCardCreatedEvents
                 key={el.eventId}
                 eventName={el.eventName}
-                storeName={el.storeName}
+                storeProfileName={el.storeProfileName}
                 eventDate={new Date(el.eventStartDate).getUTCDate()}
                 eventDay={getWeekday(el.eventStartDate)}
                 eventMonth={formatMonth(el.eventStartDate)}
-                openTime={el.openTime}
+                eventStartDate={el.eventStartDate}
                 eventLocation={el.locationName}
+                eventImage={el.eventImage}
               />
             ))}
           </div>

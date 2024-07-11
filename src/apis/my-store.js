@@ -12,7 +12,10 @@ myStoreApi.getAllEventList = () => axios.get("/user/my-event");
 myStoreApi.editEvent = (eventId, body) =>
   axios.patch(`/user/edit-event/${eventId}`, body);
 
+myStoreApi.getMyProducts = () => axios.get("/user/my-product");
+
 myStoreApi.getMyStoreInfo = () => axios.get("/user/my-store-profile");
+myStoreApi.getMyStoreReviews = () => axios.get("/user/store-review");
 
 myStoreApi.editStoreDescription = (body) =>
   axios.patch("user/edit-description-store", body);
