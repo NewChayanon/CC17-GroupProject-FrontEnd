@@ -4,7 +4,7 @@ import authApi from "../../apis/auth";
 const initialState = {
   isAuthenticated: false,
   user: null,
-  isLoading: false,
+  isLoading: true,
   error: null,
   logoutModal: false,
 };
@@ -51,6 +51,10 @@ export const createAuthSlice = (set) => ({
       }));
       return error.response.data;
     }
+  },
+
+  stopLoading: () => {
+    set({ isLoading: false });
   },
   getAuthUser: async () => {
     set({ ...initialState, isLoading: true });

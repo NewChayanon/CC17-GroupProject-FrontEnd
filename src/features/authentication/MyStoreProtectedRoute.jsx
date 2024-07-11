@@ -31,10 +31,15 @@ export default function myStoreProtectedRoute({ children }) {
   } else if (user.role === ROLE.BUYER) {
     return (
       <>
+        {isLoading === true && <LoadingSpinner />}
         <Header />
         <ActivateStoreFromMobile /> <Footer />
       </>
     );
   }
-  return <UnAuthorizedPage />;
+  return (
+    <>
+      {isLoading === true && <LoadingSpinner />} <UnAuthorizedPage />
+    </>
+  );
 }
