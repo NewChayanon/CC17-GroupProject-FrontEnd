@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -12,13 +13,13 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);
 
-const CustomBarChart = () => {
+const CustomBarChart = ({ buyersCount, storesCount }) => {
   const data = {
     labels: ["Buyers (w/o store)", "Stores"],
     datasets: [
       {
         label: "Acc Number",
-        data: [70, 40],
+        data: [buyersCount, storesCount],
         backgroundColor: ["#008000", "#806030"], // Green and brown colors
         barThickness: 95,
       },
@@ -48,7 +49,7 @@ const CustomBarChart = () => {
     scales: {
       y: {
         beginAtZero: true,
-        max: 100,
+        max: buyersCount * 2 || 100,
         title: {
           display: true,
           text: "Acc Number",
@@ -85,6 +86,10 @@ const CustomBarChart = () => {
           display: false,
         },
       },
+    },
+    animation: {
+      duration: 1000, // Animation duration in milliseconds
+      easing: "easeOutQuart", // Easing function
     },
   };
 

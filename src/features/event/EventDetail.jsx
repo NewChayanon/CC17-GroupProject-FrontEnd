@@ -18,14 +18,15 @@ export default function EventDetail() {
   );
   const isAuthenticated = useStore((state) => state.isAuthenticated);
   const isLoading = useStore((state) => state.isLoading);
+
   useEffect(() => {
     setSelectedEventDetails(eventIdfromPath, isAuthenticated);
     setEventId(eventIdfromPath);
-    // const eventLatLng = {};
-    // eventLatLng.lat = +selectedEventDetails.eventLocation.split(",")[0];
-    // eventLocation.lng = +selectedEventDetails.eventLocation.split(",")[1];
-    // console.log("Lat Long for this event", eventLatLng);
-  }, []);
+    const eventLatLng = {};
+    eventLatLng.lat = +selectedEventDetails.eventLocation.split(",")[0];
+    eventLocation.lng = +selectedEventDetails.eventLocation.split(",")[1];
+    console.log("Lat Long for this event", eventLatLng);
+  }, [selectedEventDetails]);
 
   return (
     <div>
@@ -36,7 +37,7 @@ export default function EventDetail() {
         )}
       </div>
       {/* Map of the event */}
-      <EventMap eventLocation={{ lat: 13.76, lng: 100.5 }} />
+      <EventMap eventLocation={{ lat: 13.7, lng: 100.8 }} />
       {/* ============ Other Events List============ */}
       <div className="flex flex-col p-6">
         <div className="text-xl font-bold">Other Events from this seller</div>

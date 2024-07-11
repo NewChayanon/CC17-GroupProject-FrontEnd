@@ -17,37 +17,23 @@ const Promotion = lazy(() => import("../features/event/Promotion"));
 
 const StoreDetail = lazy(() => import("../features/store/StoreDetail"));
 const Review = lazy(() => import("../features/store/Review"));
-const UserProtectedRoute = lazy(
-  () => import("../features/authentication/UserProtectedRoute")
-);
+const UserProtectedRoute = lazy(() => import("../features/authentication/UserProtectedRoute"));
 const InterestedEvent = lazy(() => import("../features/user/InterestedEvent"));
 
 const UserInbox = lazy(() => import("../features/user/UserInbox"));
 
-const UserInboxMessage = lazy(
-  () => import("../features/user/UserInboxMessage")
-);
+const UserInboxMessage = lazy(() => import("../features/user/UserInboxMessage"));
 const FavoriteStores = lazy(() => import("../features/user/FavoriteStores"));
-const CollectedCoupons = lazy(
-  () => import("../features/user/CollectedCoupons")
-);
-const ActivateStoreFromMobile = lazy(
-  () => import("../features/store/ActivateStoreFromMobile")
-);
-const InvalidMyStoreFromMobile = lazy(
-  () => import("../features/store/InvalidMyStoreFromMobile")
-);
+const CollectedCoupons = lazy(() => import("../features/user/CollectedCoupons"));
+const ActivateStoreFromMobile = lazy(() => import("../features/store/ActivateStoreFromMobile"));
+const InvalidMyStoreFromMobile = lazy(() => import("../features/store/InvalidMyStoreFromMobile"));
 const StoreMainContainer = lazy(() => import("../layouts/StoreMainContainer"));
 const UserSettings = lazy(() => import("../features/user/UserSettings"));
-const MyStoreContainer = lazy(
-  () => import("../features/seller/MyStoreContainer")
-);
+const MyStoreContainer = lazy(() => import("../features/seller/MyStoreContainer"));
 const MyStoreProtectedRoute = lazy(
   () => import("../features/authentication/MyStoreProtectedRoute")
 );
-const MyStoreMainPage = lazy(
-  () => import("../features/seller/MyStoreMainPage")
-);
+const MyStoreMainPage = lazy(() => import("../features/seller/MyStoreMainPage"));
 const CreatedEvent = lazy(() => import("../features/seller/CreatedEvent"));
 const CreateNewEvent = lazy(() => import("../features/seller/CreateNewEvent"));
 const MyStoreReviews = lazy(() => import("../features/seller/MyStoreReviews"));
@@ -61,9 +47,7 @@ const ManageSeller = lazy(() => import("../features/admin/ManageSeller"));
 const Announcement = lazy(() => import("../features/admin/Announcement"));
 const RequestedReport = lazy(() => import("../features/admin/RequestedReport"));
 const AdminContainer = lazy(() => import("../features/admin/AdminContainer"));
-const AdminProtectedRoute = lazy(
-  () => import("../features/authentication/AdminProtectedRoute")
-);
+const AdminProtectedRoute = lazy(() => import("../features/authentication/AdminProtectedRoute"));
 
 const userRouter = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
@@ -126,7 +110,7 @@ const userRouter = createBrowserRouter([
       </AdminProtectedRoute>
     ),
     children: [
-      { path: "dashboard", element: <Dashboard /> },
+      { path: "", element: <Dashboard /> },
       { path: "seller", element: <ManageSeller /> },
       { path: "buyer", element: <ManageBuyer /> },
       { path: "announcement", element: <Announcement /> },
