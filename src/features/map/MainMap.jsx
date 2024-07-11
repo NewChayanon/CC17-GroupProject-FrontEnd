@@ -4,6 +4,7 @@ import { useJsApiLoader } from "@react-google-maps/api";
 import { useState, useEffect, useRef, useCallback, Children } from "react";
 import authApi from "../../apis/auth";
 import SearchBar from "../../components/SearchBar";
+import { LogoutIcon } from "../../icons";
 import ResetLocationIcon from "../../icons/resetlocation-icon";
 const libraries = ["places", "core", "maps", "marker"];
 
@@ -112,7 +113,7 @@ export default function Map({
         setMarkerForEvents(
           location,
           event.eventName,
-          event.eventStartDate,
+          event.eventStartDate.split("T")[0],
           event.id,
           eventDetail
         );
@@ -284,7 +285,7 @@ export default function Map({
     <div className="flex flex-col relative">
       {/* add searchbox */}
       {/* <div className="absolute z-20 top-4"> */}
-      <div className="bg-graybg">
+      <div className="bg-graybg ">
         <SearchBar
           searchKeyword={searchKeyword}
           setSearchKeyword={setSearchKeyword}

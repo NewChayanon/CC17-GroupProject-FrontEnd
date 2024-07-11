@@ -9,6 +9,8 @@ const initialState = {
   eventInfo: null,
 
   storeInfo: {},
+  reviewInfo: null,
+  productInfo: [],
 
   slideUp: false,
   showText: false,
@@ -23,6 +25,52 @@ export const createMyStoreSlice = (set) => ({
       const response = await myStoreApi.getMyStore();
       set(() => ({
         storeDetail: response.data,
+        errorMyStore: null,
+      }));
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.data,
+        }));
+        return error.response.data;
+      }
+    } finally {
+      set(() => ({
+        isLoadingMyStore: false,
+      }));
+    }
+  },
+
+  getMyStoreReviews: async () => {
+    set({ isLoadingMyStore: true });
+    try {
+      const response = await myStoreApi.getMyStoreReviews();
+      set(() => ({
+        reviewInfo: response.data,
+        errorMyStore: null,
+      }));
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.data,
+        }));
+        return error.response.data;
+      }
+    } finally {
+      set(() => ({
+        isLoadingMyStore: false,
+      }));
+    }
+  },
+
+  getMyStoreProducts: async () => {
+    set({ isLoadingMyStore: true });
+    try {
+      const response = await myStoreApi.getMyProducts();
+      set(() => ({
+        productInfo: response.data,
         errorMyStore: null,
       }));
       return response.data;

@@ -3,159 +3,16 @@ import SearchBarAdminPage from "../../components/SearchBarAdminPage";
 import StoreList from "./components/StoreList";
 import Pagination from "../../components/Pagination";
 import { useDebounce } from "../../hooks/useDebounce";
+import adminApi from "../../apis/admin";
+
 
 export default function ManageSeller() {
-  const [stores, setStores] = useState([
-    {
-      id: 1,
-      name: "Aaron",
-      email: "duriany12@gmail.com",
-      storeId: 10,
-      userId: 1,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 2,
-      name: "Brother",
-      email: "duriany12@gmail.com",
-      storeId: 9,
-      userId: 2,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 3,
-      name: "Carol",
-      email: "duriany12@gmail.com",
-      storeId: 8,
-      userId: 3,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 4,
-      name: "Donal",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 5,
-      name: "Eevee",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 7,
-      name: "Francis",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 8,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 9,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 10,
-      name: "Frandrive31",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 11,
-      name: "Frandrive32",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 13,
-      name: "Frandrive33",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 14,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 15,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 16,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 17,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 18,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      storeId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    // Your store data...
-  ]);
+  const [stores, setStores] = useState([]);
 
   const [filteredStores, setFilteredStores] = useState(stores);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [countRow, setCountRow] = useState(0)
   const itemsPerPage = 10;
 
   const debouncedSearchQuery = useDebounce(searchQuery, 1200);
@@ -164,6 +21,27 @@ export default function ManageSeller() {
     setSearchQuery(e.target.value);
     setCurrentPage(1);
   };
+
+  const fetchSeller = async()=>{
+    try {
+      const data = {
+        pages : currentPage,
+        pageSize  : itemsPerPage,
+        sortBy: "id"
+      }
+      const seller = await adminApi.allSeller(data)
+      console.log('seller',seller.data.result)
+      setStores(seller.data.result)
+      setCountRow(seller.data.countSeller)
+    } catch (error) {
+      console.log(error)
+    }}
+    useEffect(()=>{
+      fetchSeller()
+    },[])
+  
+
+  
 
   useEffect(() => {
     if (debouncedSearchQuery) {
@@ -196,19 +74,19 @@ export default function ManageSeller() {
 
   const columns = [
     {
-      key: "name",
+      key: "storeName",
       label: "Store Name",
       sortable: true,
       render: (value) => <div className="text-sm font-medium text-gray-900">{value}</div>,
     },
     {
-      key: "storeId",
+      key: "storeProfileId",
       label: "Store ID",
       sortable: true,
       className: "text-center",
     },
     {
-      key: "userId",
+      key: "id",
       label: "User ID",
       sortable: true,
       className: "text-center",
@@ -258,7 +136,7 @@ export default function ManageSeller() {
           />
         </div>
       </div>
-      <div className="w-screen h-screen bg-green-200 sticky z-10 top-0">Seller data</div>
+      {/* <div className="w-screen h-screen bg-green-200 sticky z-10 top-0">Seller data</div> */}
     </div>
   );
 }

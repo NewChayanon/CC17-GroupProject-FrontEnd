@@ -16,11 +16,6 @@ export default function AdminProtectedRoute({ children }) {
     );
 
   if (user.role === ROLE.ADMIN) {
-    return (
-      <>
-        {isLoading === true && <LoadingSpinner />}
-        {children}
-      </>
-    );
+    return <>{children}</>;
   }
 }

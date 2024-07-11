@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function NavMenu({ menuIcon, menuName, linkTo, onClick }) {
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
   let isActive = false;
-  if (pathname === linkTo || pathname === linkTo + "/") isActive = true;
+  // if (pathname === linkTo || pathname === linkTo + "/") isActive = true;
 
   return (
     <li
