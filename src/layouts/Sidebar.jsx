@@ -117,7 +117,7 @@ export default function Sidebar() {
     {
       menuIcon: <UserSummary />,
       menuName: "Executive Summary",
-      linkTo: "/admin/dashboard",
+      linkTo: "/admin",
       handleClick: "",
       authRequired: true,
     },
