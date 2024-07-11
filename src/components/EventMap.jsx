@@ -20,6 +20,7 @@ export default function EventMap({ eventLocation }) {
 
   useEffect(() => {
     if (isLoaded && mapRef.current) {
+      console.log("raw event location value", eventLocation);
       console.log("current location before instantiate the map", center);
       const mapOptions = {
         center: center,

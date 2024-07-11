@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Footer from "../layouts/Footer";
 import Header from "../layouts/Header";
 import useStore from "../zustand/store";
@@ -21,10 +21,16 @@ export default function LoginPage() {
   const [input, setInput] = useState(initialInput);
   const [inputError, setInputError] = useState(initialInput);
   const [openModal, setOpenModal] = useState(false);
+  const [token, setToken] = useState(null);
+  const [googleLoginSuccess, setGoogleLoginSuccess] = useState(false);
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
     setInputError({ ...inputError, [e.target.name]: "" });
+  };
+  const loginWithGoogle = () => {
+    console.log("Logging in with google");
+    window.location.href = `http://localhost:8888/auth/google`;
   };
 
   const handleGoogleLogin = (e) => {
@@ -61,6 +67,18 @@ export default function LoginPage() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    console.log("Running useEffect to update token");
+    const query = new URLSearchParams(window.location.search);
+    const tokenFromUrl = query.get("token");
+    if (tokenFromUrl) {
+      const base64Token = decodeURIComponent(tokenFromUrl);
+      localStorage.setItem("token", base64Token);
+      setToken(base64Token); // Store the decoded token
+      window.history.replaceState({}, document.title, "/");
+    }
+  }, []);
 
   return (
     <div className="bg-yellow-200 h-screen flex flex-col">
@@ -108,7 +126,11 @@ export default function LoginPage() {
             <p className="font-normal">Google</p>
           </Button> */}
 
-          <button className="gsi-material-button" onClick={handleGoogleLogin}>
+          <button
+            className="gsi-material-button"
+            id="google-login-btn"
+            onClick={loginWithGoogle}
+          >
             <div className="gsi-material-button-state"></div>
             <div className="gsi-material-button-content-wrapper">
               <div className="gsi-material-button-icon">
@@ -143,7 +165,7 @@ export default function LoginPage() {
               </span>
             </div>
           </button>
-
+          {token && <p>Token: {token}</p>}
           <div className="divider  h-0 m-0 pt-2 pb-2 border-tertiary border-opacity-20"></div>
           <p className="text-sm font-semibold text-primary">
             Don&apos;t have an account yet!
