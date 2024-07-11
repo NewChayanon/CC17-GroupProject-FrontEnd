@@ -52,7 +52,7 @@ export default function FavoriteStores() {
     setIsUpdateFavoriteStore(false);
   }, [isUpdateFavoriteStore]);
   return (
-    <div className="flex flex-col bg-white">
+    <div className="flex flex-col bg-white h-full">
       <div className="px-4 py-2">
         <SearchBarAdminPage
           placeholder="Search by store name"

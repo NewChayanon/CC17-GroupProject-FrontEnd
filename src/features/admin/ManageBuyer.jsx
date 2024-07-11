@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import StoreList from "./components/StoreList";
 import Pagination from "../../components/Pagination";
 import adminApi from "../../apis/admin";
+import Button from "../../components/Button";
+import InputTextarea from "../../components/InputTextarea";
 
 export default function ManageBuyer() {
   const [buyers, setBuyers] = useState([]);
@@ -45,6 +47,7 @@ export default function ManageBuyer() {
   }, []);
 
   useEffect(() => {
+    console.log("buyerssssss", buyers);
     if (debouncedSearchQuery) {
       const filtered = buyers.filter((buyer) => {
         const query = debouncedSearchQuery.toLowerCase();
@@ -109,7 +112,7 @@ export default function ManageBuyer() {
   return (
     <div className="flex gap-6 bg-graybg">
       <div className="flex flex-col h-full w-full m-6">
-        <div className="sticky top-0 z-10 bg-graybg">
+        <div className="sticky top-0 bg-graybg">
           <SearchBarAdminPage
             placeholder="Durian (search buyer)"
             searchQuery={searchQuery}
@@ -141,7 +144,6 @@ export default function ManageBuyer() {
           />
         </div>
       </div>
-      {/* <div className="w-screen h-screen bg-purple-400 sticky z-10 top-0">Buyer data</div> */}
     </div>
   );
 }

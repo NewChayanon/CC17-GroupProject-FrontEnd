@@ -5,41 +5,16 @@ import { useEffect } from "react";
 import dayjs from "dayjs";
 import StoreList from "./components/StoreList";
 import Pagination from "../../components/Pagination";
+import adminApi from "../../apis/admin";
 
 export default function RequestedReport() {
-  const [reports, setReports] = useState([
-    {
-      id: 1,
-      userId: 1,
-      name: "Arron",
-      topic: "The merchant is rude",
-      message:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure omnis amet ex natus optio modi laboriosam atque quis, ipsum voluptatibus in perferendis ullam repellendus culpa officiis quasi maiores. Enim nemo optio at? Alias tenetur saepe dignissimos natus repellendus beatae perspiciatis officia ad iste inventore? Id neque nihil perferendis iure blanditiis.",
-      createdAt: "2024-04-18 20:00:00",
-    },
-    {
-      id: 2,
-      userId: 1,
-      name: "Barron",
-      topic: "Location not found",
-      message:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure omnis amet ex natus optio modi laboriosam atque quis, ipsum voluptatibus in perferendis ullam repellendus culpa officiis quasi maiores. Enim nemo optio at? Alias tenetur saepe dignissimos natus repellendus beatae perspiciatis officia ad iste inventore? Id neque nihil perferendis iure blanditiis.",
-      createdAt: "2024-04-19 20:00:00",
-    },
-    {
-      id: 3,
-      userId: 1,
-      name: "Carron",
-      topic: "Coupon Problem",
-      message:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure omnis amet ex natus optio modi laboriosam atque quis, ipsum voluptatibus in perferendis ullam repellendus culpa officiis quasi maiores. Enim nemo optio at? Alias tenetur saepe dignissimos natus repellendus beatae perspiciatis officia ad iste inventore? Id neque nihil perferendis iure blanditiis.",
-      createdAt: "2024-04-20 20:00:00",
-    },
-  ]);
+  const [reports, setReports] = useState([]);
 
   const [filteredReports, setFilteredReports] = useState(reports);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [countRow, setCountRow] = useState(0);
+
   const itemsPerPage = 10;
 
   const debouncedSearchQuery = useDebounce(searchQuery, 1200);
@@ -48,6 +23,28 @@ export default function RequestedReport() {
     setSearchQuery(e.target.value);
     setCurrentPage(1);
   };
+
+  const fetchAllReport =async()=>{
+    try {
+      const data = {
+        pages: currentPage,
+        pageSize: itemsPerPage,
+        sortBy: "id",
+      };
+
+      // console.log(data)
+      const report = await adminApi.allReport(data)
+      console.log('report',report.data)
+      setReports(report.data)
+      // setCountRow(buyer.data.countBuyer);
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(()=>{
+    fetchAllReport()
+  },[])
 
   useEffect(() => {
     if (debouncedSearchQuery) {
@@ -81,8 +78,8 @@ export default function RequestedReport() {
       className: "text-center",
     },
     {
-      key: "createdAt",
-      label: "Action Date",
+      key: "storeNameReported",
+      label: "store name",
       sortable: true,
       className: "text-center",
     },
@@ -92,12 +89,19 @@ export default function RequestedReport() {
       sortable: false,
       className: "text-center",
     },
+    {
+      key: "createdAt",
+      label: "Action Date",
+      sortable: true,
+      className: "text-center",
+    },
+    
   ];
 
   return (
     <div className="flex gap-6 bg-graybg">
       <div className="flex flex-col h-full w-full m-6">
-        <div className="sticky top-0 z-10 bg-graybg">
+        <div className="sticky top-0 bg-graybg">
           <SearchBarAdminPage
             placeholder="Search report list"
             searchQuery={searchQuery}
@@ -128,7 +132,7 @@ export default function RequestedReport() {
           />
         </div>
       </div>
-      <div className="w-screen h-screen bg-red-500 sticky z-10 top-0">Announcement data</div>
+      {/* <div className="w-screen h-screen bg-red-500 sticky z-10 top-0">Announcement data</div> */}
     </div>
   );
 }

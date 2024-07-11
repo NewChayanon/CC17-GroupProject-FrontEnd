@@ -9,7 +9,7 @@ export default function MainContainer() {
       <Header />
       <div className="flex flex-1 overflow-hidden ">
         <Sidebar />
-        <div className="grow">
+        <div className="grow min-h-[800px]">
           <Outlet />
         </div>
       </div>

@@ -7,6 +7,8 @@ import eventApi from "../../apis/event";
 import useStore from "../../zustand/store";
 import CouponDetailModal from "./CouponDetailModal";
 import PlaseLoginCard from "../../components/PlaseLoginCard";
+import EmptyState from "../../components/EmptyState";
+import { CouponIcon } from "../../icons/coupon-icon";
 
 export default function Promotion() {
   const { pathname } = useLocation();
@@ -46,10 +48,10 @@ export default function Promotion() {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full bg-white">
       {/* === Check if this event provides coupon or not === */}
       {!isLoading && selectedEventDetails?.voucherItem ? (
-        <div className="flex flex-col gap-4 justify-center p-6 bg-white">
+        <div className="flex flex-col gap-4 justify-center p-6">
           <div className="flex flex-col gap-2">
             <div className="text-xl font-bold text-primary">
               Special deal from this store!
@@ -112,7 +114,7 @@ export default function Promotion() {
           </div>
         </div>
       ) : (
-        <div>No Voucher For this event</div>
+        <EmptyState message="No Voucher For this event" icon={<CouponIcon />} />
       )}
     </div>
   );

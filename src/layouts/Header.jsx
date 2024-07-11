@@ -155,15 +155,18 @@ export default function Header() {
             {/* User Profile*/}
             <li>
               {/* <div className="btn btn-ghost avatar w-48 flex gap-4 justify-start items-center"> */}
-              <div className="avatar w-48 flex gap-4 justify-start items-center shadow">
-                <div className="w-10 rounded-full">
+              <div className="avatar w-48 flex gap-4 py-2 justify-start items-center shadow">
+                <div className="w-8 rounded-full">
                   <img
                     alt="Tailwind CSS Navbar component"
-                    src={`${user ? user.profileImage : ffLogo}`}
+                    src={`${user ? user.profileImage || ffLogo : ffLogo}`}
                   />
                 </div>
                 <p className="font-semibold">
-                  Hi {user ? user.displayName || user.firstName : "Guest"}!
+                  Hi!{" "}
+                  {user
+                    ? user.displayName.slice(0, 10) || user.firstName
+                    : "Guest"}
                 </p>
               </div>
               {/* Other Menu*/}
@@ -187,28 +190,21 @@ export default function Header() {
       {/* MYSTORE MENU - ONLY DISPLAY AT xl & with AuthContext*/}
       {/* AVATAR MENU FOR DESKTOP - ONLY DISPLAY AT xl */}
       <div className="flex-none gap-2 hidden xl:flex ">
-        {isAuthenticated ? (
-          <Link to="/">
-            <div className="btn btn-ghost hidden xl:flex bg-darkbrown">
-              <StoreIcon />
-              <p>My Store</p>
-            </div>
-          </Link>
-        ) : null}
         <div className="dropdown dropdown-end">
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-ghost avatar w-48 flex gap-4 justify-start items-center "
+            className="btn btn-ghost avatar min-w-48 bg-white flex gap-2 py-2 justify-start items-center "
           >
-            <div className="w-10 rounded-full border border-b-1">
+            <div className="w-8 rounded-full border border-b-1">
               <img
                 alt="Tailwind CSS Navbar component"
-                src={`${user ? user.profileImage : ffLogo}`}
+                src={`${user ? user.profileImage || ffLogo : ffLogo}`}
               />
             </div>
-            <p className="font-semibold">
-              Hi {user ? user.displayName || user.firstName : "Guest"}!
+            <p className="font-semibold text-black overflow-hidden">
+              Hi!{" "}
+              {user ? user.displayName.slice(0, 13) || user.firstName : "Guest"}
             </p>
           </div>
           <ul

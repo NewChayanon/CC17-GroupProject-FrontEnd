@@ -6,12 +6,12 @@ import EventNavBar from "./EventNavBar";
 
 export default function EventMainContainer() {
   return (
-    <div className="bg-graybg w-auto" style={{ margin: "auto" }}>
+    <div className="bg-graybg w-auto m-auto">
       <Header />
       <EventNavBar />
       <div className="flex">
         <Sidebar />
-        <div className="grow">
+        <div className="grow min-h-[540px]">
           <Outlet />
         </div>
       </div>
