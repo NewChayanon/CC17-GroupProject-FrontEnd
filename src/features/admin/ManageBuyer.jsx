@@ -4,160 +4,19 @@ import { useDebounce } from "../../hooks/useDebounce";
 import { useEffect } from "react";
 import StoreList from "./components/StoreList";
 import Pagination from "../../components/Pagination";
+import adminApi from "../../apis/admin";
 
 export default function ManageBuyer() {
-  const [buyers, setBuyers] = useState([
-    {
-      id: 2,
-      name: "Aaron",
-      email: "duriany12@gmail.com",
-      buyerId: 11,
-      userId: 44,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 1,
-      name: "Brother",
-      email: "duriany12@gmail.com",
-      buyerId: 22,
-      userId: 33,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 3,
-      name: "Carol",
-      email: "duriany12@gmail.com",
-      buyerId: 33,
-      userId: 22,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 4,
-      name: "Donal",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 5,
-      name: "Eevee",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 7,
-      name: "Francis",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 8,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 9,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 10,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 11,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 13,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 14,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 15,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 16,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 17,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    {
-      id: 18,
-      name: "Frandrive",
-      email: "duriany12@gmail.com",
-      buyerId: 44,
-      userId: 11,
-      lastUpdated: "2024-05-02 10:20:00",
-      blocked: false,
-    },
-    // Your store data...
-  ]);
+  const [buyers, setBuyers] = useState([]);
+  console.log('buyers',buyers)
 
   const [filteredBuyers, setFilteredBuyers] = useState(buyers);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [countRow, setCountRow] = useState(0)
   const itemsPerPage = 10;
+
+  console.log('filteredBuyers',filteredBuyers)
 
   const debouncedSearchQuery = useDebounce(searchQuery, 1200);
 
@@ -166,7 +25,28 @@ export default function ManageBuyer() {
     setCurrentPage(1);
   };
 
+  const fetchAllBuyer = async()=>{
+    try {
+      const data = {
+        pages : currentPage,
+        pageSize  : itemsPerPage,
+        sortBy: "id"
+      }
+      const buyer = await adminApi.allBuyer(data)
+      console.log('buyer',buyer.data)
+      setBuyers(buyer.data.result)
+      setCountRow(buyer.data.countBuyer)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(()=>{
+    fetchAllBuyer()
+  },[])
+
+  
   useEffect(() => {
+    console.log('buyerssssss',buyers)
     if (debouncedSearchQuery) {
       const filtered = buyers.filter((buyer) => {
         const query = debouncedSearchQuery.toLowerCase();
@@ -180,7 +60,7 @@ export default function ManageBuyer() {
     } else {
       setFilteredBuyers(buyers);
     }
-  }, [debouncedSearchQuery, buyers]);
+  }, [buyers]);
 
   const toggleBlock = (buyerId) => {
     const updatedBuyers = filteredBuyers.map((buyer) =>
@@ -190,26 +70,29 @@ export default function ManageBuyer() {
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
+  console.log('indexOfLastItem',indexOfLastItem)
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  console.log('indexOfFirstItem',indexOfFirstItem)
   const currentBuyers = filteredBuyers.slice(indexOfFirstItem, indexOfLastItem);
+  console.log('currentBuyers',currentBuyers)
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const columns = [
     {
-      key: "name",
+      key: "username",
       label: "Buyer Name",
       sortable: true,
       render: (value) => <div className="text-sm font-medium text-gray-900">{value}</div>,
     },
     {
-      key: "buyerId",
-      label: "Buyer ID",
+      key: "storeProfileId",
+      label: "Store ID",
       sortable: true,
       className: "text-center",
     },
     {
-      key: "userId",
+      key: "id",
       label: "User ID",
       sortable: true,
       className: "text-center",
@@ -223,6 +106,8 @@ export default function ManageBuyer() {
       className: (buyer) => (buyer.blocked ? "text-red-600" : "text-green-600"),
     },
   ];
+  console.log('buyers1',buyers)
+
 
   return (
     <div className="flex gap-6 bg-graybg">
@@ -236,7 +121,7 @@ export default function ManageBuyer() {
         </div>
         <div className="flex-1 p-4 pt-2">
           <div className="text-md p-2 pt-0">
-            Showing {currentBuyers.length} of {buyers.length} buyers
+            Showing {currentBuyers?.length} of {buyers?.length} buyers
           </div>
           <div className="">
             <StoreList

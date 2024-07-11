@@ -10,16 +10,12 @@ export default function AdminProtectedRoute({ children }) {
   if (!user || user.role === ROLE.BUYER || user.role === ROLE.SELLER)
     return (
       <>
+        {isLoading === true && <LoadingSpinner />}
         <UnAuthorizedPage />;
       </>
     );
 
   if (user.role === ROLE.ADMIN) {
-    return (
-      <>
-        {isLoading === true && <LoadingSpinner />}
-        {children}
-      </>
-    );
+    return <>{children}</>;
   }
 }
