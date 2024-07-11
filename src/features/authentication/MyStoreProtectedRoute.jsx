@@ -13,13 +13,18 @@ export default function myStoreProtectedRoute({ children }) {
   const isMyStoreLoading = useStore((state) => state.isMyStoreLoading);
   const user = useStore((state) => state.user);
 
-  if (!user) return <NotLoginPage />;
+  if (!user)
+    return (
+      <>
+        {isLoading === true && <LoadingSpinner />}
+        <NotLoginPage />
+      </>
+    );
   if (user.role === ROLE.SELLER) {
     return (
       <>
-        {(isLoading === true || isMyStoreLoading === true) && (
-          <LoadingSpinner />
-        )}
+        {isLoading === true && <LoadingSpinner />}
+        {isMyStoreLoading === true && <LoadingSpinner />}
         {children}
       </>
     );

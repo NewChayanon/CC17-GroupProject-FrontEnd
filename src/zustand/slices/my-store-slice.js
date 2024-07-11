@@ -84,6 +84,58 @@ export const createMyStoreSlice = (set) => ({
     }
   },
 
+  editStoreDescription: async (body) => {
+    set({ isLoadingMyStore: true });
+    try {
+      const response = await myStoreApi.editStoreDescription(body);
+      set((state) => ({
+        storeInfo: {
+          ...state.storeInfo,
+          storeProfileSellerDescription: response.data.sellerDescription,
+          storeProfileDescription: response.data.description,
+        },
+      }));
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.msg,
+        }));
+      }
+    } finally {
+      set({ isLoadingMyStore: false });
+    }
+  },
+
+  updateCoverImage: async (formData) => {
+    set({ isLoadingMyStore: true });
+    try {
+      await myStoreApi.updateCoverImage(formData);
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.msg,
+        }));
+      }
+    } finally {
+      set({ isLoadingMyStore: false });
+    }
+  },
+
+  updateUserProfileImage: async (formData) => {
+    set({ isLoadingMyStore: true });
+    try {
+      await myStoreApi.updateUserProfileImage(formData);
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.msg,
+        }));
+      }
+    } finally {
+      set({ isLoadingMyStore: false });
+    }
+  },
+
   formatMonth: (timestamp) => {
     const date = new Date(timestamp);
     const monthFormatter = new Intl.DateTimeFormat("en", { month: "short" });

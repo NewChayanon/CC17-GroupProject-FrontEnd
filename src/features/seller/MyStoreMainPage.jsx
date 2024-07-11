@@ -194,7 +194,11 @@ export default function MyStoreMainPage() {
             </button>
           </div>
         </>
-      ) : null}
+      ) : (
+        <div className="bg-verylightyellow h-full flex justify-center items-center font-bold text-xl">
+          Your store has no event yet.
+        </div>
+      )}
     </div>
   );
 }
