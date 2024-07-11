@@ -14,6 +14,7 @@ import Map from "../features/map/MainMap";
 import EmptyState from "../components/EmptyState";
 import { CouponIcon } from "../icons";
 import DurianLogoBW from "../icons/DurianLogoBW";
+import { useNavigate } from "react-router-dom";
 
 // Fetch Event from API instead of using mockup Array
 const defaultLocation = { lat: 13.76, lng: 100.5 }; // Bangkok Location
@@ -23,9 +24,10 @@ export default function HomePage() {
   const [currentLocation, setCurrentLocation] = useState(defaultLocation);
   const [selectedEventId, setSelectedEventId] = useState(""); // change to "" later after test
   const [selectedEventDetails, setSelectedEventDetails] = useState({}); // เอา eventId ไปเรียก event Details มาแล้วเอามา set state ทีหลัง
-
+  const [token, setToken] = useState(null);
+  const getAuthUser = useStore((state) => state.getAuthUser);
   const logoutModal = useStore((state) => state.logoutModal);
-
+  const navigate = useNavigate();
   // Get current location of user and setCurrentLocation
   const fetchLocation = async () => {
     try {
@@ -74,6 +76,49 @@ export default function HomePage() {
     fetchEventNearMe(params);
     // }
   }, [currentLocation]);
+
+  // useEffect(() => {
+  //   console.log("Running useEffect to update token");
+  //   const query = new URLSearchParams(window.location.search);
+  //   const tokenFromUrl = query.get("token");
+  //   if (tokenFromUrl) {
+  //     const base64Token = decodeURIComponent(tokenFromUrl);
+  //     localStorage.setItem("token", base64Token);
+  //     setToken(base64Token); // Store the decoded token
+  //     // window.history.replaceState({}, document.title, "/");
+
+  //     const response = await login(input);
+  //     navigate("/home");
+  //   }
+  // }, []);
+  useEffect(() => {
+    console.log("Running useEffect to update token");
+    const getTokenFromUrl = async () => {
+      try {
+        const query = new URLSearchParams(window.location.search);
+        const tokenFromUrl = query.get("token");
+
+        if (tokenFromUrl) {
+          const base64Token = decodeURIComponent(tokenFromUrl);
+          localStorage.setItem("token", base64Token);
+          setToken(base64Token); // Store the decoded token
+
+          // Assuming `login` is an asynchronous function that handles login
+          // Navigate to the home page or wherever you need after successful login
+          navigate("/home");
+          const result = await getAuthUser(); // Adjust the arguments as per your login function
+          console.log("result from getAuthUser");
+        } else {
+          // Handle login failure if necessary
+          console.error("Login failed");
+        }
+      } catch (error) {
+        console.error("Error while processing token:", error);
+        // Handle error if necessary
+      }
+    };
+    getTokenFromUrl();
+  }, []);
 
   return (
     <div className="flex flex-col w-auto h-full">

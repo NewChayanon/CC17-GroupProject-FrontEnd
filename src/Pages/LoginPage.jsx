@@ -68,17 +68,18 @@ export default function LoginPage() {
     }
   };
 
-  useEffect(() => {
-    console.log("Running useEffect to update token");
-    const query = new URLSearchParams(window.location.search);
-    const tokenFromUrl = query.get("token");
-    if (tokenFromUrl) {
-      const base64Token = decodeURIComponent(tokenFromUrl);
-      localStorage.setItem("token", base64Token);
-      setToken(base64Token); // Store the decoded token
-      window.history.replaceState({}, document.title, "/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   console.log("Running useEffect to update token");
+  //   const query = new URLSearchParams(window.location.search);
+  //   const tokenFromUrl = query.get("token");
+  //   if (tokenFromUrl) {
+  //     const base64Token = decodeURIComponent(tokenFromUrl);
+  //     localStorage.setItem("token", base64Token);
+  //     setToken(base64Token); // Store the decoded token
+  //     // window.history.replaceState({}, document.title, "/");
+  //     navigate("/home");
+  //   }
+  // }, []);
 
   return (
     <div className="bg-yellow-200 h-screen flex flex-col">
