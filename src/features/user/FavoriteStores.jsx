@@ -52,12 +52,14 @@ export default function FavoriteStores() {
     setIsUpdateFavoriteStore(false);
   }, [isUpdateFavoriteStore]);
   return (
-    <div className="flex flex-col gap-4">
-      <SearchBarAdminPage
-        placeholder="Search by store name"
-        searchQuery={searchQuery}
-        handleSearch={handleSearch}
-      />
+    <div className="flex flex-col bg-white">
+      <div className="px-4 py-2">
+        <SearchBarAdminPage
+          placeholder="Search by store name"
+          searchQuery={searchQuery}
+          handleSearch={handleSearch}
+        />
+      </div>
       {filteredFavoriteStores[0] ? (
         <>
           {filteredFavoriteStores.map((storeDetail, index) => (
@@ -69,10 +71,7 @@ export default function FavoriteStores() {
           ))}{" "}
         </>
       ) : (
-        <EmptyState
-          icon={<StoreIcon />}
-          message="You have not followed any store yet."
-        />
+        <EmptyState icon={<StoreIcon />} message="No followed stores yet" />
       )}
     </div>
   );
