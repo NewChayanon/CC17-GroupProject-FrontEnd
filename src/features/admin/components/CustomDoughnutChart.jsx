@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -11,12 +12,15 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(CategoryScale, LinearScale, ArcElement, Tooltip, Legend, ChartDataLabels);
 
-const CustomDoughnutChart = () => {
+const CustomDoughnutChart = ({ buyersCount, storesCount, buyerAndSellerCount }) => {
+  const percentageBuyers = (buyersCount * 100) / buyerAndSellerCount;
+  const percentageStores = (storesCount * 100) / buyerAndSellerCount;
+
   const data = {
     labels: ["Buyers\n(w/o store)\n", "Stores"],
     datasets: [
       {
-        data: [70, 30], // Percentage values
+        data: [percentageBuyers, percentageStores], // Percentage values
         backgroundColor: ["#008000", "#806030"], // Green and brown colors
         hoverBackgroundColor: ["#006400", "#654321"], // Darker green and brown for hover effect
       },
