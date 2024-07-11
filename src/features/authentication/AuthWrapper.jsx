@@ -5,6 +5,7 @@ import { getAccessToken } from "../../utils/local-storage";
 export default function AuthWrapper({ children }) {
   const getAuthUser = useStore((state) => state.getAuthUser);
   const logout = useStore((state) => state.logout);
+  const stopLoading = useStore((state) => state.stopLoading);
 
   const fetchUser = async () => {
     try {
@@ -18,7 +19,8 @@ export default function AuthWrapper({ children }) {
   };
 
   useEffect(() => {
-    fetchUser(), [];
+    fetchUser();
+    stopLoading(), [];
   });
 
   return children;
