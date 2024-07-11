@@ -101,7 +101,7 @@ export default function RequestedReport() {
   return (
     <div className="flex gap-6 bg-graybg">
       <div className="flex flex-col h-full w-full m-6">
-        <div className="sticky top-0 z-10 bg-graybg">
+        <div className="sticky top-0 bg-graybg">
           <SearchBarAdminPage
             placeholder="Search report list"
             searchQuery={searchQuery}
@@ -132,7 +132,7 @@ export default function RequestedReport() {
           />
         </div>
       </div>
-      <div className="w-screen h-screen bg-red-500 sticky z-10 top-0">Announcement data</div>
+      {/* <div className="w-screen h-screen bg-red-500 sticky z-10 top-0">Announcement data</div> */}
     </div>
   );
 }
