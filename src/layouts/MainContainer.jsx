@@ -5,9 +5,9 @@ import Sidebar from "./Sidebar";
 
 export default function MainContainer() {
   return (
-    <div className="bg-graybg" style={{ width: "auto", margin: "auto" }}>
+    <div className="bg-graybg w-auto m-auto">
       <Header />
-      <div className="flex">
+      <div className="flex flex-1 overflow-hidden ">
         <Sidebar />
         <div className="grow">
           <Outlet />

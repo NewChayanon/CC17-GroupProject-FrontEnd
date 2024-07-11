@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import eventApi from "../../apis/event";
+import EventMap from "../../components/EventMap";
 import EventTabCard from "../../components/EventTabCard";
 import useStore from "../../zustand/store";
 
@@ -20,6 +21,10 @@ export default function EventDetail() {
   useEffect(() => {
     setSelectedEventDetails(eventIdfromPath, isAuthenticated);
     setEventId(eventIdfromPath);
+    // const eventLatLng = {};
+    // eventLatLng.lat = +selectedEventDetails.eventLocation.split(",")[0];
+    // eventLocation.lng = +selectedEventDetails.eventLocation.split(",")[1];
+    // console.log("Lat Long for this event", eventLatLng);
   }, []);
 
   return (
@@ -30,10 +35,8 @@ export default function EventDetail() {
           <EventTabCard selectedEventDetails={selectedEventDetails} />
         )}
       </div>
-      <div className="bg-secondary" style={{ height: "250px" }}>
-        <img src="" />
-        <img src="" />
-      </div>
+      {/* Map of the event */}
+      <EventMap eventLocation={{ lat: 13.76, lng: 100.5 }} />
       {/* ============ Other Events List============ */}
       <div className="flex flex-col p-6">
         <div className="text-xl font-bold">Other Events from this seller</div>

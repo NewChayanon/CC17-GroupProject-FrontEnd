@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import userApi from "../../apis/user";
+import EmptyState from "../../components/EmptyState";
 import SearchBarAdminPage from "../../components/SearchBarAdminPage";
 import { useDebounce } from "../../hooks/useDebounce";
+import { CouponIcon } from "../../icons";
 import CouponTab from "../event/CouponTab";
 
 export default function CollectedCoupons() {
@@ -84,14 +86,23 @@ export default function CollectedCoupons() {
         handleSearch={handleSearch}
       />
       <div className="flex flex-col p-4 gap-4">
-        {filteredCouponArr.map((coupon, index) => (
-          <CouponTab
-            key={index}
-            selectedEventDetails={coupon}
-            useEnabled={true}
-            setIsCouponCollected={setIsCouponCollected}
+        {filteredCouponArr[0] ? (
+          <>
+            {filteredCouponArr.map((coupon, index) => (
+              <CouponTab
+                key={index}
+                selectedEventDetails={coupon}
+                useEnabled={true}
+                setIsCouponCollected={setIsCouponCollected}
+              />
+            ))}
+          </>
+        ) : (
+          <EmptyState
+            icon={<CouponIcon isActive={false} />}
+            message="No coupon is found"
           />
-        ))}
+        )}
       </div>
     </div>
   );

@@ -19,9 +19,9 @@ export default function Input({
       <input
         placeholder={placeholder}
         type={type}
-        className={`grow p-2 ${
+        className={`text-sm grow p-2 pl-3 ${
           heightMap[height]
-        } bg-absolutewhite rounded-md border-2 border-opacity-60 focus:ring-0 focus:outline-none ${
+        } bg-absolutewhite rounded-md border border-opacity-60 focus:ring-0 focus:outline-none ${
           error ? "border-red-500" : "border-graylighttext"
         } `}
         value={value}

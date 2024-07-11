@@ -5,6 +5,8 @@ import {
   VendorNearMeIcon,
   MyFavoriteSeller,
   VoucherListIcon,
+  FFLogo,
+  CouponIcon,
 } from "../icons/index.jsx";
 import ffLogo from "../assets/FF-logo.png";
 import NavMenu from "../components/NavMenu.jsx";
@@ -12,8 +14,9 @@ import { Link } from "react-router-dom";
 import useStore from "../zustand/store.js";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import SettingsIcon from "../icons/SettingsIcon.jsx";
-import { InterestedEventIcon } from "../icons/interested-event-icon.jsx";
+import { SettingIcon } from "../icons/setting-icon.jsx";
+import LoginIcon from "../icons/login-icon.jsx";
+import ContactUsIcon from "../icons/contactus-icon.jsx";
 
 export default function Header() {
   // ทำ responsive 2 size 1) mobile 2) desktop
@@ -30,13 +33,24 @@ export default function Header() {
       linkTo: "/mystore",
       handleClick: "",
       authRequired: true,
+      appearWhenLogin: true,
     },
+
     {
       menuIcon: <VendorNearMeIcon />,
       menuName: "Sellers nearby",
       linkTo: "/home",
       handleClick: "",
       authRequired: false,
+      appearWhenLogin: true,
+    },
+    {
+      menuIcon: <CouponIcon isActive={false} size={25} />,
+      menuName: "Interested Events",
+      linkTo: "/user/interested-event",
+      handleClick: "",
+      authRequired: true,
+      appearWhenLogin: true,
     },
     {
       menuIcon: <InboxIcon />,
@@ -44,6 +58,7 @@ export default function Header() {
       linkTo: "/user/inbox",
       handleClick: "",
       authRequired: true,
+      appearWhenLogin: true,
     },
     {
       menuIcon: <MyFavoriteSeller />,
@@ -51,6 +66,7 @@ export default function Header() {
       linkTo: "/user/favorite-stores",
       handleClick: "",
       authRequired: true,
+      appearWhenLogin: true,
     },
     {
       menuIcon: <VoucherListIcon />,
@@ -58,20 +74,31 @@ export default function Header() {
       linkTo: "/user/collected-coupons",
       handleClick: "",
       authRequired: true,
+      appearWhenLogin: true,
     },
     {
-      menuIcon: <SettingsIcon />,
+      menuIcon: <SettingIcon />,
       menuName: "Settings",
       linkTo: "/user/settings",
       handleClick: "",
       authRequired: true,
+      appearWhenLogin: true,
     },
     {
-      menuIcon: <VoucherListIcon />,
+      menuIcon: <ContactUsIcon />,
       menuName: "Contact Us",
       linkTo: "/contact-us",
       handleClick: "",
       authRequired: true,
+      appearWhenLogin: true,
+    },
+    {
+      menuIcon: <LogoutIcon />,
+      menuName: "User Login",
+      linkTo: "/login",
+      handleClick: "",
+      authRequired: false,
+      appearWhenLogin: false,
     },
     {
       menuIcon: <LogoutIcon />,
@@ -79,6 +106,7 @@ export default function Header() {
       linkTo: "/home",
       handleClick: () => logout(),
       authRequired: true,
+      appearWhenLogin: true,
     },
   ];
 
@@ -122,32 +150,35 @@ export default function Header() {
           {/* Dropdown Menu*/}
           <ul
             tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-48"
+            className="mt-3 z-[40] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52"
           >
             {/* User Profile*/}
             <li>
               {/* <div className="btn btn-ghost avatar w-48 flex gap-4 justify-start items-center"> */}
-              <div className="avatar w-48 flex gap-4 justify-start items-center">
+              <div className="avatar w-48 flex gap-4 justify-start items-center shadow">
                 <div className="w-10 rounded-full">
                   <img
                     alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                    src={`${user ? user.profileImage : ffLogo}`}
                   />
                 </div>
-                <p>Hi {user ? user.name : "Guest"}</p>
+                <p className="font-semibold">
+                  Hi {user ? user.displayName || user.firstName : "Guest"}!
+                </p>
               </div>
               {/* Other Menu*/}
             </li>
-
             {navMenuList.map((navMenu, index) =>
               navMenu.authRequired && !isAuthenticated ? null : (
-                <NavMenu
-                  key={index}
-                  menuIcon={navMenu.menuIcon}
-                  menuName={navMenu.menuName}
-                  linkTo={navMenu.linkTo}
-                  onClick={navMenu.handleClick}
-                />
+                <div className="hover:text-lightgreen fill-lightgreen">
+                  <NavMenu
+                    key={index}
+                    menuIcon={navMenu.menuIcon}
+                    menuName={navMenu.menuName}
+                    linkTo={navMenu.linkTo}
+                    onClick={navMenu.handleClick}
+                  />
+                </div>
               )
             )}
           </ul>
@@ -168,19 +199,21 @@ export default function Header() {
           <div
             tabIndex={0}
             role="button"
-            className="btn btn-ghost avatar w-48 flex gap-4 justify-start items-center"
+            className="btn btn-ghost avatar w-48 flex gap-4 justify-start items-center "
           >
-            <div className="w-10 rounded-full">
+            <div className="w-10 rounded-full border border-b-1">
               <img
                 alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                src={`${user ? user.profileImage : ffLogo}`}
               />
             </div>
-            <p>Hi Guest</p>
+            <p className="font-semibold">
+              Hi {user ? user.displayName || user.firstName : "Guest"}!
+            </p>
           </div>
           <ul
             tabIndex={0}
-            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-48"
+            className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-white rounded-box w-52"
           >
             {navMenuList.map((navMenu, index) =>
               navMenu.authRequired && !isAuthenticated ? null : (

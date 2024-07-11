@@ -20,7 +20,7 @@ function RadioButtons({ handleChange }) {
             <input
               type="radio"
               name="gender"
-              value="male"
+              value="MALE"
               className="radio-green"
               onChange={handleChange}
             />
@@ -30,7 +30,7 @@ function RadioButtons({ handleChange }) {
             <input
               type="radio"
               name="gender"
-              value="female"
+              value="FEMALE"
               className="radio-green"
               onChange={handleChange}
             />
@@ -40,7 +40,7 @@ function RadioButtons({ handleChange }) {
             <input
               type="radio"
               name="gender"
-              value="others"
+              value="OTHERS"
               className="radio-green"
               onChange={handleChange}
             />
@@ -52,73 +52,64 @@ function RadioButtons({ handleChange }) {
   );
 }
 
-// const initialInputError = {
-//   displayName: "",
-//   firstName: "",
-//   lastName: "",
-//   email: "",
-//   dateOfBirth: "",
-//   mobile: "",
-//   gender: "",
-//   password: "",
-//   confirmPassword: "",
-// };
-
 export default function UserSettings() {
   const navigate = useNavigate();
-  const initialInput = useStore((state) => state.user);
-  // const initialDOB = useStore((state) => state.user)
-  const initialDOB = new Date();
+  const user = useStore((state) => state.user);
+  const initialInput = {
+    ...user,
+    dateOfBirth: user.dateOfBirth?.split("T")[0],
+  };
 
   const [input, setInput] = useState(initialInput);
+  const [inputSubmit, setInputSubmit] = useState({});
   // const [inputError, setInputError] = useState(initialInputError);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(initialInput.profileImage);
   const [imageFile, setImageFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [editName, setEditName] = useState(false);
   const [editMobile, setEditMobile] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [allowSubmit, setAllowSubmit] = useState(false);
-  const [selectDOB, setSelectDOB] = useState(initialDOB);
 
   const fileEl = useRef();
 
   const submitChange = async () => {
     try {
-      const sendData = {
-        displayName: input.displayName,
-        dateOfBirth: input.dateOfBirth,
-        mobile: input.mobile,
-        gender: input.gender,
-        password: input.password,
-        confirmPassword: input.confirmPassword,
-      };
-
-      console.log(sendData);
-      setIsLoading(true);
-      // const error = validateSettings(sendData);
-
-      // if (error) {
-      //   return setInputError(error);
-      // }
+      console.log(input);
 
       const formData = new FormData();
-      formData.append("displayName", input.displayName);
-      formData.append("email", input.email);
-      formData.append("dateOfBirth", input.dateOfBirth);
-      formData.append("mobile", input.mobile);
-      formData.append("gender", input.gender);
-      formData.append("password", input.password);
-      formData.append("confirmPassword", input.confirmPassword);
+      for (const key in inputSubmit) {
+        if (inputSubmit[key]) {
+          if (key === "dateOfBirth") {
+            const modifyDate = `${inputSubmit[key]}T00:00:00.000Z`;
+            formData.append(key, modifyDate);
+          } else {
+            formData.append(key, inputSubmit[key]);
+          }
+        }
+      }
+
+      setIsLoading(true);
 
       if (imageFile) {
         formData.append("profileImage", imageFile);
       }
 
-      console.log(formData);
+      // const logFormData = (formData) => {
+      //   for (let pair of formData.entries()) {
+      //     console.log(`${pair[0]}: ${pair[1]}`);
+      //   }
+      // };
+      // logFormData(formData);
+
       const response = await userApi.changeInfoSettings(formData);
       console.log(response);
       // setInputError({ ...initialInput });
+
+      setInput((prevState) => ({
+        ...prevState,
+        displayName: response.data.displayName,
+      }));
     } catch (err) {
       console.log(err);
     } finally {
@@ -138,11 +129,9 @@ export default function UserSettings() {
   };
 
   const handleChange = (e) => {
-    // setInputError(initialInputError);
     setInput({ ...input, [e.target.name]: e.target.value });
+    setInputSubmit({ ...inputSubmit, [e.target.name]: e.target.value });
   };
-
-  useEffect(() => {});
 
   return (
     <>
@@ -204,45 +193,23 @@ export default function UserSettings() {
           </div>
           <div className="p-4 text-sm flex flex-col gap-2">
             <div className="flex items-center">
-              {editName ? (
-                <input
-                  placeholder="Display Name"
-                  className="p-1 pl-2 w-36 rounded-md"
-                  name="displayName"
-                  value={input.displayName}
-                  onChange={handleChange}
-                />
-              ) : (
-                <input
-                  placeholder="Display Name"
-                  className="p-1 pl-2 w-36 rounded-md"
-                  name="displayName"
-                  value={input.displayName}
-                  onChange={handleChange}
-                  disabled
-                />
-              )}
-              {editName ? (
-                <div
-                  className="text-primary text-xs underline font-semibold pl-3 cursor-pointer"
-                  onClick={() => {
-                    setEditName(false);
-                    setAllowSubmit(true);
-                  }}
-                >
-                  Save
-                </div>
-              ) : (
-                <div
-                  className="text-primary text-xs underline font-semibold pl-3 cursor-pointer"
-                  onClick={() => {
-                    setEditName(true);
-                    setAllowSubmit(false);
-                  }}
-                >
-                  Edit
-                </div>
-              )}
+              <input
+                placeholder="Display Name"
+                className="p-1 pl-2 w-36 rounded-md"
+                name="displayName"
+                value={input.displayName}
+                onChange={handleChange}
+                disabled={!editName}
+              />
+              <div
+                className="text-primary text-xs underline font-semibold pl-3 cursor-pointer"
+                onClick={() => {
+                  setEditName(!editName);
+                  setAllowSubmit(editName); // Enable submit only if edit is being saved
+                }}
+              >
+                {editName ? "Save" : "Edit"}
+              </div>
             </div>
             <div className="flex justify-between gap-2">
               <div>
@@ -268,7 +235,7 @@ export default function UserSettings() {
               No store yet!
               <div
                 className="underline hover:text-darkgreen cursor-pointer text-lightgreen "
-                onClick={() => navigate("/mystore/activate-store-from-mobile")}
+                onClick={() => navigate("/user/activate-store-from-mobile")}
               >
                 Activate
               </div>
@@ -294,7 +261,7 @@ export default function UserSettings() {
                 type="date"
                 className="p-1 pl-2 w-48 rounded-md text-gray-400"
                 name="dateOfBirth"
-                value={input?.dateOfBirth}
+                value={input.dateOfBirth}
                 onChange={handleChange}
               />
             </div>
@@ -302,7 +269,7 @@ export default function UserSettings() {
               <div>
                 {editMobile ? (
                   <input
-                    placeholder="088-123-4567"
+                    placeholder="10 digits without dash"
                     className="p-1 pl-2 w-36 rounded-md"
                     name="mobile"
                     value={input.mobile}
@@ -310,7 +277,7 @@ export default function UserSettings() {
                   />
                 ) : (
                   <input
-                    placeholder="0881234567"
+                    placeholder="10 digits without dash"
                     className="p-1 pl-2 w-36 rounded-md"
                     name="mobile"
                     value={input.mobile}
@@ -342,14 +309,18 @@ export default function UserSettings() {
               )}
             </div>
             <div>
-              <div>
-                <RadioButtons
-                  name="gender"
-                  handleChange={handleChange}
-                  value={input.gender}
-                  error=""
-                />
-              </div>
+              {initialInput.gender ? (
+                <div>testing</div>
+              ) : (
+                <div>
+                  <RadioButtons
+                    name="gender"
+                    onChange={handleChange}
+                    value={input.gender}
+                    error=""
+                  />
+                </div>
+              )}
             </div>
 
             <div className="flex items-end">
@@ -360,6 +331,8 @@ export default function UserSettings() {
                     placeholder="●●●●●●●●●"
                     className="p-1 pl-2 w-36 rounded-md"
                     name="password"
+                    onChange={handleChange}
+                    value={input.password}
                   />
 
                   <input
@@ -367,6 +340,8 @@ export default function UserSettings() {
                     placeholder="●●●●●●●●●"
                     className="p-1 pl-2 w-36 rounded-md"
                     name="confirmPassword"
+                    onChange={handleChange}
+                    value={input.confirmPassword}
                   />
                 </div>
               ) : (
@@ -375,6 +350,8 @@ export default function UserSettings() {
                   placeholder="●●●●●●●●●"
                   className="p-1 pl-2 w-36 rounded-md"
                   name="password"
+                  onChange={handleChange}
+                  value={input.password}
                   disabled
                 />
               )}

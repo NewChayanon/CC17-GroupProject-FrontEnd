@@ -11,13 +11,15 @@ import useStore from "../zustand/store";
 import LogoutModal from "../components/LogoutModal";
 import Places from "../features/map/Places";
 import Map from "../features/map/MainMap";
+import EmptyState from "../components/EmptyState";
+import { CouponIcon } from "../icons";
+import DurianLogoBW from "../icons/DurianLogoBW";
 
 // Fetch Event from API instead of using mockup Array
-const initialEventArray = [];
 const defaultLocation = { lat: 13.76, lng: 100.5 }; // Bangkok Location
 
 export default function HomePage() {
-  const [eventArray, setEventArray] = useState(initialEventArray);
+  const [eventArray, setEventArray] = useState([]);
   const [currentLocation, setCurrentLocation] = useState(defaultLocation);
   const [selectedEventId, setSelectedEventId] = useState(""); // change to "" later after test
   const [selectedEventDetails, setSelectedEventDetails] = useState({}); // เอา eventId ไปเรียก event Details มาแล้วเอามา set state ทีหลัง
@@ -25,16 +27,29 @@ export default function HomePage() {
   const logoutModal = useStore((state) => state.logoutModal);
 
   // Get current location of user and setCurrentLocation
+  const fetchLocation = async () => {
+    try {
+      const result = await getCurrentLocation();
+      console.log("result from getcurrentlocation", result);
+      setCurrentLocation((prev) => result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  // Useeffect to fetch current location
+  // useEffect(() => {
+  //   const fetchLocation = async () => {
+  //     try {
+  //       const result = await getCurrentLocation();
+  //       console.log("result from getcurrentlocation", result);
+  //       setCurrentLocation((prev) => result);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   fetchLocation();
+  // }, []);
   useEffect(() => {
-    const fetchLocation = async () => {
-      try {
-        const result = await getCurrentLocation();
-        console.log("result from getcurrentlocation", result);
-        setCurrentLocation((prev) => result);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     fetchLocation();
   }, []);
 
@@ -61,15 +76,8 @@ export default function HomePage() {
   }, [currentLocation]);
 
   return (
-    <div className="flex flex-col w-auto h-auto">
+    <div className="flex flex-col w-auto h-full">
       <div className="relative w-auto">
-        {/*==================== Search Bar Component===================*/}
-        {/* <div
-          className="absolute z-40 px-3"
-          style={{ top: "30px", margin: "auto" }}
-        >
-          <SearchBar eventArray={eventArray} setEventArray={setEventArray} />
-        </div> */}
         {/*==================== MAP Component ===================*/}
 
         <Map
@@ -77,17 +85,27 @@ export default function HomePage() {
           setCurrentLocation={setCurrentLocation}
           eventArray={eventArray}
           setEventArray={setEventArray}
+          setSelectedEventId={setSelectedEventId}
+          setSelectedEventDetails={setSelectedEventDetails}
+          fetchLocation={fetchLocation}
         />
       </div>
       {/*==================== EVENT CAROUSEL (EVENT LIST NEAR ME) ===================*/}
       <div>
-        <EventCarousel
-          eventArray={eventArray}
-          setEventArray={setEventArray}
-          selectedEventId={selectedEventId}
-          setSelectedEventId={setSelectedEventId}
-          setSelectedEventDetails={setSelectedEventDetails}
-        />
+        {eventArray[0] ? (
+          <EventCarousel
+            eventArray={eventArray}
+            setEventArray={setEventArray}
+            selectedEventId={selectedEventId}
+            setSelectedEventId={setSelectedEventId}
+            setSelectedEventDetails={setSelectedEventDetails}
+          />
+        ) : (
+          <EmptyState
+            message="Oops.. We can't find the event you are looking for"
+            icon={<DurianLogoBW />}
+          ></EmptyState>
+        )}
       </div>
       {/*==================== EVENT DETAILS (selected event) ===================*/}
       {selectedEventId && (

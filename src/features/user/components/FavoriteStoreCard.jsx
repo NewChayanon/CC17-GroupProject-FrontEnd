@@ -28,10 +28,10 @@ export default function FavoriteStoreCard({
     }
   };
   return (
-    <div className="w-full h-[70px] flex gap-4 items-center">
+    <div className="w-full h-[80px] flex gap-4 items-center bg-white shadow">
       <div className="overflow-hidden">
         <img
-          className="w-[110px] h-[70px] object-fit block"
+          className="w-[110px] h-[80px] object-fit block"
           src={storeDetail.sellerCoverImage}
         />
       </div>

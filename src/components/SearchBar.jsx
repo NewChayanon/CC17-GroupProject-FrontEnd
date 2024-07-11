@@ -10,6 +10,9 @@ export default function SearchBar({
   placeAutoCompleteRef,
   searchKeyword,
   setSearchKeyword,
+  currentLocation,
+  center,
+  setCenter,
 }) {
   const [searchBy, setSearchBy] = useState("");
   const [searchWhen, setSearchWhen] = useState("");
@@ -26,21 +29,30 @@ export default function SearchBar({
   };
   const handleSearch = async (e) => {
     try {
-      console.log(
-        "search keyword before sending API to get events",
-        searchKeyword
-      );
       const result = await authApi.getEventBySearch(
+        currentLocation,
         searchBy,
         searchKeyword,
         searchWhen
       );
       console.log("result from search", result.data); // ได้ event array
       if (!result.data[0]) {
-        return alert("no matched event is found");
+        setEventArray([]);
+        setSearchKeyword("");
+        setSearchBy("");
+        setSearchWhen("");
+        return;
       }
       // Update eventArray based on event array returned from API
       setEventArray(result.data);
+      // Set map center to be lat lng of the first event in eventArray for case of search by product or store only
+      if (searchBy !== "location") {
+        const latlngOfFirstEvent = {};
+        latlngOfFirstEvent.lat = +result.data[0].eventLocation.split(",")[0];
+        latlngOfFirstEvent.lng = +result.data[0].eventLocation.split(",")[1];
+        console.log("Latlng of first event", latlngOfFirstEvent);
+        setCenter(latlngOfFirstEvent);
+      }
       // Reset search keyword
       setSearchKeyword("");
       setSearchBy("");
@@ -51,7 +63,7 @@ export default function SearchBar({
   };
 
   return (
-    <div className="flex gap-2 p-2 w-full bg-white shadow-md rounded-lg min-h-10 text-sm text-graydarktext">
+    <div className="flex gap-2 w-full bg-white shadow-md rounded-lg min-h-10 text-sm text-graydarktext">
       <select
         name="searchby"
         id="searchby"

@@ -1,4 +1,5 @@
 import myStoreApi from "../../apis/my-store";
+import userApi from "../../apis/user";
 
 const initialState = {
   storeDetail: {},
@@ -6,6 +7,12 @@ const initialState = {
   errorMyStore: null,
   selectedEvent: null,
   eventInfo: null,
+
+  storeInfo: {},
+
+  slideUp: false,
+  showText: false,
+  redirectEdit: false,
 };
 
 export const createMyStoreSlice = (set) => ({
@@ -32,6 +39,18 @@ export const createMyStoreSlice = (set) => ({
       }));
     }
   },
+
+  activateMyStore: async (body) => {
+    try {
+      await userApi.createStore(body);
+    } catch (error) {
+      console.log(error);
+      set(() => ({
+        errorMyStore: error.response.data,
+      }));
+    }
+  },
+
   setSelectedEvent: async (event) => {
     try {
       const response = await myStoreApi.getEventDetailByEventId(event.eventId);
@@ -65,6 +84,58 @@ export const createMyStoreSlice = (set) => ({
     }
   },
 
+  editStoreDescription: async (body) => {
+    set({ isLoadingMyStore: true });
+    try {
+      const response = await myStoreApi.editStoreDescription(body);
+      set((state) => ({
+        storeInfo: {
+          ...state.storeInfo,
+          storeProfileSellerDescription: response.data.sellerDescription,
+          storeProfileDescription: response.data.description,
+        },
+      }));
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.msg,
+        }));
+      }
+    } finally {
+      set({ isLoadingMyStore: false });
+    }
+  },
+
+  updateCoverImage: async (formData) => {
+    set({ isLoadingMyStore: true });
+    try {
+      await myStoreApi.updateCoverImage(formData);
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.msg,
+        }));
+      }
+    } finally {
+      set({ isLoadingMyStore: false });
+    }
+  },
+
+  updateUserProfileImage: async (formData) => {
+    set({ isLoadingMyStore: true });
+    try {
+      await myStoreApi.updateUserProfileImage(formData);
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.msg,
+        }));
+      }
+    } finally {
+      set({ isLoadingMyStore: false });
+    }
+  },
+
   formatMonth: (timestamp) => {
     const date = new Date(timestamp);
     const monthFormatter = new Intl.DateTimeFormat("en", { month: "short" });
@@ -89,6 +160,16 @@ export const createMyStoreSlice = (set) => ({
     return formattedDate;
   },
 
+  addDefaultTime: (date) => {
+    const dateTimeString = `${date}T00:00:00.000Z`;
+    return dateTimeString;
+  },
+
+  addDefaultDate: (time) => {
+    const dateTimeString = `1970-01-01T${time}:00.000Z`;
+    return dateTimeString;
+  },
+
   getCreatedEvents: async () => {
     set({ isLoadingMyStore: true });
     try {
@@ -110,5 +191,54 @@ export const createMyStoreSlice = (set) => ({
         isLoadingMyStore: false,
       }));
     }
+  },
+
+  getMyStoreInfo: async () => {
+    set({ isLoadingMyStore: true });
+    try {
+      const response = await myStoreApi.getMyStoreInfo();
+      set(() => ({
+        storeInfo: response.data,
+        errorMyStore: null,
+      }));
+      return response.data;
+    } catch (err) {
+      if (err.response) {
+        set(() => ({
+          errorMyStore: err.response.data,
+        }));
+        return err.response.data;
+      }
+    } finally {
+      set(() => ({
+        isLoadingMyStore: false,
+      }));
+    }
+  },
+
+  convertTime: (time24) => {
+    let [hours, minutes] = time24.split(":");
+    hours = parseInt(hours, 10);
+    const period = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    return `${hours}:${minutes} ${period}`;
+  },
+
+  setSlideUp: (boolean) => {
+    set(() => ({
+      slideUp: boolean,
+    }));
+  },
+
+  setRedirectEdit: (boolean) => {
+    set(() => ({
+      redirectEdit: boolean,
+    }));
+  },
+
+  setShowText: (boolean) => {
+    set(() => ({
+      showText: boolean,
+    }));
   },
 });
