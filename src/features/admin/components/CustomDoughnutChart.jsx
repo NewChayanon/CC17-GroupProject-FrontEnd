@@ -13,8 +13,8 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 ChartJS.register(CategoryScale, LinearScale, ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const CustomDoughnutChart = ({ buyersCount, storesCount, buyerAndSellerCount }) => {
-  const percentageBuyers = (buyersCount * 100) / buyerAndSellerCount;
-  const percentageStores = (storesCount * 100) / buyerAndSellerCount;
+  const percentageBuyers = (buyersCount / buyerAndSellerCount) * 100;
+  const percentageStores = (storesCount / buyerAndSellerCount) * 100;
 
   const data = {
     labels: ["Buyers\n(w/o store)\n", "Stores"],
