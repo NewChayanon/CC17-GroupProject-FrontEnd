@@ -44,7 +44,7 @@ export default function CreatedEvent() {
                 eventDay={getWeekday(el.eventStartDate)}
                 eventMonth={formatMonth(el.eventStartDate)}
                 openTime={el.openTime}
-                eventLocation={el.locationName}
+                eventLocation={el.eventLocationName}
               />
             ))}
           </div>

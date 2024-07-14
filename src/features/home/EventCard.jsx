@@ -22,7 +22,7 @@ export default function EventCard({ event }) {
           <div className="flex items-start">
             <LocationIcon iconColor="red" />
             {/* <p style={{ fontSize: "8px" }}>{event.eventLocation}</p> */}
-            <p style={{ fontSize: "8px" }}> Placeholder Location </p>
+            <p style={{ fontSize: "8px" }}> {event.eventLocationName} </p>
           </div>
         </div>
         <div className="w-1/3">
