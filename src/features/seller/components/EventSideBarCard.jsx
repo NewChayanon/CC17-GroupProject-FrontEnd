@@ -10,6 +10,7 @@ export default function EventSideBarCard({
   closingTime,
   onClick,
   onClickEdit,
+  onClickDelete,
 }) {
   return (
     <div
@@ -47,7 +48,7 @@ export default function EventSideBarCard({
           <div
             onClick={(e) => {
               e.stopPropagation();
-              console.log("clicked");
+              onClickDelete();
             }}
           >
             <DeleteIcon />

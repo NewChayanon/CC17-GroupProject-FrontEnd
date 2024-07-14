@@ -15,12 +15,13 @@ export default function AuthWrapper({ children }) {
     } catch (error) {
       console.log(error);
       logout();
+    } finally {
+      stopLoading();
     }
   };
 
   useEffect(() => {
-    fetchUser();
-    stopLoading(), [];
+    fetchUser(), [];
   });
 
   return children;
