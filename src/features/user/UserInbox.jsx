@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AnnouncementIcon, SearchIcon } from "../../icons";
 import durianProfileLogo from "../../images/profile-mock-durian-pic.png";
+import useStore from "../../zustand/store";
 
-function UserMessageBox() {
+function UserMessageBox({ message }) {
   return (
     <>
       <div className="flex p-3 pl-4 hover:bg-slate-100">
@@ -14,20 +16,31 @@ function UserMessageBox() {
           />
         </div>
         <div className="flex flex-col">
-          <div className="font-semibold">Freshie Foodie - Admin</div>
-          <div className="text-xs">
-            We are excited to let our followers know that we offered vouchers
-            from September 2024
-          </div>
+          <div className="font-semibold">{message.topic}</div>
+          <div className="text-xs">{message.message}</div>
         </div>
-        <div className="text-xs pl-7 pr-2 flex items-start pt-1">18:20</div>
+        <div className="text-xs pl-7 pr-2 flex items-start pt-1">
+          {message.createdAt}
+        </div>
       </div>
     </>
   );
 }
 
 export default function UserInbox() {
+  const inboxMessages = useStore((state) => state.inboxMessages);
+  const getInboxMessages = useStore((state) => state.getInboxMessages);
+  const isLoadingInboxMessages = useStore(
+    (state) => state.isLoadingInboxMessages
+  );
   const navigate = useNavigate();
+  useEffect(() => {
+    const fetchInboxMessageData = async () => {
+      const res = await getInboxMessages();
+    };
+    fetchInboxMessageData();
+  }, []);
+  console.log("inboxMessage", inboxMessages);
   return (
     <div className="">
       <form className="flex justify-between items-center gap-2 px-4 py-3">
@@ -46,15 +59,11 @@ export default function UserInbox() {
           <AnnouncementIcon />
         </div>
       </form>
-      <UserMessageBox />
-      <UserMessageBox />
-      <UserMessageBox />
-      <UserMessageBox />
-      <UserMessageBox />
-      <UserMessageBox />
-      <UserMessageBox />
-      <UserMessageBox />
-      <UserMessageBox />
+      {isLoadingInboxMessages ? (
+        inboxMessages.map((message) => <UserMessageBox message={message} />)
+      ) : (
+        <div>Empty State</div>
+      )}
     </div>
   );
 }
