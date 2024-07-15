@@ -35,6 +35,7 @@ export default function ManageSeller() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     fetchSeller();
   }, []);
@@ -73,7 +74,9 @@ export default function ManageSeller() {
       key: "storeName",
       label: "Store Name",
       sortable: true,
-      render: (value) => <div className="text-sm font-medium text-gray-900">{value}</div>,
+      render: (value) => (
+        <div className="text-sm font-medium text-gray-900">{value}</div>
+      ),
     },
     {
       key: "storeProfileId",

@@ -51,11 +51,21 @@ export default function AddMoreProduct({ onSuccess }) {
     <div className="flex flex-col gap-3">
       <div>
         <span>Product Name</span>
-        <Input placeholder="Durian Monthong" onChange={handleChangeInput} value={input.productName} name="productName" />
+        <Input
+          placeholder="Name of your selling product"
+          onChange={handleChangeInput}
+          value={input.productName}
+          name="productName"
+        />
       </div>
       <div>
         <span>Description</span>
-        <Input placeholder="rfakjahklajsldksjldsadlsf" onChange={handleChangeInput} value={input.productDescription} name="productDescription" />
+        <Input
+          placeholder="Explain your product nicely!"
+          onChange={handleChangeInput}
+          value={input.productDescription}
+          name="productDescription"
+        />
       </div>
       <div>
         <span>Product Image</span>
@@ -78,15 +88,33 @@ export default function AddMoreProduct({ onSuccess }) {
         <span>Product Price</span>
         <div className="flex">
           <div>
-            <Input placeholder="120" onChange={handleChangeInput} value={input.productPrice} name="productPrice" />
+            <Input
+              placeholder="120"
+              onChange={handleChangeInput}
+              value={input.productPrice}
+              name="productPrice"
+            />
           </div>
           <div className="flex">
             <div className="flex items-center gap-1">
-              <input type="radio" id="perUnit" value="UNIT" onChange={handleChangeInput} name="productUnit" />
+              <input
+                type="radio"
+                id="perUnit"
+                value="UNIT"
+                onChange={handleChangeInput}
+                name="productUnit"
+              />
               <label htmlFor="perUnit">Per unit</label>
             </div>
             <div className="flex items-center gap-1">
-              <input className="" type="radio" id="perKilo" value="KG" onChange={handleChangeInput} name="productUnit" />
+              <input
+                className=""
+                type="radio"
+                id="perKilo"
+                value="KG"
+                onChange={handleChangeInput}
+                name="productUnit"
+              />
               <label htmlFor="perKilo">Per Kilo</label>
             </div>
           </div>

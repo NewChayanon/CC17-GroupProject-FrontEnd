@@ -7,6 +7,7 @@ import useStore from "../../zustand/store";
 import { useEffect } from "react";
 import { useRef } from "react";
 import SellerMap from "./map/sellerMap";
+import EventPicMock from "../../images/event-map-pic-mock.png";
 
 export default function MyStoreMainPage() {
   const [activeMenu, setActiveMenu] = useState("detail");
@@ -121,7 +122,13 @@ export default function MyStoreMainPage() {
                 </div>
               </div>
               {/* MAP AND PICTURE GOES HERE IN THIS DIV BELOW */}
-              <div className="bg-graybg w-1/2">MAP HERE</div>
+              <div className="bg-graybg w-1/2">
+                <img
+                  src={EventPicMock}
+                  alt="Right Side bar mock picture"
+                  className="w-full h-36"
+                />
+              </div>
               {/* MAP AND PICTURE GOES HERE IN THIS DIV ABOVE */}
             </div>
             <div
