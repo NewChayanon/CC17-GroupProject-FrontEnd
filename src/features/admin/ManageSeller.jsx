@@ -5,14 +5,13 @@ import Pagination from "../../components/Pagination";
 import { useDebounce } from "../../hooks/useDebounce";
 import adminApi from "../../apis/admin";
 
-
 export default function ManageSeller() {
   const [stores, setStores] = useState([]);
 
   const [filteredStores, setFilteredStores] = useState(stores);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [countRow, setCountRow] = useState(0)
+  const [countRow, setCountRow] = useState(0);
   const itemsPerPage = 10;
 
   const debouncedSearchQuery = useDebounce(searchQuery, 1200);
@@ -22,26 +21,25 @@ export default function ManageSeller() {
     setCurrentPage(1);
   };
 
-  const fetchSeller = async()=>{
+  const fetchSeller = async () => {
     try {
       const data = {
-        pages : currentPage,
-        pageSize  : itemsPerPage,
-        sortBy: "id"
-      }
-      const seller = await adminApi.allSeller(data)
-      console.log('seller',seller.data.result)
-      setStores(seller.data.result)
-      setCountRow(seller.data.countSeller)
+        pages: currentPage,
+        pageSize: itemsPerPage,
+        sortBy: "id",
+      };
+      const seller = await adminApi.allSeller(data);
+      console.log("seller", seller.data.result);
+      setStores(seller.data.result);
+      setCountRow(seller.data.countSeller);
     } catch (error) {
-      console.log(error)
-    }}
-    useEffect(()=>{
-      fetchSeller()
-    },[])
-  
+      console.log(error);
+    }
+  };
 
-  
+  useEffect(() => {
+    fetchSeller();
+  }, []);
 
   useEffect(() => {
     if (debouncedSearchQuery) {
@@ -77,7 +75,9 @@ export default function ManageSeller() {
       key: "storeName",
       label: "Store Name",
       sortable: true,
-      render: (value) => <div className="text-sm font-medium text-gray-900">{value}</div>,
+      render: (value) => (
+        <div className="text-sm font-medium text-gray-900">{value}</div>
+      ),
     },
     {
       key: "storeProfileId",

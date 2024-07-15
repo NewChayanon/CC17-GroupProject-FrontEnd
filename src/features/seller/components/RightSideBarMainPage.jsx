@@ -7,10 +7,12 @@ import EventSideBarCard from "./EventSideBarCard";
 import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 import useStore from "../../../zustand/store";
+import { useEffect } from "react";
 
 const RightSideBarMainPage = () => {
   const navigate = useNavigate();
   const storeDetail = useStore((state) => state.storeDetail);
+  const getMyStore = useStore((state) => state.getMyStore);
   const { myEvent, myStoreProfile } = storeDetail;
   const formatMonth = useStore((state) => state.formatMonth);
   const formatDate = useStore((state) => state.formatDate);
@@ -27,6 +29,13 @@ const RightSideBarMainPage = () => {
     setShowText(true);
     navigate("/mystore");
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getMyStore();
+    };
+    fetchData();
+  }, []);
 
   return (
     <>

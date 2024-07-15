@@ -28,7 +28,7 @@ export default function MyStoreContainer() {
         <div>
           <Sidebar />
         </div>
-        <div className="w-full flex justify-center">
+        <div className="w-full flex">
           <div className="flex flex-1 min-h-[calc(100vh-136px)] h-full w-full max-w-[1280px] overflow-y-auto justify-center">
             <Outlet />
           </div>

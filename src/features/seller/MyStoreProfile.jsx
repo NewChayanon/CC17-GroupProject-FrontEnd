@@ -7,6 +7,7 @@ import useStore from "../../zustand/store";
 import { useEffect } from "react";
 import { useRef } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import ProductTab from "./components/ProductTab";
 
 const initialInput = {
   description: "",
