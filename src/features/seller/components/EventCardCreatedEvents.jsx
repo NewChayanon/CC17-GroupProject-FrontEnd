@@ -37,7 +37,7 @@ export default function EventCardCreatedEvents({
           </div>
           <div className="flex text-primary">
             <div>Location: </div>
-            <div> &nbsp;{eventLocation}</div>
+            <div> &nbsp;{eventLocationName}</div>
           </div>
         </div>
         <div className="p-6 w-full flex justify-end">
