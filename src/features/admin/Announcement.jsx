@@ -96,10 +96,7 @@ export default function Announcement() {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentAnnounces = filteredAnnounces.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
+  const currentAnnounces = filteredAnnounces.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -138,8 +135,7 @@ export default function Announcement() {
         </div>
         <div className="flex-1 p-4 pt-2">
           <div className="text-md p-2 pt-0">
-            Showing {currentAnnounces.length} of {announces.length}{" "}
-            announcements
+            Showing {currentAnnounces.length} of {announces.length} announcements
           </div>
           <div className="">
             <StoreList
@@ -199,11 +195,7 @@ export default function Announcement() {
               </div>
             </Modal>
           </div>
-        </div>
-        <div className="p-4 mt-4 mx-10 border-d border-2 border-gray-500 flex justify-center rounded-xl  ">
-          hell
-          dfdbdf
-          dfd
+          <div className="p-4 mt-4 mx-10 border-d border-2 border-gray-500 flex justify-center rounded-xl h-96"></div>
         </div>
       </div>
     </div>
