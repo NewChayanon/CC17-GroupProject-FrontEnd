@@ -24,7 +24,7 @@ export default function RequestedReport() {
     setCurrentPage(1);
   };
 
-  const fetchAllReport =async()=>{
+  const fetchAllReport = async () => {
     try {
       const data = {
         pages: currentPage,
@@ -33,18 +33,17 @@ export default function RequestedReport() {
       };
 
       // console.log(data)
-      const report = await adminApi.allReport(data)
-      console.log('report',report.data)
-      setReports(report.data)
+      const report = await adminApi.allReport(data);
+      console.log("report", report.data);
+      setReports(report.data);
       // setCountRow(buyer.data.countBuyer);
-
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  useEffect(()=>{
-    fetchAllReport()
-  },[])
+  };
+  useEffect(() => {
+    fetchAllReport();
+  }, []);
 
   useEffect(() => {
     if (debouncedSearchQuery) {
@@ -95,7 +94,6 @@ export default function RequestedReport() {
       sortable: true,
       className: "text-center",
     },
-    
   ];
 
   return (
@@ -132,7 +130,11 @@ export default function RequestedReport() {
           />
         </div>
       </div>
-      {/* <div className="w-screen h-screen bg-red-500 sticky z-10 top-0">Announcement data</div> */}
+      <div className="w-screen h-screen bg-absolutewhite sticky z-1 top-0">
+        <div>
+          <div className="p-4 mt-4 mx-10 border-d border-2 border-gray-500 flex justify-center rounded-xl h-96"></div>
+        </div>
+      </div>
     </div>
   );
 }
