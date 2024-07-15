@@ -8,7 +8,8 @@ const RightSidebar = () => {
   return (
     <div className="hidden xl:flex flex-col w-1/4 min-w-[370px] bg-white overflow-y-auto">
       {location.pathname.includes("profile") ? (
-        <RightSideBarProfile />
+        // <RightSideBarProfile />
+        <RightSideBarMainPage />
       ) : location.pathname.includes("followers") ? (
         <RightSideBarFollower />
       ) : (

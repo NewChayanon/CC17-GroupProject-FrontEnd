@@ -11,6 +11,7 @@ const initialState = {
   storeInfo: {},
   reviewInfo: null,
   productInfo: [],
+  followerId: null,
 
   slideUp: false,
   showText: false,
@@ -88,6 +89,53 @@ export const createMyStoreSlice = (set) => ({
     }
   },
 
+  getMyFollowers: async () => {
+    set({ isLoadingMyStore: true });
+    try {
+      const response = await myStoreApi.getMyStoreFollowers();
+      set(() => ({
+        followerInfo: response.data,
+        errorMyStore: null,
+      }));
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.data,
+        }));
+        return error.response.data;
+      }
+    } finally {
+      set(() => ({
+        isLoadingMyStore: false,
+      }));
+    }
+  },
+
+  getMyCoupons: async () => {
+    set({ isLoadingMyStore: true });
+    try {
+      const response = await myStoreApi.getMyStoreCoupons();
+      console.log("asdjkhjkasjhkldasjklsjdklasdjasd", response);
+      set(() => ({
+        couponInfo: response.data,
+        errorMyStore: null,
+      }));
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response.data,
+        }));
+        return error.response.data;
+      }
+    } finally {
+      set(() => ({
+        isLoadingMyStore: false,
+      }));
+    }
+  },
+
   activateMyStore: async (body) => {
     try {
       await userApi.createStore(body);
@@ -130,6 +178,10 @@ export const createMyStoreSlice = (set) => ({
     } finally {
       set({ isLoadingMyStore: false });
     }
+  },
+
+  setFollowerId: (id) => {
+    set({ followerId: id });
   },
 
   editEvent: async (eventId, formData) => {

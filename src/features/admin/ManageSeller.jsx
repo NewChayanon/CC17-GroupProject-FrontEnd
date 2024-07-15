@@ -5,14 +5,12 @@ import Pagination from "../../components/Pagination";
 import { useDebounce } from "../../hooks/useDebounce";
 import adminApi from "../../apis/admin";
 
-
 export default function ManageSeller() {
   const [stores, setStores] = useState([]);
-
   const [filteredStores, setFilteredStores] = useState(stores);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [countRow, setCountRow] = useState(0)
+  const [countRow, setCountRow] = useState(0);
   const itemsPerPage = 10;
 
   const debouncedSearchQuery = useDebounce(searchQuery, 1200);
@@ -22,35 +20,34 @@ export default function ManageSeller() {
     setCurrentPage(1);
   };
 
-  const fetchSeller = async()=>{
+  const fetchSeller = async () => {
     try {
       const data = {
-        pages : currentPage,
-        pageSize  : itemsPerPage,
-        sortBy: "id"
-      }
-      const seller = await adminApi.allSeller(data)
-      console.log('seller',seller.data.result)
-      setStores(seller.data.result)
-      setCountRow(seller.data.countSeller)
+        pages: currentPage,
+        pageSize: itemsPerPage,
+        sortBy: "id",
+      };
+      const seller = await adminApi.allSeller(data);
+      console.log("seller", seller.data.result);
+      setStores(seller.data.result);
+      setCountRow(seller.data.countSeller);
     } catch (error) {
-      console.log(error)
-    }}
-    useEffect(()=>{
-      fetchSeller()
-    },[])
-  
+      console.log(error);
+    }
+  };
 
-  
+  useEffect(() => {
+    fetchSeller();
+  }, []);
 
   useEffect(() => {
     if (debouncedSearchQuery) {
       const filtered = stores.filter((store) => {
         const query = debouncedSearchQuery.toLowerCase();
         return (
-          store.name.toLowerCase().includes(query) ||
-          store.storeId.toString().includes(query) ||
-          store.userId.toString().includes(query)
+          store.storeName.toLowerCase().includes(query) ||
+          store.storeProfileId.toString().includes(query) ||
+          store.id.toString().includes(query)
         );
       });
       setFilteredStores(filtered);
@@ -77,7 +74,9 @@ export default function ManageSeller() {
       key: "storeName",
       label: "Store Name",
       sortable: true,
-      render: (value) => <div className="text-sm font-medium text-gray-900">{value}</div>,
+      render: (value) => (
+        <div className="text-sm font-medium text-gray-900">{value}</div>
+      ),
     },
     {
       key: "storeProfileId",
@@ -120,7 +119,7 @@ export default function ManageSeller() {
               stores={currentStores}
               columns={columns}
               actions={actions}
-              initialSortConfig={{ key: "name", direction: "asc" }}
+              initialSortConfig={{ key: "storeName", direction: "asc" }}
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ import useStore from "../../zustand/store";
 import { useEffect } from "react";
 import { useRef } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import ProductTab from "./components/ProductTab";
 
 const initialInput = {
   description: "",
@@ -188,7 +189,9 @@ export default function MyStoreProfile() {
               <div className="text-primary font-semibold">
                 {storeInfo.storeProfileName}
               </div>
-              <div className="flex justify-end">OOO</div>
+              <div className="flex justify-end">
+                <div className="flex gap-1 pt-1"></div>
+              </div>
             </div>
             <div className="text-xs pl-2 font-semibold text-gray-500">
               <div className="flex">
@@ -330,7 +333,8 @@ export default function MyStoreProfile() {
               <div className="text-primary font-semibold">
                 Featured Products
               </div>
-              <div className="flex justify-center py-4 pt-7">
+              <div className="flex flex-col items-center gap-10 justify-center py-4 pt-7">
+                <ProductTab />
                 <Button onClick={() => setOpen(true)}>
                   &nbsp;Add more product&nbsp;
                 </Button>

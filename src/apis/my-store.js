@@ -35,4 +35,7 @@ myStoreApi.updateUserProfileImage = (formData) =>
 myStoreApi.addMoreProduct = (formData) =>
   axios.post("user/create-product", formData);
 
+myStoreApi.getMyStoreFollowers = () => axios.get("user/seller-followers");
+myStoreApi.getMyStoreCoupons = () => axios.get("user/seller-coupon");
+
 export default myStoreApi;
