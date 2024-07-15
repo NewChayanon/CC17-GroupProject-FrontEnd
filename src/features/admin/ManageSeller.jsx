@@ -7,7 +7,6 @@ import adminApi from "../../apis/admin";
 
 export default function ManageSeller() {
   const [stores, setStores] = useState([]);
-
   const [filteredStores, setFilteredStores] = useState(stores);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,9 +45,9 @@ export default function ManageSeller() {
       const filtered = stores.filter((store) => {
         const query = debouncedSearchQuery.toLowerCase();
         return (
-          store.name.toLowerCase().includes(query) ||
-          store.storeId.toString().includes(query) ||
-          store.userId.toString().includes(query)
+          store.storeName.toLowerCase().includes(query) ||
+          store.storeProfileId.toString().includes(query) ||
+          store.id.toString().includes(query)
         );
       });
       setFilteredStores(filtered);
@@ -120,7 +119,7 @@ export default function ManageSeller() {
               stores={currentStores}
               columns={columns}
               actions={actions}
-              initialSortConfig={{ key: "name", direction: "asc" }}
+              initialSortConfig={{ key: "storeName", direction: "asc" }}
             />
           </div>
         </div>
