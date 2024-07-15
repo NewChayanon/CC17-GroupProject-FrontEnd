@@ -8,10 +8,17 @@ import useStore from "../../../zustand/store";
 const libraries = ["places", "core", "maps", "marker"];
 const defaultLocation = { lat: 13.76, lng: 100.5 };
 
+const heightMap = {
+  mid: "h-[60vh]",
+  large: "h-[70vh]",
+  createNewEvent: "h-[630px]",
+};
+
 export default function SellerMap({
   setLocationParent,
   small = false,
   handlePin,
+  height = "mid",
 }) {
   const mapRef = useRef(null);
   const placeAutoCompleteRef = useRef(null);
@@ -238,7 +245,7 @@ export default function SellerMap({
       </div>
       {/* Show map */}
       {isLoaded ? (
-        <div className="h-[64vh] xl:h-[60vh] 2xl:h-[67vh]" ref={mapRef}></div>
+        <div className={`${heightMap[height]}`} ref={mapRef}></div>
       ) : (
         <p>Loading...</p>
       )}

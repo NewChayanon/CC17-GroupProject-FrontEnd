@@ -8,11 +8,14 @@ import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 import useStore from "../../../zustand/store";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const RightSideBarMainPage = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const storeDetail = useStore((state) => state.storeDetail);
   const getMyStore = useStore((state) => state.getMyStore);
+  const getCreatedEvents = useStore((state) => state.getCreatedEvents);
   const { myEvent, myStoreProfile } = storeDetail;
   const formatMonth = useStore((state) => state.formatMonth);
   const formatDate = useStore((state) => state.formatDate);
@@ -21,6 +24,7 @@ const RightSideBarMainPage = () => {
   const setSlideUp = useStore((state) => state.setSlideUp);
   const setShowText = useStore((state) => state.setShowText);
   const setRedirectEdit = useStore((state) => state.setRedirectEdit);
+  const deleteEvent = useStore((state) => state.deleteEvent);
 
   const handleEditEvent = (e) => {
     setSelectedEvent(e);
@@ -28,6 +32,24 @@ const RightSideBarMainPage = () => {
     setSlideUp(true);
     setShowText(true);
     navigate("/mystore");
+  };
+
+  const handleDeleteEvent = async (e) => {
+    try {
+      await deleteEvent(e.eventId);
+      const res = await getMyStore();
+      if (pathname.includes("mystore/created-events")) {
+        await getCreatedEvents();
+      } else if (pathname.includes("mystore")) {
+        if (res.myStoreProfile.eventNow.length > 0) {
+          setSelectedEvent(res.myStoreProfile.eventNow[0]);
+        } else if (res.myStoreProfile.upComingEvent.length > 0) {
+          setSelectedEvent(res.myStoreProfile.eventNow[0]);
+        } else return;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -123,6 +145,7 @@ const RightSideBarMainPage = () => {
                   location={e.locationName}
                   onClick={() => setSelectedEvent(e)}
                   onClickEdit={() => handleEditEvent(e)}
+                  onClickDelete={() => handleDeleteEvent(e)}
                 />
               ))
             ) : (
@@ -151,6 +174,7 @@ const RightSideBarMainPage = () => {
                   location={e.locationName}
                   onClick={() => setSelectedEvent(e)}
                   onClickEdit={() => handleEditEvent(e)}
+                  onClickDelete={() => handleDeleteEvent(e)}
                 />
               ))
             ) : (

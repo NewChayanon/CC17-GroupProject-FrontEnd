@@ -156,10 +156,27 @@ export const createMyStoreSlice = (set) => ({
     } catch (error) {
       if (error.response) {
         set(() => ({
-          errorMyStore: error.response.msg,
+          errorMyStore: error.response,
         }));
-        return error.response.msg;
+        return error.response;
       }
+    }
+  },
+
+  createEvent: async (formData) => {
+    set({ isLoadingMyStore: true });
+    try {
+      const res = await myStoreApi.createEvent(formData);
+      return res;
+    } catch (error) {
+      if (error.response) {
+        set({
+          errorMyStore: error.response,
+        });
+        return error.response;
+      }
+    } finally {
+      set({ isLoadingMyStore: false });
     }
   },
 
@@ -177,9 +194,22 @@ export const createMyStoreSlice = (set) => ({
     } catch (error) {
       if (error.response) {
         set(() => ({
-          errorMyStore: error.response.msg,
+          errorMyStore: error.response,
         }));
-        return error.response.msg;
+        return error.response;
+      }
+    }
+  },
+
+  deleteEvent: async (eventId) => {
+    try {
+      await myStoreApi.deleteEvent(eventId);
+    } catch (error) {
+      if (error.response) {
+        set(() => ({
+          errorMyStore: error.response,
+        }));
+        return error.response;
       }
     }
   },
@@ -198,7 +228,7 @@ export const createMyStoreSlice = (set) => ({
     } catch (error) {
       if (error.response) {
         set(() => ({
-          errorMyStore: error.response.msg,
+          errorMyStore: error.response,
         }));
       }
     } finally {
@@ -213,7 +243,7 @@ export const createMyStoreSlice = (set) => ({
     } catch (error) {
       if (error.response) {
         set(() => ({
-          errorMyStore: error.response.msg,
+          errorMyStore: error.response,
         }));
       }
     } finally {
@@ -228,7 +258,7 @@ export const createMyStoreSlice = (set) => ({
     } catch (error) {
       if (error.response) {
         set(() => ({
-          errorMyStore: error.response.msg,
+          errorMyStore: error.response,
         }));
       }
     } finally {

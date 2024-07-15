@@ -9,12 +9,18 @@ myStoreApi.getEventDetailByEventId = (eventId) =>
 
 myStoreApi.getAllEventList = () => axios.get("/user/my-event");
 
+myStoreApi.createEvent = (body) => axios.post("/user/create-event", body);
+
+myStoreApi.deleteEvent = (eventId) =>
+  axios.delete(`/user/remove-event/${eventId}`);
+
 myStoreApi.editEvent = (eventId, body) =>
   axios.patch(`/user/edit-event/${eventId}`, body);
 
 myStoreApi.getMyProducts = () => axios.get("/user/my-product");
 
 myStoreApi.getMyStoreInfo = () => axios.get("/user/my-store-profile");
+
 myStoreApi.getMyStoreReviews = () => axios.get("/user/store-review");
 
 myStoreApi.editStoreDescription = (body) =>
