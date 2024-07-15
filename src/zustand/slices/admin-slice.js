@@ -47,4 +47,20 @@ export const createAdminSlice = (set) => ({
       }));
     }
   },
+  blockUser: async (userId) => {
+    try {
+      await adminApi.blockUsers(userId);
+      set((state) => ({
+        allUsers: state.allUsers.map((user) =>
+          user.id === userId ? { ...user, isBlocked: true } : user
+        ),
+        errorAdmin: null,
+      }));
+    } catch (error) {
+      console.log(error);
+      set(() => ({
+        errorAdmin: error.response.data,
+      }));
+    }
+  },
 });

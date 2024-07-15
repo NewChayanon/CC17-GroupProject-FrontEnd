@@ -52,16 +52,16 @@ export default function ManageBuyer() {
       const filtered = buyers.filter((buyer) => {
         const query = debouncedSearchQuery.toLowerCase();
         return (
-          buyer.name.toLowerCase().includes(query) ||
-          buyer.buyerId.toString().includes(query) ||
-          buyer.userId.toString().includes(query)
+          buyer.username.toLowerCase().includes(query) ||
+          buyer.storeProfileId.toString().includes(query) ||
+          buyer.id.toString().includes(query)
         );
       });
       setFilteredBuyers(filtered);
     } else {
       setFilteredBuyers(buyers);
     }
-  }, [buyers]);
+  }, [debouncedSearchQuery, buyers]);
 
   const toggleBlock = (buyerId) => {
     const updatedBuyers = filteredBuyers.map((buyer) =>
@@ -84,9 +84,7 @@ export default function ManageBuyer() {
       key: "username",
       label: "Buyer Name",
       sortable: true,
-      render: (value) => (
-        <div className="text-sm font-medium text-gray-900">{value}</div>
-      ),
+      render: (value) => <div className="text-sm font-medium text-gray-900">{value}</div>,
     },
     {
       key: "storeProfileId",
@@ -114,7 +112,7 @@ export default function ManageBuyer() {
   return (
     <div className="flex gap-6 bg-graybg">
       <div className="flex flex-col h-full w-full m-6">
-        <div className="sticky top-0 z-10 bg-graybg">
+        <div className="sticky top-0 bg-graybg">
           <SearchBarAdminPage
             placeholder="Durian (search buyer)"
             searchQuery={searchQuery}
@@ -130,7 +128,7 @@ export default function ManageBuyer() {
               stores={currentBuyers}
               columns={columns}
               actions={actions}
-              initialSortConfig={{ key: "name", direction: "asc" }}
+              initialSortConfig={{ key: "username", direction: "asc" }}
             />
           </div>
         </div>
@@ -149,5 +147,3 @@ export default function ManageBuyer() {
     </div>
   );
 }
-
-
