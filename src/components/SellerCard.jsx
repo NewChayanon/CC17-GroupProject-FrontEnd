@@ -41,7 +41,7 @@ export default function SellerTabCard({ selectedEventDetails }) {
         </div>
         <div className="pl-44 py-4">
           <button
-            id={selectedEventDetails.sellerId}
+            id={selectedEventDetails.storeId}
             onClick={handleClickSeeSellerPage}
             className="text-2xl font-bold"
           >
