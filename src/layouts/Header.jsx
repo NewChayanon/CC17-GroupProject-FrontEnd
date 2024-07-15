@@ -23,6 +23,7 @@ export default function Header() {
   const isAuthenticated = useStore((state) => state.isAuthenticated);
   const logout = useStore((state) => state.logout);
   const user = useStore((state) => state.user);
+  const countUnreadMessage = useStore((state) => state.countUnreadMessage);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -34,6 +35,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
+      notification: false,
     },
 
     {
@@ -43,6 +45,7 @@ export default function Header() {
       handleClick: "",
       authRequired: false,
       appearWhenLogin: true,
+      notification: false,
     },
     {
       menuIcon: <CouponIcon isActive={false} size={25} />,
@@ -51,6 +54,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
+      notification: 0,
     },
     {
       menuIcon: <InboxIcon />,
@@ -59,6 +63,8 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
+      notification: countUnreadMessage,
+      notification: 0,
     },
     {
       menuIcon: <MyFavoriteSeller />,
@@ -67,6 +73,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
+      notification: 0,
     },
     {
       menuIcon: <VoucherListIcon />,
@@ -75,6 +82,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
+      notification: 0,
     },
     {
       menuIcon: <SettingIcon />,
@@ -83,6 +91,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
+      notification: 0,
     },
     {
       menuIcon: <ContactUsIcon />,
@@ -91,6 +100,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
+      notification: 0,
     },
     {
       menuIcon: <LogoutIcon />,
@@ -99,6 +109,7 @@ export default function Header() {
       handleClick: "",
       authRequired: false,
       appearWhenLogin: false,
+      notification: 0,
     },
     {
       menuIcon: <LogoutIcon />,
@@ -107,6 +118,7 @@ export default function Header() {
       handleClick: () => logout(),
       authRequired: true,
       appearWhenLogin: true,
+      notification: 0,
     },
   ];
 
@@ -180,6 +192,7 @@ export default function Header() {
                     menuName={navMenu.menuName}
                     linkTo={navMenu.linkTo}
                     onClick={navMenu.handleClick}
+                    notification={navMenu.notification}
                   />
                 </div>
               )

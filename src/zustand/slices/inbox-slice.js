@@ -1,7 +1,7 @@
 import userApi from "../../apis/user";
 
 const initialState = {
-  inboxMessages: null,
+  inboxMessages: [],
   countUnreadMessage: 0,
   isLoadingInboxMessages: false,
   errorFetchInbox: null,
@@ -18,18 +18,16 @@ export const createInboxSlice = (set) => ({
         "result from fetching inbox data",
         response.data.slice(0, 20)
       );
+      console.log("run this line");
       // check if there is unreadMessage
-      let countUnread = 0;
-      inboxMessages.forEach((message) => {
-        if (message.isRead === false) {
-          countUnread++;
-        }
-      });
-      set(() => ({
-        inboxMessages: response.data.slice(0, 20),
-        countUnreadMessage: countUnread,
-      }));
-      return response.data;
+      // count number of unread messages
+      let isRead = response.data.length;
+      if (isRead > 0)
+        set(() => ({
+          inboxMessages: response.data.slice(0, 20),
+          countUnreadMessage: 1,
+        }));
+      return response.data.slice(0, 20);
     } catch (error) {
       if (error.response) {
         set(() => ({
