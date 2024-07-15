@@ -10,6 +10,7 @@ export default function EventSideBarCard({
   closingTime,
   onClick,
   onClickEdit,
+  onClickDelete,
 }) {
   return (
     <div
@@ -22,7 +23,7 @@ export default function EventSideBarCard({
       </div>
       <div className="flex justify-between w-4/5">
         <div className="flex flex-col">
-          <p className="text-graylighttext text-[9px] font-semibold">
+          <p className="text-graylighttext text-[11px] font-semibold">
             until {endDate}
           </p>
           <p className="text-absoluteblack text-xs font-bold">
@@ -30,7 +31,7 @@ export default function EventSideBarCard({
           </p>
           <div className="flex gap-0.5 items-center">
             <MapPinIcon />
-            <p className="text-graylighttext text-[9px] font-semibold">
+            <p className="text-graylighttext text-[10px] font-semibold">
               {location}
             </p>
           </div>
@@ -47,7 +48,7 @@ export default function EventSideBarCard({
           <div
             onClick={(e) => {
               e.stopPropagation();
-              console.log("clicked");
+              onClickDelete();
             }}
           >
             <DeleteIcon />

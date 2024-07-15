@@ -11,6 +11,8 @@ userApi.changeInfoSettings = (formData) =>
 
 userApi.createStore = (body) => axios.post("user/create-store", body);
 
+userApi.getInboxMessages = () => axios.get("user/inbox");
+
 // storeApi.getStoreByIdAnonymous = (storeId) =>
 //   axios.get(`auth/storeProfile/${storeId}`);
 // // storeApi.getStoreByIdLoggedIn = (storeId) => axios.get(`user/storeProfile/${storeId}`);

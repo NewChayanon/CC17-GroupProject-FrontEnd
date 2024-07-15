@@ -1,95 +1,25 @@
-import { QrcodeIcon, SearchIcon } from "../../icons";
-
-function CouponFullMock() {
-  return (
-    <div className="bg-white p-10 h-full">
-      <div className="shadow-lg flex flex-col bg-graybg items-center rounded-xl relative px-8 py-8 gap-4">
-        <div
-          className="flex items-center"
-          style={{ maxHeight: "104px", overflow: "hidden" }}
-        >
-          <img
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-            src="https://picsum.photos/id/237/300/200"
-          />
-        </div>
-        <div className="flex flex-col">
-          <div className="text-base text-primary font-semibold">
-            UserName of Seller
-          </div>
-          <div className="text-base font-semibold ">
-            Halloween Super Discount
-          </div>
-          <div className="text-xs">selectedEventDetails</div>
-          <div className="flex justify-between">
-            <div className="text-xs">Validity: StartDate - EndDate</div>
-            <div className="text-xs">Code: voucherCode</div>
-          </div>
-        </div>
-        <div className="text-graylighttext font-extrabold">
-          &#8211; &#8211; &#8211; &#8211; &#8211; &#8211; &#8211; &#8211;
-          &#8211; &#8211; &#8211; &#8211; &#8211; &#8211; &#8211; &#8211;
-          &#8211; &#8211; &#8211; &#8211; &#8211;
-        </div>
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-32 h-32">
-            <QrcodeIcon />
-          </div>
-          <div className="text-xs text-graylighttext">
-            This QR code is valid until 20 May 2024
-          </div>
-        </div>
-        <div className="absolute bg-white rounded-full w-8 h-8 -left-4 top-1/2 transform -translate-y-1/2"></div>
-        <div className="absolute bg-white rounded-full w-8 h-8 -right-4 top-1/2 transform -translate-y-1/2"></div>
-      </div>
-    </div>
-  );
-}
-
-function CouponMock() {
-  return (
-    <>
-      <div className="flex justify-center items-center gap-4 bg-white rounded-lg">
-        <div className="h-24 ">
-          <img
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-            }}
-            src="https://picsum.photos/id/237/300/200"
-          />
-        </div>
-
-        <div className="flex flex-col pr-5">
-          <div className="text-base text-primary font-semibold">Store Name</div>
-          <div className="text-base font-semibold text-tertiary">
-            Coupon Event Name
-          </div>
-          <div className="text-xs">
-            Coupon Condition Description Description Description Description
-          </div>
-          <div className="flex justify-between">
-            <div className="text-xs">Validity: Start Date - End Date</div>
-            <div className="text-xs">Code: AAAAAAA</div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
+import { useEffect } from "react";
+import { SearchIcon } from "../../icons";
+import useStore from "../../zustand/store";
+import CouponFullRightTab from "./components/CouponFullRightTab";
+import CouponTab from "./components/CouponTab";
 
 export default function SellerVoucher() {
+  const getMyCoupons = useStore((state) => state.getMyCoupons);
+  const couponInfo = useStore((state) => state.couponInfo);
+  // const numberOfCoupons = couponInfo.length;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await getMyCoupons();
+    };
+    fetchData();
+  }, []);
+
   return (
-    <div className="flex">
-      <div>
-        <form className="flex justify-between items-center gap-2 p-4 pb-0">
+    <div className="flex justify-start w-full ">
+      <div className="flex flex-col justify-start">
+        <form className="flex justify-between items-center gap-2 p-4 pb-0 w-auto">
           <input
             value=""
             onChange=""
@@ -99,26 +29,52 @@ export default function SellerVoucher() {
           />
           <SearchIcon />
         </form>
-        <div className="flex flex-col ">
-          <div className="flex p-2 pr-6 text-sm justify-end">
-            <div className="font-semibold ">Your store coupon amount:</div>
-            <div>&nbsp;11 coupons</div>
+        <div className="flex flex-col   ">
+          <div className="flex p-2 pr-6 text-sm">
+            <div className="font-semibold pl-4">Your store coupon amount:</div>
+            <div>&nbsp; 3 coupons</div>
           </div>
-          <div className=" flex flex-col p-4 pt-0 gap-4">
-            <CouponMock />
-            <CouponMock />
-            <CouponMock />
-            <CouponMock />
-            <CouponMock />
-            <CouponMock />
+          <div className="flex justify-start">
+            {couponInfo && (
+              <div className=" flex flex-col p-5  pt-0 gap-4 w-[550px]">
+                {couponInfo.map((el) => (
+                  <CouponTab
+                    key={el.voucherItemId}
+                    storeName={el.storeName}
+                    eventName={el.eventName}
+                    voucherDescription={el.voucherDescription}
+                    eventStartDate={el.eventStartDate.split("T")[0]}
+                    eventEndDate={el.eventEndDate.split("T")[0]}
+                    voucherCode={el.voucherCode}
+                    voucherImage={el.voucherImage}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
       <div className="bg-white">
-        <div className="p-10 pb-0 text-center font-semibold text-primary">
+        <div className="p-10 pb-0  text-xl text-center font-semibold text-primary">
           Full Details of Selected Coupon
         </div>
-        <CouponFullMock />
+        {couponInfo && (
+          <div>
+            {couponInfo.map((el) => (
+              <CouponFullRightTab
+                storeName={el.storeName}
+                eventName={el.eventName}
+                voucherCondition={el.voucherCondition}
+                voucherDescription={el.voucherDescription}
+                eventStartDate={el.eventStartDate}
+                eventEndDate={el.eventEndDate}
+                voucherCode={el.voucherCode}
+                voucherImage={el.voucherImage}
+                image={el.image}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

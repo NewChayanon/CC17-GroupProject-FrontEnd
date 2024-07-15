@@ -58,7 +58,7 @@ export default function CouponTab({
             objectFit: "cover",
             display: "block",
           }}
-          src="https://picsum.photos/id/237/300/200"
+          src="https://i.pinimg.com/736x/be/3f/5d/be3f5d61a8d2059bfd16c10e8c08f552.jpg"
         />
       </div>
       {/* ======Voucher Details ========= */}

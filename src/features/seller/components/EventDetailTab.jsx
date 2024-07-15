@@ -21,6 +21,9 @@ const initialInputError = {
 export default function EventDetailTab({ slideUp }) {
   const selectedEvent = useStore((state) => state.selectedEvent);
   const editEvent = useStore((state) => state.editEvent);
+  const getCurrentFormattedDate = useStore(
+    (state) => state.getCurrentFormattedDate
+  );
   const addDefaultTime = useStore((state) => state.addDefaultTime);
   const addDefaultDate = useStore((state) => state.addDefaultDate);
   const getMyStore = useStore((state) => state.getMyStore);
@@ -29,6 +32,8 @@ export default function EventDetailTab({ slideUp }) {
 
   const [editName, setEditName] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
+
+  const currentDate = getCurrentFormattedDate();
 
   const initialInput = {
     name: selectedEvent.eventName,
@@ -56,9 +61,18 @@ export default function EventDetailTab({ slideUp }) {
 
     switch (name) {
       case "startDate": {
+        if (value < currentDate) {
+          setInputError({
+            ...inputError,
+            endDate: "",
+            [name]: "cannot set start date before current date",
+          });
+          return;
+        }
         if (value > input.endDate) {
           setInputError({
             ...inputError,
+            endDate: "",
             [name]: "cannot set start date after end date",
           });
           return;
@@ -66,14 +80,23 @@ export default function EventDetailTab({ slideUp }) {
         const startDateTime = addDefaultTime(value);
         setInput({ ...input, [name]: value });
         setInputSubmit({ ...inputSubmit, startDate: startDateTime });
-        setInputError({ ...inputError, [name]: "" });
+        setInputError({ ...inputError, endDate: "", [name]: "" });
         break;
       }
 
       case "endDate": {
+        if (value < currentDate) {
+          setInputError({
+            ...inputError,
+            startDate: "",
+            [name]: "cannot set start date before current date",
+          });
+          return;
+        }
         if (value < input.startDate) {
           setInputError({
             ...inputError,
+            startDate: "",
             [name]: "cannot set end date before start date",
           });
           return;
@@ -81,7 +104,7 @@ export default function EventDetailTab({ slideUp }) {
         const endDateTime = addDefaultTime(value);
         setInput({ ...input, [name]: value });
         setInputSubmit({ ...inputSubmit, endDate: endDateTime });
-        setInputError({ ...inputError, [name]: "" });
+        setInputError({ ...inputError, startDate: "", [name]: "" });
         break;
       }
 

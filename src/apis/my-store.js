@@ -4,20 +4,38 @@ const myStoreApi = {};
 
 myStoreApi.getMyStore = () => axios.get("/user/store-main-page");
 
-myStoreApi.getEventDetailByEventId = (eventId) => axios.get(`/user/store-main-page/${eventId}`);
+myStoreApi.getEventDetailByEventId = (eventId) =>
+  axios.get(`/user/store-main-page/${eventId}`);
 
 myStoreApi.getAllEventList = () => axios.get("/user/my-event");
 
-myStoreApi.editEvent = (eventId, body) => axios.patch(`/user/edit-event/${eventId}`, body);
+myStoreApi.createEvent = (body) => axios.post("/user/create-event", body);
+
+myStoreApi.deleteEvent = (eventId) =>
+  axios.delete(`/user/remove-event/${eventId}`);
+
+myStoreApi.editEvent = (eventId, body) =>
+  axios.patch(`/user/edit-event/${eventId}`, body);
+
+myStoreApi.getMyProducts = () => axios.get("/user/my-product");
 
 myStoreApi.getMyStoreInfo = () => axios.get("/user/my-store-profile");
 
-myStoreApi.editStoreDescription = (body) => axios.patch("user/edit-description-store", body);
+myStoreApi.getMyStoreReviews = () => axios.get("/user/store-review");
 
-myStoreApi.updateCoverImage = (formData) => axios.patch("user/update-coverImage", formData);
+myStoreApi.editStoreDescription = (body) =>
+  axios.patch("user/edit-description-store", body);
 
-myStoreApi.updateUserProfileImage = (formData) => axios.patch("user/store-profile-page/edit-user-profile-image", formData);
+myStoreApi.updateCoverImage = (formData) =>
+  axios.patch("user/update-coverImage", formData);
 
-myStoreApi.addMoreProduct = (formData) => axios.post("user/create-product", formData);
+myStoreApi.updateUserProfileImage = (formData) =>
+  axios.patch("user/store-profile-page/edit-user-profile-image", formData);
+
+myStoreApi.addMoreProduct = (formData) =>
+  axios.post("user/create-product", formData);
+
+myStoreApi.getMyStoreFollowers = () => axios.get("user/seller-followers");
+myStoreApi.getMyStoreCoupons = () => axios.get("user/seller-coupon");
 
 export default myStoreApi;

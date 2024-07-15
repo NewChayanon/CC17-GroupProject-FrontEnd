@@ -7,6 +7,7 @@ import useStore from "../../zustand/store";
 import { useEffect } from "react";
 import { useRef } from "react";
 import SellerMap from "./map/sellerMap";
+import EventPicMock from "../../images/event-map-pic-mock.png";
 
 export default function MyStoreMainPage() {
   const [activeMenu, setActiveMenu] = useState("detail");
@@ -50,28 +51,30 @@ export default function MyStoreMainPage() {
   };
 
   useEffect(() => {
-    const fetchdata = async () => {
+    const fetchData = async () => {
       const res = await getMyStore();
       if (res.myStoreProfile) {
         if (res.myStoreProfile.eventNow.length > 0) {
           setSelectedEvent(res.myStoreProfile.eventNow[0]);
         } else if (res.myStoreProfile.upComingEvent.length > 0) {
           setSelectedEvent(res.myStoreProfile.eventNow[0]);
-        } else return;
+        }
       }
     };
-    if (redirectEdit === false) fetchdata();
+    if (redirectEdit === false) fetchData();
     else if (redirectEdit === true) setRedirectEdit(false);
   }, []);
 
   return (
     <div className="relative bg-graybg min-h-full w-full flex flex-col justify-between overflow-hidden">
-      <SellerMap />
+      <div className="h-0">
+        <SellerMap />
+      </div>
 
       {selectedEvent && myStoreProfile ? (
-        <>
+        <div>
           <div
-            className={`absolute flex flex-col gap-4 -bottom-[70%] xl:-bottom-[65%] 2xl:-bottom-[70%] bg-verylightyellow h-[95%] w-full transition-transform duration-500 ${slideUp ? "-translate-y-[70%] xl:-translate-y-[65%] 2xl:-translate-y-[70%]" : "translate-y-0"}`}
+            className={`absolute flex flex-col gap-4 -bottom-[65%] bg-verylightyellow h-[95%] w-full transition-transform duration-500 ${slideUp ? "-translate-y-[65%]" : "translate-y-0"}`}
           >
             <div className="flex w-full p-4 gap-3">
               <div className="flex flex-col w-1/2 gap-2">
@@ -121,7 +124,13 @@ export default function MyStoreMainPage() {
                 </div>
               </div>
               {/* MAP AND PICTURE GOES HERE IN THIS DIV BELOW */}
-              <div className="bg-graybg w-1/2">MAP HERE</div>
+              <div className="bg-graybg w-1/2">
+                <img
+                  src={EventPicMock}
+                  alt="Right Side bar mock picture"
+                  className="w-full h-36"
+                />
+              </div>
               {/* MAP AND PICTURE GOES HERE IN THIS DIV ABOVE */}
             </div>
             <div
@@ -193,7 +202,7 @@ export default function MyStoreMainPage() {
               </p>
             </button>
           </div>
-        </>
+        </div>
       ) : (
         <div className="bg-verylightyellow h-full flex justify-center items-center font-bold text-xl">
           Your store has no event yet.

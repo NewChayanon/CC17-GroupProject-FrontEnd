@@ -57,7 +57,7 @@ export default function Promotion() {
               Special deal from this store!
             </div>
             <div className="text-sm">
-              {selectedEventDetails?.voucherItem.voucherCondition}
+              {selectedEventDetails?.voucherItem.voucherDescription}
             </div>
             <div>
               <div className="text-sm font-semibold">Conditions</div>
@@ -100,6 +100,7 @@ export default function Promotion() {
               <CouponDetailModal
                 selectedEventDetails={selectedEventDetails}
                 onCloseModal={() => setOpenModal(false)}
+                useEnabled={false}
               />
             </Modal>
             {/* Modal if user has not logged in yet */}

@@ -1,16 +1,25 @@
 "use client";
 
 import { useJsApiLoader } from "@react-google-maps/api";
-import { useState } from "react";
-import { useRef } from "react";
-import { useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import getCurrentLocation from "../../map/get-current-location";
 import useStore from "../../../zustand/store";
 
 const libraries = ["places", "core", "maps", "marker"];
 const defaultLocation = { lat: 13.76, lng: 100.5 };
 
-export default function SellerMap() {
+const heightMap = {
+  mid: "h-[60vh]",
+  large: "h-[70vh]",
+  createNewEvent: "h-[630px]",
+};
+
+export default function SellerMap({
+  setLocationParent,
+  small = false,
+  handlePin,
+  height = "mid",
+}) {
   const mapRef = useRef(null);
   const placeAutoCompleteRef = useRef(null);
   const [map, setMap] = useState(null);
@@ -18,8 +27,8 @@ export default function SellerMap() {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(15);
   const [center, setCenter] = useState(defaultLocation);
-  const [bounds, setBounds] = useState(null);
-  const [searchKeyword, setSearchKeyword] = useState("");
+  const [clickedLocation, setClickedLocation] = useState(null); // State to hold the clicked location
+  const [marker, setMarker] = useState(null); // State to hold the marker instance
   const storeDetail = useStore((state) => state.storeDetail);
   const selectedEvent = useStore((state) => state.selectedEvent);
 
@@ -64,6 +73,41 @@ export default function SellerMap() {
       const gMap = new google.maps.Map(mapRef.current, mapOptions);
       setMap(gMap);
       console.log("Map instantiated done");
+
+      // Add click listener to map
+      gMap.addListener("click", (event) => {
+        const latLng = event.latLng;
+        console.log("Map clicked at", latLng.toString());
+        setClickedLocation({
+          lat: latLng.lat(),
+          lng: latLng.lng(),
+        });
+        if (setLocationParent) {
+          setLocationParent({
+            lat: latLng.lat(),
+            lng: latLng.lng(),
+          });
+
+          const position = {
+            lat: latLng.lat(),
+            lng: latLng.lng(),
+          };
+          setCenter(position);
+
+          handlePin();
+
+          // Remove old marker if it exists
+
+          // Place new marker
+          // const newMarker = new google.maps.Marker({
+          //   position: latLng,
+          //   map: gMap,
+          // });
+
+          // setMarker(newMarker);
+        }
+      });
+
       // Create Autocomplete searchbox instance with options (limit search of places & return fields (geometry = lat&lng))
       // Prepare Limit condition the place bound to thailand's area by southwest & northeast lat&lng
       const thailandBound = new google.maps.LatLngBounds(
@@ -97,8 +141,8 @@ export default function SellerMap() {
         };
         setMarkerForEvents(
           location,
-          "event.eventName",
-          "event.eventStartDate",
+          event.eventName,
+          event.eventStartDate,
           event.eventId
         );
       });
@@ -141,7 +185,7 @@ export default function SellerMap() {
     locationAddressOrEventDetails,
     eventId
   ) {
-    // Marker นี้ควรจะโชว์ เมื่อกดคลิกที่ pin เท่านั้น และสามารถปิดได้ด้วย
+    // Marker นี้ควรจะโชว์ เมื่อกดคลิก
     if (!map) return;
     // Render Marker
     const svgMarker = {
@@ -153,11 +197,12 @@ export default function SellerMap() {
       scale: 2,
       anchor: new google.maps.Point(0, 20),
     };
-    const marker = new google.maps.marker.AdvancedMarkerElement({
-      map: map,
+    const newMarker = new google.maps.Marker({
       position: location,
-      title: "Marker Title",
+      map: map,
+      // icon: svgMarker,
     });
+
     // Setup content for
     const content = document.createElement("div");
     content.style.width = "100px";
@@ -174,30 +219,24 @@ export default function SellerMap() {
       content: content,
     });
     // Add click event listener to marker to open infoCard
-    marker.addListener("click", (e) => {
+    newMarker.addListener("click", (e) => {
       console.log("event from clicking marker", e);
       // setSelectedEventId(e.id);
       infoCard.open({
         map: map,
-        anchor: marker,
+        anchor: newMarker,
       });
     });
+
+    return newMarker;
   }
 
   return (
     <div className="flex flex-col relative">
-      {/* add searchbox */}
-      {/* <div className="absolute z-20 top-4"> */}
-      {/* <SearchBar
-          searchKeyword={searchKeyword}
-          setSearchKeyword={setSearchKeyword}
-          eventArray={eventArray}
-          setEventArray={setEventArray}
-          placeAutoCompleteRef={placeAutoCompleteRef}
-        /> */}
-      {/* </div> */}
       {/* Show search box */}
-      <div className="absolute top-16 left-3 xl:top-4 xl:left-56 z-20">
+      <div
+        className={`absolute ${small ? "top-16 left-3" : "top-16 left-3 xl:top-4 xl:left-56"} z-20`}
+      >
         <input
           type="text"
           ref={placeAutoCompleteRef}
@@ -206,7 +245,7 @@ export default function SellerMap() {
       </div>
       {/* Show map */}
       {isLoaded ? (
-        <div className="h-[64vh] xl:h-[60vh] 2xl:h-[67vh]" ref={mapRef}></div>
+        <div className={`${heightMap[height]}`} ref={mapRef}></div>
       ) : (
         <p>Loading...</p>
       )}
