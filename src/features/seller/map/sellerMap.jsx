@@ -11,7 +11,7 @@ const defaultLocation = { lat: 13.76, lng: 100.5 };
 const heightMap = {
   mid: "h-[60vh]",
   large: "h-[70vh]",
-  createNewEvent: "h-[630px]",
+  createNewEvent: "h-[660px]",
 };
 
 export default function SellerMap({

@@ -22,7 +22,7 @@ export default function MyStoreContainer() {
   ].includes(location.pathname);
 
   return (
-    <div className="h-screen flex flex-col ">
+    <div className="h-screen flex flex-col">
       <Header />
       <div className="flex overflow-hidden bg-graybg">
         <div>

@@ -9,10 +9,10 @@ import { LocationIcon } from "../../icons";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import CreateCouponTab from "./components/CreateCouponTab";
 
 const initialInput = {
   eventImage: "",
-  // voucherImage: "",
   name: "",
   description: "",
   location: "",
@@ -22,7 +22,18 @@ const initialInput = {
   openTime: "",
   closingTime: "",
   eventItem: "",
-  // voucher: "",
+};
+
+const initialInputCoupon = {
+  voucherImage: "",
+  voucher: {
+    name: "",
+    code: "",
+    condition: "",
+    description: "",
+    totalAmount: "",
+    discount: "",
+  },
 };
 
 export default function CreateNewEvent() {
@@ -44,9 +55,11 @@ export default function CreateNewEvent() {
   const [input, setInput] = useState(initialInput);
   const [inputSubmit, setInputSubmit] = useState(initialInput);
   const [inputError, setInputError] = useState(initialInput);
+  const [inputCoupon, setInputCoupon] = useState(initialInputCoupon);
   const [selectedProduct, setSelectedProduct] = useState();
   const [eventItem, setEventItem] = useState([]);
   const [eventItemDisplay, setEventItemDisplay] = useState([]);
+  const [openCouponTab, setOpenCouponTab] = useState(false);
   const navigate = useNavigate();
 
   const fileEl = useRef();
@@ -211,8 +224,8 @@ export default function CreateNewEvent() {
   const submitEvent = async (e) => {
     try {
       e.preventDefault();
+      if (inputError.voucher?.code) return;
       setInputError(initialInput);
-      console.log(inputSubmit);
       const formData = new FormData();
       Object.keys(inputSubmit).forEach((key) => {
         if (inputSubmit[key]) formData.append(key, inputSubmit[key]);
@@ -225,18 +238,38 @@ export default function CreateNewEvent() {
 
       formData.append("eventItem", JSON.stringify(eventItem));
 
-      const logFormData = (formData) => {
-        for (let pair of formData.entries()) {
-          console.log(`${pair[0]}: ${pair[1]}`);
-        }
-      };
+      console.log(inputCoupon);
 
-      logFormData(formData);
+      if (
+        inputCoupon.voucher.name &&
+        inputCoupon.voucher.code &&
+        inputCoupon.voucher.condition &&
+        inputCoupon.voucher.description &&
+        inputCoupon.voucher.totalAmount
+      ) {
+        console.log("yay");
+        Object.keys(inputCoupon).forEach((key) => {
+          if (key === "voucher") {
+            formData.append("voucher", JSON.stringify(inputCoupon.voucher));
+          } else {
+            formData.append(key, inputCoupon[key]);
+          }
+        });
+      }
+
+      // const logFormData = (formData) => {
+      //   for (let pair of formData.entries()) {
+      //     console.log(`${pair[0]}: ${pair[1]}`);
+      //   }
+      // };
+
+      // logFormData(formData);
 
       const res = await createEvent(formData);
 
       setInput(initialInput);
       setInputSubmit(initialInput);
+      setInputCoupon(initialInputCoupon);
 
       if (res.status === 201) {
         navigate("/mystore/created-events");
@@ -367,7 +400,7 @@ export default function CreateNewEvent() {
                     <div className="w-full h-full flex justify-center border-graydarktext border-opacity-40 border-2 border-dashed rounded-xl">
                       <button
                         onClick={() => fileEl.current.click()}
-                        className="group flex flex-col justify-center items-center w-fit h-fit"
+                        className="p-2 group flex flex-col justify-center items-center w-fit h-fit"
                       >
                         <div className="bg-absolutewhite group-hover:bg-graybg w-12 h-12 rounded-full flex justify-center items-center">
                           <UploadIcon />
@@ -381,7 +414,7 @@ export default function CreateNewEvent() {
                 </div>
               </div>
             </div>
-            <div className="bg-yellow-100 rounded-lg w-96 h-[630px] relative">
+            <div className="bg-yellow-100 rounded-lg w-96 h-[660px] relative">
               <SellerMap
                 setLocationParent={setClickedLocation}
                 small={true}
@@ -394,7 +427,7 @@ export default function CreateNewEvent() {
             </div>
           </div>
           <div className="flex p-8 pt-0 gap-10 ">
-            <div className="flex flex-col items-center p-6  w-full bg-yellow-100 rounded-lg h-96">
+            <div className="flex flex-col items-center p-6 w-full bg-yellow-100 rounded-lg">
               <div className="text-primary font-semibold text-2xl pb-2">
                 Event Date Time
               </div>
@@ -504,12 +537,35 @@ export default function CreateNewEvent() {
               </div>
             </div>
           </div>
-          <div className="flex justify-center items-center bg-verylightyellow p-8 border border-r-0 border-l-0 border-dashed border-tertiary border-opacity-50 flex-col gap-1">
-            <button className="py-2 px-8 rounded-lg bg-secondary  w-fit">
-              <div className="font-semibold text-tertiary text-base">
-                Create a coupon for this event!
+          <div className="flex justify-center items-center bg-verylightyellow p-2 border border-r-0 border-l-0 border-dashed border-tertiary border-opacity-50 flex-col gap-1">
+            {openCouponTab ? (
+              <div className="flex flex-col w-full">
+                <CreateCouponTab
+                  inputCoupon={inputCoupon}
+                  setInputCoupon={setInputCoupon}
+                  input={input}
+                  inputError={inputError}
+                  setInputError={setInputError}
+                />
+                <div className="flex w-full justify-end">
+                  <button
+                    className="text-red-500 underline"
+                    onClick={() => setOpenCouponTab(false)}
+                  >
+                    remove this coupon
+                  </button>
+                </div>
               </div>
-            </button>
+            ) : (
+              <button
+                onClick={() => setOpenCouponTab(true)}
+                className="m-6 py-2 px-8 rounded-lg bg-secondary w-fit"
+              >
+                <div className="font-semibold text-tertiary text-base">
+                  Create a coupon for this event!
+                </div>
+              </button>
+            )}
           </div>
 
           <div className="flex justify-center items-center p-8 flex-col gap-1 text-sm">
