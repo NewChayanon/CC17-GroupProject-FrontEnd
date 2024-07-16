@@ -63,8 +63,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
-      notification: countUnreadMessage,
-      notification: 0,
+      notification: countUnreadMessage
     },
     {
       menuIcon: <MyFavoriteSeller />,
@@ -177,7 +176,7 @@ export default function Header() {
                 <p className="font-semibold">
                   Hi!{" "}
                   {user
-                    ? user.displayName.slice(0, 10) || user.firstName
+                    ? user.displayName?.slice(0, 10) || user.firstName
                     : "Guest"}
                 </p>
               </div>
@@ -217,7 +216,7 @@ export default function Header() {
             </div>
             <p className="font-semibold text-black overflow-hidden">
               Hi!{" "}
-              {user ? user.displayName.slice(0, 13) || user.firstName : "Guest"}
+              {user ? user.displayName?.slice(0, 13) || user.firstName : "Guest"}
             </p>
           </div>
           <ul
