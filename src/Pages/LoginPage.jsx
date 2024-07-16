@@ -183,7 +183,7 @@ export default function LoginPage() {
             open={openModal}
             onClose={() => setOpenModal(false)}
           >
-            <RegisterForm />
+            <RegisterForm onClose={()=>setOpenModal(false)}/>
           </Modal>
         </div>
       </div>
