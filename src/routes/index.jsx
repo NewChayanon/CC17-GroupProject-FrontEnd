@@ -9,6 +9,7 @@ const AboutUs = lazy(() => import("../Pages/AboutUs"));
 const ContactUs = lazy(() => import("../Pages/ContactUs"));
 
 const LoginPage = lazy(() => import("../Pages/LoginPage"));
+const ResetPasswordPage = lazy(()=> import("../Pages/ResetPasswordPage"))
 const NotLoginPage = lazy(() => import("../Pages/NotLoginPage"));
 const HomePage = lazy(() => import("../Pages/HomePage"));
 const EventDetail = lazy(() => import("../features/event/EventDetail"));
@@ -52,6 +53,7 @@ const AdminProtectedRoute = lazy(() => import("../features/authentication/AdminP
 const userRouter = createBrowserRouter([
   { path: "/", element: <LandingPage /> },
   { path: "login", element: <LoginPage /> },
+  { path: "reset-password", element: <ResetPasswordPage /> },
   { path: "not-login", element: <NotLoginPage /> },
   { path: "about-us", element: <AboutUs /> },
   { path: "contact-us", element: <ContactUs /> },

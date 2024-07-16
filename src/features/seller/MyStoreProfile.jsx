@@ -14,7 +14,6 @@ const initialInput = {
   sellerDescription: "",
 };
 
-import myStoreApi from "../../apis/my-store";
 import Modal from "../../components/Modal";
 import AddMoreProduct from "./AddMoreProduct";
 
