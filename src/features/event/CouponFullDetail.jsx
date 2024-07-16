@@ -1,5 +1,6 @@
 import React from "react";
 import { QrcodeIcon } from "../../icons";
+import { formatDateString } from "../../utils/datetime-conversion";
 
 // Note: this component is used in 2 features 1. event/promotion page 2. user/collected-coupon page. โดยที่ แต่ละหน้า จะมี structure ของข้อมูลที่ส่งเข้ามา ไม่เหมือนกัน
 // event/promotion ข้อมูลเกี่ยวกับ voucher จะอยู่ใต้ selectedEventDetails.voucherItem
@@ -9,6 +10,8 @@ export default function CouponFullDetail({
   selectedEventDetails,
   useEnabled = true,
 }) {
+  console.log("event details inside couponfulldetail", selectedEventDetails);
+  console.log("voucher code", selectedEventDetails.voucherItem.voucherCode);
   return (
     <div
       className="shadow-lg flex flex-col bg-graybg items-center rounded-xl relative px-8 py-8 gap-4"
@@ -25,27 +28,28 @@ export default function CouponFullDetail({
             objectFit: "cover",
             display: "block",
           }}
-          src="https://picsum.photos/id/237/300/200"
+          src={selectedEventDetails.eventImage}
         />
       </div>
       <div className="flex flex-col">
         <div className="text-base text-primary">
           {selectedEventDetails.sellerFirstName}
         </div>
-        <div className="text-base ">
+        <div className="text-base ">{selectedEventDetails.eventName}</div>
+        {/* <div className="text-base ">
           {useEnabled
             ? selectedEventDetails.eventName
             : selectedEventDetails.voucherItem.eventName}
-        </div>
+        </div> */}
         <div className="text-xs">
           {useEnabled
-            ? selectedEventDetails.voucherCondition
-            : selectedEventDetails.voucherItem.voucherCondition}
+            ? selectedEventDetails.voucherDescription
+            : selectedEventDetails.voucherItem.voucherDescription}
         </div>
-        <div className="flex justify-between">
+        <div className="flex flex-col justify-start">
           <div className="text-xs">
-            Validity: {selectedEventDetails.eventStartDate} -{" "}
-            {selectedEventDetails.eventEndDate}
+            Validity: {formatDateString(selectedEventDetails.eventStartDate)} -{" "}
+            {formatDateString(selectedEventDetails.eventEndDate)}{" "}
           </div>
           <div className="text-xs">
             Code:{" "}

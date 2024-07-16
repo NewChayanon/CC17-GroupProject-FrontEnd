@@ -5,13 +5,9 @@ import { useEffect } from "react";
 import StoreList from "./components/StoreList";
 import Pagination from "../../components/Pagination";
 import adminApi from "../../apis/admin";
-import Button from "../../components/Button";
-import InputTextarea from "../../components/InputTextarea";
 
 export default function ManageBuyer() {
   const [buyers, setBuyers] = useState([]);
-  console.log("buyers", buyers);
-
   const [filteredBuyers, setFilteredBuyers] = useState(buyers);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,7 +31,6 @@ export default function ManageBuyer() {
         sortBy: "id",
       };
       const buyer = await adminApi.allBuyer(data);
-      console.log("buyer", buyer.data);
       setBuyers(buyer.data.result);
       setCountRow(buyer.data.countBuyer);
     } catch (error) {
@@ -47,7 +42,6 @@ export default function ManageBuyer() {
   }, []);
 
   useEffect(() => {
-    console.log("buyerssssss", buyers);
     if (debouncedSearchQuery) {
       const filtered = buyers.filter((buyer) => {
         const query = debouncedSearchQuery.toLowerCase();
@@ -63,19 +57,23 @@ export default function ManageBuyer() {
     }
   }, [debouncedSearchQuery, buyers]);
 
-  const toggleBlock = (buyerId) => {
-    const updatedBuyers = filteredBuyers.map((buyer) =>
-      buyer.id === buyerId ? { ...buyer, blocked: !buyer.blocked } : buyer
-    );
-    setFilteredBuyers(updatedBuyers);
+  const toggleBlock = async (buyerId) => {
+    try {
+      const buyer = filteredBuyers.find((buyer) => buyer.id === buyerId);
+      const updatedBuyer = { ...buyer, isBlocked: !buyer.isBlocked };
+      await adminApi.blockUsers(buyerId);
+      const updatedBuyers = filteredBuyers.map((buyer) =>
+        buyer.id === buyerId ? updatedBuyer : buyer
+      );
+      setFilteredBuyers(updatedBuyers);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
-  console.log("indexOfLastItem", indexOfLastItem);
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  console.log("indexOfFirstItem", indexOfFirstItem);
   const currentBuyers = filteredBuyers.slice(indexOfFirstItem, indexOfLastItem);
-  console.log("currentBuyers", currentBuyers);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -102,9 +100,9 @@ export default function ManageBuyer() {
 
   const actions = [
     {
-      label: (buyer) => (buyer.blocked ? "Unblock" : "Block"),
+      label: (buyer) => (buyer.isBlocked ? "Unblock" : "Block"),
       onClick: toggleBlock,
-      className: (buyer) => (buyer.blocked ? "text-red-600" : "text-green-600"),
+      className: (buyer) => (buyer.isBlocked ? "text-red-600" : "text-green-600"),
     },
   ];
   console.log("buyers1", buyers);

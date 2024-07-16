@@ -3,7 +3,15 @@ export function getDayOfWeek(dateString) {
   const date = new Date(dateString);
 
   // Array of days of the week
-  const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   // Get the day of the week as a number (0-6)
   const dayIndex = date.getUTCDay(); // Use getUTCDay to ensure the correct day in UTC time
@@ -82,4 +90,47 @@ export function formatDateString(dateString) {
 
   // Combine the parts into the desired format
   return `${formattedDay} ${month} ${year}`;
+}
+
+export function formatDateTime(input) {
+  const inputDate = new Date(input);
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+
+  // Function to get the start of the week (Sunday) for a given date
+  function getStartOfWeek(date) {
+    const start = new Date(date);
+    start.setHours(0, 0, 0, 0);
+    start.setDate(date.getDate() - date.getDay());
+    return start;
+  }
+
+  // Check if input date is today's date
+  if (inputDate.toDateString() === today.toDateString()) {
+    return inputDate.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  // Check if input date is yesterday's date
+  if (inputDate.toDateString() === yesterday.toDateString()) {
+    return "Yesterday";
+  }
+
+  // Check if input date is within this week
+  const startOfWeek = getStartOfWeek(today);
+  const endOfWeek = new Date(startOfWeek);
+  endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+  if (inputDate >= startOfWeek && inputDate <= endOfWeek) {
+    return inputDate.toLocaleDateString("en-US", { weekday: "long" });
+  }
+
+  // If input date is older than this week
+  return inputDate.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
 }

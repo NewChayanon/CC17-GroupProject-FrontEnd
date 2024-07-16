@@ -123,9 +123,9 @@ export default function LoginPage() {
               Sign in
             </p>
           </Button>
-          {/* <Button onClick={handleGoogleLogin}>
-            <p className="font-normal">Google</p>
-          </Button> */}
+          <div className="text-xs underline hover:underline-offset-4" onClick={()=> navigate("/reset-password")} >
+              forget password
+          </div>
 
           <button
             className="gsi-material-button"

@@ -15,7 +15,6 @@ export default function StoreList({ stores, columns, actions, initialSortConfig 
   const sortedStores = [...stores].sort((a, b) => {
     const aValue = a[sortConfig.key] === "N/A" ? Number.MAX_SAFE_INTEGER : a[sortConfig.key];
     const bValue = b[sortConfig.key] === "N/A" ? Number.MAX_SAFE_INTEGER : b[sortConfig.key];
-
     if (aValue < bValue) {
       return sortConfig.direction === "asc" ? -1 : 1;
     }
@@ -24,6 +23,8 @@ export default function StoreList({ stores, columns, actions, initialSortConfig 
     }
     return 0;
   });
+
+  console.log(sortedStores);
 
   const renderCell = (store, column) => {
     if (column.key === "createdAt") {

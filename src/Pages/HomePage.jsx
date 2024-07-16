@@ -81,8 +81,8 @@ export default function HomePage() {
           setToken(base64Token); // Store the decoded token
           // Assuming `login` is an asynchronous function that handles login
           // Navigate to the home page or wherever you need after successful login
-          // navigate("/home");
           const result = await getAuthUser(); // Adjust the arguments as per your login function
+          navigate("/home");
           console.log("result from getAuthUser", result);
         } else {
           // Handle login failure if necessary

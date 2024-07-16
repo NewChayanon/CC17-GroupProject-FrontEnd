@@ -21,7 +21,11 @@ export default function ProductTabCard({ product }) {
           <div className="text-xs">{product.productDescription}</div>
         </div>
         <div className="flex text-sm justify-end">
-          <div>{product.price} Unit</div>
+          <div>
+            {product.price}
+            {" THB/"}
+            {product.unit}
+          </div>
         </div>
       </div>
     </div>
