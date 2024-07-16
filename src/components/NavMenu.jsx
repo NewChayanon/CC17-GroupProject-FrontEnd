@@ -8,20 +8,17 @@ export default function NavMenu({
   onClick,
   notification,
 }) {
-  // const { pathname } = useLocation();
-  let isActive = false;
-  // if (pathname === linkTo || pathname === linkTo + "/") isActive = true;
-  console.log("count unread message in navbar", notification);
   return (
     <li onClick={onClick} className={`max-w-full rounded-md`}>
       <a
         className={`p-2 flex items-center space-x-2 hover:text-primary relative`}
         href={linkTo}
       >
-        {" "}
-        <div className="absolute w-4 h-4 left-2 top-2 rounded-full bg-red-400 text-xs text-white flex items-center justify-center">
-          {notification}
-        </div>
+        {notification && (
+          <div className="absolute w-4 h-4 left-2 top-2 rounded-full bg-red-400 text-xs text-white flex items-center justify-center">
+            {notification}
+          </div>
+        )}
         <div className="flex-shrink-0 w-[25px] h-[25px] flex items-center justify-center">
           {menuIcon}
         </div>

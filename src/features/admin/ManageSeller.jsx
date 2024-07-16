@@ -7,7 +7,7 @@ import adminApi from "../../apis/admin";
 
 export default function ManageSeller() {
   const [stores, setStores] = useState([]);
-  const [filteredStores, setFilteredStores] = useState(stores);
+  const [filteredStores, setFilteredStores] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [countRow, setCountRow] = useState(0);
@@ -28,7 +28,6 @@ export default function ManageSeller() {
         sortBy: "id",
       };
       const seller = await adminApi.allSeller(data);
-      console.log("seller", seller.data.result);
       setStores(seller.data.result);
       setCountRow(seller.data.countSeller);
     } catch (error) {
@@ -56,11 +55,18 @@ export default function ManageSeller() {
     }
   }, [debouncedSearchQuery, stores]);
 
-  const toggleBlock = (storeId) => {
-    const updatedStores = filteredStores.map((store) =>
-      store.id === storeId ? { ...store, blocked: !store.blocked } : store
-    );
-    setFilteredStores(updatedStores);
+  const toggleBlock = async (storeId) => {
+    try {
+      const store = filteredStores.find((store) => store.id === storeId);
+      const updatedStore = { ...store, isBlocked: !store.isBlocked };
+      await adminApi.blockUsers(storeId);
+      const updatedStores = filteredStores.map((store) =>
+        store.id === storeId ? updatedStore : store
+      );
+      setFilteredStores(updatedStores);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -94,9 +100,9 @@ export default function ManageSeller() {
 
   const actions = [
     {
-      label: (store) => (store.blocked ? "Unblock" : "Block"),
+      label: (store) => (store.isBlocked ? "Unblock" : "Block"),
       onClick: toggleBlock,
-      className: (store) => (store.blocked ? "text-red-600" : "text-green-600"),
+      className: (store) => (store.isBlocked ? "text-red-600" : "text-green-600"),
     },
   ];
 
@@ -135,7 +141,6 @@ export default function ManageSeller() {
           />
         </div>
       </div>
-      {/* <div className="w-screen h-screen bg-green-200 sticky z-10 top-0">Seller data</div> */}
     </div>
   );
 }

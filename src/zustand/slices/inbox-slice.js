@@ -10,7 +10,7 @@ const initialState = {
 export const createInboxSlice = (set) => ({
   ...initialState,
   getInboxMessages: async () => {
-    set({ ...initialState, isLoadingMyStore: true });
+    set({ ...initialState, isLoadingInboxMessages: true });
     console.log("Running getInboxMessages");
     try {
       const response = await userApi.getInboxMessages();
@@ -19,26 +19,30 @@ export const createInboxSlice = (set) => ({
         response.data.slice(0, 20)
       );
       console.log("run this line");
-      // check if there is unreadMessage
-      // count number of unread messages
-      let isRead = response.data.length;
-      if (isRead > 0)
-        set(() => ({
-          inboxMessages: response.data.slice(0, 20),
-          countUnreadMessage: 1,
-        }));
+
+      // Count number of unread messages directly from the response data
+      let count = 0;
+      response.data.forEach((message) => {
+        if (!message.isRead) {
+          count++;
+        }
+      });
+
+      set(() => ({
+        inboxMessages: response.data.slice(0, 20),
+        countUnreadMessage: count,
+        isLoadingInboxMessages: false, // Set loading to false here since the request was successful
+      }));
+
       return response.data.slice(0, 20);
     } catch (error) {
       if (error.response) {
         set(() => ({
           errorFetchInbox: error.response.data,
+          isLoadingInboxMessages: false, // Set loading to false here as well
         }));
         return error.response.data;
       }
-    } finally {
-      set(() => ({
-        isLoadingInboxMessages: false,
-      }));
     }
   },
 });
