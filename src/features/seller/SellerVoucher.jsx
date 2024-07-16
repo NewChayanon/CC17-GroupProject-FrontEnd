@@ -59,9 +59,10 @@ export default function SellerVoucher() {
           Full Details of Selected Coupon
         </div>
         {couponInfo && (
-          <div>
+          <div className="flex flex-col gap-4 px-14">
             {couponInfo.map((el) => (
               <CouponFullRightTab
+                key={el.voucherItemId}
                 storeName={el.storeName}
                 eventName={el.eventName}
                 voucherCondition={el.voucherCondition}

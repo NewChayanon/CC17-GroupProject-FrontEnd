@@ -64,7 +64,6 @@ export default function Header() {
       authRequired: true,
       appearWhenLogin: true,
       notification: countUnreadMessage,
-      notification: 0,
     },
     {
       menuIcon: <MyFavoriteSeller />,
