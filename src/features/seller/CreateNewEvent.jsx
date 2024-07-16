@@ -247,7 +247,6 @@ export default function CreateNewEvent() {
         inputCoupon.voucher.description &&
         inputCoupon.voucher.totalAmount
       ) {
-        console.log("yay");
         Object.keys(inputCoupon).forEach((key) => {
           if (key === "voucher") {
             formData.append("voucher", JSON.stringify(inputCoupon.voucher));
@@ -256,14 +255,6 @@ export default function CreateNewEvent() {
           }
         });
       }
-
-      // const logFormData = (formData) => {
-      //   for (let pair of formData.entries()) {
-      //     console.log(`${pair[0]}: ${pair[1]}`);
-      //   }
-      // };
-
-      // logFormData(formData);
 
       const res = await createEvent(formData);
 
@@ -361,17 +352,6 @@ export default function CreateNewEvent() {
                   <div className="pl-1 pt-4">Upload Event Cover Photo</div>
                 </div>
                 <div className="flex flex-col justify-center items-center rounded-xl">
-                  {/* <div className="bg-white rounded-full w-11 h-11 flex justify-center items-center">
-                <UploadIcon />
-              </div> */}
-
-                  {/* <div className="flex gap-2 text-graydarktext text-sm font-normal">
-                <div>Drop your picture here or</div>
-                <div className="underline cursor-pointer  text-primary font-semibold">
-                  click
-                </div>
-                <div>to upload.</div>
-              </div> */}
                   <input
                     type="file"
                     ref={fileEl}
@@ -550,7 +530,10 @@ export default function CreateNewEvent() {
                 <div className="flex w-full justify-end">
                   <button
                     className="text-red-500 underline"
-                    onClick={() => setOpenCouponTab(false)}
+                    onClick={() => {
+                      setOpenCouponTab(false);
+                      setInputCoupon(initialInputCoupon);
+                    }}
                   >
                     remove this coupon
                   </button>
