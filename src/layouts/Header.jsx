@@ -63,11 +63,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
-<<<<<<< HEAD
-      notification: countUnreadMessage
-=======
       notification: countUnreadMessage,
->>>>>>> dev
     },
     {
       menuIcon: <MyFavoriteSeller />,
@@ -220,13 +216,9 @@ export default function Header() {
             </div>
             <p className="font-semibold text-black overflow-hidden">
               Hi!{" "}
-<<<<<<< HEAD
-              {user ? user.displayName?.slice(0, 13) || user.firstName : "Guest"}
-=======
               {user
                 ? user.displayName?.slice(0, 13) || user.firstName
                 : "Guest"}
->>>>>>> dev
             </p>
           </div>
           <ul
