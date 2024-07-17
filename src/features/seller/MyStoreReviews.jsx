@@ -31,6 +31,7 @@ export default function MyStoreReviews() {
                 commenterLastName={el.commenterLastName}
                 createdAt={el.createdAt}
                 isVerify={el.isVerify}
+                reviewerImage={el.reviewerImage}
               />
             ))}
           </div>

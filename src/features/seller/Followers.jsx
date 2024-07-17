@@ -66,6 +66,7 @@ export default function Followers() {
             placeholder="Search follower by name"
             handleSearch={handleSearch}
             searchQuery={searchQuery}
+            inputClassName="rounded-full"
           />
         </div>
 
