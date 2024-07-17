@@ -6,11 +6,18 @@ import durianProfileLogo from "../../images/profile-mock-durian-pic.png";
 import { formatDateTime, getDayOfWeek } from "../../utils/datetime-conversion";
 import useStore from "../../zustand/store";
 import { useDebounce } from "../../hooks/useDebounce";
+import Modal from "../../components/Modal";
+import BuyerInboxMessage from "../../features/user/components/BuyerInboxMessage";
 
-function UserMessageBox({ message }) {
+function UserMessageBox({ message, id, onClick, name }) {
   return (
     <>
-      <div className="flex p-3 pl-4 hover:bg-slate-100">
+      <div
+        className="flex p-3 pl-4 hover:bg-slate-100"
+        id={id}
+        onClick={onClick}
+        name={name}
+      >
         <div className="pr-4 py-2 xl:w-auto xl:h-auto">
           <img
             src={durianProfileLogo}
@@ -40,6 +47,8 @@ export default function UserInbox() {
   const [filteredInboxMessage, setFilteredInboxMessage] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedMessage, setSelectedMessage] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     const fetchInboxMessageData = async () => {
@@ -51,6 +60,11 @@ export default function UserInbox() {
   }, []);
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
+  };
+  const handleClickOpenModal = (message) => {
+    console.log("message", message);
+    setSelectedMessage(message);
+    setOpenModal(true);
   };
   useEffect(() => {
     if (debouncedSearchQuery) {
@@ -71,34 +85,36 @@ export default function UserInbox() {
 
   return (
     <div className="">
-      {/* <form className="flex justify-between items-center gap-2 px-4 py-3">
-        <input
-          value=""
-          onChange=""
-          className="flex w-full bg-white p-1 pl-4 border border-gray-300 rounded-full"
-          type="text"
-          placeholder="Search Inbox "
-        />
-        <SearchIcon />
-        <div
-          className="xl:hidden"
-          onClick={() => navigate("/user/inbox-message")}
-        >
-          <AnnouncementIcon />
-        </div>
-      </form> */}
       <SearchBarAdminPage
         placeholder="Search by store name"
         searchQuery={searchQuery}
         handleSearch={handleSearch}
       />
       {inboxMessages[0] ? (
-        filteredInboxMessage.map((message) => (
-          <UserMessageBox message={message} />
+        filteredInboxMessage.map((message, index) => (
+          <UserMessageBox
+            key={index}
+            message={message}
+            name={message.id}
+            id={message.id}
+            onClick={() => handleClickOpenModal(message)}
+          />
         ))
       ) : (
         <div>Empty State</div>
       )}
+      {/* Modal to y */}
+      <Modal
+        width="small"
+        title=""
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+      >
+        <BuyerInboxMessage
+          selectedMessage={selectedMessage}
+          onClose={() => setOpenModal(false)}
+        />
+      </Modal>
     </div>
   );
 }

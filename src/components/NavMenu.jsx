@@ -14,11 +14,11 @@ export default function NavMenu({
         className={`p-2 flex items-center space-x-2 hover:text-primary relative`}
         href={linkTo}
       >
-        {notification && (
+        {notification > 0 ? (
           <div className="absolute w-4 h-4 left-2 top-2 rounded-full bg-red-400 text-xs text-white flex items-center justify-center">
             {notification}
           </div>
-        )}
+        ) : null}
         <div className="flex-shrink-0 w-[25px] h-[25px] flex items-center justify-center">
           {menuIcon}
         </div>

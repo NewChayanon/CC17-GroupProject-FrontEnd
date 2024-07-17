@@ -4,7 +4,6 @@ import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 import { voucherStatus } from "../../constants/voucher-constant";
 import CouponDetailModal from "./CouponDetailModal";
-import { toast } from "react-toastify";
 import { formatDateString } from "../../utils/datetime-conversion";
 
 // NOTE: Coupon tab ใช้แสดงผลใน 2 menu 1) event/promotion 2) user/collected-coupon
@@ -33,7 +32,6 @@ export default function CouponTab({
         selectedEventDetails.voucherItemId
       );
       console.log("result from API to use coupon", result.data.msg);
-      toast.success("Coupon is used successfully!");
       setIsCouponCollected(true);
       setOpenModal(false);
     } catch (err) {
@@ -58,7 +56,10 @@ export default function CouponTab({
             objectFit: "cover",
             display: "block",
           }}
-          src="https://i.pinimg.com/736x/be/3f/5d/be3f5d61a8d2059bfd16c10e8c08f552.jpg"
+          src={
+            selectedEventDetails?.voucherItem?.voucherImage ||
+            selectedEventDetails?.voucherImage
+          }
         />
       </div>
       {/* ======Voucher Details ========= */}
