@@ -6,6 +6,7 @@ import Header from "../layouts/Header";
 import validateReset from "./validators/reset-validator";
 import authApi from "../apis/auth";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const data ={
   email:""
@@ -14,6 +15,8 @@ const data ={
 export default function ResetPasswordPage() {
   const [input, setInput] = useState(data);
   const [inputError, setInputError] = useState(data);
+
+  const navigate = useNavigate();
 
   const handleChangeInput = (e) => {
     console.log("handleChangeInput", e);
@@ -36,6 +39,7 @@ export default function ResetPasswordPage() {
       const res = await authApi.resetPassword(input)
       console.log('res',res)
       toast.success('send an email complete')
+      navigate('/login')
     } catch (error) {
       console.log(error);
     }

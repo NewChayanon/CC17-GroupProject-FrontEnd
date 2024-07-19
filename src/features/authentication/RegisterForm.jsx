@@ -3,6 +3,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import useStore from "../../zustand/store";
 import validateRegister from "./validators/register-validator";
+import { toast } from "react-toastify";
 
 const initialInput = {
   firstName: "",
@@ -12,7 +13,7 @@ const initialInput = {
   confirmPassword: "",
 };
 
-export default function RegisterForm() {
+export default function RegisterForm({onClose}) {
   const register = useStore((state) => state.register);
   const [input, setInput] = useState(initialInput);
   const [inputError, setInputError] = useState(initialInput);
@@ -40,6 +41,8 @@ export default function RegisterForm() {
         });
         return;
       }
+      onClose()
+      toast.success('register complete')
     } catch (error) {
       console.log(error);
     }

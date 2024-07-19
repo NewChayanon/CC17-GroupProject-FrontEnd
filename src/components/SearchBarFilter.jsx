@@ -16,7 +16,7 @@ export default function SearchBarFilter({
           type="text"
           value={searchQuery}
           onChange={handleSearch}
-          className={`w-full py-3 pl-3 pr-10 border rounded-2xl shadow-sm focus:outline-none focus:border-transparent bg-absolutewhite ${inputClassName}`}
+          className={`w-full py-2 pl-4 pr-10 border rounded-2xl shadow-sm focus:outline-none focus:border-transparent bg-absolutewhite ${inputClassName}`}
           placeholder={placeholder}
         />
         <div className="absolute inset-y-0 right-0 flex items-center pr-3">
