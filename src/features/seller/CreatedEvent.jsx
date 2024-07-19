@@ -46,6 +46,7 @@ export default function CreatedEvent() {
                 eventStartDate={el.eventStartDate}
                 eventLocation={el.locationName}
                 eventImage={el.eventImage}
+                eventPosition={el.location}
               />
             ))}
           </div>
