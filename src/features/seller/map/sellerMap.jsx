@@ -9,9 +9,13 @@ const libraries = ["places", "core", "maps", "marker"];
 const defaultLocation = { lat: 13.76, lng: 100.5 };
 
 const heightMap = {
-  mid: "h-[60vh]",
+  small: "h-[140px]",
+  smallMain: "h-[199px]",
+  mid: "h-[63vh]",
   large: "h-[70vh]",
   createNewEvent: "h-[660px]",
+  eventDetailTab:
+    "rounded-lg border-2 border-graydarktext h-48 xl:h-56 2xl:h-80",
 };
 
 export default function SellerMap({
@@ -19,6 +23,9 @@ export default function SellerMap({
   small = false,
   handlePin,
   height = "mid",
+  showSearchBar = true,
+  givenPosition = null,
+  showOtherEvent = true,
 }) {
   const mapRef = useRef(null);
   const placeAutoCompleteRef = useRef(null);
@@ -31,6 +38,7 @@ export default function SellerMap({
   const [marker, setMarker] = useState(null); // State to hold the marker instance
   const storeDetail = useStore((state) => state.storeDetail);
   const selectedEvent = useStore((state) => state.selectedEvent);
+  const formatDate = useStore((state) => state.formatDate);
 
   const eventArray = storeDetail.myEvent;
 
@@ -49,7 +57,14 @@ export default function SellerMap({
         console.log(err);
       }
     };
-    if (!selectedEvent) fetchLocation();
+    if (givenPosition) {
+      const positionArr = givenPosition.split(",");
+      const position = {
+        lat: +positionArr[0],
+        lng: +positionArr[1],
+      };
+      setCenter(position);
+    } else if (!selectedEvent) fetchLocation();
     else {
       const positionArr = selectedEvent.eventLocation.split(",");
       const position = {
@@ -99,12 +114,12 @@ export default function SellerMap({
           // Remove old marker if it exists
 
           // Place new marker
-          // const newMarker = new google.maps.Marker({
-          //   position: latLng,
-          //   map: gMap,
-          // });
+          const newMarker = new google.maps.Marker({
+            position: latLng,
+            map: gMap,
+          });
 
-          // setMarker(newMarker);
+          setMarker(newMarker);
         }
       });
 
@@ -133,7 +148,7 @@ export default function SellerMap({
 
   // ======== Setup the new marker for events when event array is updated ========//
   useEffect(() => {
-    if (eventArray) {
+    if (eventArray && showOtherEvent) {
       eventArray.forEach((event) => {
         let location = {
           lat: +event.location.split(",")[0],
@@ -142,10 +157,17 @@ export default function SellerMap({
         setMarkerForEvents(
           location,
           event.eventName,
-          event.eventStartDate,
+          formatDate(event.eventStartDate),
           event.eventId
         );
       });
+    } else if (givenPosition) {
+      const positionArr = givenPosition.split(",");
+      const position = {
+        lat: +positionArr[0],
+        lng: +positionArr[1],
+      };
+      setMarkerForEvents(position);
     }
   }, [isLoaded, map, eventArray]);
 
@@ -165,7 +187,6 @@ export default function SellerMap({
 
           const latlng = position.lat() + "," + position.lng();
           console.log("Lat,long value for searchbox", latlng);
-          setSearchKeyword(latlng);
           // ต้อง call api เพื่อที่จะถึง near me ใหม่มา โดยที่เอา lat long ของใหม่เป็นศก แล้วให้ไป trigger useEffect ที่แสดง pin ของ event near me
           console.log("Inside useeffect after confirm place in search box"); // run แล้ว หลังจาก confirm search
           console.log("Position data before modifying", position);
@@ -187,20 +208,9 @@ export default function SellerMap({
   ) {
     // Marker นี้ควรจะโชว์ เมื่อกดคลิก
     if (!map) return;
-    // Render Marker
-    const svgMarker = {
-      path: "M-1.547 12l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM0 0q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
-      fillColor: "green",
-      fillOpacity: 0.6,
-      strokeWeight: 0,
-      rotation: 0,
-      scale: 2,
-      anchor: new google.maps.Point(0, 20),
-    };
     const newMarker = new google.maps.Marker({
       position: location,
       map: map,
-      // icon: svgMarker,
     });
 
     // Setup content for
@@ -215,7 +225,6 @@ export default function SellerMap({
       position: location,
       headerContent: name,
       minWidth: 100,
-      ariaLabel: "hello world hello world",
       content: content,
     });
     // Add click event listener to marker to open infoCard
@@ -234,15 +243,17 @@ export default function SellerMap({
   return (
     <div className="flex flex-col relative">
       {/* Show search box */}
-      <div
-        className={`absolute ${small ? "top-16 left-3" : "top-16 left-3 xl:top-4 xl:left-56"} z-20`}
-      >
-        <input
-          type="text"
-          ref={placeAutoCompleteRef}
-          className="bg-white text-black h-6 w-56 px-3 py-2 rounded-lg"
-        />
-      </div>
+      {showSearchBar && (
+        <div
+          className={`absolute ${small ? "top-16 left-3" : "top-16 left-3 xl:top-4 xl:left-56"} z-20`}
+        >
+          <input
+            type="text"
+            ref={placeAutoCompleteRef}
+            className="bg-white text-black h-6 w-56 px-3 py-2 rounded-lg"
+          />
+        </div>
+      )}
       {/* Show map */}
       {isLoaded ? (
         <div className={`${heightMap[height]}`} ref={mapRef}></div>

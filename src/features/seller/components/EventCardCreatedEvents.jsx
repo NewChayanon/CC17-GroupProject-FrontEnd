@@ -1,4 +1,5 @@
 import mapMock from "../../../images/mapmock-seller.png";
+import SellerMap from "../map/sellerMap";
 
 export default function EventCardCreatedEvents({
   eventName,
@@ -8,6 +9,7 @@ export default function EventCardCreatedEvents({
   eventMonth,
   eventStartDate,
   eventLocation,
+  eventPosition,
 }) {
   return (
     <>
@@ -15,7 +17,9 @@ export default function EventCardCreatedEvents({
         <div className="p-5 w-full font-semibold text-base flex flex-col">
           <div className="flex">
             <div>Event: </div>
-            <div>&nbsp;{eventName}</div>
+            <div className="text-ellipsis overflow-hidden h-6">
+              &nbsp;{eventName}
+            </div>
           </div>
           <div className="flex text-base items-center">
             <div>by </div>
@@ -41,11 +45,12 @@ export default function EventCardCreatedEvents({
           </div>
         </div>
         <div className="p-6 w-full flex justify-end">
-          <div className="flex h-[140px]">
-            <img
-              src={mapMock}
-              alt="Event Image"
-              className="w-full h-full bg-verylightyellow"
+          <div className="w-4/5 h-[140px]">
+            <SellerMap
+              showSearchBar={false}
+              height="small"
+              givenPosition={eventPosition}
+              showOtherEvent={false}
             />
           </div>
         </div>
