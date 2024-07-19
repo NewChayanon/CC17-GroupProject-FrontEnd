@@ -400,6 +400,7 @@ export default function CreateNewEvent() {
                 small={true}
                 handlePin={handlePin}
                 height="createNewEvent"
+                showOtherEvent={false}
               />
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center w-16 h-16 bg-transparent">
                 {clickMap && <LocationIcon small={false} iconColor="red" />}
