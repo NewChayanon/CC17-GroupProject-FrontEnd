@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import EventCover from "../features/event/EventCover";
 import { AnnouncementIcon, ProductIcon } from "../icons";
 import { CalendarIcon } from "../icons/calendar-icon";
+import useStore from "../zustand/store.js";
 
 export default function EventNavBar() {
   const { pathname } = useLocation();
@@ -13,9 +14,13 @@ export default function EventNavBar() {
     console.log("Event Name", e.target.id);
     navigate(`../event/${eventIdfromPath}/${e.target.id}`);
   };
+  // get ค่า eventCoverPhoto from eventId >> เรียกใช้ zustand
+  const selectedEventDetails = useStore((state) => state.selectedEventDetails);
+
+  const eventCoverPhoto = "";
   return (
     <div>
-      <EventCover />
+      <EventCover eventCoverPhoto={selectedEventDetails?.eventImage} />
       {/* ============ EventDetail Menu Bar ============ */}
       <div className="flex w-full h-8 bg-primary relative">
         <div

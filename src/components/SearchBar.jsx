@@ -71,10 +71,12 @@ export default function SearchBar({
         onChange={handleSelectSearchBy}
         className="bg-white"
       >
-        <option value="" disabled>
+        <option className="" value="" disabled>
           Search By
         </option>
-        <option value="product">Product</option>
+        <option value="product" className="bg-red-500">
+          Product
+        </option>
         <option value="store">Store</option>
         <option value="location">Location</option>
       </select>

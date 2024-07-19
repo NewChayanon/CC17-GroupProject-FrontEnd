@@ -128,19 +128,8 @@ export default function EventTabCard({
         </div>
         {/* ถ้าเป็น event card แบบ full version - จะแสดง event Details ด้วย*/}
         {isFullVersion && (
-          <p
-            className="text-sm text-graydarktext text-ellipsis overflow-hidden"
-            style={{
-              minHeight: "80px",
-              maxHeight: "80px",
-            }}
-          >
-            Lorem ipsum dolor sit Vivamus cursus elit vel ligula dapibus, vitae
-            lacinia tortor consequat. Pellentesque ultrices tristique porttitor.
-            Quisque elementum eros sagittis purus efficitur, am Lorem ipsum
-            dolor sit Vivamus cursus elit vel ligula dapibus, vitae lacinia
-            tortor consequat. Pellentesque ultrices tristique porttitor. Quisque
-            elementum eros sagittis purus efficitur, am
+          <p className="text-sm text-graydarktext text-ellipsis overflow-hidden min-h-[80px]">
+            {selectedEventDetails?.eventDescription}
           </p>
         )}
       </div>
