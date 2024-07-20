@@ -6,10 +6,14 @@ export default function CouponTab({
   eventEndDate,
   voucherCode,
   voucherImage,
+  onClick,
 }) {
   return (
     <>
-      <div className="flex justify-start items-center gap-4 bg-white p-2 pt-3 pb-4 pl-0 pr-4 rounded-lg">
+      <div
+        onClick={onClick}
+        className="hover:cursor-pointer flex justify-start items-center gap-4 bg-white p-2 pt-3 pb-4 pl-0 pr-4 rounded-lg"
+      >
         <div className="h-24">
           <img
             style={{
