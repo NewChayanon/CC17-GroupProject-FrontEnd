@@ -130,24 +130,26 @@ const RightSideBarMainPage = () => {
               </p>
             </div>
             {myStoreProfile.eventNow.length > 0 ? (
-              myStoreProfile.eventNow.map((e) => (
-                <EventSideBarCard
-                  key={e.eventId}
-                  startDate={new Date(e.startDate).getUTCDate()}
-                  startMonth={formatMonth(e.startDate)}
-                  endDate={formatDate(e.endDate)}
-                  openTime={convertTime(
-                    e.openTime.split("T")[1].split(":00.000Z")[0]
-                  )}
-                  closingTime={convertTime(
-                    e.closingTime.split("T")[1].split(":00.000Z")[0]
-                  )}
-                  location={e.locationName}
-                  onClick={() => setSelectedEvent(e)}
-                  onClickEdit={() => handleEditEvent(e)}
-                  onClickDelete={() => handleDeleteEvent(e)}
-                />
-              ))
+              myStoreProfile.eventNow
+                .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+                .map((e) => (
+                  <EventSideBarCard
+                    key={e.eventId}
+                    startDate={new Date(e.startDate).getUTCDate()}
+                    startMonth={formatMonth(e.startDate)}
+                    endDate={formatDate(e.endDate)}
+                    openTime={convertTime(
+                      e.openTime.split("T")[1].split(":00.000Z")[0]
+                    )}
+                    closingTime={convertTime(
+                      e.closingTime.split("T")[1].split(":00.000Z")[0]
+                    )}
+                    location={e.locationName}
+                    onClick={() => setSelectedEvent(e)}
+                    onClickEdit={() => handleEditEvent(e)}
+                    onClickDelete={() => handleDeleteEvent(e)}
+                  />
+                ))
             ) : (
               <p className="text-sm font-medium text-graylighttext">
                 No event happening now
@@ -159,24 +161,26 @@ const RightSideBarMainPage = () => {
               </p>
             </div>
             {myStoreProfile.upComingEvent.length > 0 ? (
-              myStoreProfile.upComingEvent.map((e) => (
-                <EventSideBarCard
-                  key={e.eventId}
-                  startDate={new Date(e.startDate).getUTCDate()}
-                  startMonth={formatMonth(e.startDate)}
-                  endDate={formatDate(e.endDate)}
-                  openTime={convertTime(
-                    e.openTime.split("T")[1].split(":00.000Z")[0]
-                  )}
-                  closingTime={convertTime(
-                    e.closingTime.split("T")[1].split(":00.000Z")[0]
-                  )}
-                  location={e.locationName}
-                  onClick={() => setSelectedEvent(e)}
-                  onClickEdit={() => handleEditEvent(e)}
-                  onClickDelete={() => handleDeleteEvent(e)}
-                />
-              ))
+              myStoreProfile.upComingEvent
+                .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+                .map((e) => (
+                  <EventSideBarCard
+                    key={e.eventId}
+                    startDate={new Date(e.startDate).getUTCDate()}
+                    startMonth={formatMonth(e.startDate)}
+                    endDate={formatDate(e.endDate)}
+                    openTime={convertTime(
+                      e.openTime.split("T")[1].split(":00.000Z")[0]
+                    )}
+                    closingTime={convertTime(
+                      e.closingTime.split("T")[1].split(":00.000Z")[0]
+                    )}
+                    location={e.locationName}
+                    onClick={() => setSelectedEvent(e)}
+                    onClickEdit={() => handleEditEvent(e)}
+                    onClickDelete={() => handleDeleteEvent(e)}
+                  />
+                ))
             ) : (
               <p className="text-sm font-medium text-graylighttext">
                 No upcoming event

@@ -484,12 +484,15 @@ export default function CreateNewEvent() {
               store&quot;
             </div>
             <div className="flex gap-5">
-              <div className="w-1/2 flex gap-3 bg-absolutewhite p-1 px-2 font-normal rounded-md text-sm">
+              <div className="w-1/2 flex flex-col gap-3 bg-absolutewhite p-1 px-2 font-normal rounded-md text-sm">
                 {eventItemDisplay.map((e, index) => (
-                  <div className="flex gap-1 bg-graylighticon px-1" key={index}>
+                  <div
+                    className="flex items-center w-fit gap-1 bg-graylighticon px-1"
+                    key={index}
+                  >
                     <p>{e.productName}</p>
                     <button
-                      className="text-[10px]"
+                      className="text-[14px]"
                       onClick={() => handleDeleteProduct(e.productId)}
                     >
                       X

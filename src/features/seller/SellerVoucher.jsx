@@ -3,10 +3,12 @@ import { SearchIcon } from "../../icons";
 import useStore from "../../zustand/store";
 import CouponFullRightTab from "./components/CouponFullRightTab";
 import CouponTab from "./components/CouponTab";
+import { useState } from "react";
 
 export default function SellerVoucher() {
   const getMyCoupons = useStore((state) => state.getMyCoupons);
   const couponInfo = useStore((state) => state.couponInfo);
+  const [selectedCoupon, setSelectedCoupon] = useState(null);
   // const numberOfCoupons = couponInfo.length;
 
   useEffect(() => {
@@ -17,7 +19,7 @@ export default function SellerVoucher() {
   }, []);
 
   return (
-    <div className="flex justify-start w-full ">
+    <div className="flex justify-start overflow-auto  w-full h-auto">
       <div className="flex flex-col justify-start">
         <form className="flex justify-between items-center gap-2 p-4 pb-0 w-auto">
           <input
@@ -36,7 +38,7 @@ export default function SellerVoucher() {
           </div>
           <div className="flex justify-start">
             {couponInfo && (
-              <div className=" flex flex-col p-5  pt-0 gap-4 w-[550px]">
+              <div className=" flex flex-col p-5 pt-0 gap-4 w-[550px]">
                 {couponInfo.map((el) => (
                   <CouponTab
                     key={el.voucherItemId}
@@ -47,6 +49,7 @@ export default function SellerVoucher() {
                     eventEndDate={el.eventEndDate.split("T")[0]}
                     voucherCode={el.voucherCode}
                     voucherImage={el.voucherImage}
+                    onClick={() => setSelectedCoupon(el.voucherItemId)}
                   />
                 ))}
               </div>
@@ -55,25 +58,28 @@ export default function SellerVoucher() {
         </div>
       </div>
       <div className="bg-white">
-        <div className="p-10 pb-0  text-xl text-center font-semibold text-primary">
+        <div className="p-10 pb-0 text-xl text-center font-semibold text-primary">
           Full Details of Selected Coupon
         </div>
         {couponInfo && (
           <div className="flex flex-col gap-4 px-14">
-            {couponInfo.map((el) => (
-              <CouponFullRightTab
-                key={el.voucherItemId}
-                storeName={el.storeName}
-                eventName={el.eventName}
-                voucherCondition={el.voucherCondition}
-                voucherDescription={el.voucherDescription}
-                eventStartDate={el.eventStartDate}
-                eventEndDate={el.eventEndDate}
-                voucherCode={el.voucherCode}
-                voucherImage={el.voucherImage}
-                image={el.image}
-              />
-            ))}
+            {couponInfo.map(
+              (el) =>
+                selectedCoupon === el.voucherItemId && (
+                  <CouponFullRightTab
+                    key={el.voucherItemId}
+                    storeName={el.storeName}
+                    eventName={el.eventName}
+                    voucherCondition={el.voucherCondition}
+                    voucherDescription={el.voucherDescription}
+                    eventStartDate={el.eventStartDate}
+                    eventEndDate={el.eventEndDate}
+                    voucherCode={el.voucherCode}
+                    voucherImage={el.voucherImage}
+                    image={el.image}
+                  />
+                )
+            )}
           </div>
         )}
       </div>
