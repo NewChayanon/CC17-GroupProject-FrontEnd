@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import StoreProduct from "./components/StoreProduct";
+import Modal from "../../components/Modal";
+import AddMoreProduct from "./AddMoreProduct";
 
 const initialInput = {
   description: "",
@@ -32,6 +34,7 @@ export default function MyStoreProfile() {
   const [coverImage, setCoverImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [coverImageFile, setCoverImageFile] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const fileEl = useRef();
   const coverFileEl = useRef();
@@ -329,7 +332,12 @@ export default function MyStoreProfile() {
               </div>
               <div className="flex flex-col items-center gap-10 justify-center py-4 pt-7">
                 <StoreProduct />
-                <Button>&nbsp;Add more product&nbsp;</Button>
+                <Button onClick={() => setOpen(true)}>
+                  &nbsp;Add more product&nbsp;
+                </Button>
+                <Modal open={open} onClose={() => setOpen(false)}>
+                  <AddMoreProduct onSuccess={() => setOpen(false)} />
+                </Modal>
               </div>
             </div>
           </div>

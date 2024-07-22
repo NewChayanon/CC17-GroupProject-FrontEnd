@@ -362,19 +362,21 @@ export default function CreateNewEvent() {
                   {input.eventImage ? (
                     <div
                       onClick={() => fileEl.current.click()}
-                      className="w-full h-24 xl:h-40 hover:cursor-pointer"
+                      className=" flex flex-col gap-1 items-center justify-center w-full  border-dashed border-2 border-gray-400 rounded-lg h-24 xl:h-40 hover:cursor-pointer"
                     >
                       <img
-                        className="rounded-lg"
+                        className="w-[100px] h-[100px]"
                         style={{
-                          width: "100%",
-                          height: "100%",
                           objectFit: "cover",
                           display: "block",
                         }}
                         src={getImageSrc()}
                         alt="Event cover image"
                       />
+                      <div className="text-primary text-xs font-normal">
+                        &lt;{input.eventImage.name}&gt; has been uploaded in
+                        this event.
+                      </div>
                     </div>
                   ) : (
                     <div className="w-full h-full flex justify-center border-graydarktext border-opacity-40 border-2 border-dashed rounded-xl">
