@@ -40,7 +40,7 @@ const CustomLineChart = () => {
       {
         label: "Number of events",
         data: Array.from({ length: getDaysInMonth(startDate) }, () =>
-          Math.floor(Math.random() * 6)
+          Math.floor(Math.random() * 28)
         ), // Example data
         borderColor: "#4CAF50", // Line color
         backgroundColor: "rgba(76, 175, 80, 0.2)", // Fill color
@@ -75,7 +75,7 @@ const CustomLineChart = () => {
       },
       y: {
         beginAtZero: true,
-        max: 6,
+        max: 28,
         title: {
           display: true,
           text: "Number of events",
