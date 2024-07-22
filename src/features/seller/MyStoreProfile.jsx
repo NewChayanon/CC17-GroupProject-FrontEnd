@@ -7,15 +7,12 @@ import useStore from "../../zustand/store";
 import { useEffect } from "react";
 import { useRef } from "react";
 import LoadingSpinner from "../../components/LoadingSpinner";
-import ProductTab from "./components/ProductTab";
+import StoreProduct from "./components/StoreProduct";
 
 const initialInput = {
   description: "",
   sellerDescription: "",
 };
-
-import Modal from "../../components/Modal";
-import AddMoreProduct from "./AddMoreProduct";
 
 export default function MyStoreProfile() {
   const getMyStoreInfo = useStore((state) => state.getMyStoreInfo);
@@ -35,8 +32,6 @@ export default function MyStoreProfile() {
   const [coverImage, setCoverImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [coverImageFile, setCoverImageFile] = useState(null);
-
-  const [open, setOpen] = useState(false);
 
   const fileEl = useRef();
   const coverFileEl = useRef();
@@ -333,13 +328,8 @@ export default function MyStoreProfile() {
                 Featured Products
               </div>
               <div className="flex flex-col items-center gap-10 justify-center py-4 pt-7">
-                <ProductTab />
-                <Button onClick={() => setOpen(true)}>
-                  &nbsp;Add more product&nbsp;
-                </Button>
-                <Modal open={open} onClose={() => setOpen(false)}>
-                  <AddMoreProduct onSuccess={() => setOpen(false)} />
-                </Modal>
+                <StoreProduct />
+                <Button>&nbsp;Add more product&nbsp;</Button>
               </div>
             </div>
           </div>

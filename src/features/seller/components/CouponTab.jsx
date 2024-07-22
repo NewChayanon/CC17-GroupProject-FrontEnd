@@ -12,9 +12,9 @@ export default function CouponTab({
     <>
       <div
         onClick={onClick}
-        className="hover:cursor-pointer flex justify-start items-center gap-4 bg-white p-2 pt-3 pb-4 pl-0 pr-4 rounded-lg"
+        className="hover:cursor-pointer flex justify-start items-center gap-4 bg-white pt-3 pb-4 px-4 rounded-lg"
       >
-        <div className="h-24">
+        <div className="h-24 min-w-36">
           <img
             style={{
               width: "100%",
