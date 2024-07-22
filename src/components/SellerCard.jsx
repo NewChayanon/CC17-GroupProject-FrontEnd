@@ -33,7 +33,7 @@ export default function SellerTabCard({ selectedEventDetails }) {
               display: "block",
               borderRadius: "50%",
             }}
-            src="https://picsum.photos/seed/picsum/400/200"
+            src={selectedEventDetails.sellerCoverImage}
           />
           <div className="text-2xl font-bold py-2">
             {selectedEventDetails.sellerFirstName}

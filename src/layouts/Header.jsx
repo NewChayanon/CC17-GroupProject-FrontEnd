@@ -54,7 +54,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
-      notification: 0,
+      notification: false,
     },
     {
       menuIcon: <InboxIcon />,
@@ -64,7 +64,6 @@ export default function Header() {
       authRequired: true,
       appearWhenLogin: true,
       notification: countUnreadMessage,
-      notification: 0,
     },
     {
       menuIcon: <MyFavoriteSeller />,
@@ -73,7 +72,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
-      notification: 0,
+      notification: false,
     },
     {
       menuIcon: <VoucherListIcon />,
@@ -82,7 +81,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
-      notification: 0,
+      notification: false,
     },
     {
       menuIcon: <SettingIcon />,
@@ -91,7 +90,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
-      notification: 0,
+      notification: false,
     },
     {
       menuIcon: <ContactUsIcon />,
@@ -100,7 +99,7 @@ export default function Header() {
       handleClick: "",
       authRequired: true,
       appearWhenLogin: true,
-      notification: 0,
+      notification: false,
     },
     {
       menuIcon: <LogoutIcon />,
@@ -109,7 +108,7 @@ export default function Header() {
       handleClick: "",
       authRequired: false,
       appearWhenLogin: false,
-      notification: 0,
+      notification: false,
     },
     {
       menuIcon: <LogoutIcon />,
@@ -118,7 +117,7 @@ export default function Header() {
       handleClick: () => logout(),
       authRequired: true,
       appearWhenLogin: true,
-      notification: 0,
+      notification: false,
     },
   ];
 
@@ -177,7 +176,7 @@ export default function Header() {
                 <p className="font-semibold">
                   Hi!{" "}
                   {user
-                    ? user.displayName.slice(0, 10) || user.firstName
+                    ? user.displayName?.slice(0, 10) || user.firstName
                     : "Guest"}
                 </p>
               </div>
@@ -217,7 +216,9 @@ export default function Header() {
             </div>
             <p className="font-semibold text-black overflow-hidden">
               Hi!{" "}
-              {user ? user.displayName.slice(0, 13) || user.firstName : "Guest"}
+              {user
+                ? user.displayName?.slice(0, 13) || user.firstName
+                : "Guest"}
             </p>
           </div>
           <ul

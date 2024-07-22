@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function EventCover() {
+export default function EventCover({ eventCoverPhoto }) {
   return (
     <div
       className="flex items-center bg-red-500 "
@@ -14,7 +14,7 @@ export default function EventCover() {
           objectFit: "cover",
           display: "block",
         }}
-        src="https://picsum.photos/400"
+        src={eventCoverPhoto || "https://picsum.photos/400"}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { EditIcon } from "../../../icons";
+import { EditIcon, LocationIcon } from "../../../icons";
 import MapPinIconWithBase from "../../../icons/MapPinIconWithBase";
 import useStore from "../../../zustand/store";
 import InputTextarea from "../../../components/InputTextarea";
@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import UploadIcon from "../../../icons/upload-icon";
 import { useRef } from "react";
 import Button from "../../../components/Button";
+import SellerMap from "../map/sellerMap";
 
 const initialInputError = {
   name: "",
@@ -32,6 +33,12 @@ export default function EventDetailTab({ slideUp }) {
 
   const [editName, setEditName] = useState(false);
   const [editProfile, setEditProfile] = useState(false);
+  const [clickMap, setClickMap] = useState(false);
+
+  const [clickedLocation, setClickedLocation] = useState({
+    lat: +selectedEvent.eventLocation.split(",")[0],
+    lng: +selectedEvent.eventLocation.split(",")[1],
+  });
 
   const currentDate = getCurrentFormattedDate();
 
@@ -56,6 +63,13 @@ export default function EventDetailTab({ slideUp }) {
     setInput(initialInput);
   }, [slideUp, selectedEvent]);
 
+  const handlePin = () => {
+    setClickMap(false);
+    setTimeout(() => {
+      setClickMap(true);
+    }, 300);
+  };
+
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
 
@@ -69,7 +83,7 @@ export default function EventDetailTab({ slideUp }) {
           });
           return;
         }
-        if (value > input.endDate) {
+        if (value > input.endDate && input.endDate) {
           setInputError({
             ...inputError,
             endDate: "",
@@ -109,7 +123,7 @@ export default function EventDetailTab({ slideUp }) {
       }
 
       case "openTime": {
-        if (value > input.closingTime) {
+        if (value > input.closingTime && input.closingTime) {
           setInputError({
             ...inputError,
             [name]: "cannot set open time after end time",
@@ -170,6 +184,13 @@ export default function EventDetailTab({ slideUp }) {
       Object.keys(inputSubmit).forEach((key) => {
         if (inputSubmit[key]) formData.append(key, inputSubmit[key]);
       });
+
+      if (clickMap) {
+        formData.append(
+          "location",
+          `${clickedLocation?.lat},${clickedLocation?.lng}`
+        );
+      }
 
       const id = { ...selectedEvent };
       await editEvent(id.eventId, formData);
@@ -293,17 +314,28 @@ export default function EventDetailTab({ slideUp }) {
         <p className="font-medium text-base text-graydarktext">
           Event Location
         </p>
-        <div className="flex p-2 bg-absolutewhite justify-between items-center h-12 rounded-lg">
+        <div className="flex p-2 justify-between items-center h-12 rounded-lg">
           <input
-            className="bg-absolutewhite w-11/12 focus:outline-none"
-            placeholder="Type Google Map URL here"
+            disabled
+            className="w-11/12 focus:outline-none"
+            value={`${clickedLocation?.lat} ${clickedLocation?.lng}`}
+            name="location"
           />
-          <button>
+          {/* <button>
             <MapPinIconWithBase />
-          </button>
+          </button> */}
         </div>
-        <div className="bg-graybg w-full h-48 xl:h-56 2xl:h-80 rounded-lg border-2 border-graydarktext">
-          MAP HERE
+        <div className="relative bg-graybg w-full h-48 xl:h-56 2xl:h-80">
+          <SellerMap
+            height="eventDetailTab"
+            setLocationParent={setClickedLocation}
+            showOtherEvent={false}
+            givenPosition={selectedEvent.eventLocation}
+            handlePin={handlePin}
+          />
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center w-16 h-16 bg-transparent">
+            {clickMap && <LocationIcon small={false} iconColor="red" />}
+          </div>
         </div>
       </div>
       <div className="flex flex-col items-center gap-4 w-full bg-verylightyellow p-4">

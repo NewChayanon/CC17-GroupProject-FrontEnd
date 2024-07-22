@@ -124,12 +124,18 @@ export default function MyStoreMainPage() {
                 </div>
               </div>
               {/* MAP AND PICTURE GOES HERE IN THIS DIV BELOW */}
-              <div className="bg-graybg w-1/2">
-                <img
-                  src={EventPicMock}
-                  alt="Right Side bar mock picture"
-                  className="w-full h-36"
-                />
+              <div className="w-1/2 max-w-[700px] flex">
+                <div className="w-1/2 h-[199px] bg-graybg flex items-center">
+                  <img src={selectedEvent.eventImage} alt="Event Image" />
+                </div>
+                <div className="w-1/2">
+                  <SellerMap
+                    showSearchBar={false}
+                    height="smallMain"
+                    givenPosition={selectedEvent.eventLocation}
+                    showOtherEvent={false}
+                  />
+                </div>
               </div>
               {/* MAP AND PICTURE GOES HERE IN THIS DIV ABOVE */}
             </div>

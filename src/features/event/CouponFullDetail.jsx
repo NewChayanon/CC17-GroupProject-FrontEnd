@@ -11,7 +11,6 @@ export default function CouponFullDetail({
   useEnabled = true,
 }) {
   console.log("event details inside couponfulldetail", selectedEventDetails);
-  console.log("voucher code", selectedEventDetails.voucherItem.voucherCode);
   return (
     <div
       className="shadow-lg flex flex-col bg-graybg items-center rounded-xl relative px-8 py-8 gap-4"
@@ -28,7 +27,10 @@ export default function CouponFullDetail({
             objectFit: "cover",
             display: "block",
           }}
-          src={selectedEventDetails.eventImage}
+          src={
+            selectedEventDetails?.voucherItem?.voucherImage ||
+            selectedEventDetails?.voucherImage
+          }
         />
       </div>
       <div className="flex flex-col">

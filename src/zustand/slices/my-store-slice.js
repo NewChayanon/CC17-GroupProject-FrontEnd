@@ -116,7 +116,6 @@ export const createMyStoreSlice = (set) => ({
     set({ isLoadingMyStore: true });
     try {
       const response = await myStoreApi.getMyStoreCoupons();
-      console.log("asdjkhjkasjhkldasjklsjdklasdjasd", response);
       set(() => ({
         couponInfo: response.data,
         errorMyStore: null,
