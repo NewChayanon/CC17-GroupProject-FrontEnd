@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBarAdminPage from "../../components/SearchBarAdminPage";
 import { useDebounce } from "../../hooks/useDebounce";
-import { useEffect } from "react";
 import dayjs from "dayjs";
 import StoreList from "./components/StoreList";
 import Pagination from "../../components/Pagination";
@@ -26,6 +25,9 @@ export default function Announcement() {
   const [input, setInput] = useState(data);
   const [inputError, setInputError] = useState(data);
   const [update, setUpdate] = useState(false);
+  const [selectedAnnounce, setSelectedAnnounce] = useState(null);
+
+  console.log(announces);
 
   const itemsPerPage = 10;
 
@@ -70,8 +72,6 @@ export default function Announcement() {
   const handleChangeInput = (e) => {
     console.log("handleChangeInput", e);
     setInput({ ...input, [e.target.name]: e.target.value });
-    setInput({ ...input, [e.target.name]: e.target.value });
-
     setInputError({ ...inputError, [e.target.name]: "" });
   };
 
@@ -112,6 +112,7 @@ export default function Announcement() {
       label: "Action Date",
       sortable: true,
       className: "text-center",
+      format: (value) => dayjs(value).format("YYYY-MM-DD"),
     },
     {
       key: "topic",
@@ -121,11 +122,15 @@ export default function Announcement() {
     },
   ];
 
+  const handleRowClick = (announce) => {
+    setSelectedAnnounce(announce);
+  };
+
   return (
-    <div className="flex gap-6 bg-graybg">
+    <div className="flex gap-6 bg-graybg min-h-screen">
       <div className="flex flex-col h-full w-full m-6">
         <div className="flex items-center">
-          <div className="sticky top-0 bg-gray flex flex-1 ">
+          <div className="sticky top-0 bg-gray flex flex-1">
             <SearchBarAdminPage
               placeholder="Search your announcement"
               searchQuery={searchQuery}
@@ -142,6 +147,7 @@ export default function Announcement() {
               stores={currentAnnounces}
               columns={columns}
               initialSortConfig={{ key: "name", direction: "asc" }}
+              onRowClick={handleRowClick}
             />
           </div>
         </div>
@@ -157,46 +163,51 @@ export default function Announcement() {
           />
         </div>
       </div>
-      <div className="w-screen h-screen bg-absolutewhite sticky z-1 top-0">
-        <div>
-          <div className="p-4 mt-4 mx-10 border-dashed border-2 border-gray-500 flex justify-center rounded-xl  ">
-            <Button width="xl" onClick={() => setOpen(true)}>
-              Create New Announcement
-            </Button>
-            <Modal open={open} onClose={() => setOpen(false)} width="large">
-              <div className="pb-4">
-                <h1>Create Announcement</h1>
-              </div>
-              <div className="pb-4">
-                <Input
-                  placeholder="TOPIC"
-                  height="10"
-                  name="topic"
-                  onChange={handleChangeInput}
-                  value={input.topic}
-                  error={inputError.topic}
-                />
-              </div>
-              <div>
-                <InputTextarea
-                  height="10"
-                  fontSize="sm"
-                  placeholder="message"
-                  name="message"
-                  onChange={handleChangeInput}
-                  value={input.message}
-                  error={inputError.message}
-                />
-              </div>
-              <div className="flex justify-center p-4">
-                <Button width="md" onClick={handleSubmitForm}>
-                  Send Announcement
-                </Button>
-              </div>
-            </Modal>
-          </div>
-          <div className="p-4 mt-4 mx-10 border-d border-2 border-gray-500 flex justify-center rounded-xl h-96"></div>
+      <div className="w-screen h-screen bg-absolutewhite sticky z-1 top-0 flex flex-col items-center justify-start p-4">
+        <div className="p-4 mt-4 border-dashed border-2 border-gray-500 flex justify-center rounded-xl w-full max-w-md">
+          <Button width="xl" onClick={() => setOpen(true)}>
+            Create New Announcement
+          </Button>
+          <Modal open={open} onClose={() => setOpen(false)} width="large">
+            <div className="pb-4">
+              <h1>Create Announcement</h1>
+            </div>
+            <div className="pb-4">
+              <Input
+                placeholder="TOPIC"
+                height="10"
+                name="topic"
+                onChange={handleChangeInput}
+                value={input.topic}
+                error={inputError.topic}
+              />
+            </div>
+            <div>
+              <InputTextarea
+                height="10"
+                fontSize="sm"
+                placeholder="message"
+                name="message"
+                onChange={handleChangeInput}
+                value={input.message}
+                error={inputError.message}
+              />
+            </div>
+            <div className="flex justify-center p-4">
+              <Button width="md" onClick={handleSubmitForm}>
+                Send Announcement
+              </Button>
+            </div>
+          </Modal>
         </div>
+        {selectedAnnounce && (
+          <div className="mt-4 w-full max-w-md">
+            <h2 className="text-md font-semibold mb-2">Subject: {selectedAnnounce.topic}</h2>
+            <div className="border-2 border-gray-500 p-4 rounded-xl h-96">
+              <p className="text-sm break-words">{selectedAnnounce.message}</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

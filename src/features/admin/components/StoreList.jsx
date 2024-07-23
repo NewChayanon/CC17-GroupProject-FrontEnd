@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-export default function StoreList({ stores, columns, actions, initialSortConfig }) {
+export default function StoreList({ stores, columns, actions, initialSortConfig, onRowClick }) {
   const [sortConfig, setSortConfig] = useState(initialSortConfig);
 
   const handleSort = (key) => {
@@ -23,8 +23,6 @@ export default function StoreList({ stores, columns, actions, initialSortConfig 
     }
     return 0;
   });
-
-  console.log(sortedStores);
 
   const renderCell = (store, column) => {
     if (column.key === "createdAt") {
@@ -85,11 +83,19 @@ export default function StoreList({ stores, columns, actions, initialSortConfig 
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {sortedStores.map((store) => (
-            <tr key={store.id}>
+            <tr key={store.id} onClick={() => onRowClick(store)}>
               {columns.map((column) => (
                 <td
                   key={column.key}
-                  className={`px-6 py-4 whitespace-nowrap ${column.key === "username" ? "text-left" : column.key === "topic" ? "text-left overflow-hidden text-ellipsis max-w-44" : column.key === "storeName" ? "text-left" : "text-center"}`}
+                  className={`px-6 py-4 whitespace-nowrap ${
+                    column.key === "username"
+                      ? "text-left"
+                      : column.key === "topic"
+                        ? "text-left overflow-hidden text-ellipsis max-w-44"
+                        : column.key === "storeName"
+                          ? "text-left"
+                          : "text-center"
+                  }`}
                 >
                   {renderCell(store, column)}
                 </td>
@@ -100,7 +106,10 @@ export default function StoreList({ stores, columns, actions, initialSortConfig 
                     <button
                       key={index}
                       className={`text-sm font-medium ${action.className(store)}`}
-                      onClick={() => action.onClick(store.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        action.onClick(store.id);
+                      }}
                     >
                       {action.label(store)}
                     </button>
@@ -137,6 +146,7 @@ StoreList.propTypes = {
     key: PropTypes.string.isRequired,
     direction: PropTypes.oneOf(["asc", "desc"]).isRequired,
   }),
+  onRowClick: PropTypes.func.isRequired,
 };
 
 StoreList.defaultProps = {
