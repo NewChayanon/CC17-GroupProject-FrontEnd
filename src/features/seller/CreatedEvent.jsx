@@ -21,7 +21,7 @@ export default function CreatedEvent() {
   }, []);
 
   return (
-    <div className="flex flex-wrap w-full bg-graybg">
+    <div className="flex flex-wrap w-full min-h-[800px] bg-graybg">
       <div className="flex flex-col p-9 gap-3 w-full h-auto bg-graybg">
         <div className="flex justify-between px-3">
           <div className="text-primary text-2xl font-bold pb-5">
