@@ -16,7 +16,7 @@ export default function InvalidMyStoreFromMobile() {
   }, []);
 
   return (
-    <div className="flex w-full h-auto justify-center p-16 bg-tertiary">
+    <div className="flex w-full min-h-[800px] justify-center p-16 bg-tertiary">
       <div className="flex flex-col h-fit bg-white p-8 pt-4 rounded-2xl gap-3">
         <div className="flex justify-between pt-4">
           <div className="flex flex-col text-primary font-semibold ">

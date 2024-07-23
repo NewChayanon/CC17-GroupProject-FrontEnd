@@ -18,6 +18,7 @@ export default function ActivateStoreFromMobile() {
   const submitChange = async () => {
     try {
       await activateMyStore(input);
+      navigate("/user/invalid-from-mobile");
     } catch (err) {
       console.log(err);
     }

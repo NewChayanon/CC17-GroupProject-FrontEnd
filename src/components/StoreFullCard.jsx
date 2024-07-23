@@ -48,7 +48,7 @@ export default function StoreFullCard({
               display: "block",
               borderRadius: "50%",
             }}
-            src="https://picsum.photos/seed/picsum/400/200"
+            src={selectedStoreDetails.sellerCoverImage}
           />
           <div className="text-base font-medium text-textgraydark">
             {selectedStoreDetails.sellerFirstName}
