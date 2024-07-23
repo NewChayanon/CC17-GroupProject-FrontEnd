@@ -38,7 +38,7 @@ export default function CouponTab({
               <div className="text-xs">{voucherDescription}</div>
 
               <div>
-                <div className="flex text-xs">
+                <div className="flex text-[10px]">
                   <strong className="text-tertiary">Validity:&nbsp;</strong>
                   {eventStartDate}
                   <strong className="text-tertiary">&nbsp;until&nbsp;</strong>
