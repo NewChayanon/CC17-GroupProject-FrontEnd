@@ -32,7 +32,7 @@ export default function FavoriteStoreCard({
       <div className="overflow-hidden">
         <img
           className="w-[110px] h-[80px] object-fit block"
-          src={storeDetail.sellerCoverImage}
+          src={storeDetail.storeImage}
         />
       </div>
       <div className="grow py-2">
@@ -57,7 +57,7 @@ export default function FavoriteStoreCard({
       <div className="pr-4">
         <img
           className="w-[50px] h-[50px] rounded-full"
-          src={storeDetail.storeImage}
+          src={storeDetail.sellerCoverImage}
         />
       </div>
     </div>

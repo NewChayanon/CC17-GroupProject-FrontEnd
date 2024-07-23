@@ -39,7 +39,7 @@ export default function EventDetail() {
             )}
           </div>
           {/* Map of the event */}
-          <EventMap eventLocation={{ lat: 13.7649, lng: 100.538 }} />
+          <EventMap eventLocation={{ lat: 13.733219, lng: 100.5671 }} />
           {/* ============ Other Events List============ */}
           <div className="flex flex-col p-6">
             <div className="text-xl font-bold">

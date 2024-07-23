@@ -124,7 +124,9 @@ export default function EventTabCard({
           )}
         </div>
         <div className="text-sm text-primary font-semibold">
-          Location: {selectedEventDetails?.eventLocationName}
+          Location:{" "}
+          {selectedEventDetails?.eventLocationName ||
+            selectedEventDetails?.locationName}
         </div>
         {/* ถ้าเป็น event card แบบ full version - จะแสดง event Details ด้วย*/}
         {isFullVersion && (
