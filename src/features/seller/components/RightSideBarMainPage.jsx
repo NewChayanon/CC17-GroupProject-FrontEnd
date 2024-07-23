@@ -187,7 +187,10 @@ const RightSideBarMainPage = () => {
               </p>
             )}
             <div className="flex pt-2 justify-end">
-              <Button onClick={() => navigate("created-events")} width="large">
+              <Button
+                onClick={() => navigate("create-new-event")}
+                width="large"
+              >
                 <p className="font-bold">Create new event</p>
               </Button>
             </div>

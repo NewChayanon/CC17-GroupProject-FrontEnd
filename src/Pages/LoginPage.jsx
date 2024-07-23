@@ -13,7 +13,7 @@ import { ROLE } from "../constants/role-constants";
 const initialInput = {
   email: "",
   password: "",
-};
+}; 
 
 export default function LoginPage() {
   const navigate = useNavigate();
